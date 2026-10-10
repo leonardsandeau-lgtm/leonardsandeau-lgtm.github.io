@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Révisions DAM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+/* Charte Sandeau : bandeau de couverture en thème nuit, pages en thème jour, angles droits, triangle comme seule forme, minuscules pour libellés */
+:root{
+  --rouge:#d6002f; --rose:#ff4fa3; --lavande:#b9a0ff; --noir-prune:#1a1020; --rose-pale:#ffe3ef; --blanc-rose:#fff6fa; --gris-prune:#54465c;
+  --bg:#fff6fa; --surface:#fff6fa; --ink:#1a1020; --muted:#54465c; --line:#ffe3ef; --filet:#1a1020;
+  --accent:#d6002f; --on-accent:#ffffff; --accent-soft:#ffe3ef;
+  --retenir:#1a1020; --retenir-bg:#ffe3ef;
+  --vigil:#1a1020; --vigil-bg:#b9a0ff;
+  --ok:#1a1020; --ok-bg:#b9a0ff; --bad-bg:#d6002f; --bad-ink:#ffffff;
+  --input-bg:#ffffff; --th-bg:#1a1020;
+  --f-display:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
+  --f-body:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
+  --f-mono:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1a1020; --surface:#1a1020; --ink:#fff6fa; --muted:#fff6fa; --line:#2a1b33; --filet:#fff6fa;
+  --accent:#ff4fa3; --on-accent:#1a1020; --accent-soft:#2a1b33;
+  --retenir:#fff6fa; --retenir-bg:#2a1b33; --vigil:#1a1020; --vigil-bg:#b9a0ff;
+  --ok:#1a1020; --ok-bg:#b9a0ff; --bad-bg:#d6002f; --bad-ink:#ffffff; --input-bg:#2a1b33; --th-bg:#2a1b33; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a1020; --surface:#1a1020; --ink:#fff6fa; --muted:#fff6fa; --line:#2a1b33; --filet:#fff6fa;
+  --accent:#ff4fa3; --on-accent:#1a1020; --accent-soft:#2a1b33;
+  --retenir:#fff6fa; --retenir-bg:#2a1b33; --vigil:#1a1020; --vigil-bg:#b9a0ff;
+  --ok:#1a1020; --ok-bg:#b9a0ff; --bad-bg:#d6002f; --bad-ink:#ffffff; --input-bg:#2a1b33; --th-bg:#2a1b33; color-scheme:dark}
+*{box-sizing:border-box;border-radius:0!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;padding-inline:0;padding-block:0 48px;font-optical-sizing:auto}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px}
+/* couverture nuit */
+.cover{background:var(--noir-prune);color:var(--blanc-rose);padding-inline:16px}
+.cover-in{max-width:980px;margin:0 auto;padding-block:28px 32px;display:flex;flex-direction:column;gap:14px}
+.cover .logo{width:200px;max-width:60%;height:auto;display:block}
+.cover .court{width:64px;height:6px;background:var(--rose)}
+.cover h1{font-weight:800;font-size:clamp(44px,9vw,80px);line-height:.95;letter-spacing:-2px;margin:0;color:var(--blanc-rose);text-wrap:balance}
+.cover h1 em{font-style:normal;color:var(--rose)}
+.cover .lede{color:var(--blanc-rose);max-width:62ch;font-size:16px;line-height:1.45}
+.cover .eyebrow{color:var(--rose)}
+.eyebrow{font-weight:600;font-size:13px;letter-spacing:.01em;text-transform:lowercase;color:var(--muted)}
+h2{font-family:var(--f-display);font-weight:800;font-size:28px;line-height:1.05;letter-spacing:-1px;margin:0;text-wrap:balance;padding-bottom:8px;border-bottom:2px solid var(--filet)}
+h3{font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1.25;margin:0;text-wrap:balance}
+h4{font-family:var(--f-display);font-weight:600;font-size:16px;margin:0}
+.lede{color:var(--ink);max-width:70ch;margin:0;font-size:17px;line-height:1.45}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--filet);display:flex;gap:2px;overflow-x:auto;padding-block:10px 0;margin-bottom:28px}
+nav.tabs button{font-family:var(--f-display);font-weight:600;font-size:16px;text-transform:lowercase;background:none;border:0;border-bottom:6px solid transparent;color:var(--muted);padding:8px 12px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section.panel{display:flex;flex-direction:column;gap:36px}
+.block{display:flex;flex-direction:column;gap:12px;min-width:0}
+.block>p,.block li{max-width:72ch}
+p{margin:0}
+ul,ol{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:5px}
+ul{list-style:none;padding-left:1.1em}
+ul>li{position:relative}
+ul>li::before{content:"";position:absolute;left:-1.1em;top:.5em;width:9px;height:8px;background:var(--accent);clip-path:polygon(50% 0,100% 100%,0 100%)}
+ol>li::marker{color:var(--accent);font-weight:800}
+.toc{display:flex;flex-wrap:wrap;gap:6px}
+.toc a{font-size:14px;font-weight:600;text-transform:lowercase;color:var(--ink);text-decoration:none;background:var(--accent-soft);padding:4px 10px}
+.toc a:hover{background:var(--accent);color:var(--on-accent)}
+.tbl{overflow-x:auto;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:2px solid var(--line)}
+th{font-weight:600;background:var(--th-bg);color:var(--blanc-rose)}
+tr:last-child td{border-bottom:0}
+td.num,.num{font-variant-numeric:tabular-nums;font-size:14px;white-space:nowrap}
+.box{padding:16px 16px 16px 18px;display:flex;flex-direction:column;gap:6px;position:relative;border:0}
+.box::before{content:"";position:absolute;left:0;top:0;width:14px;height:13px;background:var(--accent);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.box .lbl{font-size:13px;font-weight:600;text-transform:lowercase;padding-left:6px}
+.retenir{background:var(--retenir-bg);color:var(--retenir)}
+.methode{background:var(--accent-soft);color:var(--ink)}
+.vigil{background:var(--vigil-bg);color:var(--vigil)}
+.vigil::before{background:var(--noir-prune)}
+.vigil a,.vigil .small{color:var(--noir-prune)}
+.box ul>li::before{top:.5em}
+.vigil ul>li::before{background:var(--noir-prune)}
+.src{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;padding:1px 7px;background:var(--accent-soft);color:var(--ink)}
+details.case{background:var(--surface);border-top:2px solid var(--filet)}
+details.case>summary{cursor:pointer;list-style:none;padding:14px 4px;display:flex;flex-direction:column;gap:2px}
+details.case>summary::-webkit-details-marker{display:none}
+details.case>summary .t{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.4px;line-height:1.15}
+details.case[open]>summary .t{color:var(--accent)}
+.case-body{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
+.enonce{background:var(--accent-soft);padding:14px 16px}
+details.cor{padding-top:6px}
+details.cor>summary{cursor:pointer;color:var(--accent);font-weight:600}
+.cor-body{display:flex;flex-direction:column;gap:8px;padding-top:10px}
+.cor-body h4{color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--f-body);font-size:14px;font-weight:600;text-transform:lowercase;border:2px solid var(--filet);background:transparent;color:var(--ink);padding:4px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.qcard{background:var(--accent-soft);padding:22px;display:flex;flex-direction:column;gap:14px}
+.qmeta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:600;color:var(--muted);text-transform:lowercase}
+.qtext{font-family:var(--f-display);font-weight:800;font-size:24px;line-height:1.15;letter-spacing:-.5px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font:inherit;background:var(--bg);color:var(--ink);border:2px solid transparent;padding:10px 12px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.good{background:var(--ok-bg);color:var(--ok)}
+.opt.bad{background:var(--bad-bg);color:var(--bad-ink)}
+.expl{padding:12px 14px;background:var(--bg)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font-family:var(--f-display);font-weight:600;font-size:15px;text-transform:lowercase;border:2px solid var(--accent);background:var(--accent);color:var(--on-accent);padding:7px 14px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--filet)}
+.flash{min-height:220px;cursor:pointer;justify-content:center}
+.bar{height:6px;background:var(--bg);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent);width:0}
+.calc{background:var(--surface);border-top:2px solid var(--filet);padding:16px 0;display:flex;flex-direction:column;gap:14px;min-width:0}
+.calc h3{font-weight:800;font-size:22px;letter-spacing:-.5px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+label.f{display:flex;flex-direction:column;gap:3px;font-size:13.5px;color:var(--muted)}
+input,select{font:inherit;font-size:15px;color:var(--ink);background:var(--input-bg);border:2px solid var(--line);padding:6px 8px;width:100%;min-width:0}
+input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--accent)}
+.out{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.kpi{padding:10px 12px;background:var(--accent-soft);display:flex;flex-direction:column;gap:2px}
+.kpi b{font-weight:800;font-size:24px;letter-spacing:-.5px;font-variant-numeric:tabular-nums;line-height:1.05}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.dep-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
+.small{font-size:13.5px;color:var(--muted)}
+.checks{display:flex;flex-direction:column;gap:6px}
+.checks label{display:flex;gap:8px;align-items:flex-start;font-size:15px}
+.verdict{display:flex;flex-direction:column;gap:8px}
+.verdict .v{padding:10px 12px;background:var(--accent-soft)}
+.verdict .v.ok{background:var(--ok-bg);color:var(--ok)}
+.verdict .v.no{background:var(--accent-soft);color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+a{color:var(--accent)}
+.vigil a{color:var(--noir-prune)}
+footer.pied{max-width:980px;margin:48px auto 0;padding-inline:16px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+footer.pied .tri{display:inline-block;width:10px;height:9px;background:var(--accent);clip-path:polygon(50% 0,100% 100%,0 100%);margin-right:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="cover"><div class="cover-in">
+  <svg class="logo" role="img" aria-label="sandeau" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 532.33 183.20"><path d="M56.04 104.88Q49.68 104.88 44.22 103.62Q38.76 102.36 34.74 99.6Q30.72 96.84 28.62 92.22Q26.52 87.6 26.88 81L43.8 79.56Q44.04 83.52 45.6 86.1Q47.16 88.68 49.92 89.88Q52.68 91.08 56.64 91.08Q60.36 91.08 63.06 89.82Q65.76 88.56 65.76 85.56Q65.76 84 64.8 82.98Q63.84 81.96 61.26 81.06Q58.68 80.16 53.76 78.96Q47.64 77.4 42.72 75.84Q37.8 74.28 34.32 72.12Q30.84 69.96 29.04 66.78Q27.24 63.6 27.24 58.92Q27.24 52.32 30.78 47.7Q34.32 43.08 40.56 40.62Q46.8 38.16 54.96 38.16Q62.28 38.16 68.64 40.44Q75 42.72 78.66 47.88Q82.32 53.04 81.36 61.56L64.8 63.12Q65.16 59.64 63.84 57.18Q62.52 54.72 60 53.46Q57.48 52.2 53.88 52.2Q49.8 52.2 47.58 53.7Q45.36 55.2 45.36 57.48Q45.36 59.28 46.74 60.54Q48.12 61.8 51.06 62.7Q54 63.6 58.68 64.68Q62.76 65.52 67.2 66.84Q71.64 68.16 75.48 70.38Q79.32 72.6 81.72 76.2Q84.12 79.8 84.12 85.32Q84.12 91.2 80.88 95.64Q77.64 100.08 71.4 102.48Q65.16 104.88 56.04 104.88Z" fill="#fff6fa"></path><path d="M134.69 24.00L177.33 103.20L92.04 103.20Z" fill="#ff4fa3"></path><path d="M187.65 103.2V67.32V39.84H204.09V65.64H205.05Q205.77 56.28 208.17 50.22Q210.57 44.16 215.01 41.16Q219.45 38.16 226.29 38.16Q236.61 38.16 241.83 45Q247.05 51.84 247.05 65.4V103.2H227.61V67.92Q227.61 61.44 225.63 58.2Q223.65 54.96 219.33 54.96Q215.73 54.96 212.97 57.48Q210.21 60 208.65 65.64Q207.09 71.28 207.09 80.76V103.2Z M275.53 104.88Q268.69 104.88 263.23 101.16Q257.77 97.44 254.59 89.88Q251.41 82.32 251.41 70.8Q251.41 59.88 254.29 52.62Q257.17 45.36 262.45 41.76Q267.73 38.16 274.81 38.16Q280.33 38.16 284.59 40.44Q288.85 42.72 291.61 47.64Q294.37 52.56 295.45 60.48H296.53Q295.93 56.4 295.33 52.44Q294.73 48.48 294.43 44.76Q294.13 41.04 294.13 37.8V19.2H313.57V80.88V103.2H296.65V83.64H295.81Q294.49 90.6 291.79 95.34Q289.09 100.08 285.07 102.48Q281.05 104.88 275.53 104.88ZM282.37 89.4Q284.65 89.4 286.81 88.38Q288.97 87.36 290.65 85.2Q292.33 83.04 293.35 79.8Q294.37 76.56 294.37 72.12V71.28Q294.37 67.68 293.65 64.86Q292.93 62.04 291.73 60.06Q290.53 58.08 288.97 56.82Q287.41 55.56 285.67 54.96Q283.93 54.36 282.25 54.36Q278.53 54.36 276.01 56.88Q273.49 59.4 272.29 63.42Q271.09 67.44 271.09 72.12Q271.09 76.8 272.41 80.76Q273.73 84.72 276.25 87.06Q278.77 89.4 282.37 89.4Z M350.33 104.88Q341.33 104.88 335.27 102.3Q329.21 99.72 325.49 95.22Q321.77 90.72 320.15 84.96Q318.53 79.2 318.53 72.84Q318.53 66 320.27 59.76Q322.01 53.52 325.67 48.66Q329.33 43.8 335.15 40.98Q340.97 38.16 349.13 38.16Q357.29 38.16 363.11 40.98Q368.93 43.8 372.41 48.84Q375.89 53.88 376.91 60.48Q377.93 67.08 376.61 74.76L330.65 75.48V64.92L361.73 64.32L359.21 70.44Q359.93 64.92 359.03 61.14Q358.13 57.36 355.73 55.38Q353.33 53.4 349.13 53.4Q344.69 53.4 342.05 55.68Q339.41 57.96 338.33 62.1Q337.25 66.24 337.25 71.88Q337.25 81.6 340.49 86.04Q343.73 90.48 350.45 90.48Q353.33 90.48 355.25 89.76Q357.17 89.04 358.37 87.66Q359.57 86.28 360.05 84.3Q360.53 82.32 360.41 79.8L378.17 80.76Q378.53 84.72 377.39 88.92Q376.25 93.12 373.13 96.72Q370.01 100.32 364.43 102.6Q358.85 104.88 350.33 104.88Z M399.33 104.88Q394.53 104.88 390.21 103.2Q385.89 101.52 383.13 97.74Q380.37 93.96 380.37 87.6Q380.37 81.72 382.65 78.06Q384.93 74.4 388.77 72.18Q392.61 69.96 397.17 68.82Q401.73 67.68 406.17 66.84Q412.41 65.64 415.53 64.92Q418.65 64.2 419.79 63.24Q420.93 62.28 420.93 60.6Q420.93 57.12 418.35 55.32Q415.77 53.52 411.57 53.52Q408.93 53.52 406.29 54.48Q403.65 55.44 401.97 57.9Q400.29 60.36 400.41 64.92L383.13 63.72Q382.89 56.16 385.41 51.18Q387.93 46.2 392.31 43.38Q396.69 40.56 401.91 39.36Q407.13 38.16 412.29 38.16Q421.77 38.16 427.89 41.7Q434.01 45.24 436.95 51.9Q439.89 58.56 439.89 68.04V79.32Q439.89 83.28 439.89 87.3Q439.89 91.32 439.89 95.28Q439.89 99.24 439.89 103.2H423.09Q423.09 98.88 423.09 94.44Q423.09 90 423.09 85.08H422.37Q421.89 90.48 418.83 94.98Q415.77 99.48 410.79 102.18Q405.81 104.88 399.33 104.88ZM407.37 90.72Q409.41 90.72 411.75 89.94Q414.09 89.16 416.19 87.36Q418.29 85.56 419.61 82.38Q420.93 79.2 420.93 74.52V71.64L424.17 71.28Q423.21 72.84 420.99 73.8Q418.77 74.76 416.01 75.3Q413.25 75.84 410.43 76.38Q407.61 76.92 405.21 77.82Q402.81 78.72 401.31 80.22Q399.81 81.72 399.81 84.36Q399.81 87.48 402.03 89.1Q404.25 90.72 407.37 90.72Z M465.49 104.88Q455.17 104.88 450.19 97.68Q445.21 90.48 445.21 75.6V39.84H464.65V75.36Q464.65 82.32 466.63 85.08Q468.61 87.84 472.33 87.84Q474.97 87.84 477.19 86.46Q479.41 85.08 481.09 82.26Q482.77 79.44 483.67 75Q484.57 70.56 484.57 64.32V39.84H504.01V74.64V103.2H487.45V78.48H486.61Q485.89 87.72 483.37 93.54Q480.85 99.36 476.41 102.12Q471.97 104.88 465.49 104.88Z" fill="#fff6fa"></path><path d="M24 136.20H88V142.20H24Z" fill="#ff4fa3"></path><path d="M103.42 147.2V133H105.9V147.2Z M113.46 147.46Q112.2 147.46 111.21 147.1Q110.22 146.74 109.54 146.05Q108.86 145.36 108.5 144.38Q108.14 143.4 108.14 142.16Q108.14 140.92 108.49 139.88Q108.84 138.84 109.5 138.08Q110.16 137.32 111.11 136.9Q112.06 136.48 113.28 136.48Q114.42 136.48 115.32 136.86Q116.22 137.24 116.84 137.99Q117.46 138.74 117.76 139.85Q118.06 140.96 117.96 142.42L109.78 142.48V141.02L116.5 140.96L115.62 141.78Q115.74 140.64 115.44 139.91Q115.14 139.18 114.58 138.83Q114.02 138.48 113.3 138.48Q112.48 138.48 111.86 138.91Q111.24 139.34 110.91 140.15Q110.58 140.96 110.58 142.12Q110.58 143.86 111.35 144.72Q112.12 145.58 113.46 145.58Q114.06 145.58 114.47 145.43Q114.88 145.28 115.16 145.03Q115.44 144.78 115.61 144.46Q115.78 144.14 115.88 143.78L118.08 144.28Q117.92 145.02 117.56 145.6Q117.2 146.18 116.63 146.6Q116.06 147.02 115.28 147.24Q114.5 147.46 113.46 147.46ZM113.96 135.26H111.98L113.46 131.96H116.02Z M124.9 147.46Q123.36 147.46 122.18 146.83Q121 146.2 120.33 144.97Q119.66 143.74 119.66 141.94Q119.66 140.1 120.35 138.89Q121.04 137.68 122.22 137.08Q123.4 136.48 124.88 136.48Q126.42 136.48 127.6 137.1Q128.78 137.72 129.46 138.95Q130.14 140.18 130.14 142Q130.14 143.84 129.46 145.06Q128.78 146.28 127.59 146.87Q126.4 147.46 124.9 147.46ZM125 145.54Q125.84 145.54 126.42 145.15Q127 144.76 127.31 143.98Q127.62 143.2 127.62 142.12Q127.62 140.98 127.29 140.17Q126.96 139.36 126.35 138.92Q125.74 138.48 124.82 138.48Q124.02 138.48 123.42 138.87Q122.82 139.26 122.51 140.02Q122.2 140.78 122.2 141.9Q122.2 143.66 122.95 144.6Q123.7 145.54 125 145.54Z M132.4 147.2V140.82V136.74H134.5L134.44 139.94H134.8Q135.08 138.76 135.55 138Q136.02 137.24 136.76 136.86Q137.5 136.48 138.48 136.48Q140.26 136.48 141.19 137.74Q142.12 139 142.12 141.64V147.2H139.58V141.9Q139.58 140.2 139.07 139.41Q138.56 138.62 137.56 138.62Q136.72 138.62 136.14 139.15Q135.56 139.68 135.25 140.55Q134.94 141.42 134.92 142.46V147.2Z M147.2 147.46Q146.34 147.46 145.66 147.13Q144.98 146.8 144.59 146.14Q144.2 145.48 144.2 144.5Q144.2 143.68 144.51 143.1Q144.82 142.52 145.44 142.15Q146.06 141.78 146.98 141.53Q147.9 141.28 149.14 141.1Q149.82 141 150.25 140.9Q150.68 140.8 150.88 140.59Q151.08 140.38 151.08 139.96Q151.08 139.34 150.65 138.89Q150.22 138.44 149.26 138.44Q148.68 138.44 148.15 138.64Q147.62 138.84 147.24 139.27Q146.86 139.7 146.72 140.4L144.46 139.7Q144.68 138.9 145.1 138.31Q145.52 137.72 146.14 137.3Q146.76 136.88 147.56 136.68Q148.36 136.48 149.32 136.48Q150.78 136.48 151.72 136.95Q152.66 137.42 153.12 138.41Q153.58 139.4 153.58 140.96V142.92Q153.58 143.6 153.61 144.33Q153.64 145.06 153.69 145.79Q153.74 146.52 153.82 147.2H151.56Q151.48 146.64 151.42 146Q151.36 145.36 151.32 144.7H151Q150.72 145.46 150.2 146.09Q149.68 146.72 148.93 147.09Q148.18 147.46 147.2 147.46ZM148.2 145.6Q148.6 145.6 149.01 145.46Q149.42 145.32 149.82 145.04Q150.22 144.76 150.56 144.35Q150.9 143.94 151.14 143.38L151.1 141.6L151.58 141.68Q151.24 141.96 150.74 142.12Q150.24 142.28 149.69 142.36Q149.14 142.44 148.59 142.55Q148.04 142.66 147.6 142.83Q147.16 143 146.9 143.31Q146.64 143.62 146.64 144.16Q146.64 144.84 147.08 145.22Q147.52 145.6 148.2 145.6Z M156.3 147.2V141.96V136.74H158.42L158.38 140.34H158.74Q158.92 139.06 159.3 138.21Q159.68 137.36 160.36 136.93Q161.04 136.5 162.04 136.5Q162.24 136.5 162.47 136.52Q162.7 136.54 162.98 136.62L162.88 139.28Q162.56 139.16 162.23 139.11Q161.9 139.06 161.62 139.06Q160.84 139.06 160.27 139.46Q159.7 139.86 159.35 140.59Q159 141.32 158.82 142.32V147.2Z M168.48 147.46Q167.16 147.46 166.19 146.78Q165.22 146.1 164.7 144.87Q164.18 143.64 164.18 141.96Q164.18 140.38 164.66 139.15Q165.14 137.92 166.07 137.21Q167 136.5 168.38 136.5Q169.44 136.5 170.13 136.91Q170.82 137.32 171.26 138.05Q171.7 138.78 171.96 139.76H172.38Q172.26 139.14 172.16 138.52Q172.06 137.9 171.99 137.33Q171.92 136.76 171.92 136.3V133H174.46V142.06V147.2H172.32L172.36 144.24H171.98Q171.76 145.28 171.3 146Q170.84 146.72 170.15 147.09Q169.46 147.46 168.48 147.46ZM169.28 145.38Q169.94 145.38 170.44 145.07Q170.94 144.76 171.27 144.28Q171.6 143.8 171.77 143.23Q171.94 142.66 171.94 142.16V141.82Q171.94 141.44 171.83 141Q171.72 140.56 171.51 140.13Q171.3 139.7 170.97 139.35Q170.64 139 170.21 138.79Q169.78 138.58 169.26 138.58Q168.48 138.58 167.94 139.02Q167.4 139.46 167.11 140.22Q166.82 140.98 166.82 142Q166.82 143.02 167.12 143.78Q167.42 144.54 167.97 144.96Q168.52 145.38 169.28 145.38Z M186.12 147.46Q185.06 147.46 184.21 147.25Q183.36 147.04 182.76 146.65Q182.16 146.26 181.8 145.71Q181.44 145.16 181.36 144.48L183.34 143.74Q183.38 144.26 183.74 144.67Q184.1 145.08 184.74 145.32Q185.38 145.56 186.28 145.56Q187.28 145.56 187.83 145.25Q188.38 144.94 188.38 144.36Q188.38 143.94 188.08 143.69Q187.78 143.44 187.21 143.27Q186.64 143.1 185.84 142.94Q185.1 142.78 184.35 142.57Q183.6 142.36 182.97 142.01Q182.34 141.66 181.95 141.09Q181.56 140.52 181.56 139.64Q181.56 138.68 182.07 137.98Q182.58 137.28 183.55 136.88Q184.52 136.48 185.9 136.48Q187.2 136.48 188.15 136.84Q189.1 137.2 189.7 137.87Q190.3 138.54 190.46 139.46L188.38 140.12Q188.32 139.56 188 139.17Q187.68 138.78 187.14 138.58Q186.6 138.38 185.88 138.38Q184.96 138.38 184.44 138.7Q183.92 139.02 183.92 139.56Q183.92 140 184.25 140.26Q184.58 140.52 185.17 140.68Q185.76 140.84 186.52 141Q187.32 141.16 188.07 141.37Q188.82 141.58 189.42 141.92Q190.02 142.26 190.38 142.81Q190.74 143.36 190.74 144.22Q190.74 145.26 190.18 145.99Q189.62 146.72 188.59 147.09Q187.56 147.46 186.12 147.46Z M195.26 147.46Q194.4 147.46 193.72 147.13Q193.04 146.8 192.65 146.14Q192.26 145.48 192.26 144.5Q192.26 143.68 192.57 143.1Q192.88 142.52 193.5 142.15Q194.12 141.78 195.04 141.53Q195.96 141.28 197.2 141.1Q197.88 141 198.31 140.9Q198.74 140.8 198.94 140.59Q199.14 140.38 199.14 139.96Q199.14 139.34 198.71 138.89Q198.28 138.44 197.32 138.44Q196.74 138.44 196.21 138.64Q195.68 138.84 195.3 139.27Q194.92 139.7 194.78 140.4L192.52 139.7Q192.74 138.9 193.16 138.31Q193.58 137.72 194.2 137.3Q194.82 136.88 195.62 136.68Q196.42 136.48 197.38 136.48Q198.84 136.48 199.78 136.95Q200.72 137.42 201.18 138.41Q201.64 139.4 201.64 140.96V142.92Q201.64 143.6 201.67 144.33Q201.7 145.06 201.75 145.79Q201.8 146.52 201.88 147.2H199.62Q199.54 146.64 199.48 146Q199.42 145.36 199.38 144.7H199.06Q198.78 145.46 198.26 146.09Q197.74 146.72 196.99 147.09Q196.24 147.46 195.26 147.46ZM196.26 145.6Q196.66 145.6 197.07 145.46Q197.48 145.32 197.88 145.04Q198.28 144.76 198.62 144.35Q198.96 143.94 199.2 143.38L199.16 141.6L199.64 141.68Q199.3 141.96 198.8 142.12Q198.3 142.28 197.75 142.36Q197.2 142.44 196.65 142.55Q196.1 142.66 195.66 142.83Q195.22 143 194.96 143.31Q194.7 143.62 194.7 144.16Q194.7 144.84 195.14 145.22Q195.58 145.6 196.26 145.6Z M204.36 147.2V140.82V136.74H206.46L206.4 139.94H206.76Q207.04 138.76 207.51 138Q207.98 137.24 208.72 136.86Q209.46 136.48 210.44 136.48Q212.22 136.48 213.15 137.74Q214.08 139 214.08 141.64V147.2H211.54V141.9Q211.54 140.2 211.03 139.41Q210.52 138.62 209.52 138.62Q208.68 138.62 208.1 139.15Q207.52 139.68 207.21 140.55Q206.9 141.42 206.88 142.46V147.2Z M220.48 147.46Q219.16 147.46 218.19 146.78Q217.22 146.1 216.7 144.87Q216.18 143.64 216.18 141.96Q216.18 140.38 216.66 139.15Q217.14 137.92 218.07 137.21Q219 136.5 220.38 136.5Q221.44 136.5 222.13 136.91Q222.82 137.32 223.26 138.05Q223.7 138.78 223.96 139.76H224.38Q224.26 139.14 224.16 138.52Q224.06 137.9 223.99 137.33Q223.92 136.76 223.92 136.3V133H226.46V142.06V147.2H224.32L224.36 144.24H223.98Q223.76 145.28 223.3 146Q222.84 146.72 222.15 147.09Q221.46 147.46 220.48 147.46ZM221.28 145.38Q221.94 145.38 222.44 145.07Q222.94 144.76 223.27 144.28Q223.6 143.8 223.77 143.23Q223.94 142.66 223.94 142.16V141.82Q223.94 141.44 223.83 141Q223.72 140.56 223.51 140.13Q223.3 139.7 222.97 139.35Q222.64 139 222.21 138.79Q221.78 138.58 221.26 138.58Q220.48 138.58 219.94 139.02Q219.4 139.46 219.11 140.22Q218.82 140.98 218.82 142Q218.82 143.02 219.12 143.78Q219.42 144.54 219.97 144.96Q220.52 145.38 221.28 145.38Z M234.02 147.46Q232.76 147.46 231.77 147.1Q230.78 146.74 230.1 146.05Q229.42 145.36 229.06 144.38Q228.7 143.4 228.7 142.16Q228.7 140.92 229.05 139.88Q229.4 138.84 230.06 138.08Q230.72 137.32 231.67 136.9Q232.62 136.48 233.84 136.48Q234.98 136.48 235.88 136.86Q236.78 137.24 237.4 137.99Q238.02 138.74 238.32 139.85Q238.62 140.96 238.52 142.42L230.34 142.48V141.02L237.06 140.96L236.18 141.78Q236.3 140.64 236 139.91Q235.7 139.18 235.14 138.83Q234.58 138.48 233.86 138.48Q233.04 138.48 232.42 138.91Q231.8 139.34 231.47 140.15Q231.14 140.96 231.14 142.12Q231.14 143.86 231.91 144.72Q232.68 145.58 234.02 145.58Q234.62 145.58 235.03 145.43Q235.44 145.28 235.72 145.03Q236 144.78 236.17 144.46Q236.34 144.14 236.44 143.78L238.64 144.28Q238.48 145.02 238.12 145.6Q237.76 146.18 237.19 146.6Q236.62 147.02 235.84 147.24Q235.06 147.46 234.02 147.46Z M243.24 147.46Q242.38 147.46 241.7 147.13Q241.02 146.8 240.63 146.14Q240.24 145.48 240.24 144.5Q240.24 143.68 240.55 143.1Q240.86 142.52 241.48 142.15Q242.1 141.78 243.02 141.53Q243.94 141.28 245.18 141.1Q245.86 141 246.29 140.9Q246.72 140.8 246.92 140.59Q247.12 140.38 247.12 139.96Q247.12 139.34 246.69 138.89Q246.26 138.44 245.3 138.44Q244.72 138.44 244.19 138.64Q243.66 138.84 243.28 139.27Q242.9 139.7 242.76 140.4L240.5 139.7Q240.72 138.9 241.14 138.31Q241.56 137.72 242.18 137.3Q242.8 136.88 243.6 136.68Q244.4 136.48 245.36 136.48Q246.82 136.48 247.76 136.95Q248.7 137.42 249.16 138.41Q249.62 139.4 249.62 140.96V142.92Q249.62 143.6 249.65 144.33Q249.68 145.06 249.73 145.79Q249.78 146.52 249.86 147.2H247.6Q247.52 146.64 247.46 146Q247.4 145.36 247.36 144.7H247.04Q246.76 145.46 246.24 146.09Q245.72 146.72 244.97 147.09Q244.22 147.46 243.24 147.46ZM244.24 145.6Q244.64 145.6 245.05 145.46Q245.46 145.32 245.86 145.04Q246.26 144.76 246.6 144.35Q246.94 143.94 247.18 143.38L247.14 141.6L247.62 141.68Q247.28 141.96 246.78 142.12Q246.28 142.28 245.73 142.36Q245.18 142.44 244.63 142.55Q244.08 142.66 243.64 142.83Q243.2 143 242.94 143.31Q242.68 143.62 242.68 144.16Q242.68 144.84 243.12 145.22Q243.56 145.6 244.24 145.6Z M255.8 147.46Q254 147.46 253.09 146.23Q252.18 145 252.18 142.5V136.74H254.72V142.22Q254.72 143.8 255.2 144.58Q255.68 145.36 256.68 145.36Q257.26 145.36 257.7 145.07Q258.14 144.78 258.46 144.25Q258.78 143.72 258.97 143.02Q259.16 142.32 259.2 141.48V136.74H261.72V142.9V147.2H259.64L259.68 143.9H259.32Q259.06 145.16 258.59 145.94Q258.12 146.72 257.44 147.09Q256.76 147.46 255.8 147.46Z" fill="#fff6fa"></path></svg>
+  <span class="eyebrow">ue 10 · management des rh médicales · cas pratiques du mardi</span>
+  <h1>révisions <em>dam</em></h1>
+  <p class="lede">Mémo réglementaire, cas pratiques corrigés, quiz et calculateurs, construits à partir des cours (DAM, statuts, HU, études de médecine, temps de travail et PDSES), des guides CNG et du sujet de juillet 2025, complétés par des sources officielles.</p>
+</div></header>
+<div class="wrap">
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button role="tab" id="t-memo" aria-controls="memo" aria-selected="true">Mémo</button>
+  <button role="tab" id="t-cas" aria-controls="cas" aria-selected="false">Cas pratiques</button>
+  <button role="tab" id="t-quiz" aria-controls="quiz" aria-selected="false">Quiz</button>
+  <button role="tab" id="t-calc" aria-controls="calc" aria-selected="false">Calculateurs</button>
+  <button role="tab" id="t-src" aria-controls="sources" aria-selected="false">Sources</button>
+</nav>
+
+<!-- ===================== MEMO ===================== -->
+<section class="panel" id="memo" role="tabpanel" aria-labelledby="t-memo">
+  <div class="toc">
+    <a href="#m-methode">Méthode</a><a href="#m-acteurs">Acteurs</a><a href="#m-exercice">Conditions d'exercice</a><a href="#m-padhue">PADHUE</a><a href="#m-statuts">Statuts</a><a href="#m-pc">Praticiens contractuels</a><a href="#m-ph">Recrutement PH</a><a href="#m-remu">Rémunération</a><a href="#m-tt">Temps de travail</a><a href="#m-pds">PDSES</a><a href="#m-cet">CET</a><a href="#m-juniors">Juniors</a><a href="#m-lib">Activité libérale</a><a href="#m-interim">Intérim</a><a href="#m-sic">Situations complexes</a><a href="#m-etudes">Études et internes</a>
+  </div>
+
+  <div class="block" id="m-methode">
+    <h2>Méthode de résolution d'un cas pratique DAM</h2>
+    <div class="box methode"><span class="lbl">Grille en 5 temps</span>
+      <ol>
+        <li><b>Qualifier</b> : qui est le praticien (statut, quotité, ancienneté d'inscription à l'Ordre, position) et quelle est la nature du problème (recrutement, temps de travail, rémunération, comportement, santé, conflit).</li>
+        <li><b>Vérifier les prérequis</b> : diplôme, nationalité, inscription à l'Ordre ; durées maximales déjà consommées ; existence d'un avis ou d'une instance obligatoire.</li>
+        <li><b>Citer le texte</b> : article du CSP, décret ou arrêté (R6152-338 pour les contractuels, arrêté du 30 avril 2003 pour la PDS, L6143-7 pour les pouvoirs du directeur, R6152-74 pour les sanctions).</li>
+        <li><b>Décider et chiffrer</b> : solution retenue, montant ou volume (DJ, heures, ETP, euros), calendrier, acteurs à saisir (PCME, chef de service, COPS, CME, CNG, ARS).</li>
+        <li><b>Sécuriser</b> : traçabilité écrite, contradictoire, voies de recours, communication au praticien et à l'équipe, impact budgétaire et attractivité.</li>
+      </ol>
+    </div>
+    <p class="small">L'évaluation individuelle annoncée en cours porte sur ce type de question : « quel type de contrat, quelle prime ». Répondre en nommant le motif, sa durée, sa quotité, la rémunération possible et la condition qui fonde le choix.</p>
+    <div class="box retenir"><span class="lbl">Ce que montre le sujet du 11 juillet 2025</span>
+      <ul>
+        <li>Les cas donnent un CV daté (formation, expérience, projet, politique de l'établissement) : reconstituer d'abord une frise, puis compter les jours.</li>
+        <li>Vérifications récurrentes : date d'inscription de plein exercice à l'Ordre (5 ans pour le motif 2), cumul des contrats dans le même établissement (6 ans), statut du concours (liste d'aptitude ou non).</li>
+        <li>La grille PH est fournie : il faut savoir reprendre l'ancienneté et en déduire l'échelon et le brut mensuel, IESPE en sus.</li>
+        <li>Calculs attendus : ETP en temps continu à partir de 210 jours, déplacements d'astreinte avec reliquat.</li>
+        <li>Les cas sont notés sur 6 points : chiffrer, justifier par le texte, proposer une alternative.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block" id="m-acteurs">
+    <h2>Acteurs et instances</h2>
+    <div class="tbl"><table>
+      <tr><th>Acteur</th><th>Rôle en matière de RH médicales</th></tr>
+      <tr><td>Directeur (L6143-7 CSP)</td><td>Autorité sur l'ensemble du personnel dans le respect de l'indépendance professionnelle ; arrête l'organisation interne, le règlement intérieur, le tableau de service ; constate le service fait ; propose la nomination des PH ; peut suspendre à titre conservatoire ; accorde la protection fonctionnelle.</td></tr>
+      <tr><td>PCME</td><td>Binôme du DAM ; avis sur recrutements, profils de poste, placements en recherche d'affectation, saisine du comité médical ; co-saisine de la médiation avec le directeur.</td></tr>
+      <tr><td>CME</td><td>Consultée sur l'organisation interne et le règlement intérieur ; informée du bilan des tableaux de service et de la COPS ; en formation restreinte aux PH titulaires, avis dans les procédures disciplinaire et d'insuffisance professionnelle.</td></tr>
+      <tr><td>COPS (sous-commission de la CME)</td><td>Définit avec le directeur l'organisation annuelle de la PDS, propose le règlement des astreintes, avis sur les tableaux mensuels et les forfaits d'astreinte, attribution et suivi du TTA, bilan annuel. Composition : PCME, directeur (DAM), praticiens dont au moins la moitié participent à la PDS et 1 en temps continu, 2 représentants des internes.</td></tr>
+      <tr><td>Commission de l'activité libérale</td><td>Contrôle le respect des règles de l'activité libérale (quotité, volume d'actes, redevances).</td></tr>
+      <tr><td>Chef de pôle / chef de service</td><td>Tableaux de service, continuité des soins ; le chef de service valide les valences non cliniques et évalue la part variable des contractuels de motif 2 (à défaut, le chef de pôle).</td></tr>
+      <tr><td>CNG</td><td>Gère les PH : concours, nomination, titularisation, discipline, insuffisance professionnelle, recherche d'affectation, détachement d'office.</td></tr>
+      <tr><td>DG ARS</td><td>Arrête le schéma régional de PDSES, approuve les tarifs d'astreinte, encadre les contrats de motif 2 via le CPOM, approuve les contrats d'activité libérale, peut suspendre le droit d'exercer (L4113-14).</td></tr>
+      <tr><td>CMG / Comité stratégique du GHT</td><td>Projet médical partagé, orientations communes dont le temps de travail médical.</td></tr>
+    </table></div>
+  </div>
+
+  <div class="block" id="m-exercice">
+    <h2>Conditions d'exercice de la médecine</h2>
+    <p>Trois conditions cumulatives (L4111-1 CSP) : <b>diplôme</b> (français, UE/EEE reconnu, ou autorisation d'exercice pour les PADHUE), <b>nationalité</b> (France, UE/EEE, Andorre, Maroc, Tunisie, ou exception prévue par les textes), <b>inscription au tableau de l'Ordre</b> (L4112-1) auprès du conseil départemental du lieu d'exercice.</p>
+    <div class="box vigil"><span class="lbl">Point de vigilance</span>
+      <p>Défaut d'inscription : exercice illégal (L4161-5 CSP), 2 ans d'emprisonnement, 30 000 € d'amende, interdiction d'exercer ; pour l'employeur, complicité d'exercice illégal. Réflexe DAM : vérification systématique avant toute prise de fonctions, y compris pour l'intérim.</p>
+    </div>
+  </div>
+
+  <div class="block" id="m-padhue">
+    <h2>Recruter un médecin à diplôme hors UE (PADHUE)</h2>
+    <div class="tbl"><table>
+      <tr><th>Situation du candidat</th><th>Statut</th><th>Conditions et durée</th></tr>
+      <tr><td>Vient se former puis repartir, accord de coopération</td><td>Stagiaire associé (R6134-2)</td><td>Convention signée au moins 2 mois avant, visa du préfet ; 6 mois renouvelable une fois, 2 ans max en France ; exerce par délégation, sous la responsabilité d'un praticien</td></tr>
+      <tr><td>Inscrit en DFMS ou DFMSA</td><td>Faisant fonction d'interne (R6153-41 à 44)</td><td>Candidature en décembre N-1 via l'université ; DFMS 2 à 6 semestres, DFMSA 1 à 2 ; nommé par le directeur</td></tr>
+      <tr><td>≥ 3 ans d'exercice à temps plein dont 1 an dans les 3 dernières années, va passer les EVC</td><td>PACT (décrets 2024-1190 et 1191)</td><td>Attestation d'exercice provisoire du DG ARS après commission ; 13 mois renouvelable une fois (26 mois) ; engagement à passer les EVC ; 31 204,37 € brut/an</td></tr>
+      <tr><td>Lauréat des EVC</td><td>Praticien associé (R6152-901 et s.)</td><td>Choix sur les postes ouverts, affectation par le CNG dans les 6 mois ; parcours de consolidation de 2 ans pour les médecins, avec inscription à l'UFR</td></tr>
+    </table></div>
+    <p class="small">Dans tous les cas : séjour régulier et autorisation de travail ; le recrutement relève de la responsabilité du directeur. Après le parcours, autorisation d'exercice par le ministre puis inscription à l'Ordre ; une autorisation temporaire d'exercice de l'ARS peut couvrir l'attente.</p>
+  </div>
+
+  <div class="block" id="m-statuts">
+    <h2>Les statuts en un tableau</h2>
+    <div class="tbl"><table>
+      <tr><th>Statut</th><th>Nature</th><th>Durée / carrière</th><th>Obligations de service</th><th>TTA</th><th>Libéral</th></tr>
+      <tr><td>Interne</td><td>Étudiant de 3ᵉ cycle, agent public</td><td>Stages semestriels</td><td>9 DJ/sem (48 h max, moyenne sur le trimestre)</td><td>Non</td><td>Non</td></tr>
+      <tr><td>Docteur junior</td><td>Thèse soutenue, inscrit à l'Ordre, encore étudiant, autonomie supervisée</td><td>Phase de consolidation</td><td>Comme l'interne</td><td>Non (expérimentation 2022-2023 non reconduite)</td><td>Non</td></tr>
+      <tr><td>Assistant des hôpitaux</td><td>Contrat de droit public</td><td>1 ou 2 ans, renouvelable par 1 an, 6 ans max ; titre d'ancien assistant après 2 ans (secteur 2) ; congés : 25 CA + 19 RTT + 15 j de formation, et congés sans solde pour effectuer des remplacements (30 j la 1ʳᵉ année, 45 j la 2ᵉ selon vos notes)</td><td>10 DJ, 48 h en moyenne sur 4 mois</td><td>Oui</td><td>Non</td></tr>
+      <tr><td>Praticien contractuel</td><td>Contrat (décret 2022-135), 4 motifs</td><td>Voir tableau des motifs</td><td>Selon le motif (1 à 10 DJ)</td><td>Oui</td><td>Non</td></tr>
+      <tr><td>Praticien hospitalier</td><td>Statut national unique (2022), gestion CNG</td><td>Concours, probatoire 1 an, 13 échelons</td><td>10 DJ ; temps partiel possible</td><td>Oui</td><td>Oui si quotité ≥ 80 %</td></tr>
+      <tr><td>HU (CCA-AHU, PHU, MCU-PH, PU-PH)</td><td>Bi-appartenance, employeur principal université</td><td>Carrière universitaire</td><td>11 DJ, pas de partage statutaire H/U (50/50 de fait)</td><td>Non</td><td>Oui</td></tr>
+    </table></div>
+    <div class="box retenir"><span class="lbl">À retenir sur les HU</span>
+      <p>Post-internat : chef de clinique des universités-assistant des hôpitaux (CCA-AH) et assistant hospitalier universitaire (AHU) ; titulaires : MCU-PH et PU-PH ; le PHU est un statut temporaire. Double employeur (2 fiches de paie, 2 signataires, co-décision avec l'UFR) ; tout mouvement de carrière passe d'abord par la faculté. Pas de TTA, de RTT, de CET ni d'entretien annuel ; gardes hors obligations de service, donc mieux payées (755,81 € la nuit) ; droit de travailler le lendemain de garde pour l'activité non clinique ; majoration possible du forfait d'astreinte jusqu'à 500 € depuis le 1er mai 2026.</p>
+    </div>
+  </div>
+
+  <div class="block" id="m-pc">
+    <h2>Praticiens contractuels : les 4 motifs (R6152-338 CSP)</h2>
+    <div class="tbl"><table>
+      <tr><th>Motif</th><th>Cas de recours</th><th>Durée</th><th>Quotité</th><th>Rémunération</th></tr>
+      <tr><td>1</td><td>Remplacement d'un praticien absent ou accroissement temporaire d'activité</td><td>6 mois max, renouvelable 6 mois ; 2 ans max dans l'établissement</td><td>1 à 10 DJ</td><td>Grille de l'établissement entre plancher et plafond</td></tr>
+      <tr><td>2</td><td>Difficultés particulières de recrutement ou d'exercice, compétences hautement spécialisées, risque avéré sur la continuité de l'offre de soins</td><td>6 mois à 3 ans, renouvelable ; 6 ans max</td><td>4 à 10 DJ (40 % min)</td><td>Fixe + part variable sur objectifs ; total ≤ 119 130 € brut/an</td></tr>
+      <tr><td>3</td><td>Dans l'attente de l'inscription sur la liste d'aptitude du concours national de PH</td><td>3 ans max</td><td>5 à 10 DJ</td><td>Grille ; levier sur l'échelon et la date de nomination</td></tr>
+      <tr><td>4</td><td>Compléter l'offre de soins avec la médecine de ville, les ESPIC ou le privé</td><td>3 ans max, renouvelable par décision expresse jusqu'à 6 ans ; CDI possible après 3 ans, de droit après 6 ans sur le même emploi</td><td>1 à 4 DJ (≤ 40 %)</td><td>Grille</td></tr>
+    </table></div>
+    <div class="grid2">
+      <div class="box retenir"><span class="lbl">Motif 2 : conditions (décret 2024-1133)</span>
+        <ul>
+          <li>5 ans d'inscription à l'Ordre (le tableau spécial des docteurs juniors ne compte pas).</li>
+          <li>Nombre, nature et spécialités fixés dans le CPOM ; l'ARS examine le recours au motif 2.</li>
+          <li>Durée minimale 6 mois, quotité minimale 4 DJ.</li>
+          <li>PH en disponibilité exclu, dans son établissement comme ailleurs.</li>
+          <li>Objectifs quantitatifs et qualitatifs écrits au contrat ; évaluation annuelle par le chef de service ; montant final de la part variable fixé par le directeur, versements mensuels sous forme d'acomptes.</li>
+          <li>Contrats conclus ou renouvelés à compter du 6 décembre 2024.</li>
+        </ul>
+      </div>
+      <div class="box vigil"><span class="lbl">Règles transversales</span>
+        <ul>
+          <li>Rémunération temps plein : plancher 41 386,48 € et plafond 71 162,83 € brut/an hors primes (FAQ DGOS déc. 2024, au prorata de la quotité). Vos notes : 3 448,87 € à 5 930,34 € brut mensuel.</li>
+          <li>Contrats successifs motifs 1, 2, 3 : 6 ans maximum dans le même établissement ; l'assistanat ne compte pas. Au-delà, changer d'établissement ou devenir PH.</li>
+          <li>CDI uniquement en motif 4.</li>
+          <li>Pas d'IESPE, pas d'activité libérale à l'hôpital.</li>
+          <li>Période d'essai (vos notes) : 1 mois si contrat ≤ 6 mois, 2 mois jusqu'à 2 ans, 3 mois au-delà.</li>
+          <li>Licenciement possible : insuffisance professionnelle, discipline, suppression ou transformation du besoin, recrutement d'un titulaire, refus d'une modification substantielle. Discipline : R6152-370 et 371.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="box methode"><span class="lbl">Politique salariale (cours)</span>
+      <p>Motifs 1 et 4 : pas de grille réglementaire entre plancher et plafond, chaque établissement définit la sienne et ses critères de placement, le cas échéant dans un cadrage régional (exemple Bretagne) pour éviter la concurrence. Motif 2 : l'établissement décide s'il en propose, sur quelles spécialités, et fixe fixe et variable avec l'ARS selon le profil et la tension. Motif 3 : jouer sur l'échelon en négociant la date de nomination. Entre motif 1 et motif 3, le choix suit en général la rémunération la plus favorable. Ancienneté : au prorata de la quotité (16 mois à 80 % = 12,8 mois).</p>
+    </div>
+    <p class="small">Note : vos notes de cours décrivent le motif 3 comme « concours passé, attente de nomination ». Le texte vise l'attente de l'inscription sur la liste d'aptitude, donc la préparation du concours. Un lauréat déjà inscrit candidate sur un poste vacant lors des tours de recrutement.</p>
+  </div>
+
+  <div class="block" id="m-ph">
+    <h2>Recrutement et entrée dans la carrière de PH</h2>
+    <ul>
+      <li><b>Concours national (CNPH)</b>, organisé par spécialité par le CNG ; format unique depuis 2022 (dossier + entretien), aucune condition d'ancienneté, docteurs juniors admis à concourir. Inscriptions à l'automne N-1, épreuves au 1er trimestre N.</li>
+      <li><b>Liste d'aptitude valable 4 ans</b> (R6152-304) : être nommé et installé dans ce délai, sinon perte du bénéfice.</li>
+      <li><b>Deux tours de recrutement</b> par an (printemps, automne) ; 15 jours pour candidater ; le directeur propose, le DG du CNG nomme par arrêté. Publication possible entre deux tours sur proposition du DG ARS (réintégration après disponibilité ou détachement : publication sous 2 mois).</li>
+      <li><b>Profil de poste</b> (arrêté du 5 février 2022) : arrêté par le directeur après avis du chef de pôle et du PCME, sur proposition du chef de service ; un seul profil par PH, daté à chaque mise à jour.</li>
+      <li><b>Période probatoire</b> : 1 an d'exercice effectif quelle que soit la quotité ; maladie, maternité, paternité la suspendent. Entretiens à 6 mois et 12 mois avec le responsable médical, bilatéraux, date communiquée 8 jours avant. Avis locaux transmis au CNG pour titularisation (R6152-13) ; prolongation possible d'un an après avis de la commission statutaire nationale.</li>
+      <li><b>Nomination impossible</b> si le temps à l'hôpital est inférieur à 50 %.</li>
+      <li><b>Reprise d'ancienneté</b> : services contractuels au prorata de la quotité ; activité libérale prise pour 2/3 sur les 12 premières années et 1/3 sur les 8 suivantes (simulateur CNG). Échelons 1 à 8 : 2 ans ; 9 à 12 : 4 ans. Simulation indicative, seul l'arrêté du CNG fait foi.</li>
+    </ul>
+  </div>
+
+  <div class="block" id="m-remu">
+    <h2>Rémunération, primes et indemnités</h2>
+    <div class="tbl"><table>
+      <tr><th>Élément</th><th>Montant</th><th>Observations</th></tr>
+      <tr><td>Grille PH (temps plein)</td><td class="num">55 607,79 → 112 416,56 €/an</td><td>Échelons 1 à 13, valeurs au 1er juillet 2023 ; vos notes : 4 663,98 → 9 368,05 € brut mensuel</td></tr>
+      <tr><td>IESPE</td><td class="num">1 010 €/mois</td><td>PH temps plein (606 € temps partiel) et assistants ; pas pour les contractuels</td></tr>
+      <tr><td>Prime d'exercice territorial</td><td class="num">250 à 1 000 €/mois</td><td>Exercice multisite par convention ; vos notes : 1 DJ 250 €, 2-3 DJ 450 €, 4 DJ 750 €, 5 DJ et plus 1 000 €</td></tr>
+      <tr><td>Prime de solidarité territoriale</td><td class="num">293,25 € / 427,25 €</td><td>Par DJ de jour en semaine / par DJ de nuit, samedi après-midi, dimanche ou férié, effectuée dans un autre établissement</td></tr>
+      <tr><td>Prime d'engagement dans la carrière hospitalière (PECH)</td><td class="num">10 000 / 20 000 / 30 000 €</td><td>Contractuels et assistants qui s'engagent à passer le concours et à exercer 3 ans comme PH ; 10 000 € tension nationale, 20 000 € tension locale, 30 000 € les deux ; spécialités nationales : anesthésie-réanimation, psychiatrie, radiologie (arrêté du 23 janvier 2024) ; versée en 2 fois, au prorata du temps partiel</td></tr>
+      <tr><td>Indemnités managériales</td><td class="num">200 / 400 / 600 €/mois</td><td>Chef de service 200 €, chef de pôle 400 € (+ part variable ≤ 4 800 €/an), PCME et PCMG 600 € ; cumul plafonné à 1 000 €/mois (textes du 4 novembre 2021)</td></tr>
+      <tr><td>Intéressement collectif</td><td class="num">300 €/projet, 1 800 €/an max</td><td>Selon vos notes</td></tr>
+      <tr><td>Contractuel temps plein</td><td class="num">41 386,48 → 71 162,83 €/an</td><td>Motif 2 : total ≤ 119 130 € avec part variable</td></tr>
+      <tr><td>Garde (PH, PC, assistant)</td><td class="num">422,03 € / 211,01 €</td><td>Nuit ou dimanche / demi-garde ; praticien associé 346,71 € / 173,36 €</td></tr>
+      <tr><td>Garde HU</td><td class="num">755,81 € / 377,93 €</td><td>Hors obligations de service ; samedi après-midi 253,20 €</td></tr>
+      <tr><td>TTA</td><td class="num">167,79 € / 335,60 €</td><td>Demi-plage (1 DJ ou 5 h) / plage ; versé à chaque fin de quadrimestre</td></tr>
+      <tr><td>Forfait d'astreinte (depuis 1er nov. 2025)</td><td class="num">70 à 280 €</td><td>Fixé par ligne par l'établissement</td></tr>
+      <tr><td>CET (indemnisation)</td><td class="num">300 €/jour</td><td>À partir du 21ᵉ jour</td></tr>
+    </table></div>
+    <p class="src">Les montants évoluent avec les revalorisations : vérifier la valeur en vigueur le jour de l'épreuve si un barème est fourni dans le sujet.</p>
+    <div class="box methode"><span class="lbl">Composer une paie mensuelle brute</span>
+      <ol>
+        <li><b>Émoluments</b> : montant annuel de l'échelon (PH) ou du contrat (contractuel) × quotité ÷ 12.</li>
+        <li><b>IESPE</b> : PH et assistants qui n'exercent pas d'activité libérale ; 1 010 € à temps plein.</li>
+        <li><b>Permanence des soins</b> : gardes (422,03 € la nuit pour PH, PC, assistant) et forfaits d'astreinte du mois.</li>
+        <li><b>TTA</b> : versé en fin de quadrimestre (3 fois par an), et non au mois.</li>
+        <li><b>Primes liées au poste</b> : PET (multisite), PST (renfort dans un autre établissement), indemnités managériales.</li>
+        <li><b>Primes ponctuelles</b> : PECH (2 versements), part variable du motif 2 (acomptes puis régularisation annuelle).</li>
+      </ol>
+      <p class="small">Bon réflexe pour comparer les options d'un candidat : raisonner en brut annuel, IESPE comprise, et ajouter la PECH si elle est possible.</p>
+    </div>
+    <div class="grid2">
+      <div class="box retenir"><span class="lbl">Praticiens à diplôme hors UE (PADHUE)</span>
+        <ul>
+          <li><b>Praticien associé</b> (décret 2021-365 du 29 mars 2021) : PADHUE en parcours de consolidation des compétences après les épreuves de vérification des connaissances (EVC), ou en stage d'adaptation. Exerce sous la responsabilité directe d'un praticien de la structure ; 10 DJ, 48 h en moyenne sur 3 mois ; pas de remplacement hors établissement.</li>
+          <li>Rémunération forfaitaire en 2 échelons d'un an (34 863 € puis 39 396 € en 2021, revalorisés depuis) ; garde de nuit 346,71 € selon le cours ; TTA décompté au trimestre, + 30 % de quotité au plus.</li>
+          <li><b>Praticien associé contractuel temporaire (PACT)</b> : statut créé fin 2024 ; 31 204,37 € brut/an pour 10 DJ ; PDS et PET comme les praticiens associés ; indemnité de précarité de 10 % en fin de contrat (arrêtés du 16 janvier 2025).</li>
+          <li>Les anciens statuts d'assistant associé et de praticien attaché associé ont disparu au 1er janvier 2023.</li>
+        </ul>
+      </div>
+      <div class="box vigil"><span class="lbl">Points de vigilance rémunération</span>
+        <ul>
+          <li>Contractuels : pas d'IESPE ; indemnité de précarité en fin de CDD, sauf pour le lauréat qui ne candidate pas sur un poste ouvert dans son établissement et sa spécialité, ou dont les émoluments dépassent de 30 % le plancher.</li>
+          <li>Motif 2 : la part variable dépend d'objectifs écrits ; un trop-perçu est récupérable ; un résultat notoirement insuffisant peut fonder un licenciement.</li>
+          <li>Part complémentaire variable des PH (arrêté du 28 mars 2007) : vos notes indiquent « jusqu'à 15 % » ; à l'origine réservée aux chirurgiens, sur contrat d'équipe et prérequis. Point non vérifié dans le texte en vigueur.</li>
+          <li>Intérim : 1 389,83 € brut pour 24 h ; un contrat au-dessus est bloqué par le comptable public.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="block" id="m-tt">
+    <h2>Temps de travail des seniors</h2>
+    <div class="grid2">
+      <div class="block">
+        <h3>Décompte en demi-journées (droit commun)</h3>
+        <ul>
+          <li>10 DJ/semaine, 48 h maximum en moyenne sur 4 mois ; durée de la DJ non fixée par les textes (en pratique 4 à 5 h).</li>
+          <li>Une nuit entière = 2 DJ ; 24 h = 4 DJ (matin, après-midi, nuit 1, nuit 2).</li>
+          <li>Année : 365 − 104 WE − 25 CA − 19 RTT − ~8 fériés ouvrés = <b>208 jours = 416 DJ</b>.</li>
+          <li>Repos quotidien 11 h consécutives ; après 24 h de présence, 2 DJ de récupération le lendemain.</li>
+          <li>Activités programmées en 1ʳᵉ partie de soirée (après 18h30) : 1 DJ toutes les 5 h, ou 1 DJ dès 4 h continues ; pas de PDS simultanée.</li>
+          <li>Valences non cliniques (décret 2022-132) : 1 DJ/sem de droit pour le PH temps plein sur autorisation du chef de service ou de pôle.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Temps continu (décompte horaire)</h3>
+        <ul>
+          <li>Obligatoire aux urgences depuis 2015 ; facultatif en anesthésie, réanimation, néonatologie, gynéco-obstétrique (&gt; 2 000 accouchements), sur demande du chef de service, avis COPS et CME.</li>
+          <li>48 h/sem ; 9,6 h/jour ; <b>1 996 h/an</b>.</li>
+          <li>Urgences : 39 h postées + forfait non posté ≤ 9 h ; 1 ETP posté = 208 × 7,8 h = <b>1 622 h</b> ; TTA à partir de la 40ᵉ heure, par plages de 5 h postées. Chefferie de service hors temps non posté.</li>
+          <li>Effet : pour une même organisation, le besoin de nuit passe de 1,75 à 2,55 ETP (+46 %).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="box retenir"><span class="lbl">TTA</span>
+      <p>Temps au-delà des obligations de service, sur la base du volontariat (le refus ne peut porter préjudice). Contrat annuel directeur, chef de pôle, chef de service, praticien ; suivi en COPS, registre examiné tous les 4 mois, bilan annuel à la CME. Indemnisé, récupéré ou versé au CET (1 plage = 2 DJ). Pas de TTA pour HU, internes et docteurs juniors ; praticiens associés : décompte trimestriel, + 30 % de quotité au plus.</p>
+    </div>
+    <div class="box vigil"><span class="lbl">Contrôle</span>
+      <p>CE 22 juin 2022 n° 446917 : obligation d'un dispositif fiable, objectif et accessible décomptant les heures, en plus des DJ, pour vérifier les 48 h (4 mois pour les seniors, 3 mois pour les internes). Télétravail médical possible pour les activités ne nécessitant pas de présence physique (décret 2016-151), à cadrer par une charte.</p>
+    </div>
+  </div>
+
+  <div class="block" id="m-pds">
+    <h2>Permanence des soins (PDSES)</h2>
+    <p>Continuité des soins : patients déjà hospitalisés, 24 h/24. PDSES : accueil de nouveaux patients la nuit, le samedi après-midi, le dimanche et les jours fériés (art. 3 arrêté du 30 avril 2003), par gardes sur place ou astreintes à domicile. Obligation statutaire pour tous les praticiens et les juniors ; dispenses temporaires (santé, maternité) ou définitives (santé, 60 ans et plus).</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>Décompte d'un déplacement en astreinte</h3>
+        <ul>
+          <li>Trajet forfaitaire : 1 h aller-retour par déplacement, plafonné à 2 h par période d'astreinte.</li>
+          <li>Intervention : temps réel ; fractions inférieures à la demi-heure négligées, supérieures comptées pour 1 h.</li>
+          <li>Déplacement de 3 h ou plus : 5 h, trajet inclus.</li>
+          <li>Plafond : 10 h (2 DJ) par période d'astreinte.</li>
+          <li>Chaque plage de 5 h cumulées sur le quadrimestre = ½ plage de TTA (167,79 €) ; le reliquat est reporté au quadrimestre suivant.</li>
+          <li>Repos quotidien pris à l'issue du dernier déplacement.</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Réforme des astreintes (arrêté du 8 juillet 2025)</h3>
+        <ul>
+          <li>Applicable au 1er novembre 2025 ; fin de la distinction opérationnelle/sécurité et de l'indemnité de sujétion.</li>
+          <li>Forfait par astreinte fixé par ligne entre 70 et 280 € ; au moins 3 forfaits ; 40 % max des lignes sur un même forfait ; évaluation annuelle en COPS.</li>
+          <li>Critères obligatoires : intensité moyenne, fréquence des déplacements, télémédecine, recours territorial ou régional.</li>
+          <li>Option récupération à la place du forfait : 1 DJ par astreinte déplacée ; 1 DJ pour 2 astreintes « appels fréquents ou télémédecine » ; 2 DJ pour 5 astreintes « appels peu fréquents ».</li>
+          <li>Déplacements payés en plus du forfait (plages de 5 h converties en TTA).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="box methode"><span class="lbl">Deux méthodes de forfaitisation vues en cours</span>
+      <p><b>GHRE</b> : 8 critères de charge, 70 € pour 1 critère puis + 30 € par critère (jusqu'à 280 € pour 8) ; récupération 1 DJ pour 5 astreintes (1-2 critères), 1 DJ pour 2 (3-4), 1 DJ par astreinte (5 et plus). Cadrage breton : 5 à 8 forfaits, 70 à 220 € la 1ʳᵉ année, 20 % de variabilité régionale max par spécialité, option récupération annuelle irrévocable. <b>Sarthe</b> : équivalence avec la rémunération 2024 des déplacements, puis majoration d'1 palier (score de pénibilité 8 à 11/15) ou 2 paliers (12 et plus).</p>
+    </div>
+    <div class="box retenir"><span class="lbl">Schéma régional de PDSES (loi Valletoux)</span>
+      <p>Loi 2023-1268 du 27 décembre 2023 (art. 17) : responsabilité collective de tous les établissements, publics et privés. Décret 2025-101 du 3 février 2025 : procédure de désignation et notion de carence résolue par le DG ARS. Schéma arrêté par le DG ARS pour 5 ans ; lignes financées ; activités réglementées (soins critiques) et non réglementées (appel à candidatures, avis CME et COSTRAT).</p>
+    </div>
+  </div>
+
+  <div class="block" id="m-cet">
+    <h2>Compte épargne-temps</h2>
+    <ul>
+      <li><b>CET historique</b> (jours avant 2013) : ≤ 20 jours au 31/12/2012, récupération seulement ; au-delà, à partir du 21ᵉ jour, option entre indemnisation (300 €/jour, 80 jours/an max) et maintien (300 jours max).</li>
+      <li><b>CET pérenne</b> : alimenté par CA (5/an max), RTT, récupérations de TTA, astreintes et déplacements non indemnisés ; 20 jours/an max.</li>
+      <li>Les 20 premiers jours restent en congés ; au-delà, option avant le 31 mars N+1 : 300 €/jour ou maintien (progression de 20 jours/an max, dérogation DG ARS par service après avis de la CRP).</li>
+      <li>Plafond global de 208 jours (les deux CET) ; sans option exprimée, les jours restent stockés.</li>
+      <li>Provision obligatoire et exhaustive, transférée en cas de mutation, vérifiée par le commissaire aux comptes.</li>
+    </ul>
+  </div>
+
+  <div class="block" id="m-juniors">
+    <h2>Juniors : temps de travail et PDS</h2>
+    <ul>
+      <li>9 DJ/semaine de temps de travail effectif, 48 h max par 7 jours en moyenne sur le trimestre ; récupération en fin de trimestre dans la limite de 8 DJ en stage et 2 DJ hors stage par semaine.</li>
+      <li>Tableau de service nominatif établi par le responsable du terrain de stage et le coordonnateur du DES ; relevés mensuels et trimestriels remis à l'interne et au coordonnateur.</li>
+      <li>En cas de désaccord sur le temps de travail : saisine du directeur ou du doyen, puis du DG ARS ; sanctions financières ou retrait d'agrément possibles.</li>
+      <li>PDS : service de garde normal 1 nuit par semaine et 1 dimanche ou férié par mois ; 6 internes minimum pour une ligne ; repos de sécurité le lendemain.</li>
+      <li>Docteur junior : périmètre d'actes autonomes fixé en début de stage avec chef de service et coordonnateur ; PDS senior possible sur volontariat avec accord des deux, avec astreinte de supervision.</li>
+      <li>Congés : interne 30 jours ouvrables, docteur junior 25 jours ouvrés ; indemnisation des congés non pris (décret 2023-71) : 6 jours/an à 70 € (interne), 5 jours/an à 90 € (DJ), année de référence débutant le 1er lundi de novembre.</li>
+      <li>Externes : 25 gardes au cours du 2ᵉ cycle.</li>
+    </ul>
+  </div>
+
+  <div class="block" id="m-lib">
+    <h2>Activité libérale intra-hospitalière (L6154-1 et s.)</h2>
+    <ul>
+      <li>Ouverte aux PH (dès la période probatoire) et aux HU, à condition d'exercer au moins 80 % (8 DJ) ; exclue pour les contractuels.</li>
+      <li>20 % maximum de la durée de service hebdomadaire (2 DJ pour un temps plein) ; nombre d'actes libéraux inférieur à l'activité publique du praticien ; aucun lit ni équipement réservé.</li>
+      <li>Contrat de 5 ans signé avec le directeur, avis PCME et chef de pôle, approuvé par le DG ARS (approbation tacite à 2 mois) ; redevance versée à l'établissement.</li>
+      <li>Contrôle par la commission de l'activité libérale ; en cas de manquement, suspension (2 ans max) ou retrait par le DG ARS après avis de la commission régionale.</li>
+    </ul>
+  </div>
+
+  <div class="block" id="m-interim">
+    <h2>Intérim médical</h2>
+    <ul>
+      <li>Plafond : 1 389,83 € brut pour 24 h ; contrôle renforcé par l'article 33 de la loi Rist du 26 avril 2021, en vigueur depuis le 3 avril 2023 : le comptable public rejette le paiement dépassant le plafond, l'ARS peut déférer le contrat au tribunal administratif.</li>
+      <li>Loi Valletoux (art. 29) : 2 ans d'exercice préalable exigés avant de travailler en intérim via une entreprise de travail temporaire ; applicable aux personnels médicaux depuis le 1er décembre 2025 (note DGOS du 2 décembre 2025).</li>
+      <li>Le motif 2 est l'outil réglementaire d'attractivité qui remplace le recours à l'intérim coûteux.</li>
+    </ul>
+  </div>
+
+  <div class="block" id="m-sic">
+    <h2>Situations individuelles complexes (guide CNG 2025)</h2>
+    <div class="box methode"><span class="lbl">Arbre d'orientation</span>
+      <ol>
+        <li>Danger immédiat pour les patients ou la continuité ? → suspension conservatoire par le directeur, information immédiate du DG CNG et du DG ARS.</li>
+        <li>Crime ou délit ? → signalement au procureur (art. 40 CPP), copie au CNG.</li>
+        <li>Doute sur l'état de santé (addiction, pathologie) ? → comité médical d'abord : une procédure disciplinaire ne peut aboutir contre un praticien inapte.</li>
+        <li>Manquement à une obligation (faute) → discipline. Incapacité à remplir les fonctions (sans faute) → insuffisance professionnelle.</li>
+        <li>Conflit relationnel sans faute ni danger → conciliation locale, puis médiation régionale, puis nationale ; à défaut, détachement d'office.</li>
+      </ol>
+    </div>
+    <div class="tbl"><table>
+      <tr><th>Mesure</th><th>Autorité</th><th>Conditions</th><th>Durée et effets</th></tr>
+      <tr><td>Suspension conservatoire</td><td>Directeur (L6143-7, pouvoir de police)</td><td>Urgence, intérêt du service, circonstances exceptionnelles mettant en péril la continuité et la sécurité des patients ; difficultés relationnelles seules insuffisantes</td><td>Pas de durée fixée ; décision écrite, motivée, avec voies de recours ; aucune retenue sauf indemnités de PDS ; information immédiate CNG et ARS</td></tr>
+      <tr><td>Suspension du droit d'exercer</td><td>DG ARS (L4113-14)</td><td>Urgence, danger grave pour les patients</td><td>5 mois max, émoluments maintenus ; audition sous 3 jours ; saisine de l'Ordre qui statue sous 2 mois</td></tr>
+      <tr><td>Suspension statutaire</td><td>DG CNG</td><td>Procédure disciplinaire ou d'IP engagée + intérêt du service</td><td>5 mois, prolongeable pendant les poursuites pénales ; émoluments maintenus sauf interdiction judiciaire d'exercer (retenue ≤ 50 %)</td></tr>
+      <tr><td>Insuffisance professionnelle</td><td>DG CNG après commission statutaire nationale</td><td>Incapacité dûment constatée ; distincte de la faute et de la pathologie ; peut porter sur l'insertion dans le collectif</td><td>Avis CME restreinte et DG ARS ; issue : absence d'IP, licenciement avec indemnité, reconversion</td></tr>
+      <tr><td>Discipline (R6152-74)</td><td>DG CNG</td><td>Dossier circonstancié de l'établissement, sans proposition de sanction</td><td>Avertissement et blâme possibles sans conseil de discipline ; au-delà, conseil convoqué 2 mois avant, avis sous 4 mois (6 avec enquête)</td></tr>
+      <tr><td>Recherche d'affectation</td><td>DG CNG après commission statutaire</td><td>À la demande du PH ou de l'administration (suppression de poste) ; exclue en probatoire, maladie, disponibilité, détachement ; pas un outil de gestion de conflit</td><td>2 ans, rémunération par le CNG ; nomination en surnombre possible après 3 offres fermes</td></tr>
+      <tr><td>Détachement d'office (R6152-54)</td><td>DG CNG</td><td>Intérêt du service : conflit extrême, blocage, opposition des équipes</td><td>5 ans renouvelable tacitement ; 2 mois pour rejoindre le poste, sinon abandon de poste</td></tr>
+      <tr><td>Disponibilité d'office</td><td>DG CNG</td><td>Inaptitude définitive à l'expiration des congés maladie, ou interdiction d'exercer</td><td>1 an renouvelable, 3 ans max puis radiation</td></tr>
+    </table></div>
+    <div class="grid2">
+      <div class="box retenir"><span class="lbl">Sanctions disciplinaires des PH</span>
+        <ol><li>Avertissement</li><li>Blâme</li><li>Réduction d'ancienneté</li><li>Suspension ≤ 6 mois avec suppression totale ou partielle des émoluments</li><li>Mutation d'office</li><li>Révocation</li></ol>
+        <p class="small">Vote à bulletin secret, sanction la plus élevée mise aux voix en premier, majorité absolue des présents. Procédures statutaire, ordinale et pénale indépendantes et cumulables.</p>
+      </div>
+      <div class="box retenir"><span class="lbl">Protection fonctionnelle</span>
+        <ul>
+          <li>Due par l'employeur à la date des faits : agent poursuivi (civil ou pénal) sauf faute personnelle détachable ; agent victime d'atteintes, violences, harcèlement, menaces, injures, diffamations, outrages liés aux fonctions.</li>
+          <li>Accordée par le directeur ; s'il est en conflit avec le praticien, transmission au DG ARS (CE 29 juin 2020).</li>
+          <li>Refus motivé : faute personnelle détachable, tardiveté, intérêt du service. Octroi créateur de droits, retrait sous 4 mois si illégal.</li>
+          <li>N'empêche pas une procédure disciplinaire.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="small">Enquête administrative préalable : coordonnée par le directeur ou le DAM ; entretiens avec comptes rendus, témoignages datés et signés, FEI, plaintes, chronologie, rappels à l'ordre. Médiation saisie pour un médecin par le PCME conjointement avec le directeur. Lanceur d'alerte : statut reconnu par le Défenseur des droits, distinct de la protection fonctionnelle.</p>
+  </div>
+
+  <div class="block" id="m-etudes">
+    <h2>Études de médecine et internes : leviers DAM</h2>
+    <ul>
+      <li>Cadre : loi « Ma santé 2022 » (2019), réforme de l'accès au 3ᵉ cycle (EDN : épreuves dématérialisées connaissances A, B, C ; ECOS en fin de 6ᵉ année ; parcours).</li>
+      <li>Accès au 3ᵉ cycle : validation du 2ᵉ cycle (DFASM), épreuves dématérialisées nationales avec note minimale, ECOS, prise en compte du parcours et du projet professionnel ; choix de spécialité et de subdivision selon le classement.</li>
+      <li>Les 3 phases de l'internat : <b>socle</b>, <b>approfondissement</b>, <b>consolidation</b> (statut de docteur junior, thèse soutenue, autonomie supervisée).</li>
+      <li>Attractivité : actions de communication communes avec l'université vers les lycées, notamment ruraux ; soutien aux tutorats.</li>
+      <li>Accueil : médecin référent des internes avec le PCME, livret d'accueil, hébergement et restauration, internat sans « traditions » périmées, dialogue avec les associations d'internes.</li>
+      <li>Protection : respect du temps de travail, protection contre les abus de seniors, signalement à la faculté des internes en difficulté, formation des seniors à la maîtrise de stage, simulation.</li>
+      <li>Commission de répartition : comprendre pourquoi un stage n'est pas choisi (maquette, organisation, comportement des seniors), argumenter les besoins de la population, viser plus de stages hors CHU, limiter les effets d'accordéon.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== CAS ===================== -->
+<section class="panel" id="cas" role="tabpanel" aria-labelledby="t-cas" hidden>
+  <div class="block">
+    <h2>Cas pratiques corrigés</h2>
+    <p class="lede">Lisez l'énoncé, rédigez votre réponse selon la grille en 5 temps, puis ouvrez le corrigé. Les cas 1 à 3 reprennent les énoncés du cours ; les autres sont construits sur les mêmes règles.</p>
+    <div class="filters" id="caseFilters" role="group" aria-label="Filtrer par thème">
+      <button class="chip" aria-pressed="true" data-f="all">Tous</button>
+      <button class="chip" aria-pressed="false" data-f="annale">Sujet 2025</button>
+      <button class="chip" aria-pressed="false" data-f="tt">Temps de travail et PDS</button>
+      <button class="chip" aria-pressed="false" data-f="contrat">Contrats et carrière</button>
+      <button class="chip" aria-pressed="false" data-f="remu">Rémunération</button>
+      <button class="chip" aria-pressed="false" data-f="sic">Situations complexes</button>
+      <button class="chip" aria-pressed="false" data-f="junior">Juniors</button>
+    </div>
+  </div>
+  <div class="block" id="caseList"></div>
+</section>
+
+<!-- ===================== QUIZ ===================== -->
+<section class="panel" id="quiz" role="tabpanel" aria-labelledby="t-quiz" hidden>
+  <div class="block">
+    <h2>Quiz et flashcards</h2>
+    <div class="row">
+      <button class="chip" aria-pressed="true" id="modeQuiz">Quiz</button>
+      <button class="chip" aria-pressed="false" id="modeFlash">Flashcards</button>
+      <label class="f" style="flex-direction:row;align-items:center;gap:6px"><span>Thème</span>
+        <select id="quizTheme"><option value="all">Tous</option><option value="annale">Sujet 2025</option><option value="statuts">Statuts et contrats</option><option value="tt">Temps de travail et PDS</option><option value="remu">Rémunération</option><option value="sic">Situations complexes</option><option value="divers">Instances et divers</option></select>
+      </label>
+      <button class="btn ghost" id="quizRestart">Mélanger et recommencer</button>
+    </div>
+  </div>
+  <div class="qcard" id="qcard"></div>
+</section>
+
+<!-- ===================== CALCULATEURS ===================== -->
+<section class="panel" id="calc" role="tabpanel" aria-labelledby="t-calc" hidden>
+  <div class="block">
+    <h2>Calculateurs</h2>
+    <p class="lede">Pré-remplis avec des exemples. Les règles appliquées sont celles du cours ; elles sont rappelées sous chaque résultat pour pouvoir être citées dans une copie.</p>
+  </div>
+
+  <div class="calc" id="c-contrat">
+    <h3>Quel contrat proposer ?</h3>
+    <p class="small">Cochez ce qui est vrai pour le candidat et le besoin.</p>
+    <div class="checks">
+      <label><input type="checkbox" id="k-ordre" checked> Inscrit au tableau de l'Ordre (hors tableau spécial des docteurs juniors)</label>
+      <label><input type="checkbox" id="k-5ans"> Au moins 5 ans d'inscription à l'Ordre</label>
+      <label><input type="checkbox" id="k-dispo"> PH actuellement en disponibilité</label>
+      <label><input type="checkbox" id="k-temp" checked> Besoin temporaire : remplacement ou accroissement d'activité</label>
+      <label><input type="checkbox" id="k-diff"> Difficultés de recrutement ou risque sur la continuité, prévues au CPOM</label>
+      <label><input type="checkbox" id="k-cnph"> Projet de devenir PH (prépare le concours)</label>
+      <label><input type="checkbox" id="k-liste"> Déjà inscrit sur la liste d'aptitude du CNPH</label>
+      <label><input type="checkbox" id="k-ville"> Exerce en ville, en ESPIC ou dans le privé et vient compléter l'offre</label>
+    </div>
+    <label class="f" style="max-width:220px">Quotité envisagée (DJ par semaine)<input type="number" id="k-dj" min="1" max="10" value="10"></label>
+    <div class="verdict" id="k-out"></div>
+  </div>
+
+  <div class="calc" id="c-paie">
+    <h3>Paie mensuelle brute d'un praticien</h3>
+    <div class="fields">
+      <label class="f">Statut<select id="p-st"><option value="ph">Praticien hospitalier</option><option value="pc">Praticien contractuel</option><option value="as">Assistant</option></select></label>
+      <label class="f">Échelon PH<select id="p-ech"></select></label>
+      <label class="f">Émoluments annuels base temps plein (€)<input type="number" id="p-ann" step="0.01"></label>
+      <label class="f">Quotité (%)<input type="number" id="p-q" value="100" min="10" max="100"></label>
+      <label class="f">Gardes de nuit / dimanche<input type="number" id="p-g" value="4" min="0"></label>
+      <label class="f">Demi-gardes<input type="number" id="p-dg" value="0" min="0"></label>
+      <label class="f">Astreintes dans le mois<input type="number" id="p-a" value="0" min="0"></label>
+      <label class="f">Forfait d'astreinte (€)<input type="number" id="p-af" value="130" min="0"></label>
+      <label class="f">PET (€/mois)<input type="number" id="p-pet" value="0" min="0"></label>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" id="p-lib"> Exerce une activité libérale (pas d'IESPE)</label>
+      <label><input type="checkbox" id="p-cs" checked> Chef de service (200 €)</label>
+      <label><input type="checkbox" id="p-cp"> Chef de pôle (400 €)</label>
+      <label><input type="checkbox" id="p-pcme"> PCME ou PCMG (600 €)</label>
+    </div>
+    <div class="out" id="p-out"></div>
+    <p class="small">Garde 422,03 €, demi-garde 211,01 € (PH, PC, assistant). IESPE 1 010 € à temps plein, 606 € à temps partiel, non versée aux contractuels. Indemnités managériales cumulées plafonnées à 1 000 €. Le TTA n'apparaît pas : il est versé en fin de quadrimestre.</p>
+  </div>
+
+  <div class="calc" id="c-ast">
+    <h3>Déplacements en astreinte → TTA</h3>
+    <div class="fields">
+      <label class="f">Reliquat d'heures du quadrimestre précédent<input type="number" id="a-rel" min="0" max="4" value="0"></label>
+      <label class="f">Valeur de la ½ plage de TTA (€)<input type="number" id="a-tta" step="0.01" value="167.79"></label>
+    </div>
+    <div id="a-rows" class="block"></div>
+    <div class="row"><button class="btn ghost" id="a-add">Ajouter un déplacement</button><button class="btn ghost" id="a-ex">Charger l'exemple du praticien 1</button></div>
+    <div class="out" id="a-out"></div>
+    <div class="tbl"><table id="a-det"></table></div>
+    <p class="small">Règles : trajet 1 h par déplacement, 2 h max par période ; déplacement (intervention + trajet) de 3 h ou plus compté 5 h ; sinon arrondi à l'heure (30 min et plus comptées 1 h) ; 10 h max par période ; 1 plage de 5 h = ½ plage de TTA ; reliquat reporté.</p>
+  </div>
+
+  <div class="calc" id="c-forf">
+    <h3>Forfait d'astreinte selon la grille GHRE</h3>
+    <div class="checks" id="f-crit"></div>
+    <div class="out" id="f-out"></div>
+  </div>
+
+  <div class="calc" id="c-os">
+    <h3>Obligations de service sur une période</h3>
+    <div class="fields">
+      <label class="f">Nombre de semaines<input type="number" id="o-sem" value="18" min="1"></label>
+      <label class="f">Jours fériés tombant en semaine<input type="number" id="o-fer" value="4" min="0"></label>
+      <label class="f">Quotité (%)<input type="number" id="o-q" value="100" min="10" max="100"></label>
+    </div>
+    <div class="out" id="o-out"></div>
+    <p class="small">DJ : (semaines × 5 − fériés) × 2. Temps continu : jours ouvrés × 9,6 h. Urgences : jours ouvrés × 7,8 h posté + jours ouvrés × 1,8 h non posté (forfait maximal de 9 h/sem). Avant déduction des congés.</p>
+  </div>
+
+  <div class="calc" id="c-etp">
+    <h3>Besoin en ETP : demi-journées ou temps continu</h3>
+    <div class="fields">
+      <label class="f">Praticiens présents le jour<input type="number" id="e-j" value="3" min="0"></label>
+      <label class="f">Praticiens présents la nuit<input type="number" id="e-n" value="1" min="0"></label>
+      <label class="f">Jours couverts par an<input type="number" id="e-d" value="364" min="1"></label>
+      <label class="f">Durée de jour (h)<input type="number" id="e-hj" value="10" step="0.5"></label>
+      <label class="f">Durée de nuit (h)<input type="number" id="e-hn" value="14" step="0.5"></label>
+    </div>
+    <div class="out" id="e-out"></div>
+    <p class="small">1 ETP = 416 DJ ou 1 996 h. Une journée = 2 DJ, une nuit = 2 DJ. Ligne postée 24 h aux urgences : 8 760 h / 1 622 h = 5,4 ETP.</p>
+  </div>
+
+  <div class="calc" id="c-anc">
+    <h3>Reprise d'ancienneté et échelon de PH</h3>
+    <div id="r-rows" class="block"></div>
+    <div class="row"><button class="btn ghost" id="r-add">Ajouter une période</button></div>
+    <div class="out" id="r-out"></div>
+    <p class="small">Indicatif, sur la logique du simulateur CNG : services au prorata de la quotité ; activité libérale à 2/3 sur les 12 premières années puis 1/3 sur les 8 suivantes. Échelons 1 à 8 : 730 jours ; 9 à 12 : 1 460 jours. La liste des services repris figure dans la note CNG de classement des primo-nommés.</p>
+  </div>
+
+  <div class="calc" id="c-cet">
+    <h3>CET pérenne : droit d'option</h3>
+    <div class="fields">
+      <label class="f">Solde au 31/12 N-1 (jours)<input type="number" id="t-s" value="30" min="0"></label>
+      <label class="f">Jours épargnés en N<input type="number" id="t-e" value="18" min="0"></label>
+      <label class="f">Jours à indemniser (choix)<input type="number" id="t-i" value="18" min="0"></label>
+    </div>
+    <div class="out" id="t-out"></div>
+  </div>
+</section>
+
+<!-- ===================== SOURCES ===================== -->
+<section class="panel" id="sources" role="tabpanel" aria-labelledby="t-src" hidden>
+  <div class="block">
+    <h2>Sources</h2>
+    <h3>Vos documents</h3>
+    <ul>
+      <li>Cours « La DAM : une fonction centrale et challengeante », C. Pluchon ; notes Obsidian « Statuts médicaux ».</li>
+      <li>Cours « Statuts médicaux hospitalo-universitaires », N. Mevel (CHU de Rennes).</li>
+      <li>Cours « Les études de médecine », I. Richard.</li>
+      <li>Diaporama et support reformaté « Temps de travail médical et PDSES », A. Oger et C. Pluchon, 28 mai 2026.</li>
+      <li>CNG, Guide de gestion statutaire des praticiens hospitaliers (concours, recrutement, période probatoire), juillet 2022.</li>
+      <li>CNG, Situations individuelles complexes des praticiens hospitaliers, février 2025.</li>
+      <li>CNG, simulateur de classement (simulateur-vf2).</li>
+      <li>EHESP, Évaluation affaires médicales, tronc commun EDH 2025-2026, 11 juillet 2025 (sujet transmis par une collègue).</li>
+    </ul>
+    <h3>Compléments vérifiés</h3>
+    <ul>
+      <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000050745388" target="_blank" rel="noopener">Article R6152-338 CSP (Légifrance)</a></li>
+      <li><a href="https://www.fhf.fr/expertises/ressources-humaines/personnel-medical/encadrement-du-recours-aux-contrats-de-motif-2-dans-la-fph" target="_blank" rel="noopener">FHF, encadrement du recours aux contrats de motif 2</a></li>
+      <li><a href="https://rapportannuel2021.fhf.fr/sites/default/files/2024-12/faq_-_contrats_de_motif_2_05.12_24.pdf" target="_blank" rel="noopener">DGOS, FAQ contrats de motif 2 (décembre 2024)</a></li>
+      <li><a href="https://cabinet-coudray.fr/praticiens-hospitaliers-nouvelles-regles-pour-les-contractuels/" target="_blank" rel="noopener">Cabinet Coudray, nouvelles règles des praticiens contractuels (décret 2022-135)</a></li>
+      <li><a href="https://www.macsf.fr/exercice-hospitalier-et-salarie/exercer-a-l-hopital/quelle-est-la-remuneration-d-un-praticien-hospitalier" target="_blank" rel="noopener">MACSF, rémunération du praticien hospitalier (grille au 1er juillet 2023, IESPE, PET, PST)</a></li>
+      <li><a href="https://www.fhf.fr/expertises/ressources-humaines/personnel-medical/modification-des-conditions-encadrant-la-prime-dengagement-de-carriere-hospitaliere" target="_blank" rel="noopener">FHF, conditions de la PECH (MAJ janvier 2025)</a></li>
+      <li><a href="https://www.fhf.fr/expertises/ressources-humaines/personnel-medical/dispositions-relatives-aux-indemnites-manageriales-chefs-de-service-de-pole-presidents-de-cme-vice" target="_blank" rel="noopener">FHF, indemnités managériales</a></li>
+      <li><a href="https://emploi.fhf.fr/sites/default/files/documents/Note%20RHH%20FHF%20statut%20de%20praticien%20associ%C3%A9.pdf" target="_blank" rel="noopener">FHF, note sur le statut de praticien associé (avril 2021)</a></li>
+      <li><a href="https://www.fhf.fr/expertises/ressources-humaines/personnel-medical/padhue-pact-publication-des-arretes-fixant-la-remuneration-des-praticiens-associes-contractuels" target="_blank" rel="noopener">FHF, rémunération des PACT</a></li>
+      <li><a href="https://www.fhf.fr/ressources-humaines-personnel-medical/personnel-medical-arrete-du-28-mars-2007-relatif-la-part-complementaire-variable-de-remuneration" target="_blank" rel="noopener">FHF, part complémentaire variable (2007)</a></li>
+      <li><a href="https://www.grand-est.ars.sante.fr/media/139860/download" target="_blank" rel="noopener">ARS Grand Est, note sur les statuts de recrutement des PADHUE</a></li>
+      <li><a href="https://www.appa-asso.org/2025/06/30/praticien-associe-contractuel-temporaire-lappa-vous-dit-tout-sur-le-statut/" target="_blank" rel="noopener">APPA, statut de praticien associé contractuel temporaire</a></li>
+      <li><a href="https://cme.aphp.fr/sites/default/files/CMEDoc/cme9avril2024_activiteliberale_guide.pdf" target="_blank" rel="noopener">AP-HP, guide de l'activité libérale (avril 2024)</a></li>
+      <li><a href="https://questions.assemblee-nationale.fr/dyn/16/questions/QANR5L16QE5503.pdf" target="_blank" rel="noopener">Assemblée nationale, question écrite n° 5503 sur le plafonnement de l'intérim</a></li>
+      <li><a href="https://www.santementale.fr/2025/12/interim-conditions-dapplication-des-deux-ans-dexperience-exiges/" target="_blank" rel="noopener">Santé mentale, intérim : deux ans d'expérience exigés (note DGOS du 2 décembre 2025)</a></li>
+      <li><a href="https://fhf.fr/sites/default/files/documents/R%C3%A9sum%C3%A9%20relatif%20%C3%A0%20l%27arr%C3%AAt%C3%A9%20du%208%20novembre%202013.pdf" target="_blank" rel="noopener">FHF, résumé de l'arrêté du 8 novembre 2013 (décompte des déplacements en astreinte)</a></li>
+    </ul>
+    <div class="box vigil"><span class="lbl">Limites</span>
+      <p>Les montants de rémunération datent de 2023-2024 et peuvent avoir été revalorisés. L'intéressement collectif, la grille des assistants et la part complémentaire variable « jusqu'à 15 % » proviennent de vos notes et n'ont pas été recoupés. Les émoluments des praticiens associés cités datent de 2021. Les textes de 2026 cités en cours (arrêté du 17 avril 2026, instruction du 6 mai 2026) sont repris du support sans vérification indépendante.</p>
+    </div>
+  </div>
+</section>
+</div>
+<footer class="pied"><span><span class="tri"></span>léonard sandeau · révisions dam · 10.2026</span><span>outil personnel de révision, non officiel</span></footer>
+
+<script>
+/* ---------- onglets ---------- */
+const tabs=[...document.querySelectorAll('nav.tabs button')];
+function showTab(id){tabs.forEach(b=>{const on=b.getAttribute('aria-controls')===id;b.setAttribute('aria-selected',on);document.getElementById(b.getAttribute('aria-controls')).hidden=!on;});try{localStorage.setItem('dam-tab',id)}catch(e){}}
+tabs.forEach(b=>b.addEventListener('click',()=>{showTab(b.getAttribute('aria-controls'));window.scrollTo({top:0})}));
+(function(){let h=location.hash.replace('#','');let saved=null;try{saved=localStorage.getItem('dam-tab')}catch(e){}
+ const ids=tabs.map(b=>b.getAttribute('aria-controls'));if(ids.includes(h))showTab(h);else if(saved&&ids.includes(saved))showTab(saved);})();
+document.querySelectorAll('.toc a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showTab('memo');document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'})}));
+
+/* ---------- cas pratiques ---------- */
+const CASES=[
+{f:'tt',t:'Obligations de service sur le 2ᵉ quadrimestre 2025',tag:'Cours',
+e:`Déterminer les obligations de service d'un PH temps plein sur le 2ᵉ quadrimestre 2025 (18 semaines, 4 jours fériés en semaine) : a) en demi-journées ; b) en temps continu en anesthésie ; c) en temps continu aux urgences.`,
+c:`<h4>Qualification</h4><p>Calcul d'obligations de service sur une période de référence, avant congés. Jours ouvrés : 18 × 5 − 4 = <b>86 jours</b>.</p>
+<h4>Calculs</h4><ul><li>a) DJ : 18 × 10 − 4 × 2 = <b>172 DJ</b>.</li><li>b) Anesthésie (48 h/sem, 9,6 h/jour) : 86 × 9,6 = <b>825,6 h</b>.</li><li>c) Urgences : temps posté 86 × 7,8 = <b>670,8 h</b> ; temps non posté 86 × 1,8 = <b>154,8 h</b> ; total 825,6 h.</li></ul>
+<div class="box vigil"><span class="lbl">Correction de vos notes</span><p>Vos notes indiquent 702 h de temps posté (39 × 18) : ce chiffre ne retire pas les 4 jours fériés. Il faut raisonner en jours ouvrés (86 × 7,8 h).</p></div>
+<h4>À dire en copie</h4><p>Le temps non posté est un forfait d'au plus 9 h par semaine, défini par contrat individuel ; les fonctions de chef de service n'y sont pas incluses. Le TTA des urgentistes commence à la 40ᵉ heure, une fois posté et non posté réalisés.</p>`},
+{f:'tt',t:'Effectif : demi-journées ou temps continu',tag:'Cours',
+e:`Un service fonctionne 7 jours sur 7 avec 3 praticiens présents en journée et 1 la nuit. Le chef de service demande le passage en temps continu. Évaluez l'impact en ETP et formulez un avis pour la direction.`,
+c:`<h4>Calculs (364 jours)</h4><div class="tbl"><table><tr><th></th><th>DJ</th><th>Temps continu</th></tr><tr><td>Jour</td><td class="num">3 × 2 × 364 = 2 184 DJ</td><td class="num">3 × 10 h × 364 = 10 920 h</td></tr><tr><td>Nuit</td><td class="num">1 × 2 × 364 = 728 DJ</td><td class="num">1 × 14 h × 364 = 5 096 h</td></tr><tr><td>Total</td><td class="num">2 912 / 416 = 7,0 ETP</td><td class="num">16 016 / 1 996 = 8,0 ETP</td></tr></table></div>
+<p>Pour la seule nuit : 1,75 ETP en DJ contre 2,55 ETP en heures (+46 %).</p>
+<h4>Analyse</h4><ul><li>Base réglementaire : temps continu de droit aux urgences ; facultatif en anesthésie, réanimation, néonatologie, gynéco-obstétrique &gt; 2 000 accouchements, sur demande du chef de service, avis COPS et CME. Hors de ces disciplines, la demande n'est pas recevable en l'état.</li><li>Arbitrage : attractivité et QVT (décompte réel, repos) contre coût d'un ETP supplémentaire (≈ 1 ETP de PH avec charges).</li></ul>
+<h4>Décision proposée</h4><p>Si la spécialité est éligible : étude d'impact en COPS, plan de recrutement préalable (le passage sans effectif supplémentaire ferait exploser le TTA), mise en place d'un décompte horaire fiable (CE 22 juin 2022), révision du règlement intérieur, bilan à un an.</p>`},
+{f:'tt',t:'Bilan des déplacements en astreinte',tag:'Cours',
+e:`Praticien 1, astreinte du samedi 13h30 au dimanche 8h30 : déplacements à 15h (1h20), 22h (2h40), 2h (3h10). Praticien 2, du dimanche 18h30 au lundi 8h30 : 19h (50 min), 21h (4h), 3h (30 min). Praticien 3, du lundi 18h30 au mardi 8h30 : 18h30 (4h35), 1h30 (6h10). Déterminer le temps retenu et l'indemnisation en TTA (½ plage = 167,79 €).`,
+c:`<h4>Méthode</h4><p>Par déplacement : intervention + 1 h de trajet (2 h de trajet au plus par période) ; 3 h ou plus → 5 h ; sinon arrondi à l'heure ; plafond 10 h par période ; 5 h = ½ plage de TTA ; reliquat reporté.</p>
+<div class="tbl"><table><tr><th>Praticien</th><th>Déplacements retenus</th><th>Total</th><th>TTA</th></tr>
+<tr><td>1</td><td class="num">2h20→2 h ; 3h40→5 h ; 3h10 (trajet plafonné)→5 h</td><td class="num">12 h → plafond 10 h</td><td class="num">2 × ½ plage = 335,58 €</td></tr>
+<tr><td>2</td><td class="num">1h50→2 h ; 5h→5 h ; 0h30 (trajet plafonné)→1 h</td><td class="num">8 h</td><td class="num">1 × ½ plage = 167,79 € ; reliquat 3 h</td></tr>
+<tr><td>3</td><td class="num">5h35→5 h ; 7h10→5 h</td><td class="num">10 h</td><td class="num">2 × ½ plage = 335,58 €</td></tr></table></div>
+<div class="box vigil"><span class="lbl">Hypothèses à écrire</span><p>Praticien 1 : astreinte traitée comme une seule période ; si l'on distingue samedi après-midi et nuit, on obtient 2 h + 10 h = 12 h, soit le même nombre de demi-plages avec un reliquat de 2 h. Praticien 2 : une fraction d'exactement 30 min est comptée 1 h ; si elle est négligée, le total est de 7 h et l'indemnisation reste de 167,79 €. Depuis la réforme, ces montants s'ajoutent au forfait d'astreinte de la ligne.</p></div>
+<h4>Gestion</h4><p>Vérifier la cohérence avec les fiches de suivi (heure d'appel, de départ, d'arrivée), contrôler les sur-déclarations, informer chaque praticien de son reliquat.</p>`},
+{f:'tt',t:'Classer une ligne d’astreinte de cardiologie',tag:'Construit',
+e:`Vous préparez la COPS. La ligne de cardiologie interventionnelle présente : activité interventionnelle ; appels en nuit profonde (1h-7h) chaque semaine ; 3 appels par astreinte en moyenne ; 1,2 déplacement par astreinte ; validation d'ECG télétransmis ; avis pour les deux CH du territoire. L'établissement applique la grille GHRE. Quel forfait, quelle option de récupération, quels points de procédure ?`,
+c:`<h4>Critères remplis</h4><ul><li>1 Activité interventionnelle : oui.</li><li>4 Nuit profonde ≥ 1/semaine : oui.</li><li>5 ≥ 4 appels/astreinte : non (3).</li><li>6 ≥ 2 déplacements/astreinte : non (1,2).</li><li>7 Télémédecine ou validation d'actes : oui.</li><li>8 Sollicitation territoriale : oui.</li><li>2 et 3 : à documenter (temps sur place &gt; 3 h hebdomadaire, équipe ≤ 5 praticiens).</li></ul>
+<p>4 critères établis → <b>160 €</b> par astreinte, ou récupération <b>1 DJ pour 2 astreintes</b> si le praticien opte pour la récupération (choix annuel, sans retour en arrière dans le cadrage breton, sous réserve des nécessités de service).</p>
+<h4>Procédure</h4><ul><li>Fourchette réglementaire 70-280 €, au moins 3 forfaits dans l'établissement, 40 % des lignes au plus sur un même forfait.</li><li>Avis COPS puis CME, concertation directoire ; transmission à l'ARS qui approuve les tarifs.</li><li>Déplacements payés en sus (plages de 5 h → TTA).</li><li>Bilan au premier quadrimestre, révision possible ; contrôle des déclarations (appels, déplacements, actes de télémédecine).</li></ul>`},
+{f:'contrat',t:'Un radiologue « très attendu » demande un motif 2',tag:'Construit',
+e:`Le CH recherche un radiologue depuis 18 mois. Dr R., inscrit à l'Ordre depuis 4 ans, ancien interne de la subdivision, accepte de venir à temps plein si on lui garantit 110 000 € brut annuels. Le CPOM prévoit 2 contrats de motif 2 en imagerie. Le Dr P., PH radiologue en disponibilité dans un CHU voisin, est aussi candidat sur la même base. Que proposez-vous ?`,
+c:`<h4>Qualification</h4><p>Recrutement en spécialité en tension ; demande de rémunération élevée qui n'est possible qu'en motif 2 (plafond du fixe à 71 162,83 € pour les autres motifs).</p>
+<h4>Analyse</h4><ul><li><b>Dr R.</b> : 4 ans d'inscription &lt; 5 ans exigés (R6152-336) → motif 2 impossible. Options : motif 3 (préparer le CNPH, 3 ans max) en le plaçant haut dans la grille de l'établissement ; motif 1 si un remplacement existe. Rémunération plafonnée à 71 162,83 € brut + indemnités (PDS, TTA, PET, PST). Le motif 2 pourra être envisagé dans un an.</li><li><b>Dr P.</b> : PH en disponibilité → exclu du motif 2 (R6152-338), quel que soit l'établissement. Il peut demander sa réintégration et candidater sur un poste de PH (publication possible entre deux tours).</li></ul>
+<h4>Réponse</h4><p>Proposer au Dr R. un motif 3, avec engagement écrit sur la PDS et un plan de carrière vers le concours ; ouvrir le poste de PH pour le Dr P. Rappeler que l'intérim est plafonné (1 389,83 €/24 h) et qu'il ne peut servir de contournement.</p>`},
+{f:'contrat',t:'Médecin généraliste de ville, 3 demi-journées par semaine',tag:'Construit',
+e:`Le Dr G., généraliste installé en ville, propose de venir 3 DJ par semaine dans l'unité de court séjour gériatrique. Il souhaite une perspective durable et demande s'il pourrait être nommé PH et exercer une activité libérale à l'hôpital.`,
+c:`<h4>Contrat</h4><p>Motif 4 (compléter l'offre de soins avec le concours de la médecine de ville) ; quotité de 3 DJ compatible (≤ 4 DJ, 40 %). CDD de 3 ans max, renouvelable par décision expresse jusqu'à 6 ans ; après 3 ans cumulés, renouvellement possible en CDI ; après 6 ans sur le même emploi, CDI de droit.</p>
+<h4>Réponses aux questions</h4><ul><li>Nomination PH : impossible avec moins de 50 % du temps à l'hôpital.</li><li>Activité libérale à l'hôpital : réservée aux PH et HU à 80 % au moins ; exclue pour les contractuels.</li><li>Rémunération : grille de l'établissement entre plancher et plafond, au prorata de 30 %.</li></ul>
+<h4>Points d'attention</h4><p>Vérifier inscription à l'Ordre et assurance ; définir dans le contrat les missions et l'articulation avec la CPTS ; intérêt stratégique pour le lien ville-hôpital à valoriser dans le projet médical.</p>`},
+{f:'contrat',t:'Contractuel en motif 1 depuis bientôt 2 ans',tag:'Construit',
+e:`Dr M., recrutée le 1er janvier 2025 en motif 1 pour remplacer un PH en congé maternité, a été renouvelée puis réaffectée sur un accroissement d'activité. Au 1er janvier 2027, le besoin est devenu permanent. Le chef de service veut « continuer comme ça ».`,
+c:`<h4>Analyse</h4><ul><li>Motif 1 : 2 ans maximum dans l'établissement → atteint au 31 décembre 2026. Prolonger en motif 1 serait irrégulier.</li><li>Le besoin permanent relève d'un poste de PH. Options : motif 3 si Dr M. prépare le CNPH (3 ans max) ; motif 2 si spécialité en tension prévue au CPOM et 5 ans d'Ordre ; publication du poste au tour de recrutement.</li><li>Plafond global de 6 ans pour les contrats successifs (motifs 1 à 3) dans l'établissement : il reste 4 ans.</li></ul>
+<h4>Décision</h4><p>Déclarer la vacance, rédiger le profil de poste (proposition du chef de service, avis chef de pôle et PCME), proposer un motif 3 à Dr M. avec choix de la rémunération la plus favorable, et l'accompagner vers le concours. Tracer les dates dans un tableau de suivi des durées contractuelles.</p>`},
+{f:'contrat',t:'Classement d’un PH primo-nommé',tag:'Construit',
+e:`Dr B. est nommé PH. Parcours : assistant spécialiste 730 jours à temps plein ; praticien contractuel 487 jours à 80 % ; activité libérale 1 826 jours. Il demande à quel échelon il sera classé.`,
+c:`<h4>Calcul indicatif</h4><ul><li>Assistanat : 730 j.</li><li>Contractuel : 487 × 0,8 = 389,6 j.</li><li>Libéral : 1 826 × 2/3 = 1 217,3 j (12 premières années).</li><li>Total : ≈ 2 336 jours.</li></ul>
+<p>Échelon 4 (de 2 190 à 2 919 jours), ancienneté conservée ≈ 146 jours (4 mois et 26 jours).</p>
+<h4>À dire</h4><p>Le classement est arrêté par le CNG après installation et transmission des attestations de services ; la simulation n'est pas opposable. Si Dr B. hésite entre un contrat et une nomination immédiate, comparer les rémunérations et l'effet de la date de nomination sur l'échelon.</p>`},
+{f:'tt',t:'CET : un praticien veut « tout se faire payer »',tag:'Construit',
+e:`Au 31 décembre 2025, le CET pérenne du Dr C. compte 30 jours ; il a épargné 18 jours en 2025 (dont 5 CA). Il demande le paiement de l'ensemble de son CET avant son départ en mutation en septembre 2026.`,
+c:`<h4>Calcul</h4><ul><li>Solde : 30 + 18 = 48 jours.</li><li>Les 20 premiers jours restent en congés ; l'option porte sur 28 jours.</li><li>Option à exercer avant le 31 mars 2026 : indemnisation à 300 €/jour (28 × 300 = 8 400 € brut au maximum) ou maintien.</li></ul>
+<h4>Réponse</h4><p>Le paiement de la totalité est impossible : 20 jours restent à prendre sous forme de congés. En cas de mutation, les droits et la provision correspondante sont transférés au nouvel établissement. Vérifier le plafond de 208 jours et la limite d'alimentation de 20 jours/an (respectée : 18).</p>`},
+{f:'sic',t:'Anesthésiste : retards, agressivité, suspicion d’alcool',tag:'Construit',
+e:`En trois semaines, le DAM reçoit : deux signalements de retards au bloc, un FEI d'IDE décrivant des propos humiliants, et un courriel du cadre évoquant une « odeur d'alcool » lors d'une garde au cours de laquelle un incident d'intubation est survenu. Le PCME demande « une suspension immédiate et une procédure disciplinaire ». Le Dr A. est PH titulaire.`,
+c:`<h4>Étape 1 : sécuriser</h4><p>Le danger pour les patients peut justifier une suspension conservatoire par le directeur (L6143-7), à condition d'objectiver l'urgence et le risque. Décision écrite, motivée, voies de recours, remise contre récépissé ; information immédiate des DG du CNG et de l'ARS ; pas de retenue sur les émoluments hors indemnités de PDS. Réorganiser la PDS.</p>
+<h4>Étape 2 : lever le doute médical</h4><p>La suspicion d'addiction impose de saisir le comité médical (directeur, après avis du PCME) avant toute procédure : si une pathologie est établie, le praticien relève d'un congé maladie (CLM, CLD) et la discipline est suspendue. Orientation vers la médecine du travail.</p>
+<h4>Étape 3 : établir les faits</h4><p>Enquête administrative coordonnée par le DAM : entretiens contradictoires avec comptes rendus, témoignages datés et signés, FEI, analyse de l'incident (RMM), plannings. Demande d'inspection ARS si nécessaire.</p>
+<h4>Étape 4 : orienter</h4><ul><li>Faits fautifs établis, aptitude reconnue → saisine du CNG pour procédure disciplinaire, sans proposer de sanction.</li><li>Incapacité sans faute → insuffisance professionnelle.</li><li>Infraction pénale (mise en danger, violence) → article 40 CPP.</li></ul>
+<div class="box vigil"><span class="lbl">Erreurs à éviter</span><p>Suspendre pour de simples difficultés relationnelles ; annoncer une sanction (compétence du DG CNG) ; engager la discipline sans avis du comité médical alors qu'une pathologie est suspectée ; dossier non daté ou non signé.</p></div>`},
+{f:'sic',t:'Urgentiste agressé par un accompagnant',tag:'Construit',
+e:`La nuit dernière, le Dr U., PH urgentiste, a été frappé par l'accompagnant d'un patient ; des menaces nominatives circulent depuis sur un réseau social. Il demande « que l'hôpital le défende ».`,
+c:`<h4>Qualification</h4><p>Agent victime de violences et de menaces en raison de ses fonctions : conditions de la protection fonctionnelle réunies (art. 11 loi du 13 juillet 1983, étendu aux praticiens par L6152-4).</p>
+<h4>Actions</h4><ul><li>Décision d'octroi par le directeur, précisant les modalités : prise en charge des frais d'avocat et de procédure, accompagnement au dépôt de plainte, réparation des préjudices.</li><li>Mesures de protection immédiates : sécurité, retrait temporaire des plannings exposés si souhaité, signalement des contenus aux plateformes.</li><li>Déclaration d'accident de service ; soutien psychologique.</li><li>Plainte de l'établissement et signalement au procureur (art. 40 CPP).</li><li>Analyse en CME et CHSCT/F3SCT ; plan de sécurité des urgences.</li></ul>
+<h4>Repère</h4><p>Si le directeur était lui-même en conflit avec le praticien, la demande serait transmise au DG ARS (impartialité, CE 29 juin 2020).</p>`},
+{f:'sic',t:'Conflit durable entre deux chirurgiens',tag:'Construit',
+e:`Deux PH de chirurgie digestive ne se parlent plus depuis un an ; les équipes contournent l'un d'eux ; aucun incident patient n'est documenté. Le chef de pôle demande la mutation de l'un des deux « par sanction ».`,
+c:`<h4>Analyse</h4><ul><li>Absence de faute établie et de danger : ni sanction ni suspension justifiées (des difficultés relationnelles ne suffisent pas).</li><li>La recherche d'affectation n'est pas un outil de règlement des conflits.</li></ul>
+<h4>Gradation</h4><ol><li>Conciliation locale (tiers interne ou externe), formalisée et tracée.</li><li>Échec ou conflit &gt; 6 mois : médiation régionale, saisie pour des médecins par le PCME conjointement avec le directeur ; contrat de médiation sous 3 mois ; puis médiation nationale.</li><li>Blocage persistant préjudiciable au service : demande de détachement d'office au CNG, sur dossier étayé (5 ans, 2 mois pour rejoindre le poste).</li><li>Si des fautes apparaissent : discipline (la mutation d'office est la 5ᵉ sanction, prononcée par le DG CNG).</li></ol>`},
+{f:'junior',t:'Des internes dépassent les 48 heures',tag:'Construit',
+e:`Le représentant des internes en COPS présente un relevé : en chirurgie viscérale, les internes travaillent 60 h par semaine en moyenne et n'ont pas pris leur repos de sécurité à trois reprises. Le coordonnateur du DES menace de demander le retrait de l'agrément.`,
+c:`<h4>Cadre</h4><ul><li>9 DJ/semaine, 48 h max en moyenne sur le trimestre ; repos de sécurité obligatoire après une garde.</li><li>CE 22 juin 2022 n° 446917 : dispositif fiable de décompte horaire obligatoire.</li><li>Recours de l'interne : directeur ou doyen, puis DG ARS ; sanctions financières ou retrait d'agrément.</li></ul>
+<h4>Actions DAM</h4><ul><li>Objectiver : tableaux de service nominatifs, relevés mensuels et trimestriels, badgeuse ou déclaratif horodaté.</li><li>Corriger : réorganisation des tâches (secrétariat, IPA, PA), rappel au chef de service de la responsabilité d'encadrement, interdiction de programmer le lendemain de garde.</li><li>Associer : PCME, référent des internes, association des internes, coordonnateur du DES.</li><li>Suivre en COPS et en CME ; enjeu d'attractivité lors de la commission de répartition.</li></ul>`},
+{f:'junior',t:'Un docteur junior veut prendre des gardes seniors',tag:'Construit',
+e:`Dr J., docteur junior en médecine d'urgence, propose de tenir des gardes seniors pour combler des lignes vacantes et demande à être payé en TTA.`,
+c:`<h4>Réponse</h4><ul><li>Participation possible à la PDS senior sur la base du volontariat, après accord du chef de service et du coordonnateur du DES, dans les spécialités prévues par l'arrêté du 15 janvier 2020.</li><li>Autonomie supervisée : un senior doit pouvoir être joint à tout moment, ce qui impose une astreinte de supervision.</li><li>Pas de TTA pour les docteurs juniors ; rémunération selon l'arrêté sur les indemnités de garde des étudiants de 3ᵉ cycle.</li><li>Effet de bord : un junior de moins sur la ligne de garde des internes.</li></ul>
+<h4>Vigilance</h4><p>Ne pas faire du docteur junior un palliatif structurel : la vacance de lignes relève d'un plan de recrutement et du schéma territorial de PDSES.</p>`},
+{f:'contrat',t:'Un PH à 80 % veut 2 demi-journées de libéral',tag:'Construit',
+e:`Dr L., PH chirurgien orthopédiste à 80 %, demande à exercer 2 DJ d'activité libérale par semaine dans l'établissement. Son activité publique personnelle représente 900 actes par an ; il prévoit 1 000 actes libéraux.`,
+c:`<h4>Analyse</h4><ul><li>Éligibilité : PH à 80 % au moins → oui.</li><li>Durée : 20 % de ses obligations ; pour un praticien à 80 %, 1 DJ par semaine, et non 2.</li><li>Volume : les actes libéraux doivent rester inférieurs aux actes publics réalisés personnellement → 1 000 &gt; 900 : refus en l'état.</li></ul>
+<h4>Procédure</h4><p>Contrat de 5 ans avec le directeur, avis du PCME et du chef de pôle, approbation du DG ARS (tacite à 2 mois) ; redevance ; contrôle par la commission de l'activité libérale, qui peut saisir le DG ARS (suspension jusqu'à 2 ans ou retrait). Proposer un contrat à 1 DJ avec engagement de volumes et d'affichage des honoraires.</p>`},
+{f:'tt',t:'Lire un tableau de service sur 4 semaines',tag:'Construit',
+e:`Période de 4 semaines (20 jours ouvrés) comprenant 1 jour férié en semaine. Le Dr T., PH temps plein en décompte en DJ, a pris 2 jours de CA. Il a assuré 3 gardes de nuit en semaine, chacune suivie d'un jour de repos de sécurité, une matinée le samedi et 1 jour de formation (FMC) un jour de semaine. Les autres jours ouvrés, il a travaillé la journée complète. Déterminez ses obligations de service, le réalisé et l'éventuel temps additionnel.`,
+c:`<h4>Obligations de la période</h4><p>20 jours ouvrés − 1 férié − 2 CA = 17 jours, soit <b>34 DJ</b>.</p>
+<h4>Réalisé</h4><ul><li>Jours de semaine disponibles : 17, dont 3 jours de repos de sécurité non travaillés → 14 jours, FMC comprise (la formation entre dans les obligations de service) = 28 DJ.</li><li>3 nuits de garde = 6 DJ (1 nuit = 2 DJ).</li><li>Samedi matin = 1 DJ.</li><li>Total : <b>35 DJ</b>.</li></ul>
+<h4>Conclusion</h4><p>Dépassement de 1 DJ. Il ne devient du TTA qu'au bilan du quadrimestre, si les obligations de toute la période sont réalisées et si un contrat de TTA existe : 1 DJ = ½ plage, soit 167,79 € ou une récupération, ou un versement au CET (1 plage = 2 DJ).</p>
+<div class="box vigil"><span class="lbl">À vérifier aussi</span><p>Le décompte en DJ ne garantit pas les 48 h : 3 nuits de garde plus 14 journées longues peuvent dépasser la limite. Depuis CE 22 juin 2022, le dispositif doit aussi décompter les heures. Les jours de repos de sécurité ne sont ni des absences à rattraper ni des DJ travaillées.</p></div>`},
+{f:'junior',t:'Temps de présence d’un interne sur un semestre',tag:'Cours, chiffré',
+e:`Calculez le temps de présence en stage d'un interne sur un semestre de 26 semaines. Hypothèses : 8 DJ en stage par semaine ; 15 jours ouvrables de congés pris sur le semestre ; 4 jours fériés tombant en semaine ; 1 garde de nuit par semaine pendant 20 semaines, chacune suivie d'un repos de sécurité d'une journée sur un jour de stage.`,
+c:`<h4>Calcul</h4><ul><li>Théorique : 26 × 8 = 208 DJ en stage.</li><li>Congés : 15 jours ouvrables = 2,5 semaines → 2,5 × 8 = − 20 DJ.</li><li>Fériés : 4 × 2 = − 8 DJ.</li><li>Repos de sécurité : 20 × 2 = − 40 DJ.</li><li>Présence en journée dans le service : <b>140 DJ</b>, soit environ 67 % du théorique.</li></ul>
+<h4>Lecture DAM</h4><p>Les 20 gardes représentent 40 DJ de travail de nuit, ce qui ramène le temps de travail total à 180 DJ. Pour le service, un interne vaut environ 5,4 DJ de présence de jour par semaine : à intégrer dans le calcul du nombre d'internes demandés en commission de répartition, et dans l'organisation des seniors. Un semestre ne compte pas toujours 26 semaines pleines : la date de début est le 1er lundi de novembre ou de mai.</p>`},
+{f:'remu',t:'Paie mensuelle d’un PH chef de service',tag:'Construit',
+e:`Dr H., PH temps plein à l'échelon 6 (71 162,83 € brut/an), sans activité libérale, chef de service, a assuré 4 gardes de nuit en mars. Il a par ailleurs généré 2 demi-plages de TTA sur le 1er quadrimestre. Quelle est sa rémunération brute de mars, et quand le TTA est-il versé ?`,
+c:`<div class="tbl"><table><tr><th>Élément</th><th>Calcul</th><th>Montant</th></tr><tr><td>Émoluments</td><td class="num">71 162,83 ÷ 12</td><td class="num">5 930,24 €</td></tr><tr><td>IESPE</td><td>Temps plein, pas de libéral</td><td class="num">1 010,00 €</td></tr><tr><td>Indemnité de chef de service</td><td></td><td class="num">200,00 €</td></tr><tr><td>Gardes</td><td class="num">4 × 422,03</td><td class="num">1 688,12 €</td></tr><tr><td><b>Total mars</b></td><td></td><td class="num"><b>8 828,36 €</b></td></tr></table></div>
+<p>Le TTA (2 × 167,79 = 335,58 €) est versé à la clôture du quadrimestre (janvier-avril), donc sur une paie de mai ou juin selon le calendrier de l'établissement, après constatation du service fait sur le tableau réalisé.</p>
+<p class="small">S'il devenait aussi chef de pôle, l'indemnité passerait à 600 € (200 + 400), sous le plafond de cumul de 1 000 €.</p>`},
+{f:'remu',t:'Anesthésiste en fin d’assistanat : quelle offre ?',tag:'Construit',
+e:`Dr N., anesthésiste-réanimateur, termine son assistanat dans votre CH, où la spécialité est en tension. Il passera le concours de PH à la prochaine session. Un établissement privé lui propose 90 000 €. Construisez l'offre la plus attractive et légale.`,
+c:`<h4>Qualification</h4><p>Pas encore inscrit sur la liste d'aptitude : nomination PH impossible pour l'instant. Pas de remplacement à assurer : le motif 1 ne correspond pas. Motif 2 seulement s'il a 5 ans d'inscription à l'Ordre et si le CPOM le prévoit (peu probable en sortie d'assistanat).</p>
+<h4>Offre</h4><ul><li><b>Motif 3</b> à temps plein, en haut de la grille de l'établissement (plafond du fixe : 71 162,83 €).</li><li><b>PECH 30 000 €</b> (anesthésie-réanimation en tension nationale, et locale) : engagement à passer le concours puis à exercer 3 ans comme PH ; versée en 2 fois, la seconde à la nomination.</li><li>PDS rémunérée en plus (gardes 422,03 €), TTA sur contrat.</li><li>Après nomination : échelon fixé avec reprise de l'assistanat et du contrat, plus IESPE (12 120 €/an).</li></ul>
+<h4>Ordre de grandeur</h4><p>Année 1 : 71 162,83 + 15 000 = 86 162,83 € avant PDS. Après nomination à l'échelon 3 : 62 148,07 + 12 120 = 74 268,07 € avant PDS, plus 15 000 € de PECH. Arguments non financiers : temps continu possible en anesthésie, valences non cliniques, formation, projet de service.</p>
+<div class="box vigil"><span class="lbl">Limite</span><p>Ne pas promettre un motif 2 ou un niveau de rémunération hors plafond : le comptable public et l'ARS contrôlent, et le motif 2 est encadré par le CPOM.</p></div>`},
+{f:'remu',t:'Motif 2 : régulariser la part variable',tag:'Construit',
+e:`Dr V., radiologue en motif 2 à temps plein, perçoit un fixe de 71 162,83 € et une part variable contractuelle de 36 000 €, versée en acomptes de 3 000 € par mois. Trois objectifs pondérés à parts égales figuraient au contrat (délai de rendu des examens, participation à la PDS de territoire, mise en place de la téléradiologie). À l'évaluation annuelle, le chef de service constate que 2 objectifs sur 3 sont atteints.`,
+c:`<h4>Vérifications</h4><ul><li>Total contractuel : 71 162,83 + 36 000 = 107 162,83 € ≤ 119 130 € : conforme.</li><li>Évaluation par le chef de service (à défaut chef de pôle) au bout d'un an ; le directeur fixe le montant définitif.</li></ul>
+<h4>Calcul</h4><p>Part variable due : 36 000 × 2/3 = <b>24 000 €</b>. Acomptes versés : 36 000 €. Trop-perçu : <b>12 000 €</b>, à récupérer par titre de recette ou retenues échelonnées après information du praticien.</p>
+<h4>Gestion</h4><p>Entretien avec le praticien et le chef de service, notification écrite et motivée, plan d'étalement ; revoir les objectifs pour l'année suivante (mesurables, avec les moyens associés). Si le résultat est notoirement insuffisant, un licenciement sans indemnité ni préavis est possible, mais la mesure se fonde sur les objectifs écrits.</p>`},
+{f:'remu',t:'Contractuel à temps partiel : paie et fin de contrat',tag:'Construit',
+e:`Dr K., urgentiste en motif 1 à 60 %, est placée sur la grille de l'établissement à 55 000 € brut annuels (base temps plein). En juin, elle a assuré 2 gardes de nuit. Son contrat de 6 mois s'achève fin juin sans renouvellement. Calculez sa paie de juin et dites si une indemnité de fin de contrat est due.`,
+c:`<ul><li>Émoluments : 55 000 × 0,6 ÷ 12 = <b>2 750,00 €</b> (dans la fourchette 41 386,48 à 71 162,83 € à temps plein).</li><li>Pas d'IESPE pour un contractuel.</li><li>Gardes : 2 × 422,03 = <b>844,06 €</b> (en temps continu aux urgences, une nuit vaut au plus 14 h).</li><li>Total juin : <b>3 594,06 €</b>, avant solde des congés non pris le cas échéant.</li></ul>
+<h4>Fin de contrat</h4><p>Indemnité de précarité due en principe à l'échéance d'un CDD non renouvelé, sauf exclusions (rémunération supérieure de plus de 30 % au plancher, lauréat qui ne candidate pas sur un poste ouvert dans son établissement). Seuil : 41 386,48 × 1,3 = 53 802,42 €. Sur la base temps plein (55 000 €), Dr K. le dépasse et l'indemnité ne serait pas due ; sur les émoluments réellement perçus (33 000 €/an), elle le serait. Le texte (article R6152 relatif à l'indemnité de fin de contrat) est à vérifier sur ce point : dans une copie, exposer les deux lectures et retenir celle du texte.</p>`},
+{f:'annale',t:'Trois médecins à diplôme hors UE : quel recrutement ?',tag:'Sujet 2025 · Q4',
+e:`Pour chaque situation, choisir parmi stagiaire associé, FFI, praticien associé, PACT.<br>• <b>Dr Emile</b> : burundais, domicilié au Burundi, médecin généraliste (2018), 6 ans d'exercice à temps plein en santé mentale au Burundi ; projet : approfondir ses connaissances en santé mentale.<br>• <b>Dr Patricia</b> : congolaise, domiciliée au Congo, diplômée en 2021, médecin consultante en psychiatrie puis pédopsychiatrie à temps plein depuis janvier 2022 ; s'inscrit aux prochaines EVC.<br>• <b>Dr Anatole</b> : togolais, domicilié à Bourges, DES de chirurgie générale (Togo), FFI en France de 2020 à 2024 ; lauréat des EVC 2024 sur liste principale ; projet d'installation durable.`,
+c:`<h4>Grille de lecture</h4><div class="tbl"><table><tr><th>Projet du candidat</th><th>Statut</th></tr><tr><td>Formation complémentaire puis retour, accord de coopération</td><td>Stagiaire associé (6 mois renouvelable une fois, 2 ans max en France, convention visée par le préfet)</td></tr><tr><td>Inscrit en DFMS ou DFMSA à l'université</td><td>FFI</td></tr><tr><td>≥ 3 ans d'exercice à temps plein dont 1 an dans les 3 dernières années, engagement à passer les EVC</td><td>PACT (attestation d'exercice provisoire de l'ARS, 13 mois renouvelable une fois)</td></tr><tr><td>Lauréat des EVC</td><td>Praticien associé (parcours de consolidation des compétences de 2 ans, affectation par le CNG)</td></tr></table></div>
+<h4>Réponses</h4><ul><li><b>Dr Emile</b> : <b>stagiaire associé</b>, son projet étant la formation, dans le cadre d'une convention de coopération ; <b>FFI</b> s'il s'inscrit en DFMSA. Il remplirait la condition d'expérience du PACT, mais ce statut suppose de s'engager à passer les EVC, ce qui ne correspond pas à son projet. Titre de séjour requis dans tous les cas.</li><li><b>Dr Patricia</b> : <b>PACT</b>. Plus de 3 ans d'exercice à temps plein dont la dernière année, inscription aux EVC ; l'établissement s'engage sur l'encadrement, l'ARS délivre l'attestation provisoire. Pas praticien associé tant qu'elle n'est pas lauréate.</li><li><b>Dr Anatole</b> : <b>praticien associé</b>. Lauréat des EVC : il candidate sur un poste ouvert par la DGOS, l'établissement le choisit, le CNG l'affecte (dans les 6 mois des résultats), puis il effectue son parcours de consolidation. Le PACT et le statut de FFI ne sont plus adaptés.</li></ul>`},
+{f:'annale',t:'Dr Bonsouffle, pneumologue : quel contrat et quelle rémunération ?',tag:'Sujet 2025 · Q5.3',
+e:`Thèse le 20/09/2021, DES de pneumologie et FST de cancérologie le 15/10/2022. Docteur junior 2021-2022 ; assistant partagé CHU de Caen / CH Saint-Lô du 1/11/2022 au 31/10/2023 ; mission humanitaire du 1/11/2023 au 31/10/2024 ; praticien contractuel au CH de Cherbourg du 1/1/2025 au 30/06/2025. Candidat sur un poste vacant (départ en retraite) au 1er juillet 2025 ; veut passer le concours de PH à la prochaine session. Politique de l'établissement : nomination PH sur poste vacant après 2 ans de contrat. Grille fournie : échelon 1 4 633,98 €, échelon 2 4 840,20 €, échelon 3 5 179,01 €, échelon 4 5 547,26 € (2 ans par échelon).`,
+c:`<h4>Contrat</h4><ul><li><b>Motif 3</b> (dans l'attente de l'inscription sur la liste d'aptitude) : poste permanent, projet de concours. Durée de 2 ans conforme à la politique de l'établissement (3 ans max).</li><li>Motif 1 écarté : il ne s'agit ni d'un remplacement ni d'un surcroît temporaire. Motif 2 écarté : inscription de plein exercice à l'Ordre en 2022 (le tableau spécial des docteurs juniors ne compte pas), donc moins de 5 ans.</li><li>Le contrat de Cherbourg est conclu dans un autre établissement : il ne s'impute pas sur les 6 ans.</li></ul>
+<h4>Rémunération</h4><ul><li>Reprise : assistanat 365 j + contrat 181 j = 546 j. Docteur junior et mission humanitaire non repris (sauf cadre de coopération figurant dans la liste du CNG).</li><li>Alignement sur l'<b>échelon 1, soit 4 633,98 € brut mensuel</b>, avec 546 j d'ancienneté conservée : passage à l'échelon 2 (4 840,20 €) après 184 jours, soit début janvier 2026.</li><li>Pas d'IESPE en contrat. En sus : PDS, TTA ; PET si exercice multisite ; PECH de 20 000 € seulement si la pneumologie est déclarée en tension locale (elle ne figure pas dans la liste nationale).</li></ul>
+<p class="small">À la nomination (juillet 2027), son ancienneté atteindra environ 1 276 jours : échelon 2 de PH.</p>`},
+{f:'annale',t:'Dr Canule, anesthésiste : le motif 3 est-il faisable ?',tag:'Sujet 2025 · Q5.4',
+e:`Thèse septembre 2019, DES d'anesthésie-réanimation octobre 2019. CCA à Nancy puis Besançon du 1/11/2019 au 31/10/2022 ; anesthésiste remplaçant à 80 % en clinique du 1/11/2022 au 31/10/2025. A passé le concours de PH en avril 2025 ; veut un temps plein et 6 800 € brut mensuels ; souhaite rejoindre le CHU de Rennes au 1er novembre 2025. L'établissement envisage un motif 3 avec nomination après 1 an, sur un poste partagé 60 % Rennes / 40 % Fougères.`,
+c:`<h4>Faisabilité du motif 3</h4><p>Non adaptée : le motif 3 couvre l'attente de l'inscription sur la liste d'aptitude. Ayant passé le concours en avril 2025, il est inscrit sur la liste (si lauréat) : il peut être nommé PH directement sur le poste vacant (tour de recrutement ou publication entre deux tours). De plus, un contractuel est plafonné à 5 930,24 € brut mensuels de fixe hors motif 2, en dessous de sa demande.</p>
+<h4>Proposition principale : nomination PH</h4><ul><li>Reprise : CCA 1 096 j ; remplacements libéraux 1 096 j × 80 % × 2/3 = 584 j ; total ≈ 1 680 j → <b>échelon 3</b> (220 j conservés).</li><li>Rémunération : 5 179,01 € + IESPE 1 010 € + PET pour 4 DJ par semaine à Fougères (750 € selon vos notes) = <b>6 939,01 € brut mensuels</b>, supérieur aux 6 800 € demandés, avant PDS.</li></ul>
+<h4>Alternative si un contrat est maintenu</h4><p>Motif 2, s'il est prévu au CPOM : inscription à l'Ordre depuis 2019, soit plus de 5 ans. Fixe 71 162,83 € et part variable sur objectifs (dont l'exercice à Fougères) : 6 800 × 12 = 81 600 €, sous le plafond de 119 130 €. Solution plus fragile et soumise au regard de l'ARS : la nomination est préférable.</p>`},
+{f:'annale',t:'Éligibilité au motif 2 : Dr Iris et Dr Broche',tag:'Sujet 2025 · Q5.5',
+e:`<b>Dr Iris</b> : thèse le 12/09/2020, DES d'ophtalmologie le 25/10/2021 ; assistant partagé CHU de Nantes / CH de Cholet du 1/11/2021 au 30/10/2023 ; remplaçant libéral depuis. Projet : motif 2 au CH de Lorient en novembre 2025.<br><b>Dr Broche</b> : DES de chirurgie orthopédique à Bruxelles en octobre 2018 ; assistant partagé CHU de Rennes / CH de Saint-Brieuc de mai 2019 à avril 2020 ; praticien contractuel à Saint-Brieuc de mai 2020 à avril 2022, puis en motif 2 de mai 2022 à avril 2026. Demande : renouvellement du motif 2 pour 3 ans, de mai 2026 à avril 2029.`,
+c:`<h4>Dr Iris : non</h4><p>Inscription de plein exercice à l'Ordre au plus tôt fin 2021 : environ 4 ans en novembre 2025, en dessous des 5 ans exigés (R6152-336). Alternatives : motif 3 avec préparation du concours, ou motif 1 si un remplacement existe ; réexamen du motif 2 fin 2026.</p>
+<h4>Dr Broche : non recevable en l'état</h4><ul><li>Ancienneté d'inscription : plus de 5 ans, condition remplie.</li><li>Durée : contrats successifs à Saint-Brieuc depuis mai 2020, soit 6 ans en avril 2026 ; le plafond de 6 ans pour les motifs 1 à 3 dans le même établissement est atteint. Le motif 2 seul totaliserait 4 + 3 = 7 ans, au-delà de 6. L'assistanat ne compte pas.</li><li>Le renouvellement intervient après le 6 décembre 2024 : les règles du décret 2024-1133 s'appliquent.</li></ul>
+<p>Solutions : nomination comme PH (concours puis poste), ou exercice dans un autre établissement.</p>`},
+{f:'annale',t:'Dr Ocytocine : reclassement à la nomination',tag:'Sujet 2025 · Q5.6',
+e:`Assistant partagé CHU de Brest / CH de Carhaix du 1/5/2018 au 30/4/2020 ; mission humanitaire de juin à décembre 2020 ; en 2021-2022, exercice libéral à mi-temps et praticien contractuel à mi-temps au CH de Morlaix ; praticien contractuel temps plein en motif 2 du 1/1/2023 au 31/12/2025. Nommée PH le 1er janvier 2026. Calculer l'échelon et la rémunération.`,
+c:`<div class="tbl"><table><tr><th>Période</th><th>Calcul</th><th>Jours repris</th></tr><tr><td>Assistanat</td><td class="num">731 × 100 %</td><td class="num">731</td></tr><tr><td>Humanitaire</td><td>Non repris</td><td class="num">0</td></tr><tr><td>Contractuel 2021-2022</td><td class="num">730 × 50 %</td><td class="num">365</td></tr><tr><td>Libéral 2021-2022</td><td class="num">730 × 50 % × 2/3</td><td class="num">243</td></tr><tr><td>Motif 2, 2023-2025</td><td class="num">1 096 × 100 %</td><td class="num">1 096</td></tr><tr><td><b>Total</b></td><td></td><td class="num"><b>2 435</b></td></tr></table></div>
+<p>Sur 2021-2022, les deux activités cumulées restent dans la limite de 100 % sur une même période.</p>
+<p><b>Échelon 4</b> (de 2 190 à 2 919 jours), ancienneté conservée 245 jours. Rémunération : <b>5 547,26 € brut mensuel</b> + IESPE 1 010 € = 6 557,26 €. Passage à l'échelon 5 après 485 jours, vers mai 2027.</p>
+<p class="small">L'humanitaire n'est repris que s'il relève d'un cadre de la liste du CNG (coopération du ministère des affaires étrangères). Classement définitif par arrêté du CNG.</p>`},
+{f:'annale',t:'Anesthésistes : passer de 48 h à 40 h',tag:'Sujet 2025 · Q6.1',
+e:`Les anesthésistes, en temps continu sur une base de 48 h cliniques par semaine, demandent 40 h comme dans les établissements voisins. Le service compte 1 poste 24 h sur 24, 7 jours sur 7, et 1 poste de jour de 12 h, 5 jours sur 7. 210 jours travaillés sur l'année. Calculer le besoin en ETP actuel (48 h) et futur (40 h).`,
+c:`<h4>Besoin annuel</h4><ul><li>Poste 24 h : 24 × 365 = 8 760 h.</li><li>Poste de jour : 12 × 5 × 52 = 3 120 h.</li><li>Total : <b>11 880 h</b>.</li></ul>
+<h4>ETP</h4><ul><li>À 48 h : 48 ÷ 5 = 9,6 h/jour × 210 = 2 016 h par ETP → 11 880 ÷ 2 016 = <b>5,89 ETP</b>.</li><li>À 40 h : 8 h/jour × 210 = 1 680 h → 11 880 ÷ 1 680 = <b>7,07 ETP</b>.</li><li>Écart : + 1,18 ETP, soit + 20 %.</li></ul>
+<h4>Éléments de négociation</h4><p>Coût d'un ETP supplémentaire, capacité à recruter, effet sur le TTA ; alignement territorial au sein du GHT ; possibilité d'une étape intermédiaire ; avis de la COPS et de la CME, bilan à un an.</p>`},
+{f:'annale',t:'Astreintes d’orthopédie en juin (ancien régime)',tag:'Sujet 2025 · Q6.2',
+e:`Praticien 1 : mercredi 4 juin, 3 appels de 10 min et 1 déplacement de 3h40 ; dimanche 8 juin, 5 appels de 20 min, 1 déplacement de 2h et 1 de 1h ; samedi 21 juin, 1 déplacement de 1h20 et 1 de 50 min. Praticien 2 : lundi 2 juin, 1 appel de 15 min et 1 déplacement de 40 min ; dimanche 22 juin, 5 appels et 1 déplacement de 3h, 1 de 2h25. ½ indemnité de sujétion = 140,67 € ; ½ plage de TTA = 167,79 €. Déterminer ce qui est payé sur la paie de juillet, en TTA en fin de quadrimestre, et le reliquat.`,
+c:`<h4>Règles (régime antérieur au 1er novembre 2025)</h4><p>Les appels téléphoniques ne sont pas décomptés (c'était l'une des limites de l'ancien système). Trajet 1 h par déplacement, 2 h max par astreinte ; déplacement de 3 h ou plus compté 5 h ; arrondi à l'heure ; chaque plage de 5 h donne ½ indemnité de sujétion sur la paie du mois suivant et ½ plage de TTA en fin de quadrimestre.</p>
+<div class="tbl"><table><tr><th></th><th>Décompte</th><th>Total</th></tr><tr><td>P1, 4 juin</td><td class="num">3h40 + 1 h → 5 h</td><td class="num">5 h</td></tr><tr><td>P1, 8 juin</td><td class="num">2 h + 1 h = 3 h → 5 h ; 1 h + 1 h = 2 h</td><td class="num">7 h</td></tr><tr><td>P1, 21 juin</td><td class="num">1h20 + 1 h → 2 h ; 0h50 + 1 h → 2 h</td><td class="num">4 h</td></tr><tr><td><b>Praticien 1</b></td><td></td><td class="num"><b>16 h</b></td></tr><tr><td>P2, 2 juin</td><td class="num">0h40 + 1 h → 2 h</td><td class="num">2 h</td></tr><tr><td>P2, 22 juin</td><td class="num">3 h + 1 h → 5 h ; 2h25 + 1 h → 5 h</td><td class="num">10 h</td></tr><tr><td><b>Praticien 2</b></td><td></td><td class="num"><b>12 h</b></td></tr></table></div>
+<ul><li>Praticien 1 : 3 plages de 5 h → 3 × 140,67 = <b>422,01 €</b> en juillet ; 3 × 167,79 = <b>503,37 €</b> en fin de quadrimestre ; <b>reliquat 1 h</b>.</li><li>Praticien 2 : 2 plages → <b>281,34 €</b> en juillet ; <b>335,58 €</b> en fin de quadrimestre ; <b>reliquat 2 h</b>.</li></ul>
+<div class="box vigil"><span class="lbl">Pour mardi</span><p>Depuis le 1er novembre 2025, l'indemnité de sujétion est supprimée : l'astreinte est payée au forfait de la ligne (70 à 280 €) et les plages de 5 h restent converties en TTA. Le dimanche de 24 h peut être découpé en deux périodes : énoncer l'hypothèse retenue.</p></div>`}
+];
+const list=document.getElementById('caseList');
+function renderCases(f){list.innerHTML='';CASES.forEach((c,i)=>{if(f!=='all'&&c.f!==f)return;const d=document.createElement('details');d.className='case';
+d.innerHTML=`<summary><span class="eyebrow">Cas ${i+1} · ${c.tag}</span><span class="t">${c.t}</span></summary><div class="case-body"><div class="enonce"><p>${c.e}</p></div><details class="cor"><summary>Afficher le corrigé</summary><div class="cor-body">${c.c}</div></details></div>`;list.appendChild(d);});}
+renderCases('all');
+document.querySelectorAll('#caseFilters .chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#caseFilters .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));renderCases(b.dataset.f);}));
+
+/* ---------- quiz ---------- */
+const Q=[
+{th:'statuts',q:'Combien de temps la liste d’aptitude au concours national de PH est-elle valable ?',o:['2 ans','3 ans','4 ans','6 ans'],a:2,x:'4 ans à compter de la publication au JO (R6152-304) : le lauréat doit être nommé et installé dans ce délai.'},
+{th:'statuts',q:'Quelle durée totale maximale pour un contractuel de motif 1 dans un même établissement ?',o:['6 mois','1 an','2 ans','3 ans'],a:2,x:'6 mois renouvelables 6 mois, sans dépasser 2 ans au total (R6152-338 1°).'},
+{th:'statuts',q:'Quelle ancienneté d’inscription à l’Ordre est exigée pour un contrat de motif 2 ?',o:['Aucune','2 ans','3 ans','5 ans'],a:3,x:'5 ans d’inscription (R6152-336) ; le tableau spécial des docteurs juniors ne compte pas.'},
+{th:'statuts',q:'Quelle quotité minimale pour un contrat de motif 2 ?',o:['1 DJ','4 DJ','5 DJ','8 DJ'],a:1,x:'40 %, soit 4 demi-journées par semaine (R6152-349).'},
+{th:'statuts',q:'Quel est le plafond de rémunération brute annuelle d’un motif 2, part variable comprise ?',o:['71 162,83 €','99 810,26 €','119 130 €','148 516 €'],a:2,x:'119 130 € brut par an ; 71 162,83 € est le plafond du fixe des autres motifs (FAQ DGOS déc. 2024).'},
+{th:'statuts',q:'Seul motif permettant un CDI pour un praticien contractuel ?',o:['Motif 1','Motif 2','Motif 3','Motif 4'],a:3,x:'Motif 4 : CDI possible après 3 ans cumulés, de droit après 6 ans sur le même emploi.'},
+{th:'statuts',q:'Un PH en disponibilité peut-il être recruté en motif 2 ?',o:['Oui, ailleurs que dans son établissement','Oui, avec accord de l’ARS','Non','Oui, si la spécialité est en tension'],a:2,x:'L’exclusion vaut quel que soit l’établissement (R6152-338 2°).'},
+{th:'statuts',q:'Quelle quotité minimale ouvre droit à l’activité libérale à l’hôpital ?',o:['50 %','60 %','80 %','100 %'],a:2,x:'PH et HU exerçant au moins 80 % (8 DJ) ; exclue pour les contractuels.'},
+{th:'statuts',q:'Part maximale de l’activité libérale dans la durée de service hebdomadaire ?',o:['10 %','20 %','30 %','49,9 %'],a:1,x:'20 % de la durée de service, soit 2 DJ pour un temps plein, et un nombre d’actes libéraux inférieur aux actes publics.'},
+{th:'statuts',q:'Durée de la période probatoire d’un PH ?',o:['6 mois','1 an d’exercice effectif','2 ans','1 an civil quelle que soit la présence'],a:1,x:'12 mois d’exercice effectif ; maladie, maternité, paternité la suspendent ; entretiens à 6 et 12 mois.'},
+{th:'statuts',q:'En deçà de quelle part de temps à l’hôpital ne peut-on pas être nommé PH ?',o:['40 %','50 %','60 %','80 %'],a:1,x:'Règle rappelée en cours : moins de 50 % du temps à l’hôpital interdit la nomination.'},
+{th:'statuts',q:'Qui est l’employeur principal d’un PU-PH ?',o:['Le CHU','L’ARS','L’université (MESR)','Le CNG'],a:2,x:'Double employeur, l’université étant l’employeur principal ; tout mouvement de carrière passe d’abord par la faculté.'},
+{th:'statuts',q:'Sanction pénale de l’exercice illégal de la médecine ?',o:['1 an et 15 000 €','2 ans et 30 000 €','3 ans et 45 000 €','5 ans et 75 000 €'],a:1,x:'L4161-5 CSP ; l’employeur encourt la complicité.'},
+{th:'statuts',q:'Montant mensuel de l’IESPE pour un PH temps plein ?',o:['606 €','700 €','1 010 €','1 200 €'],a:2,x:'1 010 € brut depuis le 1er mars 2021 ; non versée aux contractuels.'},
+{th:'tt',q:'Combien de demi-journées représente une année de travail d’un PH temps plein ?',o:['390','416','440','520'],a:1,x:'208 jours × 2 = 416 DJ.'},
+{th:'tt',q:'Obligations annuelles d’un praticien en temps continu ?',o:['1 607 h','1 622 h','1 996 h','2 080 h'],a:2,x:'208 jours × 9,6 h = 1 996 h ; 1 622 h correspond à l’ETP posté des urgences (39 h).'},
+{th:'tt',q:'Sur quelle période la limite de 48 h est-elle appréciée pour un senior ?',o:['La semaine','Le mois','Le quadrimestre','Le trimestre'],a:2,x:'4 mois pour les seniors, trimestre pour les internes.'},
+{th:'tt',q:'Montant d’une demi-plage de TTA ?',o:['140,67 €','167,79 €','211,01 €','335,60 €'],a:1,x:'167,79 € ; une plage complète vaut 335,60 €.'},
+{th:'tt',q:'Fourchette réglementaire du forfait d’astreinte depuis le 1er novembre 2025 ?',o:['44,52 à 185,19 €','70 à 280 €','100 à 300 €','35 à 250 €'],a:1,x:'Arrêté du 8 juillet 2025 : forfait fixé par ligne entre 70 et 280 €.'},
+{th:'tt',q:'Part maximale des lignes d’astreinte sur un même forfait ?',o:['20 %','30 %','40 %','50 %'],a:2,x:'40 % maximum, avec au moins 3 forfaits différents.'},
+{th:'tt',q:'Un déplacement en astreinte de 3 h ou plus est compté :',o:['3 h','4 h','5 h trajet inclus','Au réel + 1 h'],a:2,x:'Forfait de 5 h, trajet inclus ; plafond de 10 h par période.'},
+{th:'tt',q:'Plafond du temps de trajet par période d’astreinte ?',o:['1 h','2 h','3 h','Aucun'],a:1,x:'1 h aller-retour par déplacement, 2 h au total par période.'},
+{th:'tt',q:'Combien de DJ de récupération pour 5 astreintes « appels peu fréquents » ?',o:['1','2','3','5'],a:1,x:'2 DJ pour 5 astreintes ; 1 DJ pour 2 astreintes « appels fréquents ou télémédecine » ; 1 DJ par astreinte déplacée.'},
+{th:'tt',q:'Rémunération d’une nuit de garde pour un PH ?',o:['346,71 €','422,03 €','755,81 €','280 €'],a:1,x:'422,03 € brut (PH, PC, assistant) ; 755,81 € pour un HU ; 346,71 € pour un praticien associé.'},
+{th:'tt',q:'Plafond global du CET depuis 2016 ?',o:['60 jours','150 jours','208 jours','300 jours'],a:2,x:'208 jours au total (CET historique + pérenne).'},
+{th:'tt',q:'Date limite d’exercice du droit d’option du CET pérenne ?',o:['31 décembre N','31 janvier N+1','31 mars N+1','30 juin N+1'],a:2,x:'Avant le 31 mars N+1, pour les jours au-delà du 20ᵉ.'},
+{th:'tt',q:'Combien de DJ hebdomadaires constituent le temps de travail effectif d’un interne ?',o:['8','9','10','11'],a:1,x:'9 DJ, 48 h max en moyenne sur le trimestre.'},
+{th:'tt',q:'Quelle loi instaure le schéma régional de PDSES et la responsabilité collective des établissements ?',o:['Loi HPST 2009','Loi RIST 2021','Loi Valletoux 2023','Loi Ma santé 2022'],a:2,x:'Loi n° 2023-1268 du 27 décembre 2023, art. 17, et décret du 3 février 2025.'},
+{th:'tt',q:'Combien de gardes un externe doit-il réaliser au cours du 2ᵉ cycle ?',o:['10','15','25','36'],a:2,x:'25 gardes (arrêté du 17 juin 2013, R6153-47-1).'},
+{th:'sic',q:'Qui inflige un blâme à un PH ?',o:['Le directeur','Le PCME','Le DG du CNG','Le DG ARS'],a:2,x:'Le DG du CNG, avec ou sans conseil de discipline pour les sanctions de 1er niveau.'},
+{th:'sic',q:'Durée maximale de la suspension du droit d’exercer par le DG ARS ?',o:['1 mois','3 mois','5 mois','6 mois'],a:2,x:'5 mois, émoluments maintenus, audition sous 3 jours (L4113-14).'},
+{th:'sic',q:'Une suspension conservatoire par le directeur peut-elle reposer sur des difficultés relationnelles seules ?',o:['Oui','Non, sauf atteinte grave à la prise en charge des patients','Oui avec avis du PCME','Oui si le chef de service la demande'],a:1,x:'Jurisprudence (CAA Nancy 2007) : il faut un péril pour la continuité du service et la sécurité des patients.'},
+{th:'sic',q:'Avant d’engager une procédure contre un praticien soupçonné d’addiction, il faut :',o:['Saisir l’Ordre','Saisir le comité médical','Prononcer un avertissement','Placer en recherche d’affectation'],a:1,x:'Lever le doute sur une pathologie : un praticien inapte relève des congés maladie, pas de la discipline.'},
+{th:'sic',q:'Durée de la recherche d’affectation ?',o:['6 mois','1 an','2 ans','5 ans'],a:2,x:'2 ans, rémunération par le CNG ; impossible en période probatoire, maladie, disponibilité ou détachement.'},
+{th:'sic',q:'Durée du détachement d’office ?',o:['1 an','2 ans','5 ans renouvelable','Indéterminée'],a:2,x:'5 ans renouvelables par tacite reconduction ; 2 mois pour rejoindre le poste.'},
+{th:'sic',q:'Qui statue sur la protection fonctionnelle si le directeur est en conflit avec le praticien ?',o:['Le PCME','Le DG du CNG','Le DG ARS','Le tribunal administratif'],a:2,x:'CE 29 juin 2020 : transmission au DG ARS au nom de l’impartialité.'},
+{th:'sic',q:'La protection fonctionnelle est refusée en cas de :',o:['Faute de service','Faute personnelle détachable du service','Procédure disciplinaire en cours','Suspension'],a:1,x:'Seule la faute personnelle détachable fait obstacle ; l’octroi n’empêche pas la discipline.'},
+{th:'sic',q:'Délai de convocation d’un PH devant le conseil de discipline ?',o:['15 jours','1 mois','2 mois','3 mois'],a:2,x:'Au moins 2 mois avant, par LRAR, avec communication intégrale du dossier.'},
+{th:'remu',q:'Qui peut percevoir la PECH ?',o:['Les PH titulaires','Les contractuels et assistants qui s’engagent à devenir PH','Les internes','Les praticiens associés'],a:1,x:'Engagement à passer le concours et à exercer 3 ans comme PH (décret 2017-326, arrêtés du 23 janvier 2024).'},
+{th:'remu',q:'Montant de la PECH pour une spécialité en tension locale et nationale ?',o:['10 000 €','20 000 €','30 000 €','50 000 €'],a:2,x:'10 000 € tension nationale, 20 000 € tension locale, 30 000 € les deux ; versée en 2 fois.'},
+{th:'remu',q:'Indemnité mensuelle d’un chef de pôle ?',o:['200 €','400 €','600 €','1 000 €'],a:1,x:'Chef de service 200 €, chef de pôle 400 €, PCME/PCMG 600 € ; cumul plafonné à 1 000 €.'},
+{th:'remu',q:'Un praticien contractuel perçoit-il l’IESPE ?',o:['Oui à temps plein','Oui au prorata','Non','Seulement en motif 2'],a:2,x:'L’IESPE est réservée aux PH et assistants sans activité libérale.'},
+{th:'remu',q:'Quand le TTA est-il payé ?',o:['Chaque mois','À chaque fin de quadrimestre','En fin d’année','Au départ du praticien'],a:1,x:'3 fois par an, après constat des obligations de service sur le quadrimestre.'},
+{th:'remu',q:'Plafond du fixe d’un praticien contractuel à temps plein (hors motif 2) ?',o:['55 607,79 €','67 740,25 €','71 162,83 €','119 130 €'],a:2,x:'71 162,83 € brut/an, soit l’échelon 6 de la grille PH ; plancher 41 386,48 €.'},
+{th:'remu',q:'Qui fixe le montant définitif de la part variable d’un motif 2 ?',o:['Le chef de service','Le DG ARS','Le directeur','La CME'],a:2,x:'Évaluation par le chef de service (à défaut chef de pôle), décision du directeur ; les acomptes sont régularisés.'},
+{th:'remu',q:'Garde de nuit d’un praticien associé selon le cours ?',o:['220,02 €','346,71 €','422,03 €','755,81 €'],a:1,x:'346,71 € (demi-garde 173,36 €) ; 422,03 € pour PH, PC et assistants.'},
+{th:'annale',q:'Un PADHUE vient se former 1 an en France dans le cadre d’un accord avec son pays, puis repartira. Statut adapté ?',o:['PACT','Praticien associé','Stagiaire associé','Praticien contractuel motif 1'],a:2,x:'Stagiaire associé : convention de coopération, 6 mois renouvelable une fois, 2 ans max.'},
+{th:'annale',q:'Un PADHUE avec 4 ans d’exercice à temps plein, inscrit aux prochaines EVC, peut être recruté comme :',o:['Praticien associé','PACT','PH contractuel','FFI sans inscription universitaire'],a:1,x:'PACT : 3 ans d’expérience dont 1 an récent, engagement à passer les EVC, attestation provisoire de l’ARS.'},
+{th:'annale',q:'Un lauréat des EVC est recruté comme :',o:['PACT','Stagiaire associé','Praticien associé','Assistant'],a:2,x:'Affectation par le CNG sur un poste ouvert, parcours de consolidation des compétences de 2 ans.'},
+{th:'annale',q:'Durée maximale d’exercice en PACT ?',o:['13 mois','26 mois','2 ans','3 ans'],a:1,x:'13 mois renouvelable une fois.'},
+{th:'annale',q:'Un docteur junior devenu assistant en 2022 : à partir de quand court la condition de 5 ans du motif 2 ?',o:['Depuis la thèse','Depuis l’inscription de plein exercice à l’Ordre','Depuis l’entrée en internat','Depuis l’assistanat seulement'],a:1,x:'Le tableau spécial des docteurs juniors ne compte pas.'},
+{th:'annale',q:'Un PC a enchaîné 2 ans puis 4 ans de motif 2 dans le même CH. Peut-il être renouvelé 3 ans en motif 2 ?',o:['Oui','Oui avec accord de l’ARS','Non, plafond de 6 ans atteint','Oui si le CPOM le prévoit'],a:2,x:'6 ans maximum de contrats successifs (motifs 1 à 3) dans le même établissement ; solution : nomination PH ou autre établissement.'},
+{th:'annale',q:'Un candidat a passé le concours de PH et se trouve sur la liste d’aptitude. Le motif 3 est-il adapté ?',o:['Oui, c’est son objet','Non, il peut être nommé PH sur le poste','Oui pour 3 ans','Oui si la rémunération est meilleure'],a:1,x:'Le motif 3 couvre l’attente de l’inscription sur la liste d’aptitude.'},
+{th:'annale',q:'Comment reprendre 2 ans d’exercice libéral à 50 % pour le classement d’un PH ?',o:['730 j','365 j','243 j','Non repris'],a:2,x:'730 × 50 % × 2/3 = 243 jours (2/3 sur les 12 premières années de libéral).'},
+{th:'annale',q:'Besoin d’un poste 24 h/24 toute l’année en temps continu à 48 h, 210 jours travaillés ?',o:['4,35 ETP','4,56 ETP','5,4 ETP','5,89 ETP'],a:0,x:'8 760 h ÷ (210 × 9,6 h = 2 016 h) = 4,35 ETP.'},
+{th:'annale',q:'Quelle est la particularité de l’assistant en matière de congés ?',o:['Pas de RTT','Congés sans solde pour effectuer des remplacements','11 DJ par semaine','Pas de jours de formation'],a:1,x:'Selon vos notes : 30 jours la 1ʳᵉ année, 45 la 2ᵉ, en plus de 25 CA, 19 RTT et 15 jours de formation.'},
+{th:'annale',q:'Les 3 phases de l’internat sont :',o:['Socle, approfondissement, consolidation','Tronc commun, spécialisation, thèse','Externat, internat, assistanat','Socle, docteur junior, clinicat'],a:0,x:'La phase de consolidation se fait sous statut de docteur junior.'},
+{th:'divers',q:'Qui arrête le tableau de service général annuel ?',o:['Le chef de pôle','La COPS','Le directeur','Le PCME'],a:2,x:'Le directeur arrête les tableaux et constate le service fait ; la COPS donne un avis sur les tableaux mensuels.'},
+{th:'divers',q:'Quelle part minimale des médecins de la COPS doit participer à la PDS ?',o:['Un tiers','La moitié','Deux tiers','Tous'],a:1,x:'Au moins la moitié, dont un praticien en temps continu, plus 2 représentants des internes.'},
+{th:'divers',q:'Plafond de rémunération de l’intérim médical pour 24 h ?',o:['1 170 €','1 389,83 €','1 800 €','2 000 €'],a:1,x:'1 389,83 € brut, contrôle par le comptable public depuis le 3 avril 2023 (loi Rist).'},
+{th:'divers',q:'Depuis le 1er décembre 2025, un médecin ne peut travailler en intérim (ETT) qu’après :',o:['1 an d’exercice','2 ans d’exercice','3 ans d’exercice','Son inscription sur la liste d’aptitude'],a:1,x:'Loi Valletoux, art. 29 : 2 ans d’exercice préalable.'}
+];
+let mode='quiz',deck=[],pos=0,score=0,answered=false,flipped=false;
+const qc=document.getElementById('qcard');
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function build(){const th=document.getElementById('quizTheme').value;deck=shuffle(Q.filter(q=>th==='all'||q.th===th));pos=0;score=0;render();}
+function render(){answered=false;flipped=false;
+ if(pos>=deck.length){qc.className='qcard';qc.innerHTML=`<div class="qtext">Terminé${mode==='quiz'?` : ${score} / ${deck.length}`:''}</div><p>${mode==='quiz'?(score/deck.length>=.8?'Bon niveau : passez aux cas pratiques.':'Relisez les sections du mémo correspondant aux erreurs, puis recommencez.'):'Toutes les cartes ont été vues.'}</p><div class="row"><button class="btn" id="qAgain">Recommencer</button></div>`;document.getElementById('qAgain').onclick=build;return;}
+ const q=deck[pos];const pct=Math.round(pos/deck.length*100);
+ if(mode==='quiz'){qc.className='qcard';
+  qc.innerHTML=`<div class="qmeta"><span>Question ${pos+1} / ${deck.length}</span><span>Score ${score}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div class="qtext">${q.q}</div><div class="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div><div id="qx"></div>`;
+  qc.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(answered)return;answered=true;const i=+b.dataset.i;if(i===q.a)score++;qc.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const k=+x.dataset.i;if(k===q.a)x.classList.add('good');else if(k===i)x.classList.add('bad');});
+   document.getElementById('qx').innerHTML=`<div class="expl"><b>${i===q.a?'Exact.':'Réponse : '+q.o[q.a]+'.'}</b> ${q.x}</div><div class="row" style="margin-top:10px"><button class="btn" id="qn">Question suivante</button></div>`;document.getElementById('qn').onclick=()=>{pos++;render()};document.getElementById('qn').focus();});
+ }else{qc.className='qcard flash';
+  qc.innerHTML=`<div class="qmeta"><span>Carte ${pos+1} / ${deck.length}</span><span>Touchez la carte pour la retourner</span></div><div class="bar"><i style="width:${pct}%"></i></div><div class="qtext" id="fx">${q.q}</div><div id="fb" hidden class="expl"><b>${q.o[q.a]}</b><br>${q.x}</div><div class="row"><button class="btn ghost" id="fp">Précédente</button><button class="btn" id="fn">Suivante</button></div>`;
+  qc.onclick=e=>{if(e.target.closest('button'))return;flipped=!flipped;document.getElementById('fb').hidden=!flipped;};
+  document.getElementById('fn').onclick=()=>{pos++;render()};document.getElementById('fp').onclick=()=>{pos=Math.max(0,pos-1);render()};}
+ if(mode==='quiz')qc.onclick=null;}
+document.getElementById('modeQuiz').onclick=()=>{mode='quiz';document.getElementById('modeQuiz').setAttribute('aria-pressed',true);document.getElementById('modeFlash').setAttribute('aria-pressed',false);build();};
+document.getElementById('modeFlash').onclick=()=>{mode='flash';document.getElementById('modeFlash').setAttribute('aria-pressed',true);document.getElementById('modeQuiz').setAttribute('aria-pressed',false);build();};
+document.getElementById('quizTheme').onchange=build;document.getElementById('quizRestart').onclick=build;
+build();
+
+/* ---------- helpers ---------- */
+const fmt=(n,d=0)=>n.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const kpi=(v,l)=>`<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
+const $=id=>document.getElementById(id);
+
+/* ---------- choix du contrat ---------- */
+function contrat(){const c=id=>$(id).checked;const dj=+$('k-dj').value||0;const out=[];
+ if(!c('k-ordre')){$('k-out').innerHTML=`<div class="v no"><b>Aucun recrutement possible.</b> Sans inscription au tableau de l'Ordre, l'exercice est illégal (L4161-5 CSP) et l'employeur s'expose à la complicité. Un docteur junior relève de son statut d'étudiant.</div>`;return;}
+ if(c('k-liste'))out.push(['ok','Nomination comme PH',`Le candidat est inscrit sur la liste d'aptitude (valable 4 ans) : publier le poste au prochain tour ou entre deux tours, profil de poste, proposition au DG du CNG. ${dj<5?'Attention : moins de 50 % du temps à l’hôpital interdit la nomination.':''}`]);
+ out.push([c('k-temp')?'ok':'no','Motif 1 : remplacement ou accroissement temporaire',c('k-temp')?'6 mois renouvelables 6 mois, 2 ans maximum dans l’établissement ; 1 à 10 DJ ; grille de l’établissement (41 386,48 à 71 162,83 € brut/an à temps plein).':'Suppose un besoin temporaire identifié.']);
+ let m2=[];if(!c('k-diff'))m2.push('besoin non prévu au CPOM ou pas de difficulté de recrutement');if(!c('k-5ans'))m2.push('moins de 5 ans d’inscription à l’Ordre');if(c('k-dispo'))m2.push('PH en disponibilité exclu');if(dj<4)m2.push('quotité inférieure à 4 DJ');
+ out.push([m2.length?'no':'ok','Motif 2 : difficultés de recrutement',m2.length?'Impossible : '+m2.join(' ; ')+'.':'6 mois à 3 ans, renouvelable, 6 ans maximum ; fixe + part variable sur objectifs, total ≤ 119 130 € brut/an ; évaluation annuelle par le chef de service.']);
+ let m3=[];if(!c('k-cnph'))m3.push('pas de projet de concours');if(dj<5)m3.push('quotité inférieure à 5 DJ (selon vos notes)');if(c('k-liste'))m3.push('déjà inscrit sur la liste : privilégier la nomination');
+ out.push([m3.length?'no':'ok','Motif 3 : attente d’inscription sur la liste d’aptitude',m3.length?'Peu adapté : '+m3.join(' ; ')+'.':'3 ans maximum ; levier sur l’échelon et la date de nomination ; préparer le CNPH.']);
+ let m4=[];if(!c('k-ville'))m4.push('pas d’exercice en ville, ESPIC ou privé');if(dj>4)m4.push('quotité supérieure à 4 DJ');
+ out.push([m4.length?'no':'ok','Motif 4 : complément de l’offre de soins',m4.length?'Impossible : '+m4.join(' ; ')+'.':'3 ans max, renouvelable jusqu’à 6 ans ; CDI possible après 3 ans, de droit après 6 ans ; pas de nomination PH ni de libéral à l’hôpital.']);
+ $('k-out').innerHTML=out.map(([s,t,d])=>`<div class="v ${s}"><b>${s==='ok'?'Possible':'Non retenu'} · ${t}</b><br>${d}</div>`).join('')+`<p class="small">Pour tous les motifs 1 à 3 : 6 ans maximum de contrats successifs dans l'établissement (l'assistanat ne compte pas).</p>`;}
+document.querySelectorAll('#c-contrat input').forEach(i=>i.addEventListener('input',contrat));contrat();
+
+/* ---------- astreinte ---------- */
+let rows=[];
+function aRender(){$('a-rows').innerHTML=rows.map((r,i)=>`<div class="dep-row"><label class="f">Déplacement ${i+1} : intervention (h)<input type="number" min="0" id="ah${i}" value="${r.h}"></label><label class="f">et minutes<input type="number" min="0" max="59" id="am${i}" value="${r.m}"></label><button class="btn ghost" data-del="${i}" aria-label="Supprimer le déplacement ${i+1}">Retirer</button></div>`).join('');
+ rows.forEach((r,i)=>{$('ah'+i).oninput=e=>{r.h=+e.target.value||0;aCalc()};$('am'+i).oninput=e=>{r.m=+e.target.value||0;aCalc()};});
+ document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{rows.splice(+b.dataset.del,1);aRender()});aCalc();}
+function roundH(min){const h=Math.floor(min/60),r=min%60;return h+(r>=30?1:0);}
+function aCalc(){let traj=0,tot=0,det='<tr><th>Déplacement</th><th>Intervention</th><th>Trajet</th><th>Durée</th><th>Retenu</th></tr>';
+ rows.forEach((r,i)=>{const iv=r.h*60+r.m;const t=traj<120?60:0;traj+=t;const d=iv+t;const ret=d>=180?5:roundH(d);tot+=ret;
+  det+=`<tr><td>${i+1}</td><td class="num">${r.h}h${String(r.m).padStart(2,'0')}</td><td class="num">${t/60} h</td><td class="num">${Math.floor(d/60)}h${String(d%60).padStart(2,'0')}</td><td class="num">${ret} h${d>=180?' (forfait)':''}</td></tr>`;});
+ const capped=Math.min(tot,10);const rel=+$('a-rel').value||0;const all=capped+rel;const dp=Math.floor(all/5);const reste=all-dp*5;const val=+$('a-tta').value||0;
+ $('a-det').innerHTML=det;
+ $('a-out').innerHTML=kpi(fmt(tot)+' h','Total avant plafond')+kpi(fmt(capped)+' h','Retenu (plafond 10 h)')+kpi(fmt(dp),'½ plages de TTA')+kpi(fmt(dp*val,2)+' €','Indemnisation brute')+kpi(fmt(reste)+' h','Reliquat reporté');}
+function aEx(){rows=[{h:1,m:20},{h:2,m:40},{h:3,m:10}];$('a-rel').value=0;aRender();}
+$('a-add').onclick=()=>{rows.push({h:1,m:0});aRender()};$('a-ex').onclick=aEx;$('a-rel').oninput=aCalc;$('a-tta').oninput=aCalc;aEx();
+
+/* ---------- forfait GHRE ---------- */
+const CRIT=['Activité de bloc ou interventionnelle, ou urgence en psychiatrie','Temps moyen sur place > 3 h au moins 1 fois par semaine','Volume d’astreintes élevé par praticien (équipe ≤ 5)','Appels ou déplacements en nuit profonde (1h-7h) ≥ 1 par semaine','≥ 4 appels par astreinte en moyenne','≥ 2 déplacements par astreinte en moyenne','Actes de télémédecine ou validation d’actes médico-techniques','Sollicitation au titre du territoire'];
+const pre=[0,3,6,7];
+$('f-crit').innerHTML=CRIT.map((c,i)=>`<label><input type="checkbox" id="fc${i}" ${pre.includes(i)?'checked':''}> ${i+1}. ${c}</label>`).join('');
+function fCalc(){const n=CRIT.filter((_,i)=>$('fc'+i).checked).length;const f=n===0?0:70+30*(n-1);const rec=n===0?'-':n<=2?'1 DJ pour 5 astreintes':n<=4?'1 DJ pour 2 astreintes':'1 DJ par astreinte';
+ $('f-out').innerHTML=kpi(n,'Critères remplis')+kpi(n?fmt(f)+' €':'Hors grille','Forfait par astreinte')+kpi(rec,'Option récupération');}
+CRIT.forEach((_,i)=>$('fc'+i).onchange=fCalc);fCalc();
+
+/* ---------- obligations de service ---------- */
+function oCalc(){const s=+$('o-sem').value||0,f=+$('o-fer').value||0,q=(+$('o-q').value||0)/100;const j=s*5-f;
+ $('o-out').innerHTML=kpi(fmt(j),'Jours ouvrés')+kpi(fmt(j*2*q,1)+' DJ','Décompte en DJ')+kpi(fmt(j*9.6*q,1)+' h','Temps continu (9,6 h/j)')+kpi(fmt(j*7.8*q,1)+' h','Urgences : posté')+kpi(fmt(j*1.8*q,1)+' h','Urgences : non posté (max)');}
+['o-sem','o-fer','o-q'].forEach(i=>$(i).oninput=oCalc);oCalc();
+
+/* ---------- ETP ---------- */
+function eCalc(){const pj=+$('e-j').value||0,pn=+$('e-n').value||0,d=+$('e-d').value||0,hj=+$('e-hj').value||0,hn=+$('e-hn').value||0;
+ const djJ=pj*2*d,djN=pn*2*d,hJ=pj*hj*d,hN=pn*hn*d;const eDJ=(djJ+djN)/416,eH=(hJ+hN)/1996;const nDJ=djN/416,nH=hN/1996;
+ $('e-out').innerHTML=kpi(fmt(djJ+djN)+' DJ','Besoin annuel en DJ')+kpi(fmt(eDJ,2),'ETP en demi-journées')+kpi(fmt(hJ+hN)+' h','Besoin annuel en heures')+kpi(fmt(eH,2),'ETP en temps continu')+kpi((eDJ?'+'+fmt((eH/eDJ-1)*100,0):'0')+' %','Écart total')+kpi((nDJ?'+'+fmt((nH/nDJ-1)*100,0):'0')+' %','Écart sur la nuit');}
+['e-j','e-n','e-d','e-hj','e-hn'].forEach(i=>$(i).oninput=eCalc);eCalc();
+
+/* ---------- reprise d'ancienneté ---------- */
+let per=[{t:'s',j:730,q:100,l:'Assistant spécialiste'},{t:'s',j:487,q:80,l:'Praticien contractuel'},{t:'l',j:1826,q:100,l:'Activité libérale'}];
+const START=[0,730,1460,2190,2920,3650,4380,5110,5840,7300,8760,10220,11680];
+function rRender(){$('r-rows').innerHTML=per.map((p,i)=>`<div class="fields"><label class="f">Période ${i+1}<select id="rt${i}"><option value="s" ${p.t==='s'?'selected':''}>Services hospitaliers ou assimilés</option><option value="l" ${p.t==='l'?'selected':''}>Activité libérale</option></select></label><label class="f">Durée (jours)<input type="number" min="0" id="rj${i}" value="${p.j}"></label><label class="f">Quotité (%)<input type="number" min="0" max="100" id="rq${i}" value="${p.q}"></label><label class="f">&nbsp;<button class="btn ghost" data-rdel="${i}">Retirer</button></label></div>`).join('');
+ per.forEach((p,i)=>{$('rt'+i).onchange=e=>{p.t=e.target.value;rCalc()};$('rj'+i).oninput=e=>{p.j=+e.target.value||0;rCalc()};$('rq'+i).oninput=e=>{p.q=+e.target.value||0;rCalc()};});
+ document.querySelectorAll('[data-rdel]').forEach(b=>b.onclick=()=>{per.splice(+b.dataset.rdel,1);rRender()});rCalc();}
+function rCalc(){let tot=0,lib=0;per.forEach(p=>{const d=p.j*Math.min(p.q,100)/100;if(p.t==='s')tot+=d;else{let rest=d;const a=Math.max(0,Math.min(rest,4383-lib));tot+=a*2/3;lib+=a;rest-=a;const b=Math.max(0,Math.min(rest,2922-Math.max(0,lib-4383)));tot+=b/3;lib+=b;}});
+ tot=Math.floor(tot);let e=1;START.forEach((s,i)=>{if(tot>=s)e=i+1});const cons=tot-START[e-1];const y=Math.floor(cons/365),m=Math.floor((cons-y*365)/30),dd=cons-y*365-m*30;
+ $('r-out').innerHTML=kpi(fmt(tot)+' j','Ancienneté reprise')+kpi('Échelon '+e,'Classement indicatif')+kpi(`${y} a ${m} m ${dd} j`,'Ancienneté conservée')+kpi(e<13?fmt(START[e]-tot)+' j':'-','Avant l’échelon suivant');}
+$('r-add').onclick=()=>{per.push({t:'s',j:365,q:100});rRender()};rRender();
+
+/* ---------- paie ---------- */
+const GRILLE=[55607.79,58082.41,62148.07,66567.09,68688.21,71162.83,76465.74,79647.54,90549.14,94557.64,99810.26,105062.89,112416.56];
+$('p-ech').innerHTML=GRILLE.map((v,i)=>`<option value="${i}" ${i===5?'selected':''}>Échelon ${i+1} · ${fmt(v,2)} €</option>`).join('');
+$('p-ann').value=GRILLE[5];
+function pCalc(){const st=$('p-st').value;$('p-ech').disabled=st!=='ph';
+ const q=Math.min(+$('p-q').value||0,100)/100;const ann=+$('p-ann').value||0;let warn='';
+ if(st==='pc'&&(ann<41386.48||ann>71162.83))warn='Hors fourchette des contractuels (41 386,48 à 71 162,83 € hors motif 2).';
+ const em=ann*q/12;const iespe=(st==='pc'||$('p-lib').checked)?0:(q>=1?1010:606);
+ const pds=(+$('p-g').value||0)*422.03+(+$('p-dg').value||0)*211.01+(+$('p-a').value||0)*(+$('p-af').value||0);
+ const man=Math.min(($('p-cs').checked?200:0)+($('p-cp').checked?400:0)+($('p-pcme').checked?600:0),1000);
+ const pet=+$('p-pet').value||0;const tot=em+iespe+pds+man+pet;
+ $('p-out').innerHTML=kpi(fmt(em,2)+' €','Émoluments')+kpi(fmt(iespe,2)+' €','IESPE')+kpi(fmt(pds,2)+' €','Gardes et astreintes')+kpi(fmt(man+pet,2)+' €','Indemnités et PET')+kpi(fmt(tot,2)+' €','Total brut du mois')+(warn?`<div class="kpi" style="grid-column:1/-1"><span>${warn}</span></div>`:'');}
+$('p-ech').onchange=()=>{$('p-ann').value=GRILLE[+$('p-ech').value];pCalc()};
+$('p-st').onchange=()=>{const st=$('p-st').value;if(st==='pc')$('p-ann').value=55000;else if(st==='as')$('p-ann').value=41387.28;else $('p-ann').value=GRILLE[+$('p-ech').value];pCalc()};
+document.querySelectorAll('#c-paie input').forEach(i=>i.addEventListener('input',pCalc));pCalc();
+
+/* ---------- CET ---------- */
+function tCalc(){const s=+$('t-s').value||0,e=+$('t-e').value||0;const ep=Math.min(e,20);const tot=Math.min(s+ep,208);const opt=Math.max(0,tot-20);const ind=Math.min(+$('t-i').value||0,opt);
+ $('t-out').innerHTML=kpi(fmt(tot)+' j','Solde au 31/12/N')+(e>20?kpi('20 j','Alimentation plafonnée (saisi : '+e+')'):'')+kpi(fmt(opt)+' j','Jours ouverts au droit d’option')+kpi(fmt(ind*300)+' €','Indemnisation brute choisie')+kpi(fmt(tot-ind)+' j','Reste sur le CET')+kpi('31 mars N+1','Date limite d’option');}
+['t-s','t-e','t-i'].forEach(i=>$(i).oninput=tCalc);tCalc();
+</script>
+</body>
+</html>
