@@ -10,7 +10,7 @@
 /* Charte EHESP (sans logotype) : couverture négative bleue, pages en thème positif blanc, bandeaux bleu clair, filets fins, listes à flèche, angles droits. Thème unique positif, choisi pour la lisibilité. */
 :root{
   color-scheme:light;
-  --bleu:#2039b9; --bleu-clair:#eaf4fd; --noir:#000000; --blanc:#ffffff; --orange:#ff7700; --jaune:#ffdc00; --bleu-ciel:#5bc5f2; --saumon:#f7b5a5;
+  --bleu:#2039b9; --bleu-clair:#eaf4fd; --noir:#000000; --blanc:#ffffff; --orange:#ff7700; --jaune:#ffdc00; --bleu-ciel:#5bc5f2; --saumon:#f7b5a5; --rose:#f51ec3; --vert:#00ae44;
   --bg:#ffffff; --surface:#ffffff; --ink:#000000; --muted:#3b3f4a; --line:#d7e6f6; --filet:#000000;
   --accent:#2039b9; --on-accent:#ffffff; --accent-soft:#eaf4fd;
   --f-display:"Outfit",system-ui,sans-serif; --f-body:"Outfit",system-ui,sans-serif;
@@ -171,11 +171,84 @@ ul.ov-br>li::before{content:"";position:absolute;left:-22px;top:.8em;width:18px;
 .sg-go{font-size:14px;font-weight:500;text-decoration:none}
 .sg-go:hover{text-decoration:underline}
 input[type=search]{font:inherit}
+/* ---------- réorganisation : parcours, parties, renvois ---------- */
+.toc-grp{display:flex;flex-direction:column;gap:6px}
+.toc-row{display:grid;grid-template-columns:34px minmax(150px,230px) 1fr;gap:10px;align-items:center;padding:8px 10px;background:var(--bleu-clair);border-left:6px solid var(--fam)}
+.toc-n{font-weight:800;color:var(--bleu);font-size:22px;line-height:1}
+.toc-t{font-weight:500;color:var(--ink);font-size:15px}
+.toc-row .toc a{background:var(--blanc);border-left:0}
+@media (max-width:640px){.toc-row{grid-template-columns:30px 1fr}.toc-row .toc{grid-column:1/-1}}
+.partie{display:flex;flex-direction:column;gap:2px;padding:16px 20px;background:var(--bleu-clair);border-left:14px solid var(--fam);margin-top:10px}
+.partie-n{font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.partie-t{font-size:30px;font-weight:800;line-height:1.1;color:var(--bleu)}
+nav.tabs a{padding:8px 7px;font-size:15px;gap:5px}
+nav.tabs a svg.pi{width:18px!important;height:18px!important}
+nav.tabs a[data-grp]{margin-left:2px;border-left:1px solid var(--line);padding-left:6px}
+.voir{display:grid!important;grid-template-columns:auto 1fr;gap:6px 10px}
+.voir-r{display:contents}
+.voir-r>span{display:flex;flex-wrap:wrap;gap:6px}
+@media (max-width:520px){.voir{grid-template-columns:1fr}}
+.voir{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-top:10px;border-top:1px solid var(--line);font-size:14px}
+.voir>b{color:var(--bleu);font-weight:500;margin-right:4px}
+.voir a{background:var(--blanc);border:1px solid var(--bleu);padding:3px 9px;text-decoration:none;font-size:14px;line-height:1.35}
+.voir a:hover{background:var(--bleu);color:var(--blanc)}
+.voir a .k{font-weight:500;margin-right:4px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.step{background:var(--bleu-clair);padding:16px;display:flex;flex-direction:column;gap:8px;border-top:6px solid var(--bleu)}
+.step-n{font-size:40px;font-weight:800;line-height:1;color:var(--bleu)}
+.step a{font-weight:500}
+.hub{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.hub-card{background:var(--blanc);border:1px solid var(--line);border-left:8px solid var(--fam);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.hub-card h3{font-size:18px}
+.hub-card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:14.5px}
+.hub-card dt{font-weight:500;color:var(--muted)}
+.hub-card dd{margin:0;display:flex;flex-wrap:wrap;gap:4px 10px}
+#calcToc .toc a{background:var(--blanc)}
+
+/* ---------- habillage pédagogique : pictogrammes au trait vert et code couleur par famille ---------- */
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+svg.pi{fill:none;stroke:var(--vert);stroke-width:2.6;stroke-linecap:butt;stroke-linejoin:miter;overflow:visible;flex:none}
+svg.pi.chart{stroke-width:9}
+.fam-cadre{--fam:var(--bleu)} .fam-statuts{--fam:var(--bleu-ciel)} .fam-remu{--fam:var(--jaune)} .fam-temps{--fam:var(--orange)} .fam-sic{--fam:var(--saumon)} .fam-etudes{--fam:var(--rose)}
+.h-ic{display:flex;align-items:center;gap:14px}
+.h-ic>h2{flex:1;min-width:0}
+.ic-tile{width:52px;height:52px;flex:none;background:var(--bleu-clair);display:grid;place-items:center;border-left:6px solid var(--fam,var(--bleu))}
+.ic-tile svg.pi{width:32px;height:32px}
+.fam-lbl{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.fam-lbl i{display:inline-block;width:12px;height:12px;background:var(--fam)}
+.toc a{border-left:5px solid var(--fam,var(--bleu-clair))}
+.fam-key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--muted);align-items:center}
+.fam-key span{display:inline-flex;align-items:center;gap:6px}
+.fam-key i{display:inline-block;width:14px;height:14px;background:var(--fam)}
+nav.tabs a{display:inline-flex;align-items:center;gap:5px}
+nav.tabs a svg.pi{width:20px;height:20px;stroke-width:3}
+.box .lbl{display:inline-flex;align-items:center;gap:8px}
+.box .lbl svg.pi{width:20px;height:20px;stroke-width:3}
+.box .lbl svg.pi.chart{stroke-width:12}
+.methode .lbl svg.pi{stroke:var(--blanc)}
+.calc>h3{display:flex;align-items:center;gap:12px}
+.calc>h3 .ic-tile{width:44px;height:44px;border-left-width:5px}
+.calc>h3 .ic-tile svg.pi{width:26px;height:26px}
+details.case{border-left:6px solid var(--fam,var(--bleu));padding-left:12px}
+details.case>summary .eyebrow{display:inline-flex;align-items:center;gap:7px}
+details.case>summary .eyebrow::before{content:"";width:12px;height:12px;background:var(--fam,var(--bleu));flex:none}
+.qcard{border-left:8px solid var(--fam,var(--bleu))}
+.chip[data-f]:not([data-f="all"]){border-left-width:5px;border-left-color:var(--fam,var(--bleu))}
+.cover-in{position:relative}
+body{margin:0}
+nav.tabs{gap:0}
+.cover-art{position:absolute;right:0;top:50%;transform:translateY(-50%);width:200px;height:200px;pointer-events:none}
+.cover-art .disque{position:absolute;inset:18px 0 0 18px;background:var(--saumon);border-radius:50%!important}
+.cover-art svg.pi{position:absolute;left:0;top:28px;width:170px;height:153px}
+@media (min-width:820px){.cover-in{padding-right:230px}}
+@media (max-width:819px){.cover-art{order:9;position:relative;transform:none;top:auto;width:120px;height:120px;align-self:flex-end;margin-top:-6px}.cover-art svg.pi{width:100px;height:90px;top:18px}.cover-art .disque{inset:12px 0 0 12px}}
 </style>
 </head>
 <body>
 
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs><symbol id="i-memo" viewBox="0 0 48 48"><path d="M6 10h14c2.5 0 4 1.5 4 4v26c0-2-1.5-3-4-3H6zM42 10H28c-2.5 0-4 1.5-4 4v26c0-2 1.5-3 4-3h14z"/></symbol><symbol id="i-form" viewBox="0 0 48 48"><path d="M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"/></symbol><symbol id="i-cas" viewBox="0 0 48 48"><path d="M5 12h14l4 4h20v24H5zM5 20h38"/></symbol><symbol id="i-logi" viewBox="0 0 48 48"><path d="M24 4l9 9-9 9-9-9zM24 22v6M10 28h28M10 28v8M38 28v8M4 36h12v8H4zM32 36h12v8H32z"/></symbol><symbol id="i-quiz" viewBox="0 0 48 48"><path d="M6 8h36v26H22l-10 8v-8H6zM19 16c0-3 2-5 5-5s5 2 5 5c0 4-5 4-5 8M24 27v3"/></symbol><symbol id="i-calc" viewBox="0 0 48 48"><path d="M10 4h28v40H10zM15 9h18v9H15zM15 24h4M22 24h4M29 24h4M15 31h4M22 31h4M29 31h4M15 38h4M22 38h4M29 38h4"/></symbol><symbol id="i-sg" viewBox="0 0 48 48"><path d="M6 6h22l14 14v22H6zM28 6v14h14M12 26h20M12 33h20M12 19h10"/></symbol><symbol id="i-src" viewBox="0 0 48 48"><path d="M24 6v34M14 42h20M8 12h32M8 12l-5 14h10zM40 12l-5 14h10zM3 26c0 3 2 5 5 5s5-2 5-5M35 26c0 3 2 5 5 5s5-2 5-5"/></symbol><symbol id="i-methode" viewBox="0 0 48 48"><path d="M8 8h32v34H8zM14 16l3 3 5-6M26 16h8M14 26l3 3 5-6M26 26h8M14 36h20"/></symbol><symbol id="i-exercice" viewBox="0 0 48 48"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10zM24 15v16M16 23h16"/></symbol><symbol id="i-padhue" viewBox="0 0 48 48"><path d="M24 4a20 20 0 1 0 0.01 0M4 24h40M24 4c-6 6-8 13-8 20s2 14 8 20M24 4c6 6 8 13 8 20s-2 14-8 20"/></symbol><symbol id="i-statut" viewBox="0 0 48 48"><path d="M8 8h32v32H8zM8 16h32M24 22a5 5 0 1 0 0.01 0M15 36c1-5 5-7 9-7s8 2 9 7"/></symbol><symbol id="i-pc" viewBox="0 0 48 48"><path d="M10 4h20l8 8v32H10zM30 4v8h8M16 20h16M16 27h16M16 36c3-4 5 2 8-2s4 3 8 0"/></symbol><symbol id="i-ph" viewBox="0 0 48 48"><path d="M24 4a12 12 0 1 0 0.01 0M17 26l-5 18 12-6 12 6-5-18M18 16l4 4 8-8"/></symbol><symbol id="i-remu" viewBox="0 0 48 48"><path d="M24 4a20 20 0 1 0 0.01 0M31 15c-2-2-4-3-7-3-6 0-10 5-10 12s4 12 10 12c3 0 5-1 7-3M10 21h16M10 27h16"/></symbol><symbol id="i-temps" viewBox="0 0 48 48"><path d="M24 4a20 20 0 1 0 0.01 0M24 12v12l8 6"/></symbol><symbol id="i-pds" viewBox="0 0 48 48"><path d="M30 6a16 16 0 1 0 14 22 13 13 0 0 1-14-22zM10 8v8M6 12h8"/></symbol><symbol id="i-ast" viewBox="0 0 48 48"><path d="M14 4h20v40H14zM14 10h20M14 36h20M24 40v0.1M38 14c3 3 3 9 0 12M42 10c5 5 5 15 0 20"/></symbol><symbol id="i-cet" viewBox="0 0 48 48"><path d="M6 10h36v32H6zM6 18h36M14 6v8M34 6v8M13 26h6M21 26h6M29 26h6M13 33h6M21 33h6"/></symbol><symbol id="i-junior" viewBox="0 0 48 48"><path d="M12 4v12c0 6 4 10 8 10s8-4 8-10V4M20 26v6c0 6 5 10 11 10s9-4 9-9v-5M40 22a4 4 0 1 0 0.01 0M8 4h8M24 4h8"/></symbol><symbol id="i-lib" viewBox="0 0 48 48"><path d="M6 16h36v26H6zM17 16V9h14v7M24 23v12M18 29h12"/></symbol><symbol id="i-interim" viewBox="0 0 48 48"><path d="M6 16h28M28 8l8 8-8 8M42 32H14M20 24l-8 8 8 8"/></symbol><symbol id="i-sic" viewBox="0 0 48 48"><path d="M24 5l21 37H3zM24 18v12M24 34v4"/></symbol><symbol id="i-etudes" viewBox="0 0 48 48"><path d="M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"/></symbol><symbol id="i-vue" viewBox="0 0 48 48"><path d="M4 40h10V30h10V20h10V10h10M36 4l8 6-8 6"/></symbol><symbol id="i-acces" viewBox="0 0 48 48"><path d="M10 44V4h22v40M32 8l8 3v30l-8 3M26 24v4M4 44h40"/></symbol><symbol id="i-c2" viewBox="0 0 48 48"><path d="M14 6h20v6H14zM10 9h4v35h20V9h4v35H10zM17 24l4 4 8-8M17 36h14"/></symbol><symbol id="i-stages" viewBox="0 0 48 48"><path d="M6 44V14h36v30M18 44V32h12v12M20 18h8v10h-8zM24 20v6M21 23h6M2 44h44M16 8h16v6H16z"/></symbol><symbol id="i-continue" viewBox="0 0 48 48"><path d="M40 20A17 17 0 0 0 9 16M8 28a17 17 0 0 0 31 4M9 6v10h10M39 42V32H29"/></symbol><symbol id="i-retenir" viewBox="0 0 48 48"><path d="M24 4c-8 0-13 6-13 13 0 5 3 8 5 11 1 2 2 4 2 6h12c0-2 1-4 2-6 2-3 5-6 5-11 0-7-5-13-13-13zM18 40h12M20 45h8"/></symbol><symbol id="i-exemple" viewBox="0 0 48 48"><path d="M20 4a16 16 0 1 0 0.01 0M31 31l13 13"/></symbol><symbol id="i-ehesp-plus" viewBox="0 0 48 48"><path d="M24 6v36M6 24h36"/></symbol><symbol id="i-megaphone" viewBox="0 0 261.40 242.65"><path d="M67.65 186.73L83.83 239.65L125.75 226.84L109.76 173.85"/><path d="M144.22 24.41C144.22 24.41 149.43 62.29 99.81 77.47L3.00 107.06L14.44 144.49L27.26 186.42L122.00 157.46L124.07 156.82C173.70 141.65 190.56 175.97 190.56 175.97M154.56 21.25L200.90 172.81"/><path d="M181.78 51.03L211.49 3.00M261.94 71.20L212.24 86.13M206.61 132.26L258.40 156.44"/></symbol><symbol id="i-communaute" viewBox="0 0 259.33 232.88"><path d="M31.77 121.06C31.77 121.06 30.06 107.88 29.04 100.49C24.89 79.05 10.22 79.21 2.23 84.27C4.75 104.26 7.41 132.99 10.05 152.96C10.84 158.96 10.74 162.65 16.05 166.77C28.34 176.31 45.75 186.13 58.36 195.38C61.81 197.83 63.83 202.20 63.79 208.91M105.97 205.87C105.07 197.90 103.67 183.49 102.65 175.53C101.26 164.62 99.66 161.38 90.20 155.13C77.25 146.56 67.64 139.63 54.43 131.45C49.49 128.39 45.28 124.91 39.11 126.27C32.77 127.68 28.65 133.83 29.46 140.24C30.23 146.33 33.69 147.96 38.18 151.29C45.40 156.65 52.94 161.68 60.36 166.71M112.72 230.64L112.77 205.38L56.31 209.45L56.30 230.64M227.57 121.06C227.57 121.06 229.28 107.88 230.29 100.49C234.44 79.05 249.11 79.21 257.10 84.27C254.59 104.26 251.92 132.99 249.28 152.96C248.49 158.96 248.60 162.65 243.29 166.77C231.00 176.31 213.58 186.13 200.98 195.38C197.53 197.83 195.50 202.20 195.54 208.91M153.37 205.87C154.26 197.90 155.66 183.49 156.68 175.53C158.07 164.62 159.68 161.38 169.13 155.13C182.08 146.56 191.69 139.63 204.90 131.45C209.84 128.39 214.05 124.91 220.22 126.27C226.56 127.68 230.69 133.83 229.88 140.24C229.11 146.33 225.65 147.96 221.15 151.29C213.93 156.65 206.39 161.68 198.97 166.71M146.61 230.64L146.56 205.38L203.02 209.45L203.04 230.64M107.74 41.97C107.74 41.97 111.43 58.61 127.38 58.61C143.33 58.61 147.02 41.97 147.02 41.97M107.74 35.31C107.74 35.31 111.43 18.66 127.38 18.66C143.33 18.66 147.02 35.31 147.02 35.31M156.84 116.19L156.84 101.41C156.84 84.86 143.65 68.60 127.38 68.60C111.11 68.60 97.92 84.86 97.92 101.41L97.92 116.19M30.05 25.54C30.05 25.54 33.74 42.18 49.69 42.18C65.64 42.18 69.33 25.54 69.33 25.54M30.05 18.88C30.05 18.88 33.74 2.23 49.69 2.23C65.64 2.23 69.33 18.88 69.33 18.88M79.15 99.76L79.15 84.98C79.15 68.43 65.96 52.17 49.69 52.17C40.91 52.17 33.02 56.91 27.62 63.88M185.44 25.54C185.44 25.54 189.13 42.18 205.08 42.18C221.02 42.18 224.72 25.54 224.72 25.54M185.44 18.88C185.44 18.88 189.13 2.23 205.08 2.23C221.02 2.23 224.72 18.88 224.72 18.88M229.10 66.67C223.76 58.21 214.99 52.17 205.08 52.17C188.81 52.17 175.62 68.43 175.62 84.98L175.62 99.76"/></symbol></defs></svg>
 <header class="cover"><div class="cover-in">
+  <div class="cover-art" aria-hidden="true"><span class="disque"></span><svg class="pi chart"><use href="#i-communaute"/></svg></div>
   <span class="eyebrow">UE 10 · Management des RH médicales · cas pratiques du mardi</span>
   <h1>Révisions DAM <span class="st">affaires médicales 10.2026</span></h1>
   <p class="lede">Mémo expliqué, cas pratiques corrigés, logigrammes, quiz et calculateurs, construits à partir des cours de l'UE 10, des guides du CNG et du sujet de juillet 2025. Chaque donnée indique son niveau de vérification : texte officiel, source secondaire, cours, notes ou interprétation.</p>
@@ -183,17 +256,41 @@ input[type=search]{font:inherit}
 <div class="wrap">
 
 <nav class="tabs" role="tablist" aria-label="Sections">
-  <a role="tab" id="t-memo" href="#memo" aria-controls="memo" aria-selected="true">Mémo</a>
+  <a role="tab" id="t-acc" href="#accueil" aria-controls="accueil" aria-selected="false">Accueil</a>
+  <a role="tab" data-grp="comprendre" id="t-memo" href="#memo" aria-controls="memo" aria-selected="true">Mémo</a>
   <a role="tab" id="t-form" href="#formation" aria-controls="formation" aria-selected="false">Formation</a>
-  <a role="tab" id="t-cas" href="#cas" aria-controls="cas" aria-selected="false">Cas pratiques</a>
-  <a role="tab" id="t-logi" href="#logi" aria-controls="logi" aria-selected="false">Logigrammes</a>
-  <a role="tab" id="t-quiz" href="#quiz" aria-controls="quiz" aria-selected="false">Quiz</a>
+  <a role="tab" data-grp="raisonner" id="t-logi" href="#logi" aria-controls="logi" aria-selected="false">Logigrammes</a>
   <a role="tab" id="t-calc" href="#calc" aria-controls="calc" aria-selected="false">Calculateurs</a>
-  <a role="tab" id="t-sg" href="#sigles" aria-controls="sigles" aria-selected="false">Sigles</a>
+  <a role="tab" data-grp="entrainer" id="t-cas" href="#cas" aria-controls="cas" aria-selected="false">Cas pratiques</a>
+  <a role="tab" id="t-quiz" href="#quiz" aria-controls="quiz" aria-selected="false">Quiz</a>
+  <a role="tab" data-grp="ressources" id="t-sg" href="#sigles" aria-controls="sigles" aria-selected="false">Sigles</a>
   <a role="tab" id="t-src" href="#sources" aria-controls="sources" aria-selected="false">Sources</a>
 </nav>
 
 <!-- ===================== MEMO ===================== -->
+<!-- ===================== ACCUEIL ===================== -->
+<section class="panel" id="accueil" role="tabpanel" aria-labelledby="t-acc" hidden>
+  <div class="block">
+    <h2>Par où commencer</h2>
+    <p class="lede">Le site suit un parcours en quatre étapes. Chaque étape correspond à un ou deux onglets. Avant de traiter un cas, relisez la <a href="#m-methode" class="go-memo">méthode en 5 temps</a> du mémo.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="step-n">1</span><h3>Comprendre</h3><p><a href="#memo" class="go-tab" data-tab="memo">Mémo</a> : les règles de la DAM, en six parties, de la méthode de résolution aux études et aux juniors.</p><p><a href="#formation" class="go-tab" data-tab="formation">Formation</a> : le parcours des médecins, de l'entrée en études à la formation continue.</p></div>
+    <div class="step"><span class="step-n">2</span><h3>Raisonner</h3><p><a href="#logi" class="go-tab" data-tab="logi">Logigrammes</a> : des arbres de décision pour qualifier une situation question par question.</p></div>
+    <div class="step"><span class="step-n">3</span><h3>Calculer</h3><p><a href="#calc" class="go-tab" data-tab="calc">Calculateurs</a> : statut, ancienneté, paie, CET, temps de travail, astreintes. Chaque résultat affiche son raisonnement.</p></div>
+    <div class="step"><span class="step-n">4</span><h3>S'entraîner</h3><p><a href="#cas" class="go-tab" data-tab="cas">Cas pratiques</a> : <span id="nbCas"></span> cas corrigés avec démarche guidée, dont ceux du sujet de juillet 2025.</p><p><a href="#quiz" class="go-tab" data-tab="quiz">Quiz</a> : questions et flashcards, par thème.</p></div>
+  </div>
+  <div class="block">
+    <h2>Accès par thème</h2>
+    <p class="lede">Pour chaque thème : les sections du mémo à lire, les outils pour décider ou calculer, puis les cas pour s'exercer.</p>
+    <div class="hub" id="hub"></div>
+  </div>
+  <div class="block">
+    <h3>Ressources</h3>
+    <p><a href="#sigles" class="go-tab" data-tab="sigles">Sigles</a> : chaque sigle renvoie à la section du mémo qui l'explique. <a href="#sources" class="go-tab" data-tab="sources">Sources</a> : les textes consultés et le niveau de vérification de chaque donnée.</p>
+  </div>
+</section>
+
 <section class="panel" id="memo" role="tabpanel" aria-labelledby="t-memo">
   <div class="block">
     <p class="lede">Le mémo suit l'ordre dans lequel un DAM rencontre les questions : qui décide, qui peut exercer, sous quel statut, pour quelle rémunération, avec quel temps de travail, et que faire quand une situation individuelle se dégrade. Chaque section commence par l'essentiel, explique le raisonnement, puis donne un exemple et le piège classique.</p>
@@ -205,9 +302,16 @@ input[type=search]{font:inherit}
       <span class="vb i">interprétation</span> raisonnement de ma part
     </div>
   </div>
-  <div class="toc">
-    <a href="#m-methode">Méthode</a><a href="#m-acteurs">Acteurs</a><a href="#m-exercice">Conditions d'exercice</a><a href="#m-padhue">PADHUE</a><a href="#m-statuts">Statuts</a><a href="#m-pc">Praticiens contractuels</a><a href="#m-ph">Recrutement PH</a><a href="#m-remu">Rémunération</a><a href="#m-tt">Temps de travail</a><a href="#m-pds">PDSES</a><a href="#m-ast-hyp">Astreintes : méthode</a><a href="#m-cet">CET</a><a href="#m-juniors">Juniors</a><a href="#m-lib">Activité libérale</a><a href="#m-interim">Intérim</a><a href="#m-sic">Situations complexes</a><a href="#m-etudes">Études et internes</a>
+  <div class="toc-grp">
+    <div class="toc-row fam-cadre"><span class="toc-n">1</span><span class="toc-t">Cadre et méthode</span><div class="toc"><a href="#m-methode">Méthode</a><a href="#m-acteurs">Acteurs</a><a href="#m-exercice">Conditions d'exercice</a></div></div>
+    <div class="toc-row fam-statuts"><span class="toc-n">2</span><span class="toc-t">Statuts et recrutement</span><div class="toc"><a href="#m-statuts">Statuts</a><a href="#m-padhue">PADHUE</a><a href="#m-pc">Praticiens contractuels</a><a href="#m-ph">Recrutement PH</a><a href="#m-lib">Activité libérale</a><a href="#m-interim">Intérim</a></div></div>
+    <div class="toc-row fam-remu"><span class="toc-n">3</span><span class="toc-t">Rémunération</span><div class="toc"><a href="#m-remu">Rémunération</a><a href="#m-cet">CET</a></div></div>
+    <div class="toc-row fam-temps"><span class="toc-n">4</span><span class="toc-t">Temps de travail et permanence des soins</span><div class="toc"><a href="#m-tt">Temps de travail</a><a href="#m-pds">PDSES</a><a href="#m-ast-hyp">Astreintes : méthode</a></div></div>
+    <div class="toc-row fam-sic"><span class="toc-n">5</span><span class="toc-t">Situations individuelles</span><div class="toc"><a href="#m-sic">Situations complexes</a></div></div>
+    <div class="toc-row fam-etudes"><span class="toc-n">6</span><span class="toc-t">Études et juniors</span><div class="toc"><a href="#m-juniors">Juniors</a><a href="#m-etudes">Études et internes</a></div></div>
   </div>
+
+  <div class="partie fam-cadre" id="p-cadre"><span class="partie-n">Partie 1</span><span class="partie-t">Cadre et méthode</span></div>
 
   <!-- METHODE -->
   <div class="block" id="m-methode">
@@ -263,21 +367,7 @@ input[type=search]{font:inherit}
     </div>
   </div>
 
-  <!-- PADHUE -->
-  <div class="block" id="m-padhue">
-    <h2>Recruter un médecin à diplôme hors UE (PADHUE)</h2>
-    <p>Un médecin diplômé hors de l'Union européenne ne peut pas exercer en plein exercice tant qu'il n'a pas obtenu une autorisation ministérielle, au terme des épreuves de vérification des connaissances (EVC) puis d'un parcours de consolidation des compétences. Pendant ce temps, l'hôpital peut l'accueillir sous l'un de quatre statuts. Pour chaque candidat, on cherche <b>où il en est dans la procédure et quel est son projet</b>.</p>
-    <div class="tbl"><table>
-      <tr><th>Situation du candidat</th><th>Statut</th><th>Conditions et durée</th></tr>
-      <tr><td>Vient se former puis repartir, dans le cadre d'un accord entre pays ou institutions</td><td>Stagiaire associé (R6134-2)</td><td>Convention signée au moins 2 mois avant l'arrivée, visée par le préfet ; 6 mois renouvelable une fois, 2 ans au plus en France ; exerce par délégation, sous la responsabilité d'un praticien nommé. <span class="vb o">texte</span></td></tr>
-      <tr><td>Inscrit à l'université en DFMS ou DFMSA (formation spécialisée)</td><td>Faisant fonction d'interne (R6153-41 à 44)</td><td>Candidature en décembre de l'année précédente ; DFMS 2 à 6 semestres, DFMSA 1 à 2 semestres ; nommé par le directeur. <span class="vb o">texte</span></td></tr>
-      <tr><td>Au moins 3 ans d'exercice à temps plein, dont 1 an dans les 3 dernières années, et engagement à passer les EVC</td><td>Praticien associé contractuel temporaire, PACT (décrets 2024-1190 et 2024-1191)</td><td>Attestation d'exercice provisoire délivrée par le DG ARS après avis d'une commission ; contrat de 13 mois renouvelable une fois (26 mois) ; rémunération de 31 204,37 € brut par an à temps plein. <span class="vb o">texte</span></td></tr>
-      <tr><td>Lauréat des EVC</td><td>Praticien associé (R6152-901 et suivants)</td><td>Choix sur les postes ouverts par la DGOS, affectation par le CNG dans les 6 mois suivant les résultats ; parcours de consolidation des compétences de 2 ans pour un médecin, avec inscription à l'UFR ; 36 624,45 € puis 41 386,48 € brut par an. <span class="vb o">texte</span></td></tr>
-    </table></div>
-    <div class="box exemple"><span class="lbl">Exemple</span>
-      <p>Une psychiatre congolaise exerce depuis janvier 2022 à temps plein et s'inscrit aux prochaines EVC : elle remplit les conditions du PACT. Un généraliste burundais qui veut approfondir sa pratique en santé mentale puis rentrer relève du stagiaire associé. Un chirurgien togolais lauréat des EVC 2024 devient praticien associé. Ce sont les trois situations du sujet de 2025.</p>
-    </div>
-  </div>
+  <div class="partie fam-statuts" id="p-statuts"><span class="partie-n">Partie 2</span><span class="partie-t">Statuts et recrutement</span></div>
 
   <!-- STATUTS -->
   <div class="block" id="m-statuts">
@@ -308,6 +398,22 @@ input[type=search]{font:inherit}
           <li>Le forfait d'astreinte peut être majoré jusqu'à 500 € par nuit depuis le 1er mai 2026 (arrêté du 17 avril 2026). <span class="vb o">texte</span></li>
         </ul>
       </div>
+    </div>
+  </div>
+
+  <!-- PADHUE -->
+  <div class="block" id="m-padhue">
+    <h2>Recruter un médecin à diplôme hors UE (PADHUE)</h2>
+    <p>Un médecin diplômé hors de l'Union européenne ne peut pas exercer en plein exercice tant qu'il n'a pas obtenu une autorisation ministérielle, au terme des épreuves de vérification des connaissances (EVC) puis d'un parcours de consolidation des compétences. Pendant ce temps, l'hôpital peut l'accueillir sous l'un de quatre statuts. Pour chaque candidat, on cherche <b>où il en est dans la procédure et quel est son projet</b>.</p>
+    <div class="tbl"><table>
+      <tr><th>Situation du candidat</th><th>Statut</th><th>Conditions et durée</th></tr>
+      <tr><td>Vient se former puis repartir, dans le cadre d'un accord entre pays ou institutions</td><td>Stagiaire associé (R6134-2)</td><td>Convention signée au moins 2 mois avant l'arrivée, visée par le préfet ; 6 mois renouvelable une fois, 2 ans au plus en France ; exerce par délégation, sous la responsabilité d'un praticien nommé. <span class="vb o">texte</span></td></tr>
+      <tr><td>Inscrit à l'université en DFMS ou DFMSA (formation spécialisée)</td><td>Faisant fonction d'interne (R6153-41 à 44)</td><td>Candidature en décembre de l'année précédente ; DFMS 2 à 6 semestres, DFMSA 1 à 2 semestres ; nommé par le directeur. <span class="vb o">texte</span></td></tr>
+      <tr><td>Au moins 3 ans d'exercice à temps plein, dont 1 an dans les 3 dernières années, et engagement à passer les EVC</td><td>Praticien associé contractuel temporaire, PACT (décrets 2024-1190 et 2024-1191)</td><td>Attestation d'exercice provisoire délivrée par le DG ARS après avis d'une commission ; contrat de 13 mois renouvelable une fois (26 mois) ; rémunération de 31 204,37 € brut par an à temps plein. <span class="vb o">texte</span></td></tr>
+      <tr><td>Lauréat des EVC</td><td>Praticien associé (R6152-901 et suivants)</td><td>Choix sur les postes ouverts par la DGOS, affectation par le CNG dans les 6 mois suivant les résultats ; parcours de consolidation des compétences de 2 ans pour un médecin, avec inscription à l'UFR ; 36 624,45 € puis 41 386,48 € brut par an. <span class="vb o">texte</span></td></tr>
+    </table></div>
+    <div class="box exemple"><span class="lbl">Exemple</span>
+      <p>Une psychiatre congolaise exerce depuis janvier 2022 à temps plein et s'inscrit aux prochaines EVC : elle remplit les conditions du PACT. Un généraliste burundais qui veut approfondir sa pratique en santé mentale puis rentrer relève du stagiaire associé. Un chirurgien togolais lauréat des EVC 2024 devient praticien associé. Ce sont les trois situations du sujet de 2025.</p>
     </div>
   </div>
 
@@ -380,6 +486,34 @@ input[type=search]{font:inherit}
     </div>
   </div>
 
+  <!-- LIBERAL -->
+  <div class="block" id="m-lib">
+    <h2>L'activité libérale à l'hôpital</h2>
+    <p>Un PH peut recevoir des patients en consultation privée à l'hôpital. Cette possibilité renforce l'attractivité. La loi l'encadre pour que l'activité publique reste prioritaire. Les conditions sont fixées par les articles L6154-1 à L6154-4 du code de la santé publique, à vérifier dans l'ordre :</p>
+    <ol>
+      <li><b>Statut et quotité</b> : PH ou HU exerçant au moins 8 demi-journées par semaine ; jamais un contractuel (L6154-1).</li>
+      <li><b>Convention</b> : avoir adhéré à la convention médicale de l'assurance maladie et ne pas exercer d'activité libérale en dehors des établissements publics (L6154-2, I).</li>
+      <li><b>Activité publique principale</b> : exercer personnellement et à titre principal une activité de même nature dans le public.</li>
+      <li><b>Durée</b> : 20 % au plus de la durée de service hebdomadaire ; concrètement, <b>1 demi-journée</b> pour un PH à 8 ou 9 demi-journées, <b>2 demi-journées</b> pour un PH à 10.</li>
+      <li><b>Volume</b> : le nombre total de consultations et d'actes libéraux reste inférieur au nombre total de consultations et d'actes publics.</li>
+      <li><b>Moyens</b> : aucun lit ni équipement réservé ; deux sites au plus en cas d'activité partagée.</li>
+    </ol>
+    <p>Le contrat d'activité libérale, d'une durée de 5 ans, est transmis par le directeur au DG ARS avec son avis et ceux du chef de pôle et du PCME ; l'approbation par le DG ARS vaut autorisation. Il devient caduc si le PH n'est pas titularisé. Le praticien verse une redevance à l'établissement (L6154-3, L6154-4). <span class="vb o">texte</span> La commission de l'activité libérale contrôle ; en cas de manquement, le DG ARS peut suspendre (2 ans au plus) ou retirer l'autorisation. <span class="vb s">secondaire</span></p>
+  </div>
+
+  <!-- INTERIM -->
+  <div class="block" id="m-interim">
+    <h2>L'intérim médical</h2>
+    <p>L'intérim permet de tenir une ligne en urgence. Il coûte cher et fragilise les équipes. Le législateur l'a encadré par deux mécanismes :</p>
+    <ul>
+      <li><b>Plafond de dépense</b> : 2 681 € hors taxes pour 24 h de travail effectif d'un médecin, pharmacien ou chirurgien-dentiste intérimaire (JO du 9 septembre 2025). Arrêté du 5 septembre 2025, pris pour le décret 2025-612 du 2 juillet 2025 ; 3 752 € outre-mer. <span class="vb o">texte</span> Ce plafond couvre la dépense totale de l'hôpital, y compris la rémunération de l'agence, les charges, l'indemnité de précarité et les congés ; il remplace le plafond précédent de 1 410,69 €. Le contrôle repose sur la loi Rist du 26 avril 2021 : depuis le 3 avril 2023, le comptable public bloque le paiement d'un contrat au-dessus du plafond, et l'ARS peut le déférer au tribunal administratif. <span class="vb s">secondaire</span></li>
+      <li><b>Début de carrière</b> : la loi Valletoux (article 29) exige 2 ans d'exercice avant de travailler en intérim par une entreprise de travail temporaire ; applicable aux personnels médicaux depuis le 1er décembre 2025. <span class="vb s">secondaire</span></li>
+    </ul>
+    <p>Le motif 2 est l'alternative réglementaire : il permet de proposer une rémunération élevée, sur objectifs, dans un cadre contrôlé par l'ARS.</p>
+  </div>
+
+  <div class="partie fam-remu" id="p-remu"><span class="partie-n">Partie 3</span><span class="partie-t">Rémunération</span></div>
+
   <!-- REMUNERATION -->
   <div class="block" id="m-remu">
     <h2>Rémunération, primes et indemnités</h2>
@@ -415,6 +549,24 @@ input[type=search]{font:inherit}
       <p>Le contractuel ne perçoit pas l'IESPE. À émoluments égaux, une nomination comme PH rapporte 12 120 € de plus par an. La <b>part complémentaire variable</b> des PH (arrêté du 28 mars 2007, article 5) peut atteindre 15 % des émoluments annuels. Elle est accordée par spécialité à une équipe de praticiens titulaires, sur contrat avec le directeur et le chef de pôle, fixant des objectifs de qualité et d'activité ; le plafond n'est versé que si tous les objectifs sont atteints. <span class="vb o">texte</span></p>
     </div>
   </div>
+
+  <!-- CET -->
+  <div class="block" id="m-cet">
+    <h2>Le compte épargne-temps</h2>
+    <p>Le CET stocke les jours non pris pour les utiliser plus tard ou se les faire payer. Il pèse sur les comptes de l'établissement, qui doit provisionner chaque jour épargné : c'est un sujet de gestion autant que de droit individuel.</p>
+    <ul>
+      <li>Alimentation : 5 jours de congés annuels au plus par an, RTT, récupérations de TTA et d'astreintes non indemnisées ; 20 jours par an au plus. <span class="vb o">texte</span></li>
+      <li>Chaque 31 décembre, les 20 premiers jours restent sous forme de congés. Au-delà, le praticien choisit avant le 31 mars : paiement à 300 € brut par jour, ou maintien (20 jours de plus par an au plus). Sans choix, les jours restent sur le compte. <span class="vb o">texte</span></li>
+      <li>Plafond global de 208 jours depuis 2016. Dérogation possible par le DG ARS, pour la continuité du service, après avis de la commission régionale paritaire. <span class="vb o">texte</span></li>
+      <li>Les jours épargnés avant 2013 (CET historique) suivent des règles transitoires. <span class="vb o">texte</span></li>
+      <li>En cas de mutation, la provision suit le praticien dans le nouvel établissement ; la CME est informée chaque année. <span class="vb o">texte</span></li>
+    </ul>
+    <div class="box vigil"><span class="lbl">Piège</span>
+      <p>Les 20 premiers jours du CET sont toujours pris en congés ; seuls les jours au-delà ouvrent un droit d'option.</p>
+    </div>
+  </div>
+
+  <div class="partie fam-temps" id="p-temps"><span class="partie-n">Partie 4</span><span class="partie-t">Temps de travail et permanence des soins</span></div>
 
   <!-- TEMPS DE TRAVAIL -->
   <div class="block" id="m-tt">
@@ -551,61 +703,7 @@ input[type=search]{font:inherit}
 <p>Ces deux méthodes respectent le cadre national. En copie, on peut les citer pour discuter un choix ; on ne les applique que si l'énoncé les reprend, comme dans le cas de Lorient.</p></div>
 </div>
 
-  <!-- CET -->
-  <div class="block" id="m-cet">
-    <h2>Le compte épargne-temps</h2>
-    <p>Le CET stocke les jours non pris pour les utiliser plus tard ou se les faire payer. Il pèse sur les comptes de l'établissement, qui doit provisionner chaque jour épargné : c'est un sujet de gestion autant que de droit individuel.</p>
-    <ul>
-      <li>Alimentation : 5 jours de congés annuels au plus par an, RTT, récupérations de TTA et d'astreintes non indemnisées ; 20 jours par an au plus. <span class="vb o">texte</span></li>
-      <li>Chaque 31 décembre, les 20 premiers jours restent sous forme de congés. Au-delà, le praticien choisit avant le 31 mars : paiement à 300 € brut par jour, ou maintien (20 jours de plus par an au plus). Sans choix, les jours restent sur le compte. <span class="vb o">texte</span></li>
-      <li>Plafond global de 208 jours depuis 2016. Dérogation possible par le DG ARS, pour la continuité du service, après avis de la commission régionale paritaire. <span class="vb o">texte</span></li>
-      <li>Les jours épargnés avant 2013 (CET historique) suivent des règles transitoires. <span class="vb o">texte</span></li>
-      <li>En cas de mutation, la provision suit le praticien dans le nouvel établissement ; la CME est informée chaque année. <span class="vb o">texte</span></li>
-    </ul>
-    <div class="box vigil"><span class="lbl">Piège</span>
-      <p>Les 20 premiers jours du CET sont toujours pris en congés ; seuls les jours au-delà ouvrent un droit d'option.</p>
-    </div>
-  </div>
-
-  <!-- JUNIORS -->
-  <div class="block" id="m-juniors">
-    <h2>Internes et docteurs juniors</h2>
-    <p>Les juniors relèvent d'un régime distinct. Pour la DAM, l'enjeu est double : respecter leur temps de travail, sous peine de perdre l'agrément du terrain de stage, et les attirer, car un interne bien accueilli est souvent un futur praticien.</p>
-    <ul>
-      <li>Internes : 8 DJ en stage et 2 DJ hors stage par semaine, en moyenne sur le trimestre ; la DJ de formation compte comme temps de travail effectif, la DJ de temps personnel non ; 48 h au plus par période de 7 jours en moyenne sur le trimestre (R6153-2 et R6153-2-1). Voir l'onglet <a href="#f-interne" class="go-memo">Formation</a>. <span class="vb o">texte</span></li>
-      <li>Tableau de service nominatif élaboré par le responsable du lieu de stage avec le coordonnateur, arrêté chaque mois par le directeur ; relevés mensuels et trimestriels remis à l'interne (R6153-2-2 et R6153-2-3). <span class="vb o">texte</span></li>
-      <li>En cas de désaccord, l'interne saisit le directeur, le directeur de l'UFR et le PCME, puis le DG ARS ; réexamen de l'agrément et pénalité financière possibles (R6153-2-4 à R6153-2-6). <span class="vb o">texte</span></li>
-      <li>Permanence des soins : en principe une nuit par semaine et un dimanche ou férié par mois ; 6 internes au moins pour tenir une ligne ; repos de sécurité le lendemain. Indemnités de garde des internes revalorisées au 1er janvier 2024 (234,80 € ou 256,86 € selon le type de garde). <span class="vb o">texte</span></li>
-      <li>Docteur junior : actes autonomes définis en début de stage avec le chef de service et le coordonnateur ; participation à la PDS senior sur volontariat, avec l'accord des deux et une astreinte de supervision <span class="vb c">cours</span>. Ses gardes seniors sont payées comme celles d'un PH (422,03 €) et ses astreintes au forfait de la ligne (article 15 bis de l'arrêté du 30 avril 2003 modifié ; le forfait est celui de l'article 14 réformé le 8 juillet 2025) <span class="vb o">texte</span>.</li>
-      <li>Congés : 30 jours ouvrables pour l'interne, 25 jours ouvrés pour le docteur junior (R6153-1-9) <span class="vb o">texte</span> ; jours non pris indemnisables (6 jours à 70 € pour l'interne, 5 jours à 90 € pour le docteur junior). <span class="vb c">cours</span></li>
-    </ul>
-  </div>
-
-  <!-- LIBERAL -->
-  <div class="block" id="m-lib">
-    <h2>L'activité libérale à l'hôpital</h2>
-    <p>Un PH peut recevoir des patients en consultation privée à l'hôpital. Cette possibilité renforce l'attractivité. La loi l'encadre pour que l'activité publique reste prioritaire. Les conditions sont fixées par les articles L6154-1 à L6154-4 du code de la santé publique, à vérifier dans l'ordre :</p>
-    <ol>
-      <li><b>Statut et quotité</b> : PH ou HU exerçant au moins 8 demi-journées par semaine ; jamais un contractuel (L6154-1).</li>
-      <li><b>Convention</b> : avoir adhéré à la convention médicale de l'assurance maladie et ne pas exercer d'activité libérale en dehors des établissements publics (L6154-2, I).</li>
-      <li><b>Activité publique principale</b> : exercer personnellement et à titre principal une activité de même nature dans le public.</li>
-      <li><b>Durée</b> : 20 % au plus de la durée de service hebdomadaire ; concrètement, <b>1 demi-journée</b> pour un PH à 8 ou 9 demi-journées, <b>2 demi-journées</b> pour un PH à 10.</li>
-      <li><b>Volume</b> : le nombre total de consultations et d'actes libéraux reste inférieur au nombre total de consultations et d'actes publics.</li>
-      <li><b>Moyens</b> : aucun lit ni équipement réservé ; deux sites au plus en cas d'activité partagée.</li>
-    </ol>
-    <p>Le contrat d'activité libérale, d'une durée de 5 ans, est transmis par le directeur au DG ARS avec son avis et ceux du chef de pôle et du PCME ; l'approbation par le DG ARS vaut autorisation. Il devient caduc si le PH n'est pas titularisé. Le praticien verse une redevance à l'établissement (L6154-3, L6154-4). <span class="vb o">texte</span> La commission de l'activité libérale contrôle ; en cas de manquement, le DG ARS peut suspendre (2 ans au plus) ou retirer l'autorisation. <span class="vb s">secondaire</span></p>
-  </div>
-
-  <!-- INTERIM -->
-  <div class="block" id="m-interim">
-    <h2>L'intérim médical</h2>
-    <p>L'intérim permet de tenir une ligne en urgence. Il coûte cher et fragilise les équipes. Le législateur l'a encadré par deux mécanismes :</p>
-    <ul>
-      <li><b>Plafond de dépense</b> : 2 681 € hors taxes pour 24 h de travail effectif d'un médecin, pharmacien ou chirurgien-dentiste intérimaire (JO du 9 septembre 2025). Arrêté du 5 septembre 2025, pris pour le décret 2025-612 du 2 juillet 2025 ; 3 752 € outre-mer. <span class="vb o">texte</span> Ce plafond couvre la dépense totale de l'hôpital, y compris la rémunération de l'agence, les charges, l'indemnité de précarité et les congés ; il remplace le plafond précédent de 1 410,69 €. Le contrôle repose sur la loi Rist du 26 avril 2021 : depuis le 3 avril 2023, le comptable public bloque le paiement d'un contrat au-dessus du plafond, et l'ARS peut le déférer au tribunal administratif. <span class="vb s">secondaire</span></li>
-      <li><b>Début de carrière</b> : la loi Valletoux (article 29) exige 2 ans d'exercice avant de travailler en intérim par une entreprise de travail temporaire ; applicable aux personnels médicaux depuis le 1er décembre 2025. <span class="vb s">secondaire</span></li>
-    </ul>
-    <p>Le motif 2 est l'alternative réglementaire : il permet de proposer une rémunération élevée, sur objectifs, dans un cadre contrôlé par l'ARS.</p>
-  </div>
+  <div class="partie fam-sic" id="p-sic"><span class="partie-n">Partie 5</span><span class="partie-t">Situations individuelles</span></div>
 
   <!-- SIC -->
   <div class="block" id="m-sic">
@@ -656,6 +754,22 @@ input[type=search]{font:inherit}
     </div>
   </div>
 
+  <div class="partie fam-etudes" id="p-etudes"><span class="partie-n">Partie 6</span><span class="partie-t">Études et juniors</span></div>
+
+  <!-- JUNIORS -->
+  <div class="block" id="m-juniors">
+    <h2>Internes et docteurs juniors</h2>
+    <p>Les juniors relèvent d'un régime distinct. Pour la DAM, l'enjeu est double : respecter leur temps de travail, sous peine de perdre l'agrément du terrain de stage, et les attirer, car un interne bien accueilli est souvent un futur praticien.</p>
+    <ul>
+      <li>Internes : 8 DJ en stage et 2 DJ hors stage par semaine, en moyenne sur le trimestre ; la DJ de formation compte comme temps de travail effectif, la DJ de temps personnel non ; 48 h au plus par période de 7 jours en moyenne sur le trimestre (R6153-2 et R6153-2-1). Voir l'onglet <a href="#f-interne" class="go-memo">Formation</a>. <span class="vb o">texte</span></li>
+      <li>Tableau de service nominatif élaboré par le responsable du lieu de stage avec le coordonnateur, arrêté chaque mois par le directeur ; relevés mensuels et trimestriels remis à l'interne (R6153-2-2 et R6153-2-3). <span class="vb o">texte</span></li>
+      <li>En cas de désaccord, l'interne saisit le directeur, le directeur de l'UFR et le PCME, puis le DG ARS ; réexamen de l'agrément et pénalité financière possibles (R6153-2-4 à R6153-2-6). <span class="vb o">texte</span></li>
+      <li>Permanence des soins : en principe une nuit par semaine et un dimanche ou férié par mois ; 6 internes au moins pour tenir une ligne ; repos de sécurité le lendemain. Indemnités de garde des internes revalorisées au 1er janvier 2024 (234,80 € ou 256,86 € selon le type de garde). <span class="vb o">texte</span></li>
+      <li>Docteur junior : actes autonomes définis en début de stage avec le chef de service et le coordonnateur ; participation à la PDS senior sur volontariat, avec l'accord des deux et une astreinte de supervision <span class="vb c">cours</span>. Ses gardes seniors sont payées comme celles d'un PH (422,03 €) et ses astreintes au forfait de la ligne (article 15 bis de l'arrêté du 30 avril 2003 modifié ; le forfait est celui de l'article 14 réformé le 8 juillet 2025) <span class="vb o">texte</span>.</li>
+      <li>Congés : 30 jours ouvrables pour l'interne, 25 jours ouvrés pour le docteur junior (R6153-1-9) <span class="vb o">texte</span> ; jours non pris indemnisables (6 jours à 70 € pour l'interne, 5 jours à 90 € pour le docteur junior). <span class="vb c">cours</span></li>
+    </ul>
+  </div>
+
   <!-- ETUDES -->
   <div class="block" id="m-etudes">
     <h2>Études de médecine : ce que peut faire la DAM</h2>
@@ -669,6 +783,7 @@ input[type=search]{font:inherit}
       <li><b>Commission de répartition</b> : comprendre pourquoi un stage n'est pas choisi (maquette, organisation, comportement des seniors), défendre les besoins de la population, viser davantage de stages hors CHU. <span class="vb c">cours</span></li>
     </ul>
   </div>
+
 </section>
 
 <!-- ===================== FORMATION ===================== -->
@@ -825,13 +940,13 @@ input[type=search]{font:inherit}
     <h2>Cas pratiques corrigés</h2>
     <p class="lede">Chaque cas place un praticien fictif dans un établissement réel de la région. Lisez l'énoncé, rédigez votre réponse selon la grille en 5 temps, puis ouvrez le corrigé : il indique ce qu'il fallait repérer, le raisonnement, la réponse et le piège classique. Les cas marqués « Sujet 2025 » reprennent l'évaluation de juillet 2025 ; les cas « Cours » reprennent les exercices des séances.</p>
     <div class="filters" id="caseFilters" role="group" aria-label="Filtrer par thème">
-      <button class="chip" aria-pressed="true" data-f="all">Tous</button>
-      <button class="chip" aria-pressed="false" data-f="annale">Sujet 2025</button>
-      <button class="chip" aria-pressed="false" data-f="tt">Temps de travail et PDS</button>
-      <button class="chip" aria-pressed="false" data-f="contrat">Contrats et carrière</button>
-      <button class="chip" aria-pressed="false" data-f="remu">Rémunération</button>
-      <button class="chip" aria-pressed="false" data-f="sic">Situations complexes</button>
-      <button class="chip" aria-pressed="false" data-f="junior">Juniors</button>
+      <button class="chip" aria-pressed="true" data-lbl="Tous" data-f="all">Tous</button>
+      <button class="chip" aria-pressed="false" data-lbl="Sujet 2025" data-f="annale">Sujet 2025</button>
+      <button class="chip" aria-pressed="false" data-lbl="Temps de travail et PDS" data-f="tt">Temps de travail et PDS</button>
+      <button class="chip" aria-pressed="false" data-lbl="Contrats et carrière" data-f="contrat">Contrats et carrière</button>
+      <button class="chip" aria-pressed="false" data-lbl="Rémunération" data-f="remu">Rémunération</button>
+      <button class="chip" aria-pressed="false" data-lbl="Situations complexes" data-f="sic">Situations complexes</button>
+      <button class="chip" aria-pressed="false" data-lbl="Juniors" data-f="junior">Juniors</button>
     </div>
   </div>
   <div class="block" id="caseList"></div>
@@ -870,6 +985,7 @@ input[type=search]{font:inherit}
     <h2>Calculateurs</h2>
     <p class="lede">Pré-remplis avec des exemples. Les règles appliquées sont celles du cours ; elles sont rappelées sous chaque résultat pour pouvoir être citées dans une copie.</p>
   </div>
+  <div class="toc-grp" id="calcToc"></div>
 
   <div class="calc" id="c-contrat">
     <h3>Quel statut proposer à un médecin ?</h3>
@@ -912,6 +1028,14 @@ input[type=search]{font:inherit}
     <div class="verdict" id="k-out"></div>
   </div>
 
+  <div class="calc" id="c-anc">
+    <h3>Reprise d'ancienneté et échelon de PH</h3>
+    <div id="r-rows" class="block"></div>
+    <div class="row"><button class="btn ghost" id="r-add">Ajouter une période</button></div>
+    <div class="out" id="r-out"></div>
+    <p class="small">Indicatif, sur la logique du simulateur CNG : services au prorata de la quotité ; activité libérale à 2/3 sur les 12 premières années puis 1/3 sur les 8 suivantes. Échelons 1 à 8 : 730 jours ; 9 à 12 : 1 460 jours. La liste des services repris figure dans la note CNG de classement des primo-nommés.</p>
+  </div>
+
   <div class="calc" id="c-paie">
     <h3>Paie mensuelle brute d'un praticien</h3>
     <div class="fields">
@@ -937,6 +1061,40 @@ input[type=search]{font:inherit}
     <div class="out" id="p-out"></div>
     <div class="raison small" id="p-rais"></div>
     <p class="small">Émoluments et IESPE au prorata des obligations de service hebdomadaires (articles R6152-23 et D6152-23-1, 6°) <span class="vb o">texte</span>. Un PH exerce 10 DJ à temps plein, 5 à 9 DJ à temps partiel (R6152-26) <span class="vb o">texte</span>. En temps continu, le texte fixe un maximum de 48 h et ne donne pas de règle de quotité : le site retient heures du praticien ÷ heures d'un temps plein dans le service <span class="vb i">interprétation</span>. Garde 422,03 €, demi-garde 211,01 € (PH, PC, assistant). IESPE non versée aux contractuels. Indemnités managériales cumulées plafonnées à 1 000 €. Le TTA est versé en fin de quadrimestre.</p>
+  </div>
+
+  <div class="calc" id="c-cet">
+    <h3>CET pérenne : droit d'option</h3>
+    <div class="fields">
+      <label class="f">Solde au 31/12 N-1 (jours)<input type="number" id="t-s" value="30" min="0"></label>
+      <label class="f">Jours épargnés en N<input type="number" id="t-e" value="18" min="0"></label>
+      <label class="f">Jours à indemniser (choix)<input type="number" id="t-i" value="18" min="0"></label>
+    </div>
+    <div class="out" id="t-out"></div>
+  </div>
+
+  <div class="calc" id="c-os">
+    <h3>Obligations de service sur une période</h3>
+    <div class="fields">
+      <label class="f">Nombre de semaines<input type="number" id="o-sem" value="18" min="1"></label>
+      <label class="f">Jours fériés tombant en semaine<input type="number" id="o-fer" value="4" min="0"></label>
+      <label class="f">Quotité (%)<input type="number" id="o-q" value="100" min="10" max="100"></label>
+    </div>
+    <div class="out" id="o-out"></div>
+    <p class="small">DJ : (semaines × 5 − fériés) × 2. Temps continu : jours ouvrés × 9,6 h. Urgences : jours ouvrés × 7,8 h posté + jours ouvrés × 1,8 h non posté (forfait maximal de 9 h/sem). Avant déduction des congés.</p>
+  </div>
+
+  <div class="calc" id="c-etp">
+    <h3>Besoin en ETP : demi-journées ou temps continu</h3>
+    <div class="fields">
+      <label class="f">Praticiens présents le jour<input type="number" id="e-j" value="3" min="0"></label>
+      <label class="f">Praticiens présents la nuit<input type="number" id="e-n" value="1" min="0"></label>
+      <label class="f">Jours couverts par an<input type="number" id="e-d" value="364" min="1"></label>
+      <label class="f">Durée de jour (h)<input type="number" id="e-hj" value="10" step="0.5"></label>
+      <label class="f">Durée de nuit (h)<input type="number" id="e-hn" value="14" step="0.5"></label>
+    </div>
+    <div class="out" id="e-out"></div>
+    <p class="small">1 ETP = 416 DJ ou 1 996 h. Une journée = 2 DJ, une nuit = 2 DJ. Ligne postée 24 h aux urgences : 8 760 h / 1 622 h = 5,4 ETP.</p>
   </div>
 
   <div class="calc" id="c-ast">
@@ -978,47 +1136,6 @@ input[type=search]{font:inherit}
     <div class="raison small" id="v-rais"></div>
   </div>
 
-  <div class="calc" id="c-os">
-    <h3>Obligations de service sur une période</h3>
-    <div class="fields">
-      <label class="f">Nombre de semaines<input type="number" id="o-sem" value="18" min="1"></label>
-      <label class="f">Jours fériés tombant en semaine<input type="number" id="o-fer" value="4" min="0"></label>
-      <label class="f">Quotité (%)<input type="number" id="o-q" value="100" min="10" max="100"></label>
-    </div>
-    <div class="out" id="o-out"></div>
-    <p class="small">DJ : (semaines × 5 − fériés) × 2. Temps continu : jours ouvrés × 9,6 h. Urgences : jours ouvrés × 7,8 h posté + jours ouvrés × 1,8 h non posté (forfait maximal de 9 h/sem). Avant déduction des congés.</p>
-  </div>
-
-  <div class="calc" id="c-etp">
-    <h3>Besoin en ETP : demi-journées ou temps continu</h3>
-    <div class="fields">
-      <label class="f">Praticiens présents le jour<input type="number" id="e-j" value="3" min="0"></label>
-      <label class="f">Praticiens présents la nuit<input type="number" id="e-n" value="1" min="0"></label>
-      <label class="f">Jours couverts par an<input type="number" id="e-d" value="364" min="1"></label>
-      <label class="f">Durée de jour (h)<input type="number" id="e-hj" value="10" step="0.5"></label>
-      <label class="f">Durée de nuit (h)<input type="number" id="e-hn" value="14" step="0.5"></label>
-    </div>
-    <div class="out" id="e-out"></div>
-    <p class="small">1 ETP = 416 DJ ou 1 996 h. Une journée = 2 DJ, une nuit = 2 DJ. Ligne postée 24 h aux urgences : 8 760 h / 1 622 h = 5,4 ETP.</p>
-  </div>
-
-  <div class="calc" id="c-anc">
-    <h3>Reprise d'ancienneté et échelon de PH</h3>
-    <div id="r-rows" class="block"></div>
-    <div class="row"><button class="btn ghost" id="r-add">Ajouter une période</button></div>
-    <div class="out" id="r-out"></div>
-    <p class="small">Indicatif, sur la logique du simulateur CNG : services au prorata de la quotité ; activité libérale à 2/3 sur les 12 premières années puis 1/3 sur les 8 suivantes. Échelons 1 à 8 : 730 jours ; 9 à 12 : 1 460 jours. La liste des services repris figure dans la note CNG de classement des primo-nommés.</p>
-  </div>
-
-  <div class="calc" id="c-cet">
-    <h3>CET pérenne : droit d'option</h3>
-    <div class="fields">
-      <label class="f">Solde au 31/12 N-1 (jours)<input type="number" id="t-s" value="30" min="0"></label>
-      <label class="f">Jours épargnés en N<input type="number" id="t-e" value="18" min="0"></label>
-      <label class="f">Jours à indemniser (choix)<input type="number" id="t-i" value="18" min="0"></label>
-    </div>
-    <div class="out" id="t-out"></div>
-  </div>
 </section>
 
 <!-- ===================== SOURCES ===================== -->
@@ -1124,7 +1241,7 @@ function showTab(id){tabs.forEach(b=>{const p=b.getAttribute('aria-controls');co
 tabs.forEach(b=>b.addEventListener('click',e=>{e.preventDefault();const id=b.getAttribute('aria-controls');showTab(id);try{history.replaceState(null,'','#'+id)}catch(err){}window.scrollTo({top:document.querySelector('nav.tabs').offsetTop-4});}));
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(ids.includes(h))showTab(h);});
 (function(){const h=location.hash.slice(1);let saved=null;try{saved=localStorage.getItem('dam-tab')}catch(e){}
- if(ids.includes(h))showTab(h);else if(saved&&ids.includes(saved))showTab(saved);else showTab('memo');})();
+ if(ids.includes(h))showTab(h);else if(saved&&ids.includes(saved))showTab(saved);else showTab('accueil');})();
 function jumpTo(id){const t=document.getElementById(id);if(!t)return;const p=t.closest('.panel');showTab(p?p.id:'memo');t.scrollIntoView({behavior:'smooth'});}
 document.querySelectorAll('.toc a, a.go-memo').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();jumpTo(a.getAttribute('href').slice(1));}));
 
@@ -1347,7 +1464,7 @@ c:`<h4>Ce qu'il faut repérer</h4><ul><li>Les faits datent de juin 2025 : on app
 <div class="box vigil"><span class="lbl">Pour mardi</span><p>Si les faits sont postérieurs au 1er novembre 2025, appliquer le nouveau régime : forfait par astreinte, plages converties en demi-journées dans les obligations de service, plus d'indemnité de sujétion (voir le cas de Dinan).</p></div>`}
 ];
 const list=document.getElementById('caseList');
-function renderCases(f){list.innerHTML='';CASES.forEach((c,i)=>{if(f!=='all'&&c.f!==f)return;const d=document.createElement('details');d.className='case';
+function renderCases(f){list.innerHTML='';CASES.forEach((c,i)=>{if(f!=='all'&&c.f!==f)return;const d=document.createElement('details');d.className='case';d.dataset.f=c.f;
 const g=guideFor(c.t);const gh=g?`<div class="guide"><span class="lbl">Démarche guidée</span><p class="small">Avant d'ouvrir le corrigé, répondez à ces questions dans l'ordre. Révélez-les une par une.</p><ol class="g-steps">${g.h.map((h,j)=>`<li ${j?'hidden':''}>${h}</li>`).join('')}</ol><button class="btn ghost g-next" type="button">Question suivante</button></div>`:'';const kh=g?`<div class="box retenir"><span class="lbl">À retenir</span><p>${g.k}</p></div>`:'';
 d.innerHTML=`<summary><span class="eyebrow">Cas ${i+1} · ${c.tag}</span><span class="t">${c.t}</span></summary><div class="case-body"><div class="enonce"><span class="lbl">Énoncé</span><p>${c.e}</p></div>${gh}<details class="cor"><summary>Afficher le corrigé</summary><div class="cor-body">${c.c}${kh}</div></details></div>`;
 const nb=d.querySelector('.g-next');if(nb)nb.onclick=()=>{const hid=d.querySelector('.g-steps li[hidden]');if(hid)hid.hidden=false;if(!d.querySelector('.g-steps li[hidden]')){nb.textContent='Toutes les questions sont affichées : ouvrez le corrigé';nb.disabled=true;}};list.appendChild(d);});}
@@ -1444,7 +1561,7 @@ function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor
 function build(){const th=document.getElementById('quizTheme').value;deck=shuffle(Q.filter(q=>th==='all'||q.th===th));pos=0;score=0;render();}
 function render(){answered=false;flipped=false;
  if(pos>=deck.length){qc.className='qcard';qc.innerHTML=`<div class="qtext">Terminé${mode==='quiz'?` : ${score} / ${deck.length}`:''}</div><p>${mode==='quiz'?(score/deck.length>=.8?'Bon niveau : passez aux cas pratiques.':'Relisez les sections du mémo correspondant aux erreurs, puis recommencez.'):'Toutes les cartes ont été vues.'}</p><div class="row"><button class="btn" id="qAgain">Recommencer</button></div>`;document.getElementById('qAgain').onclick=build;return;}
- const q=deck[pos];const pct=Math.round(pos/deck.length*100);
+ const q=deck[pos];const pct=Math.round(pos/deck.length*100);qc.dataset.th=q.th;
  if(mode==='quiz'){qc.className='qcard';
   qc.innerHTML=`<div class="qmeta"><span>Question ${pos+1} / ${deck.length}</span><span>Score ${score}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div class="qtext">${q.q}</div><div class="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div><div id="qx"></div>`;
   qc.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(answered)return;answered=true;const i=+b.dataset.i;if(i===q.a)score++;qc.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const k=+x.dataset.i;if(k===q.a)x.classList.add('good');else if(k===i)x.classList.add('bad');});
@@ -1770,6 +1887,88 @@ document.querySelectorAll('#c-paie input').forEach(i=>i.addEventListener('input'
 function tCalc(){const s=+$('t-s').value||0,e=+$('t-e').value||0;const ep=Math.min(e,20);const tot=Math.min(s+ep,208);const opt=Math.max(0,tot-20);const ind=Math.min(+$('t-i').value||0,opt);
  $('t-out').innerHTML=kpi(fmt(tot)+' j','Solde au 31/12/N')+(e>20?kpi('20 j','Alimentation plafonnée (saisi : '+e+')'):'')+kpi(fmt(opt)+' j','Jours ouverts au droit d’option')+kpi(fmt(ind*300)+' €','Indemnisation brute choisie')+kpi(fmt(tot-ind)+' j','Reste sur le CET')+kpi('31 mars N+1','Date limite d’option');}
 ['t-s','t-e','t-i'].forEach(i=>$(i).oninput=tCalc);tCalc();
+
+/* ---------- habillage : pictogrammes et familles (aucun contenu modifié) ---------- */
+(function(){
+ const pic=(id,cls)=>`<svg class="pi${cls?' '+cls:''}" aria-hidden="true" focusable="false"><use href="#i-${id}"/></svg>`;
+ const chartIc=id=>id==='communaute'||id==='megaphone';
+ const FAM={cadre:'Cadre et méthode',statuts:'Statuts et recrutement',remu:'Rémunération',temps:'Temps de travail et PDS',sic:'Situations individuelles',etudes:'Études et juniors'};
+ const COL={cadre:'bleu',statuts:'bleu-ciel',remu:'jaune',temps:'orange',sic:'saumon',etudes:'rose'};
+ const SEC={'m-methode':['cadre','methode'],'m-acteurs':['cadre','communaute'],'m-exercice':['cadre','exercice'],'m-padhue':['statuts','padhue'],'m-statuts':['statuts','statut'],'m-pc':['statuts','pc'],'m-ph':['statuts','ph'],'m-remu':['remu','remu'],'m-tt':['temps','temps'],'m-pds':['temps','pds'],'m-ast-hyp':['temps','ast'],'m-cet':['remu','cet'],'m-juniors':['etudes','junior'],'m-lib':['statuts','lib'],'m-interim':['statuts','interim'],'m-sic':['sic','sic'],'m-etudes':['etudes','etudes'],
+  'f-vue':['etudes','vue'],'f-acces':['etudes','acces'],'f-2c':['etudes','c2'],'f-3c':['etudes','form'],'f-stages':['etudes','stages'],'f-interne':['etudes','temps'],'f-dj':['etudes','junior'],'f-continue':['etudes','continue'],'f-dam':['etudes','communaute']};
+ Object.entries(SEC).forEach(([id,[f,ic]])=>{const b=document.getElementById(id);if(!b)return;b.classList.add('fam-'+f);const h=b.querySelector(':scope>h2');if(!h)return;
+  const w=document.createElement('div');w.className='h-ic';w.innerHTML=`<span class="ic-tile">${pic(ic,chartIc(ic)?'chart':'')}</span>`;h.parentNode.insertBefore(w,h);w.appendChild(h);
+  if(id.startsWith('m-')){const l=document.createElement('span');l.className='fam-lbl';l.innerHTML=`<i></i>${FAM[f]}`;b.insertBefore(l,w);}
+  document.querySelectorAll(`.toc a[href="#${id}"]`).forEach(a=>a.classList.add('fam-'+f));});
+ const toc=document.querySelector('#memo .toc');if(toc&&!document.querySelector('#memo .toc-grp')){const k=document.createElement('div');k.className='fam-key';k.innerHTML='<b style="color:var(--bleu);font-weight:500">Code couleur des sections :</b>'+Object.entries(FAM).map(([f,t])=>`<span class="fam-${f}"><i></i>${t}</span>`).join('');toc.parentNode.insertBefore(k,toc);}
+ const TAB={'t-acc':'vue','t-memo':'memo','t-form':'form','t-cas':'cas','t-logi':'logi','t-quiz':'quiz','t-calc':'calc','t-sg':'sg','t-src':'src'};
+ Object.entries(TAB).forEach(([id,ic])=>{const a=document.getElementById(id);if(a)a.insertAdjacentHTML('afterbegin',pic(ic));});
+ const CALC={'c-contrat':['statuts','statut'],'c-paie':['remu','remu'],'c-ast':['temps','ast'],'c-forf':['temps','remu'],'c-conv':['temps','temps'],'c-os':['temps','cet'],'c-etp':['temps','communaute'],'c-anc':['remu','vue'],'c-cet':['remu','cet']};
+ Object.entries(CALC).forEach(([id,[f,ic]])=>{const c=document.getElementById(id);if(!c)return;c.classList.add('fam-'+f);const h=c.querySelector(':scope>h3');if(h)h.insertAdjacentHTML('afterbegin',`<span class="ic-tile">${pic(ic,chartIc(ic)?'chart':'')}</span>`);});
+ const BOX={retenir:'retenir',vigil:'sic',methode:'megaphone',exemple:'exemple'};
+ let busy=false;
+ const decorate=()=>{if(busy)return;busy=true;document.querySelectorAll('.box').forEach(bx=>{const l=bx.querySelector(':scope>.lbl');if(!l||l.querySelector('svg'))return;const t=Object.keys(BOX).find(k=>bx.classList.contains(k));if(t)l.insertAdjacentHTML('afterbegin',pic(BOX[t],BOX[t]==='megaphone'?'chart':''));});busy=false;};
+ decorate();new MutationObserver(decorate).observe(document.body,{childList:true,subtree:true});
+ const CF={annale:'cadre',tt:'temps',contrat:'statuts',remu:'remu',sic:'sic',junior:'etudes',statuts:'statuts',divers:'cadre',formation:'etudes'};
+ const st=document.createElement('style');st.textContent=Object.entries(CF).map(([k,f])=>`details.case[data-f="${k}"],.qcard[data-th="${k}"],.chip[data-f="${k}"]{--fam:var(--${COL[f]})}`).join('');document.head.appendChild(st);
+})();
+
+/* ---------- réorganisation : renvois entre onglets, accès par thème ---------- */
+(function(){
+ const goTab=t=>{showTab(t);try{history.replaceState(null,'','#'+t)}catch(e){}window.scrollTo({top:document.querySelector('nav.tabs').offsetTop-4});};
+ const goLogi=k=>{goTab('logi');const b=document.querySelector(`#lgPick .chip[data-k="${k}"]`);if(b)b.click();};
+ const goCases=f=>{goTab('cas');const b=document.querySelector(`#caseFilters .chip[data-f="${f}"]`);if(b)b.click();};
+ const goCase=pre=>{goTab('cas');const all=document.querySelector('#caseFilters .chip[data-f="all"]');if(all)all.click();const d=[...document.querySelectorAll('#caseList details.case')].find(x=>x.querySelector('.t').textContent.startsWith(pre));if(d){d.open=true;d.scrollIntoView({behavior:'smooth'});}};
+ const caseNum=pre=>{const i=CASES.findIndex(c=>c.t.startsWith(pre));return i<0?null:i+1;};
+ const L=(cls,attr,txt)=>`<a href="#" class="${cls}" ${attr}>${txt}</a>`;
+ const lMemo=id=>{const el=document.getElementById(id);const h=el&&el.querySelector('h2');return L('j-memo',`data-id="${id}"`,h?h.textContent:id);};
+ const lLogi=k=>L('j-logi',`data-k="${k}"`,LG[k]?LG[k].t:k);
+ const lCalc=id=>{const h=document.querySelector(`#${id}>h3`);return L('j-calc',`data-id="${id}"`,h?h.textContent.trim():id);};
+ const lCase=pre=>{const n=caseNum(pre);return n?L('j-case',`data-pre="${pre}"`,`<span class="k">Cas ${n}</span>${pre}`):'';};
+ const REL={
+  'm-methode':{cas:['Trois médecins','Dr Bonsouffle']},
+  'm-exercice':{logi:['recrut'],calc:['c-contrat']},
+  'm-statuts':{logi:['recrut'],calc:['c-contrat']},
+  'm-padhue':{logi:['recrut'],calc:['c-contrat'],cas:['Trois médecins']},
+  'm-pc':{logi:['recrut'],calc:['c-contrat'],cas:['Pontivy : un radiologue','Ploërmel : un généraliste','Lannion : une pédiatre','Éligibilité au motif 2','Dr Bonsouffle']},
+  'm-ph':{calc:['c-anc'],cas:['Quimper : à quel échelon','Dr Canule','Dr Ocytocine']},
+  'm-lib':{logi:['lib'],cas:['Saint-Malo : un orthopédiste']},
+  'm-interim':{cas:['Paimpol : une ligne']},
+  'm-remu':{calc:['c-paie'],cas:['Vannes : la paie','Saint-Brieuc : retenir','Lannion : régulariser','Redon : paie et fin']},
+  'm-cet':{calc:['c-cet'],cas:['Vitré : une anesthésiste']},
+  'm-tt':{calc:['c-os','c-conv','c-etp'],cas:['Saint-Malo : les obligations','Vannes : la réanimation','Quimper : lire le tableau','Anesthésistes : passer']},
+  'm-pds':{logi:['ast'],calc:['c-ast','c-forf'],cas:['Dinan : le bilan','Lorient : quel forfait','Astreintes d’orthopédie']},
+  'm-sic':{logi:['sic','pf'],cas:['Redon : un anesthésiste','Saint-Brieuc : une urgentiste','Morlaix : deux chirurgiens']},
+  'm-juniors':{cas:['Vannes : les internes','Fougères : combien de temps','Lorient : un docteur junior']},
+  'f-interne':{cas:['Vannes : les internes','Fougères : combien de temps']},
+  'f-dj':{cas:['Lorient : un docteur junior']}};
+ const voir=r=>{const parts=[];
+  if(r.logi)parts.push('<div class="voir-r"><b>Décider</b><span>'+r.logi.map(lLogi).join('')+'</span></div>');
+  if(r.calc)parts.push('<div class="voir-r"><b>Calculer</b><span>'+r.calc.map(lCalc).join('')+'</span></div>');
+  if(r.cas){const c=r.cas.map(lCase).filter(Boolean);if(c.length)parts.push('<div class="voir-r"><b>S’exercer</b><span>'+c.join('')+'</span></div>');}
+  return parts.join('');};
+ Object.entries(REL).forEach(([id,r])=>{const b=document.getElementById(id);if(!b)return;const d=document.createElement('div');d.className='voir';d.innerHTML=voir(r);b.appendChild(d);});
+ // accès par thème
+ const FAMT={cadre:'Cadre et méthode',statuts:'Statuts et recrutement',remu:'Rémunération',temps:'Temps de travail et permanence des soins',sic:'Situations individuelles',etudes:'Études et juniors'};
+ const HUB={cadre:{memo:['m-methode','m-acteurs','m-exercice'],cases:'annale'},
+  statuts:{memo:['m-statuts','m-padhue','m-pc','m-ph','m-lib','m-interim'],logi:['recrut','lib'],calc:['c-contrat','c-anc'],cases:'contrat'},
+  remu:{memo:['m-remu','m-cet'],calc:['c-paie','c-cet'],cases:'remu'},
+  temps:{memo:['m-tt','m-pds','m-ast-hyp'],logi:['ast'],calc:['c-os','c-etp','c-ast','c-forf','c-conv'],cases:'tt'},
+  sic:{memo:['m-sic'],logi:['sic','pf'],cases:'sic'},
+  etudes:{memo:['m-juniors','m-etudes','f-vue','f-interne','f-dj'],cases:'junior'}};
+ const n=f=>CASES.filter(c=>c.f===f).length;
+ const hub=document.getElementById('hub');
+ if(hub)hub.innerHTML=Object.entries(HUB).map(([f,h])=>`<div class="hub-card fam-${f}"><h3>${FAMT[f]}</h3><dl><dt>Lire</dt><dd>${h.memo.map(lMemo).join('')}</dd>${h.logi?`<dt>Décider</dt><dd>${h.logi.map(lLogi).join('')}</dd>`:''}${h.calc?`<dt>Calculer</dt><dd>${h.calc.map(lCalc).join('')}</dd>`:''}<dt>S’exercer</dt><dd>${L('j-cases',`data-f="${h.cases}"`,`${n(h.cases)} cas « ${document.querySelector(`#caseFilters .chip[data-f="${h.cases}"]`).dataset.lbl||''} »`)}</dd></dl></div>`).join('');
+ const nb=document.getElementById('nbCas');if(nb)nb.textContent=CASES.length;
+ // sommaire des calculateurs
+ const CT=[['statuts','Statuts et carrière',['c-contrat','c-anc']],['remu','Rémunération',['c-paie','c-cet']],['temps','Temps de travail et astreintes',['c-os','c-etp','c-ast','c-forf','c-conv']]];
+ const ct=document.getElementById('calcToc');
+ if(ct)ct.innerHTML=CT.map(([f,t,ids],i)=>`<div class="toc-row fam-${f}"><span class="toc-n">${i+1}</span><span class="toc-t">${t}</span><div class="toc">${ids.map(id=>`<a href="#${id}">${document.querySelector('#'+id+'>h3').textContent.trim()}</a>`).join('')}</div></div>`).join('');
+ if(ct)ct.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();jumpTo(a.getAttribute('href').slice(1));}));
+ // délégation des clics
+ document.addEventListener('click',e=>{const a=e.target.closest('a.j-memo,a.j-logi,a.j-calc,a.j-case,a.j-cases,a.go-tab');if(!a)return;e.preventDefault();
+  if(a.classList.contains('j-memo'))jumpTo(a.dataset.id);else if(a.classList.contains('j-logi'))goLogi(a.dataset.k);else if(a.classList.contains('j-calc'))jumpTo(a.dataset.id);else if(a.classList.contains('j-case'))goCase(a.dataset.pre);else if(a.classList.contains('j-cases'))goCases(a.dataset.f);else goTab(a.dataset.tab);});
+})();
 </script>
 </body>
 </html>
