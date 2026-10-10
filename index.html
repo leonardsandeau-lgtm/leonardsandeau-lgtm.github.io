@@ -115,6 +115,35 @@ input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--bleu)}
 a{color:var(--bleu)}
 footer.pied{max-width:1000px;margin:48px auto 0;padding-inline:16px;padding-top:10px;border-top:1px solid var(--filet);font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.lg-node{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.lg-node h3{font-size:22px}
+.lg-q{background:var(--bleu-clair)}
+.lg-ok{background:var(--bleu);color:var(--blanc)} .lg-ok h3,.lg-ok .lbl{color:var(--blanc)}
+.lg-warn{background:var(--jaune);color:var(--noir)} .lg-warn h3,.lg-warn .lbl{color:var(--noir)}
+.lg-no{background:var(--saumon);color:var(--noir)} .lg-no h3,.lg-no .lbl{color:var(--noir)}
+.lg-node .lbl{font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.lg-q .lbl{color:var(--bleu)}
+.lg-opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.lg-opt{min-width:120px}
+.lg-trail{list-style:none;padding:0;margin:0 0 4px;display:flex;flex-direction:column;gap:0;border-left:3px solid var(--bleu)}
+.lg-trail li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;padding:6px 0 6px 14px;position:relative}
+.lg-trail li::before{content:"";position:absolute;left:-8px;top:12px;width:13px;height:13px;background:var(--bleu);border-radius:50%!important}
+.lg-back{font:inherit;font-size:14.5px;text-align:left;background:none;border:0;padding:0;color:var(--ink);cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.lg-back:hover{color:var(--bleu);text-decoration-color:var(--bleu)}
+.lg-ans{font-size:13px;font-weight:500;background:var(--bleu);color:var(--blanc);padding:1px 8px}
+#lgRun{display:flex;flex-direction:column;gap:12px}
+details.ov{border-top:1px solid var(--filet);padding-top:10px}
+details.ov>summary{cursor:pointer;color:var(--bleu);font-weight:500}
+#lgOv{overflow-x:auto;padding-top:12px;font-size:14.5px}
+.ov-q{font-weight:500;padding:6px 10px;background:var(--bleu-clair);display:inline-block;max-width:60ch}
+ul.ov-br{list-style:none;padding-left:22px;margin:6px 0 10px;border-left:1px solid var(--bleu);gap:8px}
+ul.ov-br>li{padding-left:8px}
+ul.ov-br>li::before{content:"";position:absolute;left:-22px;top:.8em;width:18px;height:1px;background:var(--bleu);font-family:inherit}
+.ov-a{display:inline-block;font-size:12.5px;font-weight:500;color:var(--bleu);margin-bottom:4px;margin-right:6px}
+.ov-r{display:inline-block;padding:5px 10px;max-width:60ch}
+.ov-ok{background:var(--bleu);color:var(--blanc)} .ov-warn{background:var(--jaune)} .ov-no{background:var(--saumon)}
+.ov-then{font-size:12.5px;color:var(--muted);margin:6px 0 4px}
+.ov-ref{font-size:13px;color:var(--muted);font-style:normal}
 </style>
 </head>
 <body>
@@ -129,6 +158,7 @@ footer.pied{max-width:1000px;margin:48px auto 0;padding-inline:16px;padding-top:
 <nav class="tabs" role="tablist" aria-label="Sections">
   <a role="tab" id="t-memo" href="#memo" aria-controls="memo" aria-selected="true">Mémo</a>
   <a role="tab" id="t-cas" href="#cas" aria-controls="cas" aria-selected="false">Cas pratiques</a>
+  <a role="tab" id="t-logi" href="#logi" aria-controls="logi" aria-selected="false">Logigrammes</a>
   <a role="tab" id="t-quiz" href="#quiz" aria-controls="quiz" aria-selected="false">Quiz</a>
   <a role="tab" id="t-calc" href="#calc" aria-controls="calc" aria-selected="false">Calculateurs</a>
   <a role="tab" id="t-src" href="#sources" aria-controls="sources" aria-selected="false">Sources</a>
@@ -493,6 +523,17 @@ footer.pied{max-width:1000px;margin:48px auto 0;padding-inline:16px;padding-top:
     </div>
   </div>
   <div class="block" id="caseList"></div>
+</section>
+
+<!-- ===================== LOGIGRAMMES ===================== -->
+<section class="panel" id="logi" role="tabpanel" aria-labelledby="t-logi">
+  <div class="block">
+    <h2>Logigrammes</h2>
+    <p class="lede">Choisissez une situation, répondez aux questions : le parcours s'affiche et chaque étape reste cliquable pour revenir en arrière.</p>
+    <div class="filters" id="lgPick" role="group" aria-label="Choisir un logigramme"></div>
+  </div>
+  <div id="lgRun" aria-live="polite"></div>
+  <details class="ov"><summary>Voir l'arbre complet</summary><div id="lgOv"></div></details>
 </section>
 
 <!-- ===================== QUIZ ===================== -->
@@ -914,6 +955,109 @@ build();
 const fmt=(n,d=0)=>n.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
 const kpi=(v,l)=>`<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
 const $=id=>document.getElementById(id);
+
+/* ---------- logigrammes ---------- */
+const LG={
+recrut:{t:'Recruter un praticien : quel statut ?',start:'q1',n:{
+ q1:{q:'Le candidat a-t-il un diplôme hors UE non reconnu (PADHUE) ?',h:'Diplôme obtenu hors UE/EEE, sans autorisation de plein exercice.',o:[['Oui','padhue'],['Non','q2']]},
+ padhue:{q:'Est-il lauréat des épreuves de vérification des connaissances (EVC) ?',o:[['Oui','r_pa'],['Non','padhue2']]},
+ padhue2:{q:'A-t-il au moins 3 ans d’exercice à temps plein, dont 1 an dans les 3 dernières années, et s’engage-t-il à passer les EVC ?',o:[['Oui','r_pact'],['Non','padhue3']]},
+ padhue3:{q:'Vient-il se former puis repartir ?',o:[['Oui, accord de coopération','r_sa'],['Oui, inscrit en DFMS/DFMSA','r_ffi'],['Non','r_padhue_no']]},
+ q2:{q:'Est-il inscrit au tableau de l’Ordre en plein exercice ?',h:'Le tableau spécial des docteurs juniors ne vaut pas plein exercice.',o:[['Oui','q3'],['Non','r_ordre']]},
+ q3:{q:'Est-il inscrit sur la liste d’aptitude du concours national de PH (valable 4 ans) ?',o:[['Oui','q3b'],['Non','q4']]},
+ q3b:{q:'Exercera-t-il au moins 50 % de son temps à l’hôpital ?',o:[['Oui','r_ph'],['Non','q4']]},
+ q4:{q:'Le besoin est-il temporaire : remplacement d’un absent ou accroissement d’activité ?',o:[['Oui','r_m1'],['Non, le besoin est permanent','q5']]},
+ q5:{q:'Exerce-t-il en ville, en ESPIC ou dans le privé et vient-il compléter l’offre, à 4 DJ ou moins ?',o:[['Oui','r_m4'],['Non','q6']]},
+ q6:{q:'La spécialité est-elle en difficulté de recrutement ou à risque pour la continuité, et prévue au CPOM ?',o:[['Oui','q7'],['Non','q9']]},
+ q7:{q:'A-t-il au moins 5 ans d’inscription à l’Ordre ?',o:[['Oui','q8'],['Non','q9']]},
+ q8:{q:'Est-il PH en disponibilité ?',o:[['Oui','r_dispo'],['Non','r_m2']]},
+ q9:{q:'Prépare-t-il le concours de PH ?',o:[['Oui','r_m3'],['Non','r_m1b']]},
+ r_pa:{r:'ok',t:'Praticien associé',b:'Choix sur un poste ouvert par la DGOS, affectation par le CNG dans les 6 mois suivant les résultats ; parcours de consolidation des compétences de 2 ans avec inscription à l’UFR ; exercice par délégation.'},
+ r_pact:{r:'ok',t:'Praticien associé contractuel temporaire (PACT)',b:'Attestation d’exercice provisoire délivrée par le DG ARS après commission ; contrat de 13 mois renouvelable une fois (26 mois) ; engagement à passer les EVC ; encadrement par l’établissement.'},
+ r_sa:{r:'ok',t:'Stagiaire associé',b:'Convention de coopération signée au moins 2 mois avant, visée par le préfet ; 6 mois renouvelable une fois, 2 ans maximum en France.'},
+ r_ffi:{r:'ok',t:'Faisant fonction d’interne',b:'Candidature en décembre N-1 via l’université ; DFMS 2 à 6 semestres, DFMSA 1 à 2 ; nommé par le directeur.'},
+ r_padhue_no:{r:'no',t:'Pas de statut adapté en l’état',b:'Vérifier si le candidat peut s’inscrire aux EVC ou bénéficier d’une autorisation temporaire d’exercice de l’ARS. Ne pas le faire exercer sans base légale.'},
+ r_ordre:{r:'no',t:'Recrutement impossible',b:'Sans inscription à l’Ordre : exercice illégal (L4161-5 CSP, 2 ans, 30 000 €) et complicité pour l’employeur. Un docteur junior reste sous son statut d’étudiant.'},
+ r_ph:{r:'ok',t:'Nomination comme praticien hospitalier',b:'Publication du poste au tour de recrutement (ou entre deux tours sur proposition du DG ARS), profil de poste, proposition du directeur, arrêté du DG CNG. Période probatoire d’un an. Reprise d’ancienneté et IESPE.'},
+ r_m1:{r:'ok',t:'Contractuel motif 1',b:'6 mois renouvelable 6 mois, 2 ans maximum dans l’établissement ; 1 à 10 DJ ; rémunération sur la grille de l’établissement (41 386,48 à 71 162,83 € brut/an à temps plein).'},
+ r_m4:{r:'ok',t:'Contractuel motif 4',b:'3 ans maximum, renouvelable par décision expresse jusqu’à 6 ans ; CDI possible après 3 ans, de droit après 6 ans sur le même emploi. Pas de nomination PH ni de libéral à l’hôpital.'},
+ r_m2:{r:'ok',t:'Contractuel motif 2',b:'6 mois à 3 ans, renouvelable, 6 ans maximum ; 4 DJ minimum ; fixe + part variable sur objectifs écrits, total ≤ 119 130 € brut/an. Vérifier le cumul des contrats déjà conclus dans l’établissement.'},
+ r_dispo:{r:'no',t:'Motif 2 interdit',b:'Un PH en disponibilité ne peut pas être recruté en motif 2, quel que soit l’établissement. Proposer la réintégration et une nomination sur poste.'},
+ r_m3:{r:'ok',t:'Contractuel motif 3',b:'Dans l’attente de l’inscription sur la liste d’aptitude ; 3 ans maximum ; 5 à 10 DJ ; levier sur l’échelon et la date de nomination ; PECH possible selon la spécialité.'},
+ r_m1b:{r:'no',t:'Pas de motif évident',b:'Besoin permanent sans difficulté de recrutement ni projet de concours : publier le poste de PH. À défaut, motif 1 seulement si un remplacement ou un surcroît temporaire existe.'}
+}},
+sic:{t:'Situation individuelle complexe d’un PH',start:'s1',n:{
+ s1:{q:'Les faits mettent-ils en péril immédiat la sécurité des patients ou la continuité du service ?',h:'Des difficultés relationnelles seules ne suffisent pas.',o:[['Oui','r_susp'],['Non','s2']]},
+ r_susp:{r:'warn',t:'Suspension conservatoire par le directeur',b:'L6143-7 CSP, pouvoir de police : décision écrite, motivée, avec voies de recours ; information immédiate des DG du CNG et de l’ARS ; aucune retenue sauf indemnités de PDS. Puis poursuivre l’orientation.',next:'s2'},
+ s2:{q:'Les faits peuvent-ils constituer un crime ou un délit ?',o:[['Oui','r_art40'],['Non','s3']]},
+ r_art40:{r:'warn',t:'Signalement au procureur (article 40 CPP)',b:'Courrier au procureur avec les éléments ; copie au CNG. Procédures pénale, ordinale et statutaire indépendantes et cumulables.',next:'s3'},
+ s3:{q:'Existe-t-il un doute sur l’état de santé (pathologie, addiction) ?',o:[['Oui','r_cm'],['Non','s4']]},
+ r_cm:{r:'ok',t:'Saisir le comité médical d’abord',b:'Saisine par le directeur après avis du PCME. Si inaptitude : congé maladie (CMO, CLM, CLD), la procédure disciplinaire est suspendue. Si aptitude : reprendre l’orientation.'},
+ s4:{q:'Le praticien a-t-il manqué à une obligation statutaire ou déontologique ?',o:[['Oui, faute','r_disc'],['Non','s5']]},
+ r_disc:{r:'ok',t:'Procédure disciplinaire',b:'Enquête administrative coordonnée par le DAM, dossier daté et signé, transmis au CNG sans proposer de sanction. Avertissement ou blâme possibles par le DG CNG ; au-delà, conseil de discipline (convocation 2 mois avant, avis sous 4 mois).'},
+ s5:{q:'Le praticien est-il incapable de remplir ses fonctions, sans faute ni pathologie ?',o:[['Oui','r_ip'],['Non','s6']]},
+ r_ip:{r:'ok',t:'Insuffisance professionnelle',b:'Saisine du CNG ; comité médical préalable recommandé ; avis CME restreinte et DG ARS ; commission statutaire nationale. Issue : absence d’IP, licenciement avec indemnité ou reconversion.'},
+ s6:{q:'S’agit-il d’un conflit relationnel durable ?',o:[['Oui','s7'],['Non','r_suivi']]},
+ s7:{q:'La conciliation locale a-t-elle échoué ou le conflit dure-t-il depuis plus de 6 mois ?',o:[['Non, pas encore tentée','r_concil'],['Oui','s8']]},
+ r_concil:{r:'ok',t:'Conciliation locale',b:'Tiers conciliateur interne ou externe, démarche formalisée et tracée (note DGOS du 29 mars 2022).'},
+ s8:{q:'La médiation régionale puis nationale a-t-elle échoué, avec un blocage préjudiciable au service ?',o:[['Non','r_med'],['Oui','r_detach']]},
+ r_med:{r:'ok',t:'Médiation régionale',b:'Saisie pour un médecin par le PCME conjointement avec le directeur ; contrat de médiation sous 3 mois ; en cas d’échec, médiation nationale.'},
+ r_detach:{r:'warn',t:'Détachement d’office',b:'Demande au CNG sur dossier étayé ; R6152-54 ; 5 ans renouvelable tacitement ; 2 mois pour rejoindre le poste. La recherche d’affectation n’est pas un outil de règlement des conflits.'},
+ r_suivi:{r:'no',t:'Pas de procédure statutaire',b:'Entretien avec le praticien et le chef de service, traçabilité écrite, accompagnement (médecine du travail, coaching), suivi.'}
+}},
+ast:{t:'Décompter un déplacement en astreinte',start:'a1',n:{
+ a1:{q:'L’astreinte a-t-elle donné lieu à un déplacement sur place ?',o:[['Oui','a2'],['Non, appels seulement','r_appel']]},
+ r_appel:{r:'no',t:'Pas de temps de déplacement',b:'Avant novembre 2025, les appels n’étaient pas décomptés. Depuis, ils entrent dans les critères du forfait de la ligne (appels, télémédecine) ; seul le forfait est versé.'},
+ a2:{q:'Combien d’heures de trajet ont déjà été comptées sur cette période d’astreinte ?',o:[['Moins de 2 h','a3'],['2 h','a3b']]},
+ a3:{q:'Intervention + 1 h de trajet : la durée atteint-elle 3 h ?',o:[['Oui','r_5h'],['Non','r_arr']]},
+ a3b:{q:'Intervention seule (trajet plafonné) : la durée atteint-elle 3 h ?',o:[['Oui','r_5h'],['Non','r_arr']]},
+ r_5h:{r:'ok',t:'Compter 5 h, trajet inclus',b:'Ajouter au total de la période, plafonné à 10 h (2 DJ). Chaque plage de 5 h cumulée sur le quadrimestre donne ½ plage de TTA (167,79 €) ; reliquat reporté.',next:'a1'},
+ r_arr:{r:'ok',t:'Arrondir à l’heure',b:'Fraction de moins de 30 min négligée, 30 min ou plus comptée 1 h. Ajouter au total de la période (plafond 10 h). Conversion en TTA par plages de 5 h au quadrimestre.',next:'a1'}
+}},
+lib:{t:'Activité libérale à l’hôpital',start:'l1',n:{
+ l1:{q:'Le praticien est-il PH (dès la période probatoire) ou HU ?',o:[['Oui','l2'],['Non, contractuel ou autre','r_lno']]},
+ r_lno:{r:'no',t:'Activité libérale impossible',b:'Les contractuels ne peuvent pas exercer d’activité libérale à l’hôpital.'},
+ l2:{q:'Exerce-t-il au moins 80 % (8 DJ) ?',o:[['Oui','l3'],['Non','r_lq']]},
+ r_lq:{r:'no',t:'Quotité insuffisante',b:'La quotité minimale est de 80 %. Proposer une hausse de quotité ou renoncer au libéral.'},
+ l3:{q:'L’activité demandée reste-t-elle dans 20 % de la durée de service (2 DJ à temps plein) ?',o:[['Oui','l4'],['Non','r_l20']]},
+ r_l20:{r:'no',t:'Durée excessive',b:'Réduire à 20 % de la durée de service hebdomadaire : 2 DJ pour un temps plein, 1 DJ pour une quotité inférieure.'},
+ l4:{q:'Le nombre d’actes libéraux restera-t-il inférieur aux actes publics réalisés personnellement ?',o:[['Oui','r_lok'],['Non','r_lvol']]},
+ r_lvol:{r:'no',t:'Volume non conforme',b:'Les actes libéraux doivent rester inférieurs à l’activité publique personnelle ; aucun lit ni équipement réservé.'},
+ r_lok:{r:'ok',t:'Contrat d’activité libérale',b:'Contrat de 5 ans avec le directeur, avis PCME et chef de pôle, approbation du DG ARS (tacite à 2 mois) ; redevance ; contrôle par la commission de l’activité libérale ; suspension ou retrait par le DG ARS en cas de manquement.'}
+}},
+pf:{t:'Protection fonctionnelle',start:'p1',n:{
+ p1:{q:'Le praticien est-il poursuivi en justice ou victime d’une attaque ?',o:[['Poursuivi','p2'],['Victime','p3']]},
+ p2:{q:'Les faits constituent-ils une faute personnelle détachable du service ?',o:[['Oui','r_pfno'],['Non ou pas établi','p4']]},
+ p3:{q:'L’attaque (violences, menaces, injures, diffamation, harcèlement) est-elle liée à ses fonctions ?',o:[['Oui','p4'],['Non','r_pflien']]},
+ p4:{q:'Le directeur est-il lui-même en conflit avec le praticien ?',o:[['Oui','r_pfars'],['Non','r_pfok']]},
+ r_pfno:{r:'no',t:'Refus motivé',b:'La faute personnelle détachable fait obstacle à la protection. Décision écrite et motivée, avec voies de recours.'},
+ r_pflien:{r:'no',t:'Hors champ',b:'Une attaque sans lien avec les fonctions n’ouvre pas droit à la protection (exemple : véhicule fracturé sur le parking).'},
+ r_pfars:{r:'warn',t:'Transmettre au DG ARS',b:'Principe d’impartialité (CE 29 juin 2020) : le DG ARS statue sur la demande.'},
+ r_pfok:{r:'ok',t:'Octroi par le directeur',b:'Décision précisant les modalités : frais d’avocat et de procédure, mesures de protection, réparation des préjudices. Retrait seulement sous 4 mois si illégale. N’empêche pas une procédure disciplinaire.'}
+}}
+};
+let lgKey='recrut',lgPath=[];
+const LGT={ok:'Conclusion',warn:'Mesure immédiate',no:'Blocage'};
+function lgRender(){const g=LG[lgKey];const cur=lgPath.length?lgPath[lgPath.length-1].to:g.start;const n=g.n[cur];
+ const crumbs=lgPath.map((s,i)=>`<li><button class="lg-back" data-i="${i}" title="Revenir à cette question">${g.n[s.from].q||g.n[s.from].t}</button><span class="lg-ans">${s.l}</span></li>`).join('');
+ let body;
+ if(n.r){body=`<div class="lg-node lg-${n.r}"><span class="lbl">${LGT[n.r]}</span><h3>${n.t}</h3><p>${n.b}</p></div><div class="row">${n.next?`<button class="btn" id="lgNext">Continuer</button>`:''}<button class="btn ghost" id="lgReset">Recommencer</button></div>`;}
+ else{body=`<div class="lg-node lg-q"><span class="lbl">Question ${lgPath.length+1}</span><h3>${n.q}</h3>${n.h?`<p class="small">${n.h}</p>`:''}<div class="lg-opts">${n.o.map((o,i)=>`<button class="btn lg-opt" data-i="${i}">${o[0]}</button>`).join('')}</div></div>${lgPath.length?'<div class="row"><button class="btn ghost" id="lgReset">Recommencer</button></div>':''}`;}
+ $('lgRun').innerHTML=(crumbs?`<ol class="lg-trail">${crumbs}</ol>`:'')+body;
+ document.querySelectorAll('.lg-opt').forEach(b=>b.onclick=()=>{const o=n.o[+b.dataset.i];lgPath.push({from:cur,l:o[0],to:o[1]});lgRender();});
+ document.querySelectorAll('.lg-back').forEach(b=>b.onclick=()=>{lgPath=lgPath.slice(0,+b.dataset.i);lgRender();});
+ const r=$('lgReset');if(r)r.onclick=()=>{lgPath=[];lgRender();};
+ const nx=$('lgNext');if(nx)nx.onclick=()=>{lgPath.push({from:cur,l:'Suite',to:n.next});lgRender();};
+ lgOverview();}
+function lgOverview(){const g=LG[lgKey];const seen=new Set();
+ function walk(id,depth){const n=g.n[id];if(!n)return'';
+  if(n.r){let s=`<div class="ov-r ov-${n.r}"><b>${n.t}</b></div>`;if(n.next&&!seen.has(n.next)&&depth<12){s+=`<div class="ov-then">puis</div>`+walk(n.next,depth+1);}return s;}
+  if(seen.has(id))return`<div class="ov-ref">voir plus haut : ${n.q}</div>`;seen.add(id);
+  return`<div class="ov-q">${n.q}</div><ul class="ov-br">${n.o.map(o=>`<li><span class="ov-a">${o[0]}</span>${walk(o[1],depth+1)}</li>`).join('')}</ul>`;}
+ $('lgOv').innerHTML=walk(g.start,0);}
+$('lgPick').innerHTML=Object.entries(LG).map(([k,v])=>`<button class="chip" data-k="${k}" aria-pressed="${k===lgKey}">${v.t}</button>`).join('');
+document.querySelectorAll('#lgPick .chip').forEach(b=>b.onclick=()=>{lgKey=b.dataset.k;lgPath=[];document.querySelectorAll('#lgPick .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));lgRender();});
+lgRender();
 
 /* ---------- choix du contrat ---------- */
 function contrat(){const c=id=>$(id).checked;const dj=+$('k-dj').value||0;const out=[];
