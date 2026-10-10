@@ -5,153 +5,133 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Révisions DAM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;800&display=swap">
 <style>
-/* Charte Sandeau : bandeau de couverture en thème nuit, pages en thème jour, angles droits, triangle comme seule forme, minuscules pour libellés */
+/* Charte EHESP (sans logotype) : couverture négative bleue, pages en thème positif blanc, bandeaux bleu clair, filets fins, listes à flèche, angles droits. Thème unique positif, choisi pour la lisibilité. */
 :root{
-  --rouge:#d6002f; --rose:#ff4fa3; --lavande:#b9a0ff; --noir-prune:#1a1020; --rose-pale:#ffe3ef; --blanc-rose:#fff6fa; --gris-prune:#54465c;
-  --bg:#fff6fa; --surface:#fff6fa; --ink:#1a1020; --muted:#54465c; --line:#ffe3ef; --filet:#1a1020;
-  --accent:#d6002f; --on-accent:#ffffff; --accent-soft:#ffe3ef;
-  --retenir:#1a1020; --retenir-bg:#ffe3ef;
-  --vigil:#1a1020; --vigil-bg:#b9a0ff;
-  --ok:#1a1020; --ok-bg:#b9a0ff; --bad-bg:#d6002f; --bad-ink:#ffffff;
-  --input-bg:#ffffff; --th-bg:#1a1020;
-  --f-display:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
-  --f-body:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
-  --f-mono:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
+  color-scheme:light;
+  --bleu:#2039b9; --bleu-clair:#eaf4fd; --noir:#000000; --blanc:#ffffff; --orange:#ff7700; --jaune:#ffdc00; --bleu-ciel:#5bc5f2; --saumon:#f7b5a5;
+  --bg:#ffffff; --surface:#ffffff; --ink:#000000; --muted:#3b3f4a; --line:#d7e6f6; --filet:#000000;
+  --accent:#2039b9; --on-accent:#ffffff; --accent-soft:#eaf4fd;
+  --f-display:"Outfit",system-ui,sans-serif; --f-body:"Outfit",system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#1a1020; --surface:#1a1020; --ink:#fff6fa; --muted:#fff6fa; --line:#2a1b33; --filet:#fff6fa;
-  --accent:#ff4fa3; --on-accent:#1a1020; --accent-soft:#2a1b33;
-  --retenir:#fff6fa; --retenir-bg:#2a1b33; --vigil:#1a1020; --vigil-bg:#b9a0ff;
-  --ok:#1a1020; --ok-bg:#b9a0ff; --bad-bg:#d6002f; --bad-ink:#ffffff; --input-bg:#2a1b33; --th-bg:#2a1b33; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#1a1020; --surface:#1a1020; --ink:#fff6fa; --muted:#fff6fa; --line:#2a1b33; --filet:#fff6fa;
-  --accent:#ff4fa3; --on-accent:#1a1020; --accent-soft:#2a1b33;
-  --retenir:#fff6fa; --retenir-bg:#2a1b33; --vigil:#1a1020; --vigil-bg:#b9a0ff;
-  --ok:#1a1020; --ok-bg:#b9a0ff; --bad-bg:#d6002f; --bad-ink:#ffffff; --input-bg:#2a1b33; --th-bg:#2a1b33; color-scheme:dark}
 *{box-sizing:border-box;border-radius:0!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;padding-inline:0;padding-block:0 48px;font-optical-sizing:auto}
-.wrap{max-width:980px;margin:0 auto;padding-inline:16px}
-/* couverture nuit */
-.cover{background:var(--noir-prune);color:var(--blanc-rose);padding-inline:16px}
-.cover-in{max-width:980px;margin:0 auto;padding-block:28px 32px;display:flex;flex-direction:column;gap:14px}
-.cover .logo{width:200px;max-width:60%;height:auto;display:block}
-.cover .court{width:64px;height:6px;background:var(--rose)}
-.cover h1{font-weight:800;font-size:clamp(44px,9vw,80px);line-height:.95;letter-spacing:-2px;margin:0;color:var(--blanc-rose);text-wrap:balance}
-.cover h1 em{font-style:normal;color:var(--rose)}
-.cover .lede{color:var(--blanc-rose);max-width:62ch;font-size:16px;line-height:1.45}
-.cover .eyebrow{color:var(--rose)}
-.eyebrow{font-weight:600;font-size:13px;letter-spacing:.01em;text-transform:lowercase;color:var(--muted)}
-h2{font-family:var(--f-display);font-weight:800;font-size:28px;line-height:1.05;letter-spacing:-1px;margin:0;text-wrap:balance;padding-bottom:8px;border-bottom:2px solid var(--filet)}
-h3{font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1.25;margin:0;text-wrap:balance}
-h4{font-family:var(--f-display);font-weight:600;font-size:16px;margin:0}
-.lede{color:var(--ink);max-width:70ch;margin:0;font-size:17px;line-height:1.45}
-nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--filet);display:flex;gap:2px;overflow-x:auto;padding-block:10px 0;margin-bottom:28px}
-nav.tabs button{font-family:var(--f-display);font-weight:600;font-size:16px;text-transform:lowercase;background:none;border:0;border-bottom:6px solid transparent;color:var(--muted);padding:8px 12px;cursor:pointer;white-space:nowrap}
-nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
-button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.55;padding-inline:0;padding-block:0 48px}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:16px}
+.cover{background:var(--bleu);color:var(--blanc);padding-inline:16px}
+.cover-in{max-width:1000px;margin:0 auto;padding-block:36px 40px;display:flex;flex-direction:column;gap:14px}
+.cover h1{font-weight:800;font-size:clamp(40px,7.5vw,72px);line-height:1.02;margin:0;color:var(--blanc);text-wrap:balance}
+.cover h1 .st{display:block;font-weight:400}
+.cover .lede{color:var(--blanc);max-width:64ch;font-size:17px;line-height:1.45}
+.cover .eyebrow{color:var(--blanc)}
+.eyebrow{font-weight:500;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--f-display);font-weight:500;font-size:28px;line-height:1.2;margin:0;color:var(--bleu);text-wrap:balance;padding-bottom:8px;border-bottom:1px solid var(--filet)}
+h3{font-family:var(--f-display);font-weight:500;font-size:19px;line-height:1.25;margin:0;color:var(--bleu);text-wrap:balance}
+h4{font-family:var(--f-display);font-weight:500;font-size:16.5px;margin:0;color:var(--bleu)}
+.lede{color:var(--bleu);max-width:70ch;margin:0;font-size:17px;line-height:1.45}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--filet);display:flex;gap:2px;overflow-x:auto;padding-block:10px 0;margin-bottom:28px}
+nav.tabs a{text-decoration:none;font-weight:500;font-size:16.5px;color:var(--ink);border-bottom:4px solid transparent;padding:8px 14px;white-space:nowrap}
+nav.tabs a:hover{color:var(--bleu)}
+nav.tabs a[aria-selected="true"]{color:var(--bleu);border-bottom-color:var(--bleu)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--bleu);outline-offset:2px}
 section.panel{display:flex;flex-direction:column;gap:36px}
 .block{display:flex;flex-direction:column;gap:12px;min-width:0}
-.block>p,.block li{max-width:72ch}
+.block>p,.block li{max-width:74ch}
 p{margin:0}
-ul,ol{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:5px}
-ul{list-style:none;padding-left:1.1em}
+ul,ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px}
+ul{list-style:none}
 ul>li{position:relative}
-ul>li::before{content:"";position:absolute;left:-1.1em;top:.5em;width:9px;height:8px;background:var(--accent);clip-path:polygon(50% 0,100% 100%,0 100%)}
-ol>li::marker{color:var(--accent);font-weight:800}
+ul>li::before{content:"→";position:absolute;left:-1.35em;top:0;color:var(--bleu);font-family:Arial,sans-serif;font-weight:700}
+ol>li::marker{color:var(--bleu);font-weight:700}
 .toc{display:flex;flex-wrap:wrap;gap:6px}
-.toc a{font-size:14px;font-weight:600;text-transform:lowercase;color:var(--ink);text-decoration:none;background:var(--accent-soft);padding:4px 10px}
-.toc a:hover{background:var(--accent);color:var(--on-accent)}
-.tbl{overflow-x:auto;background:var(--surface)}
-table{border-collapse:collapse;width:100%;font-size:14.5px}
-th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:2px solid var(--line)}
-th{font-weight:600;background:var(--th-bg);color:var(--blanc-rose)}
+.toc a{font-size:14.5px;font-weight:500;color:var(--bleu);text-decoration:none;background:var(--bleu-clair);padding:5px 11px}
+.toc a:hover{background:var(--bleu);color:var(--blanc)}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:9px 11px;border-bottom:1px solid var(--line)}
+th{font-weight:500;background:var(--bleu);color:var(--blanc)}
+tr:nth-child(odd) td{background:#f7fbfe}
 tr:last-child td{border-bottom:0}
-td.num,.num{font-variant-numeric:tabular-nums;font-size:14px;white-space:nowrap}
-.box{padding:16px 16px 16px 18px;display:flex;flex-direction:column;gap:6px;position:relative;border:0}
-.box::before{content:"";position:absolute;left:0;top:0;width:14px;height:13px;background:var(--accent);clip-path:polygon(50% 0,100% 100%,0 100%)}
-.box .lbl{font-size:13px;font-weight:600;text-transform:lowercase;padding-left:6px}
-.retenir{background:var(--retenir-bg);color:var(--retenir)}
-.methode{background:var(--accent-soft);color:var(--ink)}
-.vigil{background:var(--vigil-bg);color:var(--vigil)}
-.vigil::before{background:var(--noir-prune)}
-.vigil a,.vigil .small{color:var(--noir-prune)}
-.box ul>li::before{top:.5em}
-.vigil ul>li::before{background:var(--noir-prune)}
-.src{font-size:13px;color:var(--muted)}
-.tag{display:inline-block;font-size:12px;padding:1px 7px;background:var(--accent-soft);color:var(--ink)}
-details.case{background:var(--surface);border-top:2px solid var(--filet)}
-details.case>summary{cursor:pointer;list-style:none;padding:14px 4px;display:flex;flex-direction:column;gap:2px}
+td.num,.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.box{padding:16px 18px;display:flex;flex-direction:column;gap:8px;border:0}
+.box .lbl{font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.retenir{background:var(--bleu-clair);color:var(--ink)} .retenir .lbl{color:var(--bleu)}
+.methode{background:var(--bleu);color:var(--blanc)} .methode .lbl{color:var(--blanc)}
+.methode ul>li::before,.methode ol>li::marker{color:var(--blanc)}
+.methode .small,.methode a{color:var(--blanc)}
+.methode b{font-weight:700}
+.vigil{background:var(--saumon);color:var(--ink)} .vigil .lbl{color:var(--ink)}
+.vigil ul>li::before{color:var(--ink)} .vigil a,.vigil .small{color:var(--ink)}
+.src{font-size:13.5px;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;padding:1px 7px;background:var(--bleu-clair);color:var(--bleu)}
+details.case{background:var(--surface);border-top:1px solid var(--filet)}
+details.case:last-child{border-bottom:1px solid var(--filet)}
+details.case>summary{cursor:pointer;list-style:none;padding:14px 4px;display:flex;flex-direction:column;gap:3px}
 details.case>summary::-webkit-details-marker{display:none}
-details.case>summary .t{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.4px;line-height:1.15}
-details.case[open]>summary .t{color:var(--accent)}
+details.case>summary .t{font-weight:500;font-size:20px;line-height:1.2;color:var(--bleu)}
+details.case>summary:hover .t{text-decoration:underline}
 .case-body{padding:0 4px 18px;display:flex;flex-direction:column;gap:12px}
-.enonce{background:var(--accent-soft);padding:14px 16px}
-details.cor{padding-top:6px}
-details.cor>summary{cursor:pointer;color:var(--accent);font-weight:600}
-.cor-body{display:flex;flex-direction:column;gap:8px;padding-top:10px}
-.cor-body h4{color:var(--accent)}
+.enonce{background:var(--bleu-clair);padding:14px 16px}
+details.cor{padding-top:4px}
+details.cor>summary{cursor:pointer;color:var(--bleu);font-weight:500}
+.cor-body{display:flex;flex-direction:column;gap:9px;padding-top:10px}
 .filters{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-family:var(--f-body);font-size:14px;font-weight:600;text-transform:lowercase;border:2px solid var(--filet);background:transparent;color:var(--ink);padding:4px 12px;cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.qcard{background:var(--accent-soft);padding:22px;display:flex;flex-direction:column;gap:14px}
-.qmeta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:600;color:var(--muted);text-transform:lowercase}
-.qtext{font-family:var(--f-display);font-weight:800;font-size:24px;line-height:1.15;letter-spacing:-.5px}
+.chip{font-family:var(--f-body);font-size:14.5px;font-weight:500;border:1px solid var(--bleu);background:var(--blanc);color:var(--bleu);padding:5px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--bleu);color:var(--blanc)}
+.qcard{background:var(--bleu-clair);padding:22px;display:flex;flex-direction:column;gap:14px}
+.qmeta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.qtext{font-weight:500;font-size:23px;line-height:1.25;color:var(--bleu)}
 .opts{display:flex;flex-direction:column;gap:8px}
-.opt{text-align:left;font:inherit;background:var(--bg);color:var(--ink);border:2px solid transparent;padding:10px 12px;cursor:pointer}
-.opt:hover:not(:disabled){border-color:var(--accent)}
-.opt.good{background:var(--ok-bg);color:var(--ok)}
-.opt.bad{background:var(--bad-bg);color:var(--bad-ink)}
-.expl{padding:12px 14px;background:var(--bg)}
+.opt{text-align:left;font:inherit;background:var(--blanc);color:var(--ink);border:1px solid var(--line);padding:11px 13px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--bleu)}
+.opt.good{background:var(--bleu-ciel);color:var(--ink);border-color:var(--bleu-ciel)}
+.opt.bad{background:var(--orange);color:var(--ink);border-color:var(--orange)}
+.expl{padding:12px 14px;background:var(--blanc)}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.btn{font-family:var(--f-display);font-weight:600;font-size:15px;text-transform:lowercase;border:2px solid var(--accent);background:var(--accent);color:var(--on-accent);padding:7px 14px;cursor:pointer}
-.btn.ghost{background:transparent;color:var(--ink);border-color:var(--filet)}
+.btn{font-family:var(--f-display);font-weight:500;font-size:15px;border:1px solid var(--bleu);background:var(--bleu);color:var(--blanc);padding:8px 15px;cursor:pointer}
+.btn.ghost{background:var(--blanc);color:var(--bleu)}
 .flash{min-height:220px;cursor:pointer;justify-content:center}
-.bar{height:6px;background:var(--bg);overflow:hidden}
-.bar>i{display:block;height:100%;background:var(--accent);width:0}
-.calc{background:var(--surface);border-top:2px solid var(--filet);padding:16px 0;display:flex;flex-direction:column;gap:14px;min-width:0}
-.calc h3{font-weight:800;font-size:22px;letter-spacing:-.5px}
-.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
-label.f{display:flex;flex-direction:column;gap:3px;font-size:13.5px;color:var(--muted)}
-input,select{font:inherit;font-size:15px;color:var(--ink);background:var(--input-bg);border:2px solid var(--line);padding:6px 8px;width:100%;min-width:0}
-input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--accent)}
-.out{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
-.kpi{padding:10px 12px;background:var(--accent-soft);display:flex;flex-direction:column;gap:2px}
-.kpi b{font-weight:800;font-size:24px;letter-spacing:-.5px;font-variant-numeric:tabular-nums;line-height:1.05}
-.kpi span{font-size:12.5px;color:var(--muted)}
+.bar{height:5px;background:var(--blanc);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--bleu);width:0}
+.calc{background:var(--surface);border-top:1px solid var(--filet);padding:18px 0;display:flex;flex-direction:column;gap:14px;min-width:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--muted)}
+input,select{font:inherit;font-size:15.5px;color:var(--ink);background:var(--blanc);border:1px solid #9fb3cc;padding:7px 9px;width:100%;min-width:0}
+input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--bleu)}
+.out{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:8px}
+.kpi{padding:11px 13px;background:var(--bleu-clair);display:flex;flex-direction:column;gap:3px}
+.kpi b{font-weight:800;font-size:24px;color:var(--bleu);font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi span{font-size:13px;color:var(--muted)}
 .dep-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
-.small{font-size:13.5px;color:var(--muted)}
-.checks{display:flex;flex-direction:column;gap:6px}
-.checks label{display:flex;gap:8px;align-items:flex-start;font-size:15px}
+.small{font-size:14px;color:var(--muted)}
+.checks{display:flex;flex-direction:column;gap:7px}
+.checks label{display:flex;gap:8px;align-items:flex-start;font-size:15.5px}
 .verdict{display:flex;flex-direction:column;gap:8px}
-.verdict .v{padding:10px 12px;background:var(--accent-soft)}
-.verdict .v.ok{background:var(--ok-bg);color:var(--ok)}
-.verdict .v.no{background:var(--accent-soft);color:var(--muted)}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-a{color:var(--accent)}
-.vigil a{color:var(--noir-prune)}
-footer.pied{max-width:980px;margin:48px auto 0;padding-inline:16px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
-footer.pied .tri{display:inline-block;width:10px;height:9px;background:var(--accent);clip-path:polygon(50% 0,100% 100%,0 100%);margin-right:6px}
+.verdict .v{padding:11px 13px;background:var(--bleu-clair)}
+.verdict .v.ok{background:var(--bleu-clair);border-left:4px solid var(--bleu)}
+.verdict .v.no{background:#f4f4f4;color:var(--muted);border-left:4px solid #b9b9b9}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+a{color:var(--bleu)}
+footer.pied{max-width:1000px;margin:48px auto 0;padding-inline:16px;padding-top:10px;border-top:1px solid var(--filet);font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
 <header class="cover"><div class="cover-in">
-  <svg class="logo" role="img" aria-label="sandeau" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 532.33 183.20"><path d="M56.04 104.88Q49.68 104.88 44.22 103.62Q38.76 102.36 34.74 99.6Q30.72 96.84 28.62 92.22Q26.52 87.6 26.88 81L43.8 79.56Q44.04 83.52 45.6 86.1Q47.16 88.68 49.92 89.88Q52.68 91.08 56.64 91.08Q60.36 91.08 63.06 89.82Q65.76 88.56 65.76 85.56Q65.76 84 64.8 82.98Q63.84 81.96 61.26 81.06Q58.68 80.16 53.76 78.96Q47.64 77.4 42.72 75.84Q37.8 74.28 34.32 72.12Q30.84 69.96 29.04 66.78Q27.24 63.6 27.24 58.92Q27.24 52.32 30.78 47.7Q34.32 43.08 40.56 40.62Q46.8 38.16 54.96 38.16Q62.28 38.16 68.64 40.44Q75 42.72 78.66 47.88Q82.32 53.04 81.36 61.56L64.8 63.12Q65.16 59.64 63.84 57.18Q62.52 54.72 60 53.46Q57.48 52.2 53.88 52.2Q49.8 52.2 47.58 53.7Q45.36 55.2 45.36 57.48Q45.36 59.28 46.74 60.54Q48.12 61.8 51.06 62.7Q54 63.6 58.68 64.68Q62.76 65.52 67.2 66.84Q71.64 68.16 75.48 70.38Q79.32 72.6 81.72 76.2Q84.12 79.8 84.12 85.32Q84.12 91.2 80.88 95.64Q77.64 100.08 71.4 102.48Q65.16 104.88 56.04 104.88Z" fill="#fff6fa"></path><path d="M134.69 24.00L177.33 103.20L92.04 103.20Z" fill="#ff4fa3"></path><path d="M187.65 103.2V67.32V39.84H204.09V65.64H205.05Q205.77 56.28 208.17 50.22Q210.57 44.16 215.01 41.16Q219.45 38.16 226.29 38.16Q236.61 38.16 241.83 45Q247.05 51.84 247.05 65.4V103.2H227.61V67.92Q227.61 61.44 225.63 58.2Q223.65 54.96 219.33 54.96Q215.73 54.96 212.97 57.48Q210.21 60 208.65 65.64Q207.09 71.28 207.09 80.76V103.2Z M275.53 104.88Q268.69 104.88 263.23 101.16Q257.77 97.44 254.59 89.88Q251.41 82.32 251.41 70.8Q251.41 59.88 254.29 52.62Q257.17 45.36 262.45 41.76Q267.73 38.16 274.81 38.16Q280.33 38.16 284.59 40.44Q288.85 42.72 291.61 47.64Q294.37 52.56 295.45 60.48H296.53Q295.93 56.4 295.33 52.44Q294.73 48.48 294.43 44.76Q294.13 41.04 294.13 37.8V19.2H313.57V80.88V103.2H296.65V83.64H295.81Q294.49 90.6 291.79 95.34Q289.09 100.08 285.07 102.48Q281.05 104.88 275.53 104.88ZM282.37 89.4Q284.65 89.4 286.81 88.38Q288.97 87.36 290.65 85.2Q292.33 83.04 293.35 79.8Q294.37 76.56 294.37 72.12V71.28Q294.37 67.68 293.65 64.86Q292.93 62.04 291.73 60.06Q290.53 58.08 288.97 56.82Q287.41 55.56 285.67 54.96Q283.93 54.36 282.25 54.36Q278.53 54.36 276.01 56.88Q273.49 59.4 272.29 63.42Q271.09 67.44 271.09 72.12Q271.09 76.8 272.41 80.76Q273.73 84.72 276.25 87.06Q278.77 89.4 282.37 89.4Z M350.33 104.88Q341.33 104.88 335.27 102.3Q329.21 99.72 325.49 95.22Q321.77 90.72 320.15 84.96Q318.53 79.2 318.53 72.84Q318.53 66 320.27 59.76Q322.01 53.52 325.67 48.66Q329.33 43.8 335.15 40.98Q340.97 38.16 349.13 38.16Q357.29 38.16 363.11 40.98Q368.93 43.8 372.41 48.84Q375.89 53.88 376.91 60.48Q377.93 67.08 376.61 74.76L330.65 75.48V64.92L361.73 64.32L359.21 70.44Q359.93 64.92 359.03 61.14Q358.13 57.36 355.73 55.38Q353.33 53.4 349.13 53.4Q344.69 53.4 342.05 55.68Q339.41 57.96 338.33 62.1Q337.25 66.24 337.25 71.88Q337.25 81.6 340.49 86.04Q343.73 90.48 350.45 90.48Q353.33 90.48 355.25 89.76Q357.17 89.04 358.37 87.66Q359.57 86.28 360.05 84.3Q360.53 82.32 360.41 79.8L378.17 80.76Q378.53 84.72 377.39 88.92Q376.25 93.12 373.13 96.72Q370.01 100.32 364.43 102.6Q358.85 104.88 350.33 104.88Z M399.33 104.88Q394.53 104.88 390.21 103.2Q385.89 101.52 383.13 97.74Q380.37 93.96 380.37 87.6Q380.37 81.72 382.65 78.06Q384.93 74.4 388.77 72.18Q392.61 69.96 397.17 68.82Q401.73 67.68 406.17 66.84Q412.41 65.64 415.53 64.92Q418.65 64.2 419.79 63.24Q420.93 62.28 420.93 60.6Q420.93 57.12 418.35 55.32Q415.77 53.52 411.57 53.52Q408.93 53.52 406.29 54.48Q403.65 55.44 401.97 57.9Q400.29 60.36 400.41 64.92L383.13 63.72Q382.89 56.16 385.41 51.18Q387.93 46.2 392.31 43.38Q396.69 40.56 401.91 39.36Q407.13 38.16 412.29 38.16Q421.77 38.16 427.89 41.7Q434.01 45.24 436.95 51.9Q439.89 58.56 439.89 68.04V79.32Q439.89 83.28 439.89 87.3Q439.89 91.32 439.89 95.28Q439.89 99.24 439.89 103.2H423.09Q423.09 98.88 423.09 94.44Q423.09 90 423.09 85.08H422.37Q421.89 90.48 418.83 94.98Q415.77 99.48 410.79 102.18Q405.81 104.88 399.33 104.88ZM407.37 90.72Q409.41 90.72 411.75 89.94Q414.09 89.16 416.19 87.36Q418.29 85.56 419.61 82.38Q420.93 79.2 420.93 74.52V71.64L424.17 71.28Q423.21 72.84 420.99 73.8Q418.77 74.76 416.01 75.3Q413.25 75.84 410.43 76.38Q407.61 76.92 405.21 77.82Q402.81 78.72 401.31 80.22Q399.81 81.72 399.81 84.36Q399.81 87.48 402.03 89.1Q404.25 90.72 407.37 90.72Z M465.49 104.88Q455.17 104.88 450.19 97.68Q445.21 90.48 445.21 75.6V39.84H464.65V75.36Q464.65 82.32 466.63 85.08Q468.61 87.84 472.33 87.84Q474.97 87.84 477.19 86.46Q479.41 85.08 481.09 82.26Q482.77 79.44 483.67 75Q484.57 70.56 484.57 64.32V39.84H504.01V74.64V103.2H487.45V78.48H486.61Q485.89 87.72 483.37 93.54Q480.85 99.36 476.41 102.12Q471.97 104.88 465.49 104.88Z" fill="#fff6fa"></path><path d="M24 136.20H88V142.20H24Z" fill="#ff4fa3"></path><path d="M103.42 147.2V133H105.9V147.2Z M113.46 147.46Q112.2 147.46 111.21 147.1Q110.22 146.74 109.54 146.05Q108.86 145.36 108.5 144.38Q108.14 143.4 108.14 142.16Q108.14 140.92 108.49 139.88Q108.84 138.84 109.5 138.08Q110.16 137.32 111.11 136.9Q112.06 136.48 113.28 136.48Q114.42 136.48 115.32 136.86Q116.22 137.24 116.84 137.99Q117.46 138.74 117.76 139.85Q118.06 140.96 117.96 142.42L109.78 142.48V141.02L116.5 140.96L115.62 141.78Q115.74 140.64 115.44 139.91Q115.14 139.18 114.58 138.83Q114.02 138.48 113.3 138.48Q112.48 138.48 111.86 138.91Q111.24 139.34 110.91 140.15Q110.58 140.96 110.58 142.12Q110.58 143.86 111.35 144.72Q112.12 145.58 113.46 145.58Q114.06 145.58 114.47 145.43Q114.88 145.28 115.16 145.03Q115.44 144.78 115.61 144.46Q115.78 144.14 115.88 143.78L118.08 144.28Q117.92 145.02 117.56 145.6Q117.2 146.18 116.63 146.6Q116.06 147.02 115.28 147.24Q114.5 147.46 113.46 147.46ZM113.96 135.26H111.98L113.46 131.96H116.02Z M124.9 147.46Q123.36 147.46 122.18 146.83Q121 146.2 120.33 144.97Q119.66 143.74 119.66 141.94Q119.66 140.1 120.35 138.89Q121.04 137.68 122.22 137.08Q123.4 136.48 124.88 136.48Q126.42 136.48 127.6 137.1Q128.78 137.72 129.46 138.95Q130.14 140.18 130.14 142Q130.14 143.84 129.46 145.06Q128.78 146.28 127.59 146.87Q126.4 147.46 124.9 147.46ZM125 145.54Q125.84 145.54 126.42 145.15Q127 144.76 127.31 143.98Q127.62 143.2 127.62 142.12Q127.62 140.98 127.29 140.17Q126.96 139.36 126.35 138.92Q125.74 138.48 124.82 138.48Q124.02 138.48 123.42 138.87Q122.82 139.26 122.51 140.02Q122.2 140.78 122.2 141.9Q122.2 143.66 122.95 144.6Q123.7 145.54 125 145.54Z M132.4 147.2V140.82V136.74H134.5L134.44 139.94H134.8Q135.08 138.76 135.55 138Q136.02 137.24 136.76 136.86Q137.5 136.48 138.48 136.48Q140.26 136.48 141.19 137.74Q142.12 139 142.12 141.64V147.2H139.58V141.9Q139.58 140.2 139.07 139.41Q138.56 138.62 137.56 138.62Q136.72 138.62 136.14 139.15Q135.56 139.68 135.25 140.55Q134.94 141.42 134.92 142.46V147.2Z M147.2 147.46Q146.34 147.46 145.66 147.13Q144.98 146.8 144.59 146.14Q144.2 145.48 144.2 144.5Q144.2 143.68 144.51 143.1Q144.82 142.52 145.44 142.15Q146.06 141.78 146.98 141.53Q147.9 141.28 149.14 141.1Q149.82 141 150.25 140.9Q150.68 140.8 150.88 140.59Q151.08 140.38 151.08 139.96Q151.08 139.34 150.65 138.89Q150.22 138.44 149.26 138.44Q148.68 138.44 148.15 138.64Q147.62 138.84 147.24 139.27Q146.86 139.7 146.72 140.4L144.46 139.7Q144.68 138.9 145.1 138.31Q145.52 137.72 146.14 137.3Q146.76 136.88 147.56 136.68Q148.36 136.48 149.32 136.48Q150.78 136.48 151.72 136.95Q152.66 137.42 153.12 138.41Q153.58 139.4 153.58 140.96V142.92Q153.58 143.6 153.61 144.33Q153.64 145.06 153.69 145.79Q153.74 146.52 153.82 147.2H151.56Q151.48 146.64 151.42 146Q151.36 145.36 151.32 144.7H151Q150.72 145.46 150.2 146.09Q149.68 146.72 148.93 147.09Q148.18 147.46 147.2 147.46ZM148.2 145.6Q148.6 145.6 149.01 145.46Q149.42 145.32 149.82 145.04Q150.22 144.76 150.56 144.35Q150.9 143.94 151.14 143.38L151.1 141.6L151.58 141.68Q151.24 141.96 150.74 142.12Q150.24 142.28 149.69 142.36Q149.14 142.44 148.59 142.55Q148.04 142.66 147.6 142.83Q147.16 143 146.9 143.31Q146.64 143.62 146.64 144.16Q146.64 144.84 147.08 145.22Q147.52 145.6 148.2 145.6Z M156.3 147.2V141.96V136.74H158.42L158.38 140.34H158.74Q158.92 139.06 159.3 138.21Q159.68 137.36 160.36 136.93Q161.04 136.5 162.04 136.5Q162.24 136.5 162.47 136.52Q162.7 136.54 162.98 136.62L162.88 139.28Q162.56 139.16 162.23 139.11Q161.9 139.06 161.62 139.06Q160.84 139.06 160.27 139.46Q159.7 139.86 159.35 140.59Q159 141.32 158.82 142.32V147.2Z M168.48 147.46Q167.16 147.46 166.19 146.78Q165.22 146.1 164.7 144.87Q164.18 143.64 164.18 141.96Q164.18 140.38 164.66 139.15Q165.14 137.92 166.07 137.21Q167 136.5 168.38 136.5Q169.44 136.5 170.13 136.91Q170.82 137.32 171.26 138.05Q171.7 138.78 171.96 139.76H172.38Q172.26 139.14 172.16 138.52Q172.06 137.9 171.99 137.33Q171.92 136.76 171.92 136.3V133H174.46V142.06V147.2H172.32L172.36 144.24H171.98Q171.76 145.28 171.3 146Q170.84 146.72 170.15 147.09Q169.46 147.46 168.48 147.46ZM169.28 145.38Q169.94 145.38 170.44 145.07Q170.94 144.76 171.27 144.28Q171.6 143.8 171.77 143.23Q171.94 142.66 171.94 142.16V141.82Q171.94 141.44 171.83 141Q171.72 140.56 171.51 140.13Q171.3 139.7 170.97 139.35Q170.64 139 170.21 138.79Q169.78 138.58 169.26 138.58Q168.48 138.58 167.94 139.02Q167.4 139.46 167.11 140.22Q166.82 140.98 166.82 142Q166.82 143.02 167.12 143.78Q167.42 144.54 167.97 144.96Q168.52 145.38 169.28 145.38Z M186.12 147.46Q185.06 147.46 184.21 147.25Q183.36 147.04 182.76 146.65Q182.16 146.26 181.8 145.71Q181.44 145.16 181.36 144.48L183.34 143.74Q183.38 144.26 183.74 144.67Q184.1 145.08 184.74 145.32Q185.38 145.56 186.28 145.56Q187.28 145.56 187.83 145.25Q188.38 144.94 188.38 144.36Q188.38 143.94 188.08 143.69Q187.78 143.44 187.21 143.27Q186.64 143.1 185.84 142.94Q185.1 142.78 184.35 142.57Q183.6 142.36 182.97 142.01Q182.34 141.66 181.95 141.09Q181.56 140.52 181.56 139.64Q181.56 138.68 182.07 137.98Q182.58 137.28 183.55 136.88Q184.52 136.48 185.9 136.48Q187.2 136.48 188.15 136.84Q189.1 137.2 189.7 137.87Q190.3 138.54 190.46 139.46L188.38 140.12Q188.32 139.56 188 139.17Q187.68 138.78 187.14 138.58Q186.6 138.38 185.88 138.38Q184.96 138.38 184.44 138.7Q183.92 139.02 183.92 139.56Q183.92 140 184.25 140.26Q184.58 140.52 185.17 140.68Q185.76 140.84 186.52 141Q187.32 141.16 188.07 141.37Q188.82 141.58 189.42 141.92Q190.02 142.26 190.38 142.81Q190.74 143.36 190.74 144.22Q190.74 145.26 190.18 145.99Q189.62 146.72 188.59 147.09Q187.56 147.46 186.12 147.46Z M195.26 147.46Q194.4 147.46 193.72 147.13Q193.04 146.8 192.65 146.14Q192.26 145.48 192.26 144.5Q192.26 143.68 192.57 143.1Q192.88 142.52 193.5 142.15Q194.12 141.78 195.04 141.53Q195.96 141.28 197.2 141.1Q197.88 141 198.31 140.9Q198.74 140.8 198.94 140.59Q199.14 140.38 199.14 139.96Q199.14 139.34 198.71 138.89Q198.28 138.44 197.32 138.44Q196.74 138.44 196.21 138.64Q195.68 138.84 195.3 139.27Q194.92 139.7 194.78 140.4L192.52 139.7Q192.74 138.9 193.16 138.31Q193.58 137.72 194.2 137.3Q194.82 136.88 195.62 136.68Q196.42 136.48 197.38 136.48Q198.84 136.48 199.78 136.95Q200.72 137.42 201.18 138.41Q201.64 139.4 201.64 140.96V142.92Q201.64 143.6 201.67 144.33Q201.7 145.06 201.75 145.79Q201.8 146.52 201.88 147.2H199.62Q199.54 146.64 199.48 146Q199.42 145.36 199.38 144.7H199.06Q198.78 145.46 198.26 146.09Q197.74 146.72 196.99 147.09Q196.24 147.46 195.26 147.46ZM196.26 145.6Q196.66 145.6 197.07 145.46Q197.48 145.32 197.88 145.04Q198.28 144.76 198.62 144.35Q198.96 143.94 199.2 143.38L199.16 141.6L199.64 141.68Q199.3 141.96 198.8 142.12Q198.3 142.28 197.75 142.36Q197.2 142.44 196.65 142.55Q196.1 142.66 195.66 142.83Q195.22 143 194.96 143.31Q194.7 143.62 194.7 144.16Q194.7 144.84 195.14 145.22Q195.58 145.6 196.26 145.6Z M204.36 147.2V140.82V136.74H206.46L206.4 139.94H206.76Q207.04 138.76 207.51 138Q207.98 137.24 208.72 136.86Q209.46 136.48 210.44 136.48Q212.22 136.48 213.15 137.74Q214.08 139 214.08 141.64V147.2H211.54V141.9Q211.54 140.2 211.03 139.41Q210.52 138.62 209.52 138.62Q208.68 138.62 208.1 139.15Q207.52 139.68 207.21 140.55Q206.9 141.42 206.88 142.46V147.2Z M220.48 147.46Q219.16 147.46 218.19 146.78Q217.22 146.1 216.7 144.87Q216.18 143.64 216.18 141.96Q216.18 140.38 216.66 139.15Q217.14 137.92 218.07 137.21Q219 136.5 220.38 136.5Q221.44 136.5 222.13 136.91Q222.82 137.32 223.26 138.05Q223.7 138.78 223.96 139.76H224.38Q224.26 139.14 224.16 138.52Q224.06 137.9 223.99 137.33Q223.92 136.76 223.92 136.3V133H226.46V142.06V147.2H224.32L224.36 144.24H223.98Q223.76 145.28 223.3 146Q222.84 146.72 222.15 147.09Q221.46 147.46 220.48 147.46ZM221.28 145.38Q221.94 145.38 222.44 145.07Q222.94 144.76 223.27 144.28Q223.6 143.8 223.77 143.23Q223.94 142.66 223.94 142.16V141.82Q223.94 141.44 223.83 141Q223.72 140.56 223.51 140.13Q223.3 139.7 222.97 139.35Q222.64 139 222.21 138.79Q221.78 138.58 221.26 138.58Q220.48 138.58 219.94 139.02Q219.4 139.46 219.11 140.22Q218.82 140.98 218.82 142Q218.82 143.02 219.12 143.78Q219.42 144.54 219.97 144.96Q220.52 145.38 221.28 145.38Z M234.02 147.46Q232.76 147.46 231.77 147.1Q230.78 146.74 230.1 146.05Q229.42 145.36 229.06 144.38Q228.7 143.4 228.7 142.16Q228.7 140.92 229.05 139.88Q229.4 138.84 230.06 138.08Q230.72 137.32 231.67 136.9Q232.62 136.48 233.84 136.48Q234.98 136.48 235.88 136.86Q236.78 137.24 237.4 137.99Q238.02 138.74 238.32 139.85Q238.62 140.96 238.52 142.42L230.34 142.48V141.02L237.06 140.96L236.18 141.78Q236.3 140.64 236 139.91Q235.7 139.18 235.14 138.83Q234.58 138.48 233.86 138.48Q233.04 138.48 232.42 138.91Q231.8 139.34 231.47 140.15Q231.14 140.96 231.14 142.12Q231.14 143.86 231.91 144.72Q232.68 145.58 234.02 145.58Q234.62 145.58 235.03 145.43Q235.44 145.28 235.72 145.03Q236 144.78 236.17 144.46Q236.34 144.14 236.44 143.78L238.64 144.28Q238.48 145.02 238.12 145.6Q237.76 146.18 237.19 146.6Q236.62 147.02 235.84 147.24Q235.06 147.46 234.02 147.46Z M243.24 147.46Q242.38 147.46 241.7 147.13Q241.02 146.8 240.63 146.14Q240.24 145.48 240.24 144.5Q240.24 143.68 240.55 143.1Q240.86 142.52 241.48 142.15Q242.1 141.78 243.02 141.53Q243.94 141.28 245.18 141.1Q245.86 141 246.29 140.9Q246.72 140.8 246.92 140.59Q247.12 140.38 247.12 139.96Q247.12 139.34 246.69 138.89Q246.26 138.44 245.3 138.44Q244.72 138.44 244.19 138.64Q243.66 138.84 243.28 139.27Q242.9 139.7 242.76 140.4L240.5 139.7Q240.72 138.9 241.14 138.31Q241.56 137.72 242.18 137.3Q242.8 136.88 243.6 136.68Q244.4 136.48 245.36 136.48Q246.82 136.48 247.76 136.95Q248.7 137.42 249.16 138.41Q249.62 139.4 249.62 140.96V142.92Q249.62 143.6 249.65 144.33Q249.68 145.06 249.73 145.79Q249.78 146.52 249.86 147.2H247.6Q247.52 146.64 247.46 146Q247.4 145.36 247.36 144.7H247.04Q246.76 145.46 246.24 146.09Q245.72 146.72 244.97 147.09Q244.22 147.46 243.24 147.46ZM244.24 145.6Q244.64 145.6 245.05 145.46Q245.46 145.32 245.86 145.04Q246.26 144.76 246.6 144.35Q246.94 143.94 247.18 143.38L247.14 141.6L247.62 141.68Q247.28 141.96 246.78 142.12Q246.28 142.28 245.73 142.36Q245.18 142.44 244.63 142.55Q244.08 142.66 243.64 142.83Q243.2 143 242.94 143.31Q242.68 143.62 242.68 144.16Q242.68 144.84 243.12 145.22Q243.56 145.6 244.24 145.6Z M255.8 147.46Q254 147.46 253.09 146.23Q252.18 145 252.18 142.5V136.74H254.72V142.22Q254.72 143.8 255.2 144.58Q255.68 145.36 256.68 145.36Q257.26 145.36 257.7 145.07Q258.14 144.78 258.46 144.25Q258.78 143.72 258.97 143.02Q259.16 142.32 259.2 141.48V136.74H261.72V142.9V147.2H259.64L259.68 143.9H259.32Q259.06 145.16 258.59 145.94Q258.12 146.72 257.44 147.09Q256.76 147.46 255.8 147.46Z" fill="#fff6fa"></path></svg>
-  <span class="eyebrow">ue 10 · management des rh médicales · cas pratiques du mardi</span>
-  <h1>révisions <em>dam</em></h1>
+  <span class="eyebrow">UE 10 · Management des RH médicales · cas pratiques du mardi</span>
+  <h1>Révisions DAM <span class="st">affaires médicales 10.2026</span></h1>
   <p class="lede">Mémo réglementaire, cas pratiques corrigés, quiz et calculateurs, construits à partir des cours (DAM, statuts, HU, études de médecine, temps de travail et PDSES), des guides CNG et du sujet de juillet 2025, complétés par des sources officielles.</p>
 </div></header>
 <div class="wrap">
 
 <nav class="tabs" role="tablist" aria-label="Sections">
-  <button role="tab" id="t-memo" aria-controls="memo" aria-selected="true">Mémo</button>
-  <button role="tab" id="t-cas" aria-controls="cas" aria-selected="false">Cas pratiques</button>
-  <button role="tab" id="t-quiz" aria-controls="quiz" aria-selected="false">Quiz</button>
-  <button role="tab" id="t-calc" aria-controls="calc" aria-selected="false">Calculateurs</button>
-  <button role="tab" id="t-src" aria-controls="sources" aria-selected="false">Sources</button>
+  <a role="tab" id="t-memo" href="#memo" aria-controls="memo" aria-selected="true">Mémo</a>
+  <a role="tab" id="t-cas" href="#cas" aria-controls="cas" aria-selected="false">Cas pratiques</a>
+  <a role="tab" id="t-quiz" href="#quiz" aria-controls="quiz" aria-selected="false">Quiz</a>
+  <a role="tab" id="t-calc" href="#calc" aria-controls="calc" aria-selected="false">Calculateurs</a>
+  <a role="tab" id="t-src" href="#sources" aria-controls="sources" aria-selected="false">Sources</a>
 </nav>
 
 <!-- ===================== MEMO ===================== -->
@@ -498,7 +478,7 @@ footer.pied .tri{display:inline-block;width:10px;height:9px;background:var(--acc
 </section>
 
 <!-- ===================== CAS ===================== -->
-<section class="panel" id="cas" role="tabpanel" aria-labelledby="t-cas" hidden>
+<section class="panel" id="cas" role="tabpanel" aria-labelledby="t-cas">
   <div class="block">
     <h2>Cas pratiques corrigés</h2>
     <p class="lede">Lisez l'énoncé, rédigez votre réponse selon la grille en 5 temps, puis ouvrez le corrigé. Les cas 1 à 3 reprennent les énoncés du cours ; les autres sont construits sur les mêmes règles.</p>
@@ -516,7 +496,7 @@ footer.pied .tri{display:inline-block;width:10px;height:9px;background:var(--acc
 </section>
 
 <!-- ===================== QUIZ ===================== -->
-<section class="panel" id="quiz" role="tabpanel" aria-labelledby="t-quiz" hidden>
+<section class="panel" id="quiz" role="tabpanel" aria-labelledby="t-quiz">
   <div class="block">
     <h2>Quiz et flashcards</h2>
     <div class="row">
@@ -532,7 +512,7 @@ footer.pied .tri{display:inline-block;width:10px;height:9px;background:var(--acc
 </section>
 
 <!-- ===================== CALCULATEURS ===================== -->
-<section class="panel" id="calc" role="tabpanel" aria-labelledby="t-calc" hidden>
+<section class="panel" id="calc" role="tabpanel" aria-labelledby="t-calc">
   <div class="block">
     <h2>Calculateurs</h2>
     <p class="lede">Pré-remplis avec des exemples. Les règles appliquées sont celles du cours ; elles sont rappelées sous chaque résultat pour pouvoir être citées dans une copie.</p>
@@ -641,7 +621,7 @@ footer.pied .tri{display:inline-block;width:10px;height:9px;background:var(--acc
 </section>
 
 <!-- ===================== SOURCES ===================== -->
-<section class="panel" id="sources" role="tabpanel" aria-labelledby="t-src" hidden>
+<section class="panel" id="sources" role="tabpanel" aria-labelledby="t-src">
   <div class="block">
     <h2>Sources</h2>
     <h3>Vos documents</h3>
@@ -680,16 +660,18 @@ footer.pied .tri{display:inline-block;width:10px;height:9px;background:var(--acc
   </div>
 </section>
 </div>
-<footer class="pied"><span><span class="tri"></span>léonard sandeau · révisions dam · 10.2026</span><span>outil personnel de révision, non officiel</span></footer>
+<footer class="pied"><span>Révisions DAM – UE 10 – 10.2026</span><span>Outil personnel de révision entre élèves, non officiel</span></footer>
 
 <script>
 /* ---------- onglets ---------- */
-const tabs=[...document.querySelectorAll('nav.tabs button')];
-function showTab(id){tabs.forEach(b=>{const on=b.getAttribute('aria-controls')===id;b.setAttribute('aria-selected',on);document.getElementById(b.getAttribute('aria-controls')).hidden=!on;});try{localStorage.setItem('dam-tab',id)}catch(e){}}
-tabs.forEach(b=>b.addEventListener('click',()=>{showTab(b.getAttribute('aria-controls'));window.scrollTo({top:0})}));
-(function(){let h=location.hash.replace('#','');let saved=null;try{saved=localStorage.getItem('dam-tab')}catch(e){}
- const ids=tabs.map(b=>b.getAttribute('aria-controls'));if(ids.includes(h))showTab(h);else if(saved&&ids.includes(saved))showTab(saved);})();
-document.querySelectorAll('.toc a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showTab('memo');document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'})}));
+const tabs=[...document.querySelectorAll('nav.tabs a')];
+const ids=tabs.map(b=>b.getAttribute('aria-controls'));
+function showTab(id){tabs.forEach(b=>{const p=b.getAttribute('aria-controls');const on=p===id;b.setAttribute('aria-selected',on);const el=document.getElementById(p);if(el)el.hidden=!on;});try{localStorage.setItem('dam-tab',id)}catch(e){}}
+tabs.forEach(b=>b.addEventListener('click',e=>{e.preventDefault();const id=b.getAttribute('aria-controls');showTab(id);try{history.replaceState(null,'','#'+id)}catch(err){}window.scrollTo({top:document.querySelector('nav.tabs').offsetTop-4});}));
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(ids.includes(h))showTab(h);});
+(function(){const h=location.hash.slice(1);let saved=null;try{saved=localStorage.getItem('dam-tab')}catch(e){}
+ if(ids.includes(h))showTab(h);else if(saved&&ids.includes(saved))showTab(saved);else showTab('memo');})();
+document.querySelectorAll('.toc a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showTab('memo');const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});}));
 
 /* ---------- cas pratiques ---------- */
 const CASES=[
