@@ -171,6 +171,37 @@ ul.ov-br>li::before{content:"";position:absolute;left:-22px;top:.8em;width:18px;
 .sg-go{font-size:14px;font-weight:500;text-decoration:none}
 .sg-go:hover{text-decoration:underline}
 input[type=search]{font:inherit}
+/* ---------- examen blanc, calculs, progression ---------- */
+.pbar{display:inline-block;width:110px;height:8px;background:var(--bleu-clair);vertical-align:middle;margin-right:8px}
+.pbar>i{display:block;height:100%;background:var(--bleu)}
+.done-mk{display:inline-block;align-self:flex-start;font-size:12px;font-weight:500;background:var(--bleu);color:var(--blanc);padding:1px 8px}
+.exo-card{background:var(--bleu-clair);padding:18px;display:flex;flex-direction:column;gap:12px;border-left:8px solid var(--orange)}
+.exo-card .lbl{font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--bleu)}
+.exo-q{font-size:18px;line-height:1.45;max-width:72ch}
+.exo-in{max-width:260px}
+.exo-v{padding:10px 12px;background:var(--blanc);border-left:6px solid var(--bleu)}
+.exo-v.ko{border-left-color:var(--orange)}
+.xm-bar{position:sticky;top:64px;z-index:4;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;background:var(--bleu);color:var(--blanc);padding:10px 14px}
+.xm-bar .small{color:var(--blanc)}
+.xm-bar .btn{background:var(--blanc);color:var(--bleu);border-color:var(--blanc)}
+.xm-sp{flex:1}
+.xm-time{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.xm-time.late{background:var(--jaune);color:var(--noir);padding:2px 8px}
+.xm-case{display:flex;flex-direction:column;gap:10px;padding:16px 0;border-top:1px solid var(--filet)}
+textarea{font:inherit;font-size:16px;line-height:1.5;color:var(--ink);background:var(--blanc);border:1px solid #9fb3cc;padding:10px 12px;width:100%;min-height:220px;resize:vertical}
+textarea:focus-visible{outline:2px solid var(--bleu);outline-offset:2px}
+.xm-ans .lbl,.xm-chk .lbl,.xm-grid .lbl{font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--bleu)}
+.xm-txt{background:var(--blanc);border:1px solid var(--line);padding:12px 14px;max-height:340px;overflow:auto;margin-top:6px}
+.xm-chk{background:var(--bleu-clair);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+ul.xm-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;padding:0;margin:0}
+ul.xm-list>li{padding:3px 9px;font-size:14px;background:var(--blanc);border:1px solid var(--line)}
+ul.xm-list>li::before{position:static;margin-right:6px;font-family:Arial,sans-serif}
+ul.xm-list>li.y{border-color:var(--bleu)} ul.xm-list>li.y::before{content:"✓";color:var(--bleu)}
+ul.xm-list>li.n{background:var(--saumon);border-color:var(--saumon)} ul.xm-list>li.n::before{content:"?";color:var(--noir)}
+.xm-grid{display:flex;flex-direction:column;gap:6px;border-left:6px solid var(--bleu);padding:10px 14px;background:var(--blanc)}
+.xm-grid label{display:flex;gap:8px;align-items:center;font-size:15.5px}
+.xm-note,.xm-total{font-size:17px}
+.xm-note b,.xm-total b{color:var(--bleu);font-size:22px}
 /* ---------- réorganisation : parcours, parties, renvois ---------- */
 .toc-grp{display:flex;flex-direction:column;gap:6px}
 .toc-row{display:grid;grid-template-columns:34px minmax(150px,230px) 1fr;gap:10px;align-items:center;padding:8px 10px;background:var(--bleu-clair);border-left:6px solid var(--fam)}
@@ -181,9 +212,9 @@ input[type=search]{font:inherit}
 .partie{display:flex;flex-direction:column;gap:2px;padding:16px 20px;background:var(--bleu-clair);border-left:14px solid var(--fam);margin-top:10px}
 .partie-n{font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .partie-t{font-size:30px;font-weight:800;line-height:1.1;color:var(--bleu)}
-nav.tabs a{padding:8px 7px;font-size:15px;gap:5px}
+nav.tabs a{padding:8px 5px;font-size:14.5px;gap:4px}
 nav.tabs a svg.pi{width:18px!important;height:18px!important}
-nav.tabs a[data-grp]{margin-left:2px;border-left:1px solid var(--line);padding-left:6px}
+nav.tabs a[data-grp]{margin-left:0;border-left:1px solid var(--line);padding-left:4px}
 .voir{display:grid!important;grid-template-columns:auto 1fr;gap:6px 10px}
 .voir-r{display:contents}
 .voir-r>span{display:flex;flex-wrap:wrap;gap:6px}
@@ -246,9 +277,8 @@ nav.tabs{gap:0}
 </head>
 <body>
 
-<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs><symbol id="i-memo" viewBox="0 0 48 48"><path d="M6 10h14c2.5 0 4 1.5 4 4v26c0-2-1.5-3-4-3H6zM42 10H28c-2.5 0-4 1.5-4 4v26c0-2 1.5-3 4-3h14z"/></symbol><symbol id="i-form" viewBox="0 0 48 48"><path d="M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"/></symbol><symbol id="i-cas" viewBox="0 0 48 48"><path d="M5 12h14l4 4h20v24H5zM5 20h38"/></symbol><symbol id="i-logi" viewBox="0 0 48 48"><path d="M24 4l9 9-9 9-9-9zM24 22v6M10 28h28M10 28v8M38 28v8M4 36h12v8H4zM32 36h12v8H32z"/></symbol><symbol id="i-quiz" viewBox="0 0 48 48"><path d="M6 8h36v26H22l-10 8v-8H6zM19 16c0-3 2-5 5-5s5 2 5 5c0 4-5 4-5 8M24 27v3"/></symbol><symbol id="i-calc" viewBox="0 0 48 48"><path d="M10 4h28v40H10zM15 9h18v9H15zM15 24h4M22 24h4M29 24h4M15 31h4M22 31h4M29 31h4M15 38h4M22 38h4M29 38h4"/></symbol><symbol id="i-sg" viewBox="0 0 48 48"><path d="M6 6h22l14 14v22H6zM28 6v14h14M12 26h20M12 33h20M12 19h10"/></symbol><symbol id="i-src" viewBox="0 0 48 48"><path d="M24 6v34M14 42h20M8 12h32M8 12l-5 14h10zM40 12l-5 14h10zM3 26c0 3 2 5 5 5s5-2 5-5M35 26c0 3 2 5 5 5s5-2 5-5"/></symbol><symbol id="i-methode" viewBox="0 0 48 48"><path d="M8 8h32v34H8zM14 16l3 3 5-6M26 16h8M14 26l3 3 5-6M26 26h8M14 36h20"/></symbol><symbol id="i-exercice" viewBox="0 0 48 48"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10zM24 15v16M16 23h16"/></symbol><symbol id="i-padhue" viewBox="0 0 48 48"><path d="M24 4a20 20 0 1 0 0.01 0M4 24h40M24 4c-6 6-8 13-8 20s2 14 8 20M24 4c6 6 8 13 8 20s-2 14-8 20"/></symbol><symbol id="i-statut" viewBox="0 0 48 48"><path d="M8 8h32v32H8zM8 16h32M24 22a5 5 0 1 0 0.01 0M15 36c1-5 5-7 9-7s8 2 9 7"/></symbol><symbol id="i-pc" viewBox="0 0 48 48"><path d="M10 4h20l8 8v32H10zM30 4v8h8M16 20h16M16 27h16M16 36c3-4 5 2 8-2s4 3 8 0"/></symbol><symbol id="i-ph" viewBox="0 0 48 48"><path d="M24 4a12 12 0 1 0 0.01 0M17 26l-5 18 12-6 12 6-5-18M18 16l4 4 8-8"/></symbol><symbol id="i-remu" viewBox="0 0 48 48"><path d="M24 4a20 20 0 1 0 0.01 0M31 15c-2-2-4-3-7-3-6 0-10 5-10 12s4 12 10 12c3 0 5-1 7-3M10 21h16M10 27h16"/></symbol><symbol id="i-temps" viewBox="0 0 48 48"><path d="M24 4a20 20 0 1 0 0.01 0M24 12v12l8 6"/></symbol><symbol id="i-pds" viewBox="0 0 48 48"><path d="M30 6a16 16 0 1 0 14 22 13 13 0 0 1-14-22zM10 8v8M6 12h8"/></symbol><symbol id="i-ast" viewBox="0 0 48 48"><path d="M14 4h20v40H14zM14 10h20M14 36h20M24 40v0.1M38 14c3 3 3 9 0 12M42 10c5 5 5 15 0 20"/></symbol><symbol id="i-cet" viewBox="0 0 48 48"><path d="M6 10h36v32H6zM6 18h36M14 6v8M34 6v8M13 26h6M21 26h6M29 26h6M13 33h6M21 33h6"/></symbol><symbol id="i-junior" viewBox="0 0 48 48"><path d="M12 4v12c0 6 4 10 8 10s8-4 8-10V4M20 26v6c0 6 5 10 11 10s9-4 9-9v-5M40 22a4 4 0 1 0 0.01 0M8 4h8M24 4h8"/></symbol><symbol id="i-lib" viewBox="0 0 48 48"><path d="M6 16h36v26H6zM17 16V9h14v7M24 23v12M18 29h12"/></symbol><symbol id="i-interim" viewBox="0 0 48 48"><path d="M6 16h28M28 8l8 8-8 8M42 32H14M20 24l-8 8 8 8"/></symbol><symbol id="i-sic" viewBox="0 0 48 48"><path d="M24 5l21 37H3zM24 18v12M24 34v4"/></symbol><symbol id="i-etudes" viewBox="0 0 48 48"><path d="M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"/></symbol><symbol id="i-vue" viewBox="0 0 48 48"><path d="M4 40h10V30h10V20h10V10h10M36 4l8 6-8 6"/></symbol><symbol id="i-acces" viewBox="0 0 48 48"><path d="M10 44V4h22v40M32 8l8 3v30l-8 3M26 24v4M4 44h40"/></symbol><symbol id="i-c2" viewBox="0 0 48 48"><path d="M14 6h20v6H14zM10 9h4v35h20V9h4v35H10zM17 24l4 4 8-8M17 36h14"/></symbol><symbol id="i-stages" viewBox="0 0 48 48"><path d="M6 44V14h36v30M18 44V32h12v12M20 18h8v10h-8zM24 20v6M21 23h6M2 44h44M16 8h16v6H16z"/></symbol><symbol id="i-continue" viewBox="0 0 48 48"><path d="M40 20A17 17 0 0 0 9 16M8 28a17 17 0 0 0 31 4M9 6v10h10M39 42V32H29"/></symbol><symbol id="i-retenir" viewBox="0 0 48 48"><path d="M24 4c-8 0-13 6-13 13 0 5 3 8 5 11 1 2 2 4 2 6h12c0-2 1-4 2-6 2-3 5-6 5-11 0-7-5-13-13-13zM18 40h12M20 45h8"/></symbol><symbol id="i-exemple" viewBox="0 0 48 48"><path d="M20 4a16 16 0 1 0 0.01 0M31 31l13 13"/></symbol><symbol id="i-ehesp-plus" viewBox="0 0 48 48"><path d="M24 6v36M6 24h36"/></symbol><symbol id="i-megaphone" viewBox="0 0 261.40 242.65"><path d="M67.65 186.73L83.83 239.65L125.75 226.84L109.76 173.85"/><path d="M144.22 24.41C144.22 24.41 149.43 62.29 99.81 77.47L3.00 107.06L14.44 144.49L27.26 186.42L122.00 157.46L124.07 156.82C173.70 141.65 190.56 175.97 190.56 175.97M154.56 21.25L200.90 172.81"/><path d="M181.78 51.03L211.49 3.00M261.94 71.20L212.24 86.13M206.61 132.26L258.40 156.44"/></symbol><symbol id="i-communaute" viewBox="0 0 259.33 232.88"><path d="M31.77 121.06C31.77 121.06 30.06 107.88 29.04 100.49C24.89 79.05 10.22 79.21 2.23 84.27C4.75 104.26 7.41 132.99 10.05 152.96C10.84 158.96 10.74 162.65 16.05 166.77C28.34 176.31 45.75 186.13 58.36 195.38C61.81 197.83 63.83 202.20 63.79 208.91M105.97 205.87C105.07 197.90 103.67 183.49 102.65 175.53C101.26 164.62 99.66 161.38 90.20 155.13C77.25 146.56 67.64 139.63 54.43 131.45C49.49 128.39 45.28 124.91 39.11 126.27C32.77 127.68 28.65 133.83 29.46 140.24C30.23 146.33 33.69 147.96 38.18 151.29C45.40 156.65 52.94 161.68 60.36 166.71M112.72 230.64L112.77 205.38L56.31 209.45L56.30 230.64M227.57 121.06C227.57 121.06 229.28 107.88 230.29 100.49C234.44 79.05 249.11 79.21 257.10 84.27C254.59 104.26 251.92 132.99 249.28 152.96C248.49 158.96 248.60 162.65 243.29 166.77C231.00 176.31 213.58 186.13 200.98 195.38C197.53 197.83 195.50 202.20 195.54 208.91M153.37 205.87C154.26 197.90 155.66 183.49 156.68 175.53C158.07 164.62 159.68 161.38 169.13 155.13C182.08 146.56 191.69 139.63 204.90 131.45C209.84 128.39 214.05 124.91 220.22 126.27C226.56 127.68 230.69 133.83 229.88 140.24C229.11 146.33 225.65 147.96 221.15 151.29C213.93 156.65 206.39 161.68 198.97 166.71M146.61 230.64L146.56 205.38L203.02 209.45L203.04 230.64M107.74 41.97C107.74 41.97 111.43 58.61 127.38 58.61C143.33 58.61 147.02 41.97 147.02 41.97M107.74 35.31C107.74 35.31 111.43 18.66 127.38 18.66C143.33 18.66 147.02 35.31 147.02 35.31M156.84 116.19L156.84 101.41C156.84 84.86 143.65 68.60 127.38 68.60C111.11 68.60 97.92 84.86 97.92 101.41L97.92 116.19M30.05 25.54C30.05 25.54 33.74 42.18 49.69 42.18C65.64 42.18 69.33 25.54 69.33 25.54M30.05 18.88C30.05 18.88 33.74 2.23 49.69 2.23C65.64 2.23 69.33 18.88 69.33 18.88M79.15 99.76L79.15 84.98C79.15 68.43 65.96 52.17 49.69 52.17C40.91 52.17 33.02 56.91 27.62 63.88M185.44 25.54C185.44 25.54 189.13 42.18 205.08 42.18C221.02 42.18 224.72 25.54 224.72 25.54M185.44 18.88C185.44 18.88 189.13 2.23 205.08 2.23C221.02 2.23 224.72 18.88 224.72 18.88M229.10 66.67C223.76 58.21 214.99 52.17 205.08 52.17C188.81 52.17 175.62 68.43 175.62 84.98L175.62 99.76"/></symbol></defs></svg>
 <header class="cover"><div class="cover-in">
-  <div class="cover-art" aria-hidden="true"><span class="disque"></span><svg class="pi chart"><use href="#i-communaute"/></svg></div>
+  <div class="cover-art" aria-hidden="true"><span class="disque"></span><svg class="pi chart" viewBox="0 0 259.33 232.88"><path d="M31.77 121.06C31.77 121.06 30.06 107.88 29.04 100.49C24.89 79.05 10.22 79.21 2.23 84.27C4.75 104.26 7.41 132.99 10.05 152.96C10.84 158.96 10.74 162.65 16.05 166.77C28.34 176.31 45.75 186.13 58.36 195.38C61.81 197.83 63.83 202.20 63.79 208.91M105.97 205.87C105.07 197.90 103.67 183.49 102.65 175.53C101.26 164.62 99.66 161.38 90.20 155.13C77.25 146.56 67.64 139.63 54.43 131.45C49.49 128.39 45.28 124.91 39.11 126.27C32.77 127.68 28.65 133.83 29.46 140.24C30.23 146.33 33.69 147.96 38.18 151.29C45.40 156.65 52.94 161.68 60.36 166.71M112.72 230.64L112.77 205.38L56.31 209.45L56.30 230.64M227.57 121.06C227.57 121.06 229.28 107.88 230.29 100.49C234.44 79.05 249.11 79.21 257.10 84.27C254.59 104.26 251.92 132.99 249.28 152.96C248.49 158.96 248.60 162.65 243.29 166.77C231.00 176.31 213.58 186.13 200.98 195.38C197.53 197.83 195.50 202.20 195.54 208.91M153.37 205.87C154.26 197.90 155.66 183.49 156.68 175.53C158.07 164.62 159.68 161.38 169.13 155.13C182.08 146.56 191.69 139.63 204.90 131.45C209.84 128.39 214.05 124.91 220.22 126.27C226.56 127.68 230.69 133.83 229.88 140.24C229.11 146.33 225.65 147.96 221.15 151.29C213.93 156.65 206.39 161.68 198.97 166.71M146.61 230.64L146.56 205.38L203.02 209.45L203.04 230.64M107.74 41.97C107.74 41.97 111.43 58.61 127.38 58.61C143.33 58.61 147.02 41.97 147.02 41.97M107.74 35.31C107.74 35.31 111.43 18.66 127.38 18.66C143.33 18.66 147.02 35.31 147.02 35.31M156.84 116.19L156.84 101.41C156.84 84.86 143.65 68.60 127.38 68.60C111.11 68.60 97.92 84.86 97.92 101.41L97.92 116.19M30.05 25.54C30.05 25.54 33.74 42.18 49.69 42.18C65.64 42.18 69.33 25.54 69.33 25.54M30.05 18.88C30.05 18.88 33.74 2.23 49.69 2.23C65.64 2.23 69.33 18.88 69.33 18.88M79.15 99.76L79.15 84.98C79.15 68.43 65.96 52.17 49.69 52.17C40.91 52.17 33.02 56.91 27.62 63.88M185.44 25.54C185.44 25.54 189.13 42.18 205.08 42.18C221.02 42.18 224.72 25.54 224.72 25.54M185.44 18.88C185.44 18.88 189.13 2.23 205.08 2.23C221.02 2.23 224.72 18.88 224.72 18.88M229.10 66.67C223.76 58.21 214.99 52.17 205.08 52.17C188.81 52.17 175.62 68.43 175.62 84.98L175.62 99.76"/></svg></div>
   <span class="eyebrow">UE 10 · Management des RH médicales · cas pratiques du mardi</span>
   <h1>Révisions DAM <span class="st">affaires médicales 10.2026</span></h1>
   <p class="lede">Mémo expliqué, cas pratiques corrigés, logigrammes, quiz et calculateurs, construits à partir des cours de l'UE 10, des guides du CNG et du sujet de juillet 2025. Chaque donnée indique son niveau de vérification : texte officiel, source secondaire, cours, notes ou interprétation.</p>
@@ -262,9 +292,9 @@ nav.tabs{gap:0}
   <a role="tab" data-grp="raisonner" id="t-logi" href="#logi" aria-controls="logi" aria-selected="false">Logigrammes</a>
   <a role="tab" id="t-calc" href="#calc" aria-controls="calc" aria-selected="false">Calculateurs</a>
   <a role="tab" data-grp="entrainer" id="t-cas" href="#cas" aria-controls="cas" aria-selected="false">Cas pratiques</a>
-  <a role="tab" id="t-quiz" href="#quiz" aria-controls="quiz" aria-selected="false">Quiz</a>
-  <a role="tab" data-grp="ressources" id="t-sg" href="#sigles" aria-controls="sigles" aria-selected="false">Sigles</a>
-  <a role="tab" id="t-src" href="#sources" aria-controls="sources" aria-selected="false">Sources</a>
+  <a role="tab" id="t-quiz" href="#quiz" aria-controls="quiz" aria-selected="false">Quiz et calculs</a>
+  <a role="tab" id="t-exam" href="#exam" aria-controls="exam" aria-selected="false">Examen blanc</a>
+  <a role="tab" data-grp="ressources" id="t-sg" href="#sigles" aria-controls="sigles" aria-selected="false">Ressources</a>
 </nav>
 
 <!-- ===================== MEMO ===================== -->
@@ -278,7 +308,13 @@ nav.tabs{gap:0}
     <div class="step"><span class="step-n">1</span><h3>Comprendre</h3><p><a href="#memo" class="go-tab" data-tab="memo">Mémo</a> : les règles de la DAM, en six parties, de la méthode de résolution aux études et aux juniors.</p><p><a href="#formation" class="go-tab" data-tab="formation">Formation</a> : le parcours des médecins, de l'entrée en études à la formation continue.</p></div>
     <div class="step"><span class="step-n">2</span><h3>Raisonner</h3><p><a href="#logi" class="go-tab" data-tab="logi">Logigrammes</a> : des arbres de décision pour qualifier une situation question par question.</p></div>
     <div class="step"><span class="step-n">3</span><h3>Calculer</h3><p><a href="#calc" class="go-tab" data-tab="calc">Calculateurs</a> : statut, ancienneté, paie, CET, temps de travail, astreintes. Chaque résultat affiche son raisonnement.</p></div>
-    <div class="step"><span class="step-n">4</span><h3>S'entraîner</h3><p><a href="#cas" class="go-tab" data-tab="cas">Cas pratiques</a> : <span id="nbCas"></span> cas corrigés avec démarche guidée, dont ceux du sujet de juillet 2025.</p><p><a href="#quiz" class="go-tab" data-tab="quiz">Quiz</a> : questions et flashcards, par thème.</p></div>
+    <div class="step"><span class="step-n">4</span><h3>S'entraîner</h3><p><a href="#cas" class="go-tab" data-tab="cas">Cas pratiques</a> : <span id="nbCas"></span> cas corrigés avec démarche guidée, dont ceux du sujet de juillet 2025.</p><p><a href="#quiz" class="go-tab" data-tab="quiz">Quiz et calculs</a> : questions et flashcards par thème, et calculs à chiffres changeants.</p><p><a href="#exam" class="go-tab" data-tab="exam">Examen blanc</a> : des cas tirés au sort, chronométrés, avec une zone de rédaction, la correction et une note sur 6.</p></div>
+  </div>
+  <div class="block" id="prog">
+    <h2>Ma progression</h2>
+    <p class="lede">Cas traités, résultats du quiz et des exercices de calcul, examens blancs. Ces données restent dans ce navigateur, sur cet appareil.</p>
+    <div id="prog-box"></div>
+    <div class="row"><button class="btn ghost" id="prog-reset" type="button">Effacer ma progression</button></div>
   </div>
   <div class="block">
     <h2>Accès par thème</h2>
@@ -287,7 +323,7 @@ nav.tabs{gap:0}
   </div>
   <div class="block">
     <h3>Ressources</h3>
-    <p><a href="#sigles" class="go-tab" data-tab="sigles">Sigles</a> : chaque sigle renvoie à la section du mémo qui l'explique. <a href="#sources" class="go-tab" data-tab="sources">Sources</a> : les textes consultés et le niveau de vérification de chaque donnée.</p>
+    <p><a href="#sigles" class="go-tab" data-tab="sigles">Sigles</a> : chaque sigle renvoie à la section du mémo qui l'explique. <a href="#src-block" class="go-memo">Sources</a> : les textes consultés et le niveau de vérification de chaque donnée.</p>
   </div>
 </section>
 
@@ -964,9 +1000,30 @@ nav.tabs{gap:0}
 </section>
 
 <!-- ===================== QUIZ ===================== -->
+<!-- ===================== EXAMEN BLANC ===================== -->
+<section class="panel" id="exam" role="tabpanel" aria-labelledby="t-exam" hidden>
+  <div class="block" id="xm-setup">
+    <h2>Examen blanc</h2>
+    <p class="lede">Le site tire au sort des cas pratiques. Vous rédigez vos réponses dans le temps choisi. À la fin, le site affiche chaque corrigé, cherche dans votre texte les chiffres et les références qu'il contient, et vous aide à vous noter sur 6 points par cas, comme dans le sujet de juillet 2025.</p>
+    <div class="fields">
+      <label class="f">Nombre de cas<select id="xm-n"><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option></select></label>
+      <label class="f">Durée (minutes)<select id="xm-d"><option value="45">45</option><option value="60">60</option><option value="90" selected>90</option><option value="120">120</option></select></label>
+      <label class="f">Origine des cas<select id="xm-src"><option value="all">Tous les cas</option><option value="annale">Sujet 2025 uniquement</option><option value="new">Cas construits uniquement</option></select></label>
+    </div>
+    <div class="row"><button class="btn" id="xm-go" type="button">Tirer les cas et démarrer</button><button class="btn ghost" id="xm-resume" type="button" hidden>Reprendre l'examen en cours</button></div>
+    <p class="small">Les cas sont tirés dans des thèmes différents quand c'est possible. Vos réponses sont enregistrées dans ce navigateur pendant que vous écrivez.</p>
+  </div>
+  <div class="block" id="xm-run" hidden>
+    <div class="xm-bar"><span class="xm-time" id="xm-time">90:00</span><span class="small" id="xm-info"></span><span class="xm-sp"></span><button class="btn" id="xm-end" type="button">Terminer et corriger</button></div>
+    <div id="xm-cases"></div>
+  </div>
+  <div class="block" id="xm-res" hidden></div>
+</section>
+
 <section class="panel" id="quiz" role="tabpanel" aria-labelledby="t-quiz">
   <div class="block">
     <h2>Quiz et flashcards</h2>
+    <p class="small"><a href="#exo" class="go-memo">Aller aux calculs à chiffres changeants</a></p>
     <div class="row">
       <button class="chip" aria-pressed="true" id="modeQuiz">Quiz</button>
       <button class="chip" aria-pressed="false" id="modeFlash">Flashcards</button>
@@ -977,6 +1034,12 @@ nav.tabs{gap:0}
     </div>
   </div>
   <div class="qcard" id="qcard"></div>
+  <div class="block" id="exo">
+    <h2>Calculs à chiffres changeants</h2>
+    <p class="lede">Chaque exercice reprend un calcul des cas pratiques avec de nouveaux chiffres. Répondez, vérifiez, lisez la correction, puis tirez un nouvel énoncé.</p>
+    <div class="filters" id="exo-types" role="group" aria-label="Type d'exercice"></div>
+    <div class="exo-card" id="exo-card"></div>
+  </div>
 </section>
 
 <!-- ===================== CALCULATEURS ===================== -->
@@ -1147,10 +1210,8 @@ nav.tabs{gap:0}
     <label class="f" style="max-width:420px">Rechercher un sigle ou un mot<input type="search" id="sg-q" placeholder="ex. PECH, astreinte, CNG"></label>
   </div>
   <dl class="sg-list" id="sg-list"></dl>
-</section>
 
-<section class="panel" id="sources" role="tabpanel" aria-labelledby="t-src">
-  <div class="block">
+  <div class="block" id="src-block">
     <h2>Sources et niveau de vérification</h2>
     <p>Les données du site viennent de quatre origines. Chaque donnée du mémo porte une étiquette indiquant d'où elle vient. Les articles cités comme « texte » ont été lus sur Légifrance dans leur version en vigueur au 10 octobre 2026, ou dans les publications officielles du CNG, de la DGOS, de la FHF et des ARS.</p>
     <h3>Vos documents de cours</h3>
@@ -1230,10 +1291,13 @@ nav.tabs{gap:0}
     </div>
   </div>
 </section>
+
+
 </div>
 <footer class="pied"><span>Révisions DAM – UE 10 – 10.2026</span><span>Outil personnel de révision entre élèves, non officiel</span></footer>
 
 <script>
+const ICONS={"memo":["0 0 48 48",["M6 10h14c2.5 0 4 1.5 4 4v26c0-2-1.5-3-4-3H6zM42 10H28c-2.5 0-4 1.5-4 4v26c0-2 1.5-3 4-3h14z"]],"form":["0 0 48 48",["M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"]],"cas":["0 0 48 48",["M5 12h14l4 4h20v24H5zM5 20h38"]],"logi":["0 0 48 48",["M24 4l9 9-9 9-9-9zM24 22v6M10 28h28M10 28v8M38 28v8M4 36h12v8H4zM32 36h12v8H32z"]],"quiz":["0 0 48 48",["M6 8h36v26H22l-10 8v-8H6zM19 16c0-3 2-5 5-5s5 2 5 5c0 4-5 4-5 8M24 27v3"]],"calc":["0 0 48 48",["M10 4h28v40H10zM15 9h18v9H15zM15 24h4M22 24h4M29 24h4M15 31h4M22 31h4M29 31h4M15 38h4M22 38h4M29 38h4"]],"sg":["0 0 48 48",["M6 6h22l14 14v22H6zM28 6v14h14M12 26h20M12 33h20M12 19h10"]],"src":["0 0 48 48",["M24 6v34M14 42h20M8 12h32M8 12l-5 14h10zM40 12l-5 14h10zM3 26c0 3 2 5 5 5s5-2 5-5M35 26c0 3 2 5 5 5s5-2 5-5"]],"methode":["0 0 48 48",["M8 8h32v34H8zM14 16l3 3 5-6M26 16h8M14 26l3 3 5-6M26 26h8M14 36h20"]],"exercice":["0 0 48 48",["M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10zM24 15v16M16 23h16"]],"padhue":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M4 24h40M24 4c-6 6-8 13-8 20s2 14 8 20M24 4c6 6 8 13 8 20s-2 14-8 20"]],"statut":["0 0 48 48",["M8 8h32v32H8zM8 16h32M24 22a5 5 0 1 0 0.01 0M15 36c1-5 5-7 9-7s8 2 9 7"]],"pc":["0 0 48 48",["M10 4h20l8 8v32H10zM30 4v8h8M16 20h16M16 27h16M16 36c3-4 5 2 8-2s4 3 8 0"]],"ph":["0 0 48 48",["M24 4a12 12 0 1 0 0.01 0M17 26l-5 18 12-6 12 6-5-18M18 16l4 4 8-8"]],"remu":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M31 15c-2-2-4-3-7-3-6 0-10 5-10 12s4 12 10 12c3 0 5-1 7-3M10 21h16M10 27h16"]],"temps":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M24 12v12l8 6"]],"pds":["0 0 48 48",["M30 6a16 16 0 1 0 14 22 13 13 0 0 1-14-22zM10 8v8M6 12h8"]],"ast":["0 0 48 48",["M14 4h20v40H14zM14 10h20M14 36h20M24 40v0.1M38 14c3 3 3 9 0 12M42 10c5 5 5 15 0 20"]],"cet":["0 0 48 48",["M6 10h36v32H6zM6 18h36M14 6v8M34 6v8M13 26h6M21 26h6M29 26h6M13 33h6M21 33h6"]],"junior":["0 0 48 48",["M12 4v12c0 6 4 10 8 10s8-4 8-10V4M20 26v6c0 6 5 10 11 10s9-4 9-9v-5M40 22a4 4 0 1 0 0.01 0M8 4h8M24 4h8"]],"lib":["0 0 48 48",["M6 16h36v26H6zM17 16V9h14v7M24 23v12M18 29h12"]],"interim":["0 0 48 48",["M6 16h28M28 8l8 8-8 8M42 32H14M20 24l-8 8 8 8"]],"sic":["0 0 48 48",["M24 5l21 37H3zM24 18v12M24 34v4"]],"etudes":["0 0 48 48",["M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"]],"vue":["0 0 48 48",["M4 40h10V30h10V20h10V10h10M36 4l8 6-8 6"]],"acces":["0 0 48 48",["M10 44V4h22v40M32 8l8 3v30l-8 3M26 24v4M4 44h40"]],"c2":["0 0 48 48",["M14 6h20v6H14zM10 9h4v35h20V9h4v35H10zM17 24l4 4 8-8M17 36h14"]],"stages":["0 0 48 48",["M6 44V14h36v30M18 44V32h12v12M20 18h8v10h-8zM24 20v6M21 23h6M2 44h44M16 8h16v6H16z"]],"continue":["0 0 48 48",["M40 20A17 17 0 0 0 9 16M8 28a17 17 0 0 0 31 4M9 6v10h10M39 42V32H29"]],"retenir":["0 0 48 48",["M24 4c-8 0-13 6-13 13 0 5 3 8 5 11 1 2 2 4 2 6h12c0-2 1-4 2-6 2-3 5-6 5-11 0-7-5-13-13-13zM18 40h12M20 45h8"]],"exemple":["0 0 48 48",["M20 4a16 16 0 1 0 0.01 0M31 31l13 13"]],"ehesp-plus":["0 0 48 48",["M24 6v36M6 24h36"]],"megaphone":["0 0 261.40 242.65",["M67.65 186.73L83.83 239.65L125.75 226.84L109.76 173.85","M144.22 24.41C144.22 24.41 149.43 62.29 99.81 77.47L3.00 107.06L14.44 144.49L27.26 186.42L122.00 157.46L124.07 156.82C173.70 141.65 190.56 175.97 190.56 175.97M154.56 21.25L200.90 172.81","M181.78 51.03L211.49 3.00M261.94 71.20L212.24 86.13M206.61 132.26L258.40 156.44"]],"communaute":["0 0 259.33 232.88",["M31.77 121.06C31.77 121.06 30.06 107.88 29.04 100.49C24.89 79.05 10.22 79.21 2.23 84.27C4.75 104.26 7.41 132.99 10.05 152.96C10.84 158.96 10.74 162.65 16.05 166.77C28.34 176.31 45.75 186.13 58.36 195.38C61.81 197.83 63.83 202.20 63.79 208.91M105.97 205.87C105.07 197.90 103.67 183.49 102.65 175.53C101.26 164.62 99.66 161.38 90.20 155.13C77.25 146.56 67.64 139.63 54.43 131.45C49.49 128.39 45.28 124.91 39.11 126.27C32.77 127.68 28.65 133.83 29.46 140.24C30.23 146.33 33.69 147.96 38.18 151.29C45.40 156.65 52.94 161.68 60.36 166.71M112.72 230.64L112.77 205.38L56.31 209.45L56.30 230.64M227.57 121.06C227.57 121.06 229.28 107.88 230.29 100.49C234.44 79.05 249.11 79.21 257.10 84.27C254.59 104.26 251.92 132.99 249.28 152.96C248.49 158.96 248.60 162.65 243.29 166.77C231.00 176.31 213.58 186.13 200.98 195.38C197.53 197.83 195.50 202.20 195.54 208.91M153.37 205.87C154.26 197.90 155.66 183.49 156.68 175.53C158.07 164.62 159.68 161.38 169.13 155.13C182.08 146.56 191.69 139.63 204.90 131.45C209.84 128.39 214.05 124.91 220.22 126.27C226.56 127.68 230.69 133.83 229.88 140.24C229.11 146.33 225.65 147.96 221.15 151.29C213.93 156.65 206.39 161.68 198.97 166.71M146.61 230.64L146.56 205.38L203.02 209.45L203.04 230.64M107.74 41.97C107.74 41.97 111.43 58.61 127.38 58.61C143.33 58.61 147.02 41.97 147.02 41.97M107.74 35.31C107.74 35.31 111.43 18.66 127.38 18.66C143.33 18.66 147.02 35.31 147.02 35.31M156.84 116.19L156.84 101.41C156.84 84.86 143.65 68.60 127.38 68.60C111.11 68.60 97.92 84.86 97.92 101.41L97.92 116.19M30.05 25.54C30.05 25.54 33.74 42.18 49.69 42.18C65.64 42.18 69.33 25.54 69.33 25.54M30.05 18.88C30.05 18.88 33.74 2.23 49.69 2.23C65.64 2.23 69.33 18.88 69.33 18.88M79.15 99.76L79.15 84.98C79.15 68.43 65.96 52.17 49.69 52.17C40.91 52.17 33.02 56.91 27.62 63.88M185.44 25.54C185.44 25.54 189.13 42.18 205.08 42.18C221.02 42.18 224.72 25.54 224.72 25.54M185.44 18.88C185.44 18.88 189.13 2.23 205.08 2.23C221.02 2.23 224.72 18.88 224.72 18.88M229.10 66.67C223.76 58.21 214.99 52.17 205.08 52.17C188.81 52.17 175.62 68.43 175.62 84.98L175.62 99.76"]]};
 /* ---------- onglets ---------- */
 const tabs=[...document.querySelectorAll('nav.tabs a')];
 const ids=tabs.map(b=>b.getAttribute('aria-controls'));
@@ -1564,7 +1628,7 @@ function render(){answered=false;flipped=false;
  const q=deck[pos];const pct=Math.round(pos/deck.length*100);qc.dataset.th=q.th;
  if(mode==='quiz'){qc.className='qcard';
   qc.innerHTML=`<div class="qmeta"><span>Question ${pos+1} / ${deck.length}</span><span>Score ${score}</span></div><div class="bar"><i style="width:${pct}%"></i></div><div class="qtext">${q.q}</div><div class="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div><div id="qx"></div>`;
-  qc.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(answered)return;answered=true;const i=+b.dataset.i;if(i===q.a)score++;qc.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const k=+x.dataset.i;if(k===q.a)x.classList.add('good');else if(k===i)x.classList.add('bad');});
+  qc.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(answered)return;answered=true;const i=+b.dataset.i;if(i===q.a)score++;prog.quiz(q.th,i===q.a);qc.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const k=+x.dataset.i;if(k===q.a)x.classList.add('good');else if(k===i)x.classList.add('bad');});
    document.getElementById('qx').innerHTML=`<div class="expl"><b>${i===q.a?'Exact.':'Réponse : '+q.o[q.a]+'.'}</b> ${q.x}</div><div class="row" style="margin-top:10px"><button class="btn" id="qn">Question suivante</button></div>`;document.getElementById('qn').onclick=()=>{pos++;render()};document.getElementById('qn').focus();});
  }else{qc.className='qcard flash';
   qc.innerHTML=`<div class="qmeta"><span>Carte ${pos+1} / ${deck.length}</span><span>Touchez la carte pour la retourner</span></div><div class="bar"><i style="width:${pct}%"></i></div><div class="qtext" id="fx">${q.q}</div><div id="fb" hidden class="expl"><b>${q.o[q.a]}</b><br>${q.x}</div><div class="row"><button class="btn ghost" id="fp">Précédente</button><button class="btn" id="fn">Suivante</button></div>`;
@@ -1890,7 +1954,7 @@ function tCalc(){const s=+$('t-s').value||0,e=+$('t-e').value||0;const ep=Math.m
 
 /* ---------- habillage : pictogrammes et familles (aucun contenu modifié) ---------- */
 (function(){
- const pic=(id,cls)=>`<svg class="pi${cls?' '+cls:''}" aria-hidden="true" focusable="false"><use href="#i-${id}"/></svg>`;
+ const pic=(id,cls)=>{const x=ICONS[id];if(!x)return '';return `<svg class="pi${cls?' '+cls:''}" viewBox="${x[0]}" aria-hidden="true" focusable="false">${x[1].map(d=>`<path d="${d}"/>`).join('')}</svg>`;};
  const chartIc=id=>id==='communaute'||id==='megaphone';
  const FAM={cadre:'Cadre et méthode',statuts:'Statuts et recrutement',remu:'Rémunération',temps:'Temps de travail et PDS',sic:'Situations individuelles',etudes:'Études et juniors'};
  const COL={cadre:'bleu',statuts:'bleu-ciel',remu:'jaune',temps:'orange',sic:'saumon',etudes:'rose'};
@@ -1901,7 +1965,7 @@ function tCalc(){const s=+$('t-s').value||0,e=+$('t-e').value||0;const ep=Math.m
   if(id.startsWith('m-')){const l=document.createElement('span');l.className='fam-lbl';l.innerHTML=`<i></i>${FAM[f]}`;b.insertBefore(l,w);}
   document.querySelectorAll(`.toc a[href="#${id}"]`).forEach(a=>a.classList.add('fam-'+f));});
  const toc=document.querySelector('#memo .toc');if(toc&&!document.querySelector('#memo .toc-grp')){const k=document.createElement('div');k.className='fam-key';k.innerHTML='<b style="color:var(--bleu);font-weight:500">Code couleur des sections :</b>'+Object.entries(FAM).map(([f,t])=>`<span class="fam-${f}"><i></i>${t}</span>`).join('');toc.parentNode.insertBefore(k,toc);}
- const TAB={'t-acc':'vue','t-memo':'memo','t-form':'form','t-cas':'cas','t-logi':'logi','t-quiz':'quiz','t-calc':'calc','t-sg':'sg','t-src':'src'};
+ const TAB={'t-acc':'vue','t-exam':'c2','t-memo':'memo','t-form':'form','t-cas':'cas','t-logi':'logi','t-quiz':'quiz','t-calc':'calc','t-sg':'sg','t-src':'src'};
  Object.entries(TAB).forEach(([id,ic])=>{const a=document.getElementById(id);if(a)a.insertAdjacentHTML('afterbegin',pic(ic));});
  const CALC={'c-contrat':['statuts','statut'],'c-paie':['remu','remu'],'c-ast':['temps','ast'],'c-forf':['temps','remu'],'c-conv':['temps','temps'],'c-os':['temps','cet'],'c-etp':['temps','communaute'],'c-anc':['remu','vue'],'c-cet':['remu','cet']};
  Object.entries(CALC).forEach(([id,[f,ic]])=>{const c=document.getElementById(id);if(!c)return;c.classList.add('fam-'+f);const h=c.querySelector(':scope>h3');if(h)h.insertAdjacentHTML('afterbegin',`<span class="ic-tile">${pic(ic,chartIc(ic)?'chart':'')}</span>`);});
@@ -1969,6 +2033,139 @@ function tCalc(){const s=+$('t-s').value||0,e=+$('t-e').value||0;const ep=Math.m
  document.addEventListener('click',e=>{const a=e.target.closest('a.j-memo,a.j-logi,a.j-calc,a.j-case,a.j-cases,a.go-tab');if(!a)return;e.preventDefault();
   if(a.classList.contains('j-memo'))jumpTo(a.dataset.id);else if(a.classList.contains('j-logi'))goLogi(a.dataset.k);else if(a.classList.contains('j-calc'))jumpTo(a.dataset.id);else if(a.classList.contains('j-case'))goCase(a.dataset.pre);else if(a.classList.contains('j-cases'))goCases(a.dataset.f);else goTab(a.dataset.tab);});
 })();
+
+/* ================= progression (stockée dans ce navigateur) ================= */
+const PROG_KEY='dam-progression-v1';
+const prog={d:{cases:{},quiz:{},exo:{},exam:[]},
+ load(){try{const x=JSON.parse(localStorage.getItem(PROG_KEY)||'null');if(x&&typeof x==='object')this.d=Object.assign({cases:{},quiz:{},exo:{},exam:[]},x);}catch(e){}},
+ save(){try{localStorage.setItem(PROG_KEY,JSON.stringify(this.d));}catch(e){}renderProg();},
+ quiz(th,ok){const q=this.d.quiz[th]||(this.d.quiz[th]={n:0,ok:0});q.n++;if(ok)q.ok++;this.save();},
+ exo(t,ok){const q=this.d.exo[t]||(this.d.exo[t]={n:0,ok:0});q.n++;if(ok)q.ok++;this.save();},
+ toggleCase(t){if(this.d.cases[t])delete this.d.cases[t];else this.d.cases[t]=Date.now();this.save();},
+ exam(r){this.d.exam.unshift(r);this.d.exam=this.d.exam.slice(0,12);this.save();}};
+prog.load();
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const QTH={annale:'Sujet 2025',statuts:'Statuts et contrats',tt:'Temps de travail et PDS',remu:'Rémunération',sic:'Situations complexes',divers:'Instances et divers',formation:'Formation des médecins'};
+const CFL={annale:'Sujet 2025',tt:'Temps de travail et PDS',contrat:'Contrats et carrière',remu:'Rémunération',sic:'Situations complexes',junior:'Juniors'};
+function pbar(n,tot){const p=tot?Math.round(n/tot*100):0;return `<span class="pbar"><i style="width:${p}%"></i></span><span class="num">${n} / ${tot}</span>`;}
+function renderProg(){const box=document.getElementById('prog-box');if(!box)return;const d=prog.d;
+ const cs=Object.entries(CFL).map(([f,l])=>{const all=CASES.filter(c=>c.f===f);const done=all.filter(c=>d.cases[c.t]).length;return `<tr><td>${l}</td><td>${pbar(done,all.length)}</td></tr>`;}).join('');
+ const nd=CASES.filter(c=>d.cases[c.t]).length;
+ const qz=Object.entries(QTH).map(([th,l])=>{const q=d.quiz[th];return q?`<tr><td>${l}</td><td>${pbar(q.ok,q.n)} <span class="small">bonnes réponses</span></td></tr>`:'';}).join('');
+ const ex=Object.entries(EXO).map(([k,e])=>{const q=d.exo[k];return q?`<tr><td>${e.t}</td><td>${pbar(q.ok,q.n)} <span class="small">justes</span></td></tr>`:'';}).join('');
+ const xm=d.exam.map(r=>`<tr><td>${new Date(r.at).toLocaleDateString('fr-FR')} · ${r.n} cas, ${r.min} min</td><td class="num">${r.self!=null?fmt(r.self,1)+' / '+r.max:'non noté'} · repères trouvés : ${r.found} / ${r.exp}</td></tr>`).join('');
+ box.innerHTML=`<div class="grid2"><div><h3>Cas pratiques traités : ${nd} / ${CASES.length}</h3><div class="tbl"><table>${cs}</table></div></div><div><h3>Quiz</h3>${qz?`<div class="tbl"><table>${qz}</table></div>`:'<p class="small">Aucune réponse enregistrée.</p>'}<h3 style="margin-top:12px">Calculs à chiffres changeants</h3>${ex?`<div class="tbl"><table>${ex}</table></div>`:'<p class="small">Aucun exercice fait.</p>'}</div></div><h3 style="margin-top:12px">Examens blancs</h3>${xm?`<div class="tbl"><table>${xm}</table></div>`:'<p class="small">Aucun examen blanc terminé.</p>'}`;}
+
+/* cas pratiques : marquer comme traité */
+function decorateCases(){document.querySelectorAll('#caseList details.case').forEach(d=>{if(d.querySelector('.c-done'))return;const t=d.querySelector('.t').textContent;const c=CASES.find(x=>x.t===t);if(!c)return;
+ const mk=document.createElement('span');mk.className='done-mk';mk.textContent='Traité';d.querySelector('summary').appendChild(mk);
+ const row=document.createElement('div');row.className='row';row.innerHTML='<button class="btn ghost c-done" type="button"></button>';d.querySelector('.case-body').appendChild(row);
+ const b=row.querySelector('button');const upd=()=>{const on=!!prog.d.cases[c.t];b.textContent=on?'Traité : retirer la marque':'Marquer ce cas comme traité';mk.hidden=!on;b.setAttribute('aria-pressed',on);};upd();b.onclick=()=>{prog.toggleCase(c.t);upd();};});}
+{const _rc=renderCases;renderCases=function(f){_rc(f);decorateCases();};decorateCases();}
+
+/* ================= calculs à chiffres changeants ================= */
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const hm=m=>`${Math.floor(m/60)} h ${String(m%60).padStart(2,'0')}`;
+const EXO={
+ oblig:{t:'Obligations de service',gen(){const s=rnd(14,18),f=rnd(1,5),mode=pick(['dj','h']);const j=s*5-f;
+  if(mode==='dj')return{q:`Un PH à temps plein, décompté en demi-journées. La période compte ${s} semaines et ${f} jours fériés tombant en semaine. Combien de demi-journées d'obligations de service sur la période, avant congés ?`,unit:'DJ',a:j*2,tol:0,
+   c:[`Jours ouvrés : ${s} × 5 − ${f} = ${j} jours.`,`Une journée vaut 2 DJ : ${j} × 2 = <b>${j*2} DJ</b>.`],src:'R6152-26 (10 DJ par semaine) <span class="vb o">texte</span> ; méthode du cours <span class="vb c">cours</span>'};
+  return{q:`Un anesthésiste à temps plein, en temps continu à 48 h. La période compte ${s} semaines et ${f} jours fériés tombant en semaine. Combien d'heures d'obligations de service sur la période, avant congés ?`,unit:'h',a:Math.round(j*9.6*10)/10,tol:0.1,
+   c:[`Jours ouvrés : ${s} × 5 − ${f} = ${j} jours.`,`48 h sur 5 jours = 9,6 h par jour.`,`${j} × 9,6 = <b>${fmt(j*9.6,1)} h</b>.`],src:'R6152-27 (48 h au plus) <span class="vb o">texte</span> ; 9,6 h par jour <span class="vb c">cours</span>'};}},
+ paie:{t:'Paie mensuelle d’un PH',gen(){const e=rnd(0,12),dj=rnd(6,10),g=rnd(0,5),dg=rnd(0,2),lib=dj>=8&&Math.random()<.25,cs=Math.random()<.4;const q=dj/10;
+  const em=GRILLE[e]*q/12,ie=lib?0:1010*q,pds=g*422.03+dg*211.01,man=cs?200:0,tot=em+ie+pds+man;
+  return{q:`Un PH à l'échelon ${e+1} (${fmt(GRILLE[e],2)} € par an à temps plein) exerce ${dj} demi-journées par semaine${lib?', avec une activité libérale à l’hôpital':', sans activité libérale'}${cs?'. Il est chef de service':''}. Ce mois-ci : ${g} gardes de nuit dans ses obligations${dg?` et ${dg} demi-garde${dg>1?'s':''}`:''}. Quel est son brut mensuel, hors TTA ?`,unit:'€',a:Math.round(tot*100)/100,tol:1,
+   c:[`Quotité : ${dj} ÷ 10 = ${fmt(q*100)} %.`,`Émoluments : ${fmt(GRILLE[e],2)} × ${fmt(q*100)} % ÷ 12 = ${fmt(em,2)} €.`,`IESPE : ${lib?'non due (activité libérale)':`1 010 × ${fmt(q*100)} % = ${fmt(ie,2)} €`}.`,`Gardes : ${g} × 422,03${dg?` + ${dg} × 211,01`:''} = ${fmt(pds,2)} €.`,cs?'Indemnité de chef de service : 200 €.':'Pas d’indemnité managériale.',`Total : <b>${fmt(tot,2)} €</b>.`],src:'R6152-23 et D6152-23-1 (prorata) ; arrêté du 30 avril 2003 modifié, article 13 <span class="vb o">texte</span>'};}},
+ ast:{t:'Déplacements en astreinte',gen(){const n=rnd(1,3);const mins=[];for(let i=0;i<n;i++){let m;do{m=rnd(4,52)*5;}while(m%60===30);mins.push(m);}
+  let traj=0,tot=0;const lines=mins.map((iv,i)=>{let t,ret;if(iv>=180){t=traj<120?60:0;traj+=t;ret=5;return `Déplacement ${i+1} : ${hm(iv)} sur place, 3 h ou plus : <b>5 h</b>${t?' (1 h de trajet imputée sur le plafond)':''}.`+(tot+=ret,'');}
+   t=traj<120?60:0;traj+=t;ret=roundH(iv)+t/60;tot+=ret;return `Déplacement ${i+1} : ${hm(iv)} arrondi à ${roundH(iv)} h${t?', plus 1 h de trajet':', trajet déjà plafonné à 2 h'} = <b>${ret} h</b>.`;});
+  const cap=Math.min(tot,10);
+  return{q:`Nuit d'astreinte, régime en vigueur depuis le 1er novembre 2025. Durées d'intervention sur place : ${mins.map(hm).join(' ; ')}. Combien d'heures retient-on pour cette période d'astreinte ?`,unit:'h',a:cap,tol:0,
+   c:[...lines,`Total : ${tot} h${tot>10?', plafonné à 10 h (2 demi-journées)':''} : <b>${cap} h</b>.`,`Au quadrimestre, chaque plage de 5 h devient une demi-journée dans les obligations de service.`],src:'Article 14 de l’arrêté du 30 avril 2003, dans sa rédaction issue de l’arrêté du 8 juillet 2025 <span class="vb o">texte</span> ; fraction d’exactement 30 min : hypothèse du site'};}},
+ tta:{t:'TTA en temps continu',gen(){const hw=pick([40,44,48]),sem=rnd(14,17),ob=hw*sem,ex=rnd(0,48),x=ob+ex;const pl=Math.floor(ex/5);
+  return{q:`Un praticien en temps continu a ${hw} h hebdomadaires convenues. Sur le quadrimestre, il a travaillé ${sem} semaines et ${x} heures au total, toutes ses obligations étant accomplies. Combien de demi-périodes de TTA ?`,unit:'demi-période(s)',a:pl,tol:0,
+   c:[`Obligations : ${hw} × ${sem} = ${ob} h.`,`Heures au-delà : ${x} − ${ob} = ${ex} h.`,`Plages de 5 h : ${ex} ÷ 5 = <b>${pl}</b> demi-période${pl>1?'s':''} (reste ${ex-pl*5} h).`,`Si le praticien choisit le paiement : ${pl} × 167,79 = ${fmt(pl*167.79,2)} €.`],src:'Instruction DGOS du 30 décembre 2025, II.C.1 ; arrêté du 30 avril 2003 modifié, articles 4 et 13 <span class="vb o">texte</span>'};}},
+ etp:{t:'Besoin en ETP',gen(){const pj=rnd(1,4),pn=rnd(1,2),mode=pick(['dj','h']),d=364;
+  if(mode==='dj'){const tot=(pj*2+pn*2)*d,e=tot/416;return{q:`Service en demi-journées : ${pj} praticien${pj>1?'s':''} présent${pj>1?'s':''} le jour et ${pn} la nuit, ${d} jours par an. Combien d'ETP faut-il (2 décimales) ?`,unit:'ETP',a:Math.round(e*100)/100,tol:0.02,
+   c:[`Jour : ${pj} × 2 DJ ; nuit : ${pn} × 2 DJ ; soit ${pj*2+pn*2} DJ par jour.`,`Par an : ${pj*2+pn*2} × ${d} = ${tot} DJ.`,`1 ETP = 416 DJ : ${tot} ÷ 416 = <b>${fmt(e,2)} ETP</b>.`],src:'Nuit = 2 DJ (R6152-27) <span class="vb o">texte</span> ; 416 DJ par ETP <span class="vb c">cours</span>'};}
+  const tot=(pj*10+pn*14)*d,e=tot/1996;return{q:`Service en temps continu : ${pj} praticien${pj>1?'s':''} le jour (10 h) et ${pn} la nuit (14 h), ${d} jours par an. Combien d'ETP faut-il (2 décimales) ?`,unit:'ETP',a:Math.round(e*100)/100,tol:0.02,
+   c:[`Par jour : ${pj} × 10 h + ${pn} × 14 h = ${pj*10+pn*14} h.`,`Par an : ${pj*10+pn*14} × ${d} = ${fmt(tot)} h.`,`1 ETP = 1 996 h : ${fmt(tot)} ÷ 1 996 = <b>${fmt(e,2)} ETP</b>.`],src:'1 996 h par ETP (9,6 h × 208 jours) <span class="vb c">cours</span>'};}}};
+let exoType='oblig',exoCur=null,exoDone=false;
+function exoNew(){exoCur=EXO[exoType].gen();exoDone=false;const c=$('exo-card');
+ c.innerHTML=`<span class="lbl">${EXO[exoType].t}</span><p class="exo-q">${exoCur.q}</p><div class="row"><label class="f exo-in">Votre réponse (${exoCur.unit})<input type="text" inputmode="decimal" id="exo-a" autocomplete="off"></label><button class="btn" id="exo-chk" type="button">Vérifier</button><button class="btn ghost" id="exo-new" type="button">Nouvel énoncé</button></div><div id="exo-fb"></div>`;
+ $('exo-chk').onclick=exoCheck;$('exo-new').onclick=exoNew;$('exo-a').onkeydown=e=>{if(e.key==='Enter')exoCheck();};}
+function exoCheck(){const raw=$('exo-a').value.replace(/\s| | |€/g,'').replace(',','.');const v=parseFloat(raw);if(isNaN(v)){$('exo-fb').innerHTML='<p class="small">Saisissez un nombre.</p>';return;}
+ const ok=Math.abs(v-exoCur.a)<=exoCur.tol+1e-9;if(!exoDone){prog.exo(exoType,ok);exoDone=true;}
+ $('exo-fb').innerHTML=`<div class="exo-v ${ok?'ok':'ko'}"><b>${ok?'Juste.':'À revoir.'}</b> Réponse attendue : ${fmt(exoCur.a,exoCur.unit==='€'||exoCur.unit==='ETP'?2:(exoCur.a%1?1:0))} ${exoCur.unit}${exoCur.tol?` (tolérance ${fmt(exoCur.tol,2)})`:''}.</div><div class="raison"><b>Correction</b><ol>${exoCur.c.map(x=>`<li>${x}</li>`).join('')}</ol><p class="small" style="margin-top:6px">Sources : ${exoCur.src}.</p></div>`;}
+$('exo-types').innerHTML=Object.entries(EXO).map(([k,e])=>`<button class="chip" type="button" data-k="${k}" aria-pressed="${k===exoType}">${e.t}</button>`).join('');
+document.querySelectorAll('#exo-types .chip').forEach(b=>b.onclick=()=>{exoType=b.dataset.k;document.querySelectorAll('#exo-types .chip').forEach(x=>x.setAttribute('aria-pressed',x===b));exoNew();});
+exoNew();
+
+/* ================= examen blanc ================= */
+const XM_KEY='dam-examen-en-cours-v1';
+let xm=null,xmTimer=null;
+function xmSave(){try{localStorage.setItem(XM_KEY,JSON.stringify(xm));}catch(e){}}
+function xmLoad(){try{return JSON.parse(localStorage.getItem(XM_KEY)||'null');}catch(e){return null;}}
+function xmClear(){try{localStorage.removeItem(XM_KEY);}catch(e){}}
+function xmDraw(n,src){let pool=CASES.map((c,i)=>i).filter(i=>src==='all'||(src==='annale'?CASES[i].f==='annale':CASES[i].f!=='annale'));
+ pool.sort(()=>Math.random()-.5);const out=[],fams=new Set();
+ for(const i of pool){if(out.length>=n)break;if(!fams.has(CASES[i].f)){out.push(i);fams.add(CASES[i].f);}}
+ for(const i of pool){if(out.length>=n)break;if(!out.includes(i))out.push(i);}
+ return out;}
+function xmStart(){const n=+$('xm-n').value,min=+$('xm-d').value,src=$('xm-src').value;
+ xm={ids:xmDraw(n,src),min,start:Date.now(),ans:{},done:false};xmSave();xmRun();}
+function xmRun(){$('xm-setup').hidden=true;$('xm-res').hidden=true;$('xm-run').hidden=false;
+ $('xm-info').textContent=`${xm.ids.length} cas · ${xm.min} minutes`;
+ $('xm-cases').innerHTML=xm.ids.map((i,k)=>{const c=CASES[i];return `<div class="xm-case"><span class="eyebrow">Cas ${k+1} sur ${xm.ids.length} · ${esc(c.tag)}</span><h3>${c.t}</h3><div class="enonce"><span class="lbl">Énoncé</span><p>${c.e}</p></div><label class="f">Votre réponse<textarea id="xm-a${k}" rows="12" placeholder="Qualifier, vérifier les prérequis, citer la règle, décider et chiffrer, sécuriser."></textarea></label><span class="small xm-cnt" id="xm-c${k}"></span></div>`;}).join('');
+ xm.ids.forEach((i,k)=>{const ta=$('xm-a'+k);ta.value=xm.ans[k]||'';const cnt=()=>{const w=ta.value.trim()?ta.value.trim().split(/\s+/).length:0;$('xm-c'+k).textContent=`${w} mot${w>1?'s':''} · enregistré dans ce navigateur`;};cnt();ta.oninput=()=>{xm.ans[k]=ta.value;xmSave();cnt();};});
+ clearInterval(xmTimer);const tick=()=>{const left=xm.start+xm.min*60000-Date.now();const t=$('xm-time');
+  if(left<=0){t.textContent='00:00';clearInterval(xmTimer);xmFinish(true);return;}
+  const s=Math.floor(left/1000);t.textContent=`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;t.classList.toggle('late',left<5*60000);};
+ tick();xmTimer=setInterval(tick,1000);}
+/* repères attendus : chiffres et références tirés du corrigé */
+function xmNorm(t){return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[  ]/g,' ').replace(/(\d) (?=\d{3}\b)/g,'$1').replace(/(\d)\.(\d)/g,'$1,$2').replace(/[’']/g,"'");}
+function xmExpected(c){const tmp=document.createElement('div');tmp.innerHTML=c.c;tmp.querySelectorAll('.box.vigil').forEach(x=>x.remove());let txt=tmp.textContent.replace(/[  ]/g,' ');
+ const out=[],seen=new Set();const add=(lbl,key)=>{if(seen.has(key))return;seen.add(key);out.push({lbl,key});};
+ (txt.match(/\b(?:[LRD]\.?\s?\d{4}-\d+(?:-\d+)*)/g)||[]).forEach(m=>add(m.replace(/\s/g,''),xmNorm(m.replace(/[.\s]/g,''))));
+ (txt.match(/\bmotif\s[1-4]\b/gi)||[]).forEach(m=>add(m.toLowerCase(),xmNorm(m)));
+ (txt.match(/\d{1,3}(?:[ .]\d{3})*(?:,\d+)?\s?(?:€|euros?|h\b|heures?|DJ|demi-journées?|%|ans?\b|mois\b|jours?\b|ETP|semaines?)/g)||[]).forEach(m=>{const num=m.match(/\d{1,3}(?:[ .]\d{3})*(?:,\d+)?/)[0];const k=xmNorm(num).replace(/\s/g,'');if(+k.replace(',','.')<2&&!/,/.test(k))return;add(m.trim(),k);});
+ return out.slice(0,14);}
+function xmFound(ans,e){const a=xmNorm(ans).replace(/(\d) (?=\d)/g,'$1');const k=e.key.replace(/\s/g,'');
+ if(/^[lrd]/.test(k))return a.replace(/[.\s]/g,'').includes(k);
+ if(k.startsWith('motif'))return a.includes(k);
+ return new RegExp('(^|[^\\d,])'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![\\d]|,\\d)').test(a);}
+const GRID=[['Qualifier',1],['Vérifier les prérequis',1],['Citer la règle',1],['Décider et chiffrer',2],['Sécuriser',1]];
+function xmFinish(auto){if(!xm||xm.done)return;clearInterval(xmTimer);xm.done=true;xm.end=Date.now();xmSave();
+ $('xm-run').hidden=true;const r=$('xm-res');r.hidden=false;let fT=0,eT=0;
+ const blocks=xm.ids.map((i,k)=>{const c=CASES[i];const ans=xm.ans[k]||'';const exp=xmExpected(c);const f=exp.filter(e=>xmFound(ans,e));fT+=f.length;eT+=exp.length;
+  return `<div class="xm-case" data-k="${k}"><span class="eyebrow">Cas ${k+1} · ${esc(c.tag)}</span><h3>${c.t}</h3>
+  <details class="cor"><summary>Revoir l'énoncé</summary><div class="enonce"><p>${c.e}</p></div></details>
+  <div class="xm-ans"><span class="lbl">Votre réponse</span><div class="xm-txt">${ans.trim()?esc(ans).replace(/\n/g,'<br>'):'<i>Aucune réponse rédigée.</i>'}</div></div>
+  <div class="xm-chk"><span class="lbl">Repères du corrigé retrouvés dans votre texte : ${f.length} / ${exp.length}</span><ul class="xm-list">${exp.map(e=>`<li class="${xmFound(ans,e)?'y':'n'}">${esc(e.lbl)}</li>`).join('')||'<li class="n">Ce corrigé ne contient pas de chiffre ni de référence à repérer automatiquement.</li>'}</ul><p class="small">Le site cherche les chiffres et les articles du corrigé dans votre texte. Une absence signale un point à vérifier ; elle ne prouve pas une erreur, et une présence ne prouve pas que le raisonnement est juste.</p></div>
+  <details class="cor" open><summary>Corrigé</summary><div class="cor-body">${c.c}</div></details>
+  <div class="xm-grid"><span class="lbl">Votre note sur 6, selon la grille en 5 temps</span>${GRID.map(([g,p],j)=>`<label><input type="checkbox" data-p="${p}" class="xm-g"> ${g} (${p} pt${p>1?'s':''})</label>`).join('')}<span class="xm-note">Note : <b class="xm-sc">0</b> / 6</span></div></div>`;}).join('');
+ const used=Math.round(((xm.end-xm.start)/60000));
+ r.innerHTML=`<h2>Correction de l'examen blanc</h2><p class="lede">${auto?'Le temps est écoulé. ':''}Temps utilisé : ${Math.min(used,xm.min)} minutes sur ${xm.min}. Repères retrouvés : ${fT} / ${eT}. Comparez chaque réponse au corrigé, puis cochez la grille.</p>
+  <div class="box methode"><span class="lbl">Comment se noter</span><p>La grille reprend la méthode en 5 temps du mémo : 1 point pour qualifier la situation, 1 pour vérifier les prérequis, 1 pour citer la règle, 2 pour décider et chiffrer juste, 1 pour sécuriser. Ce barème est une convention du site, construit sur le barème de 6 points par cas du sujet de juillet 2025. <span class="vb i">interprétation</span></p></div>
+  ${blocks}<div class="row"><span class="xm-total">Total : <b id="xm-tot">0</b> / ${xm.ids.length*6}</span><button class="btn" id="xm-save" type="button">Enregistrer dans ma progression</button><button class="btn ghost" id="xm-copy" type="button">Copier mes réponses</button><button class="btn ghost" id="xm-again" type="button">Nouvel examen</button></div><p class="small" id="xm-msg"></p>`;
+ const recalc=()=>{let t=0;r.querySelectorAll('.xm-case').forEach(b=>{let s=0;b.querySelectorAll('.xm-g:checked').forEach(x=>s+=+x.dataset.p);b.querySelector('.xm-sc').textContent=s;t+=s;});$('xm-tot').textContent=t;return t;};
+ r.querySelectorAll('.xm-g').forEach(x=>x.onchange=recalc);
+ let saved=false;$('xm-save').onclick=()=>{if(saved){$('xm-msg').textContent='Déjà enregistré.';return;}saved=true;prog.exam({at:xm.end,n:xm.ids.length,min:xm.min,self:recalc(),max:xm.ids.length*6,found:fT,exp:eT,cases:xm.ids.map(i=>CASES[i].t)});xm.ids.forEach(i=>{if(!prog.d.cases[CASES[i].t])prog.d.cases[CASES[i].t]=Date.now();});prog.save();$('xm-msg').textContent='Enregistré. Les cas tirés sont marqués comme traités.';};
+ $('xm-copy').onclick=()=>{const txt=xm.ids.map((i,k)=>`Cas ${k+1} : ${CASES[i].t}\n\n${xm.ans[k]||''}`).join('\n\n----------\n\n');
+  const done=()=>{$('xm-msg').textContent='Réponses copiées dans le presse-papiers.';};
+  try{navigator.clipboard.writeText(txt).then(done,()=>fallback());}catch(e){fallback();}
+  function fallback(){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){$('xm-msg').textContent='Copie impossible ici : sélectionnez le texte des réponses à la main.';}ta.remove();}};
+ $('xm-again').onclick=()=>{xmClear();xm=null;$('xm-res').hidden=true;$('xm-setup').hidden=false;$('xm-resume').hidden=true;window.scrollTo({top:document.querySelector('nav.tabs').offsetTop-4});};
+ window.scrollTo({top:document.querySelector('nav.tabs').offsetTop-4});}
+$('xm-go').onclick=xmStart;
+$('xm-end').onclick=()=>xmFinish(false);
+$('xm-resume').onclick=()=>{if(xm&&!xm.done)xmRun();else if(xm&&xm.done){xm.done=false;xmFinish(false);}};
+{const s=xmLoad();if(s&&Array.isArray(s.ids)&&s.ids.every(i=>CASES[i])){xm=s;if(!xm.done){$('xm-resume').hidden=false;$('xm-resume').textContent='Reprendre l’examen en cours';}}}
+$('prog-reset').onclick=()=>{if(!confirmReset())return;prog.d={cases:{},quiz:{},exo:{},exam:[]};prog.save();decorateCasesRefresh();};
+let resetArmed=false;function confirmReset(){if(resetArmed){resetArmed=false;$('prog-reset').textContent='Effacer ma progression';return true;}resetArmed=true;$('prog-reset').textContent='Cliquer à nouveau pour confirmer';setTimeout(()=>{resetArmed=false;$('prog-reset').textContent='Effacer ma progression';},4000);return false;}
+function decorateCasesRefresh(){document.querySelectorAll('#caseList .c-done').forEach(b=>b.closest('.row').remove());document.querySelectorAll('#caseList .done-mk').forEach(m=>m.remove());decorateCases();}
+renderProg();
 </script>
 </body>
 </html>
