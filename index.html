@@ -103,6 +103,9 @@ input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--bleu)}
 .kpi{padding:11px 13px;background:var(--bleu-clair);display:flex;flex-direction:column;gap:3px}
 .kpi b{font-weight:800;font-size:24px;color:var(--bleu);font-variant-numeric:tabular-nums;line-height:1.1}
 .kpi span{font-size:13px;color:var(--muted)}
+.raison{margin-top:10px;padding:12px 14px;border-left:3px solid var(--bleu);background:#fff}
+.raison ol{margin:6px 0 0 18px;padding:0}
+.raison li{margin:3px 0}
 .dep-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
 .small{font-size:14px;color:var(--muted)}
 .checks{display:flex;flex-direction:column;gap:7px}
@@ -238,7 +241,7 @@ input[type=search]{font:inherit}
       <tr><td>Directeur (L6143-7 CSP)</td><td>Autorité sur l'ensemble du personnel, dans le respect de l'indépendance professionnelle. Arrête l'organisation interne, le règlement intérieur et le tableau de service ; constate le service fait ; propose la nomination des PH ; peut suspendre à titre conservatoire ; accorde la protection fonctionnelle. <span class="vb o">texte</span></td></tr>
       <tr><td>Président de CME</td><td>Avis sur les recrutements, les profils de poste, la saisine du comité médical, la recherche d'affectation ; saisit la médiation conjointement avec le directeur. <span class="vb o">texte</span></td></tr>
       <tr><td>CME</td><td>Consultée sur l'organisation interne et le règlement intérieur ; informée du bilan des tableaux de service et de la COPS. En formation restreinte aux PH titulaires, elle donne un avis dans les procédures disciplinaire et d'insuffisance professionnelle. <span class="vb o">texte</span></td></tr>
-      <tr><td>COPS (sous-commission de la CME)</td><td>Organise avec le directeur la permanence des soins de l'année, propose le règlement des astreintes, donne un avis sur les tableaux mensuels et les forfaits d'astreinte, suit le temps de travail additionnel, établit un bilan annuel. Composition : PCME, directeur ou DAM, praticiens dont la moitié au moins participent à la PDS et un en temps continu, 2 représentants des internes. <span class="vb c">cours</span></td></tr>
+      <tr><td>COPS (sous-commission de la CME)</td><td>Organise avec le directeur la permanence des soins de l'année, propose le règlement des astreintes, donne un avis sur les tableaux mensuels et les forfaits d'astreinte, suit le temps de travail additionnel, établit un bilan annuel. Composition : directeur ou son représentant, PCME ou son représentant, praticiens désignés par la CME dont la moitié au moins participent à la permanence des soins, et un représentant de chaque structure en temps continu (arrêté du 30 avril 2003, article 7) ; le cours ajoute 2 représentants des internes. <span class="vb c">cours</span></td></tr>
       <tr><td>Commission de l'activité libérale</td><td>Contrôle le respect des règles de l'activité libérale : durée, volume d'actes, redevances, affichage des honoraires. <span class="vb s">secondaire</span></td></tr>
       <tr><td>Chef de pôle, chef de service</td><td>Tableaux de service et continuité des soins. Depuis la loi du 26 avril 2021, le service est l'échelon de référence de l'organisation des soins. Le chef de service valide les valences non cliniques et évalue les objectifs des contractuels en motif 2. <span class="vb c">cours</span></td></tr>
       <tr><td>CNG</td><td>Gère les PH : concours, nomination, titularisation, discipline, insuffisance professionnelle, recherche d'affectation, détachement d'office. <span class="vb o">texte</span></td></tr>
@@ -386,7 +389,7 @@ input[type=search]{font:inherit}
       <tr><td>Grille PH, temps plein</td><td class="num">55 607,79 → 112 416,56 €/an</td><td>13 échelons, valeurs au 1er juillet 2023, inchangées depuis selon les sources consultées. Échelon 1 = 4 633,98 €/mois. <span class="vb o">texte</span></td></tr>
       <tr><td>Assistants spécialistes</td><td class="num">33 643,13 / 36 625,21 / 41 387,28 €/an</td><td>Par années de service : 1-2, 3-4, 5-6. <span class="vb o">texte</span></td></tr>
       <tr><td>Praticiens contractuels</td><td class="num">41 386,48 → 71 162,83 €/an</td><td>Temps plein, hors primes ; motif 2 jusqu'à 119 130 € avec part variable. <span class="vb o">texte</span></td></tr>
-      <tr><td>IESPE</td><td class="num">1 010 €/mois</td><td>606 € pour 6 DJ ; PH, assistants, HU, si pas d'activité libérale ; pas pour les contractuels. <span class="vb o">texte</span></td></tr>
+      <tr><td>IESPE</td><td class="num">1 010 €/mois</td><td>à temps partiel, au prorata des obligations de service (606 € pour 6 DJ ; article D6152-23-1, 6°) ; PH, assistants, HU, si pas d'activité libérale ; pas pour les contractuels. <span class="vb o">texte</span></td></tr>
       <tr><td>Prime d'exercice territorial</td><td class="num">250 / 450 / 700 / 1 000 €/mois</td><td>1 DJ hors site ; plus de 1 à 3 DJ ; plus de 3 à 4 DJ ; plus de 4 DJ ou 4 DJ sur au moins 2 sites. Site distant de 20 km au moins (dérogation ARS possible), convention d'activité partagée. <span class="vb s">secondaire</span></td></tr>
       <tr><td>Prime de solidarité territoriale</td><td class="num">293,25 € / 427,25 €</td><td>Par DJ effectuée en renfort dans un autre établissement public, au-delà des obligations : jour de semaine / nuit, samedi après-midi, dimanche, férié. Modulable de 20 % par l'ARS. <span class="vb o">texte</span></td></tr>
       <tr><td>PECH</td><td class="num">10 000 / 20 000 / 30 000 €</td><td>Contractuels et assistants qui s'engagent à passer le concours puis à exercer 3 ans comme PH : tension nationale, locale, ou les deux ; spécialités nationales : anesthésie-réanimation, psychiatrie, radiologie ; versée en 2 fois, au prorata du temps partiel. <span class="vb o">texte</span></td></tr>
@@ -415,37 +418,63 @@ input[type=search]{font:inherit}
 
   <!-- TEMPS DE TRAVAIL -->
   <div class="block" id="m-tt">
-    <h2>Le temps de travail des seniors</h2>
-    <p>Le temps de travail médical se compte de deux façons. La règle générale est le décompte en <b>demi-journées</b> (DJ), sans durée horaire fixée par les textes. Par dérogation, certaines activités dont l'intensité est la même jour et nuit se comptent en <b>heures</b> (temps continu). Le choix du mode de décompte change le nombre d'ETP nécessaires : c'est pourquoi il fait l'objet de négociations avec les équipes.</p>
-    <div class="grid2">
-      <div class="block">
-        <h3>Décompte en demi-journées</h3>
-        <ul>
-          <li>10 DJ par semaine pour un PH temps plein, sans dépasser 48 h en moyenne sur 4 mois.</li>
-          <li>Une journée = 2 DJ ; une nuit entière = 2 DJ ; 24 h = 4 DJ.</li>
-          <li>Année : 365 − 104 jours de week-end − 25 CA − 19 RTT − environ 8 fériés en semaine = <b>208 jours, soit 416 DJ</b>.</li>
-          <li>Repos quotidien de 11 h consécutives ; après 24 h de présence, repos le lendemain.</li>
-          <li>Activité programmée après 18h30 : 1 DJ toutes les 5 h, ou 1 DJ dès 4 h continues.</li>
-          <li>Valences non cliniques (décret 2022-132) : 1 DJ par semaine de droit pour un PH temps plein.</li>
-        </ul>
-      </div>
-      <div class="block">
-        <h3>Temps continu</h3>
-        <ul>
-          <li>Obligatoire aux urgences depuis 2015 ; possible en anesthésie, réanimation, néonatologie et gynécologie-obstétrique (plus de 2 000 accouchements), sur demande du chef de service et après avis de la COPS et de la CME.</li>
-          <li>48 h par semaine, soit 9,6 h par jour ouvré et <b>1 996 h par an</b> (208 × 9,6).</li>
-          <li>Urgences : 39 h de temps posté et un forfait de temps non posté de 9 h au plus ; 1 ETP posté = 208 × 7,8 h = <b>1 622 h</b> ; TTA à partir de la 40ᵉ heure postée.</li>
-        </ul>
-      </div>
+    <h2>Le temps de travail des seniors : demi-journées, heures, gardes</h2>
+    <p>Un praticien a des <b>obligations de service</b> : le temps qu'il doit à l'hôpital chaque semaine. Les textes prévoient trois façons de les compter, selon l'organisation du service. Le mode de décompte détermine trois choses : ce qu'est une semaine complète, la façon de compter une nuit, et le moment où commence le temps de travail additionnel (TTA). Dans les trois cas, le temps réel de travail ne dépasse pas <b>48 heures par semaine en moyenne sur 4 mois</b> (R6152-27) <span class="vb o">texte</span>.</p>
+    <div class="tbl"><table>
+      <tr><th></th><th>1. Demi-journées (règle générale)</th><th>2. Temps continu (heures)</th><th>3. Urgences, SAMU, SMUR (heures)</th></tr>
+      <tr><td>Quels services ?</td><td>Tous les services, sauf dérogation</td><td>Sur option : anesthésie-réanimation, réanimation, néonatologie, gynécologie-obstétrique de plus de 2 000 accouchements par an ; proposé par la CME, après avis de la COPS, à l'initiative du responsable médical, pour un an renouvelable (arrêté du 30 avril 2003, article 2)</td><td>Structures de médecine d'urgence : décompte horaire généralisé par la circulaire du 22 décembre 2014 et l'instruction du 10 juillet 2015</td></tr>
+      <tr><td>Unité de compte</td><td>La demi-journée (DJ). Aucun texte ne fixe sa durée en heures ; le règlement intérieur la précise</td><td>L'heure</td><td>L'heure, en deux catégories : temps clinique « posté » et temps « non posté »</td></tr>
+      <tr><td>Temps plein</td><td>10 DJ par semaine ; 5 à 9 DJ à temps partiel (R6152-26)</td><td>Un nombre d'heures convenu, 48 h au plus en moyenne sur 4 mois (R6152-27) ; l'établissement peut fixer une borne inférieure</td><td>Temps posté : 39 h au plus. Temps non posté : 1 à 9 h (staffs, organisation, formation, recherche). Total : 48 h au plus</td></tr>
+      <tr><td>Une nuit de travail</td><td>Compte pour 2 DJ (R6152-27)</td><td>Compte pour ses heures réelles (par exemple 14 h)</td><td>Compte pour ses heures réelles, en temps posté</td></tr>
+      <tr><td>Quand commence le TTA ?</td><td>Au-delà de 10 DJ par semaine en moyenne sur le quadrimestre, une fois toutes les obligations accomplies</td><td>Au-delà des heures convenues, en moyenne sur le quadrimestre</td><td>Une fois atteint le volume de temps posté ; le TTA ne porte que sur des activités postées</td></tr>
+      <tr><td>Comment compte-t-on le TTA ?</td><td>En périodes (une nuit, une journée) et demi-périodes</td><td colspan="2">Heures au-delà, cumulées par plages de 5 h ; chaque plage devient une demi-période de TTA</td></tr>
+    </table></div>
+    <p class="small">R6152-26 et R6152-27 du CSP ; arrêté du 30 avril 2003, articles 1, 2 et 4 ; instruction DGOS du 30 décembre 2025, I.A.2, I.A.3, II.A et II.C.1 <span class="vb o">texte</span>. Circulaire de 2014 et instruction de 2015 sur les urgences <span class="vb c">cours</span>.</p>
+
+    <h3>Pourquoi les urgences ont un régime à part</h3>
+    <p>Aux urgences, l'activité est la même le jour et la nuit, et le temps passé auprès des patients se mesure facilement. Les textes ont donc retenu un décompte en heures et distingué deux temps :</p>
+    <ul>
+      <li>le <b>temps clinique posté</b> : présence au service d'accueil des urgences, à l'UHCD, en régulation au SAMU, en sortie SMUR ; il est plafonné à 39 h par semaine ;</li>
+      <li>le <b>temps non posté</b>, de 1 à 9 h : coordination, staffs, tâches institutionnelles, formation, enseignement, recherche ; un contrat de temps non posté en fixe le contenu pour chaque praticien.</li>
+    </ul>
+    <p>Un urgentiste à temps plein travaille donc 39 h postées et jusqu'à 9 h non postées, soit 48 h au plus. Le TTA commence quand le praticien dépasse son volume de temps posté. Le temps non posté ne génère pas de TTA. <span class="vb o">texte</span> Pour calculer un effectif, le cours retient 7,8 h postées par jour (39 h ÷ 5), soit 1 622 h par an et par ETP sur 208 jours ; une ligne de 24 h toute l'année (8 760 h) demande 5,4 ETP. <span class="vb c">cours</span></p>
+
+    <h3>Les gardes : dans les obligations ou au-delà</h3>
+    <p>La <b>garde</b> est une permanence sur place la nuit, le samedi après-midi, le dimanche ou un jour férié ; l'<b>astreinte</b> se fait à domicile (arrêté du 30 avril 2003, articles 1 et 3). Une garde est d'abord du temps de travail : elle compte dans les obligations de service. Deux cas se présentent :</p>
+    <ol>
+      <li><b>La garde entre dans les obligations de service</b> : elle compte pour 2 DJ (ou pour ses heures) et donne droit à une <b>indemnité de sujétion</b>, 422,03 € la nuit, le dimanche ou le jour férié, 211,01 € la demi-nuit ou le samedi après-midi.</li>
+      <li><b>La garde dépasse les obligations du quadrimestre</b> : la part en excès devient du <b>TTA</b>, payé 335,60 € la période et 167,79 € la demi-période, récupéré, ou versé au CET (une période comptée pour 2 DJ). Les deux indemnités se cumulent : la sujétion versée n'est pas déduite du TTA.</li>
+    </ol>
+    <p>Le praticien bénéficie d'un repos quotidien de 11 h consécutives par période de 24 h. S'il enchaîne une journée et une garde de nuit, il travaille 24 h consécutives, durée maximale autorisée, et a droit immédiatement à un repos d'une durée équivalente : il ne travaille pas le lendemain. <span class="vb o">texte</span> (articles 4, 9 et 13 de l'arrêté du 30 avril 2003 modifié ; R6152-27)</p>
+
+    <div class="box exemple"><span class="lbl">Exemple : une semaine en demi-journées</span>
+      <p>Dr Le Gall, PH à temps plein en cardiologie à Vannes. Lundi et mardi en journée : 4 DJ. Mercredi en journée puis garde de nuit : 2 + 2 = 4 DJ. Jeudi : repos de sécurité, 0 DJ. Vendredi en journée : 2 DJ. Total : <b>10 DJ</b>, ses obligations de la semaine sont remplies. La nuit de mercredi entre dans ses obligations : il perçoit une indemnité de sujétion de 422,03 € et pas de TTA. Si, sur le quadrimestre, il a accompli en moyenne 11 DJ par semaine, la demi-journée de plus par semaine devient du TTA au bilan. <span class="vb i">interprétation</span> à partir des règles ci-dessus</p>
     </div>
-    <p class="small">Source : support de cours du 28 mai 2026 <span class="vb c">cours</span>.</p>
+    <div class="box exemple"><span class="lbl">Exemple : la même semaine aux urgences</span>
+      <p>Dr Morvan, urgentiste à temps plein à Vannes, contrat de temps non posté de 9 h. Elle fait trois postes de 12 h et un poste de 8 h : 44 h postées, plus 9 h non postées. Si cette moyenne se maintient sur le quadrimestre, elle dépasse son volume posté de 39 h de 5 h par semaine. Ces heures se cumulent par plages de 5 h : une demi-période de TTA par semaine, soit 167,79 € si elle choisit le paiement. Son temps total, 53 h, dépasse la limite de 48 h : la DAM et le chef de service doivent corriger le planning. <span class="vb i">interprétation</span> à partir des règles ci-dessus</p>
+    </div>
+
+    <h3>Repères annuels du cours</h3>
+    <ul>
+      <li>Une année de travail à temps plein : 365 jours − 104 jours de week-end − 25 jours de congés annuels − 19 jours de RTT − les fériés tombant en semaine = <b>208 jours</b>, soit <b>416 DJ</b>. <span class="vb c">cours</span></li>
+      <li>En temps continu à 48 h : 9,6 h par jour × 208 = <b>1 996 h</b> par an et par ETP. <span class="vb c">cours</span></li>
+      <li>Ces chiffres servent à calculer des effectifs ; les textes ne les fixent pas. Le calculateur « Convertir un temps de travail » les applique.</li>
+    </ul>
     <div class="box exemple"><span class="lbl">Exemple : pourquoi le temps continu coûte plus cher</span>
-      <p>Un service avec 3 praticiens le jour et 1 la nuit, 7 jours sur 7. En DJ : (3 × 2 + 1 × 2) × 364 = 2 912 DJ, soit 7,0 ETP. En heures : (3 × 10 h + 1 × 14 h) × 364 = 16 016 h, soit 8,0 ETP. Sur la seule nuit, le besoin passe de 1,75 à 2,55 ETP. Une nuit vaut 2 DJ en décompte classique et 14 h en temps continu ; un ETP horaire compte 1 996 h.</p>
+      <p>Un service avec 3 praticiens le jour et 1 la nuit, 7 jours sur 7. En DJ : (3 × 2 + 1 × 2) × 364 = 2 912 DJ, soit 7,0 ETP. En heures : (3 × 10 h + 1 × 14 h) × 364 = 16 016 h, soit 8,0 ETP. Sur la seule nuit, le besoin passe de 1,75 à 2,55 ETP : une nuit vaut 2 DJ, soit 1/208ᵉ d'ETP, et 14 h, soit 14/1 996ᵉ d'ETP. <span class="vb c">cours</span></p>
     </div>
+
+    <h3>Autres règles utiles</h3>
+    <ul>
+      <li><b>Activité programmée en première partie de soirée</b> (bloc, imagerie, consultations) : elle entre dans le service de jour ; 1 DJ pour 5 h cumulées, ou 1 DJ pour 4 h consécutives (arrêté du 4 novembre 2016 modifié ; instruction de 2025, annexe 4) <span class="vb o">texte</span>. Le cours situe ces plages à partir de 18h30 <span class="vb c">cours</span>.</li>
+      <li><b>Valences non cliniques</b> : une demi-journée par semaine de droit pour un PH temps plein dont le service est organisé en demi-journées ; au-delà, sur autorisation (instruction de 2025, I.A.3) <span class="vb o">texte</span>.</li>
+      <li><b>Hospitalo-universitaires</b> : 11 DJ par semaine, sans partage fixé entre temps universitaire et hospitalier (décret du 13 décembre 2021) <span class="vb c">cours</span>.</li>
+    </ul>
+
     <h3>Le temps de travail additionnel (TTA)</h3>
-    <p>Le TTA est le temps travaillé au-delà des obligations de service. Il repose sur le volontariat : un refus ne peut pas pénaliser le praticien. Il suppose un contrat annuel (directeur, chef de pôle, chef de service, praticien) et un suivi en COPS, avec un registre examiné tous les 4 mois. Le décompte se fait au quadrimestre : la DAM vérifie d'abord que les obligations de service sont remplies, puis compte ce qui dépasse. Le praticien choisit entre paiement (167,79 € la demi-plage), récupération ou versement au CET (1 plage = 2 DJ). Ni les HU ni les internes ni les docteurs juniors n'y ont droit. <span class="vb c">cours</span></p>
+    <p>Le TTA est le temps travaillé au-delà des obligations de service. Il repose sur le volontariat, et le praticien qui refuse ne peut subir aucun préjudice. Il suppose un contrat signé par le praticien, le responsable de la structure, le chef de pôle et le directeur, pour un an renouvelable (besoins prévisibles) ou pour une période déterminée (besoins ponctuels). Un registre du temps travaillé permet au directeur de contrôler le dépassement des 48 h ; la COPS l'examine au moins tous les 4 mois. Le décompte se fait à la fin de chaque quadrimestre, une fois constatée la réalisation de toutes les obligations de service. Le praticien choisit entre le paiement (335,60 € la période, 167,79 € la demi-période), la récupération ou le versement au CET ; dans ces deux derniers cas, une période compte pour 2 DJ. Le TTA est ouvert aux PH, contractuels, assistants, praticiens attachés et associés (arrêté du 30 avril 2003, article 4 ; instruction de 2025, II.C.1) <span class="vb o">texte</span>. Les HU sont payés au-delà de leurs obligations par des indemnités de garde (755,81 € la garde) et non par du TTA (article 13, B) <span class="vb o">texte</span>.</p>
     <div class="box vigil"><span class="lbl">Contrôle</span>
-      <p>Le Conseil d'État (22 juin 2022, n° 446917) impose à chaque établissement un dispositif fiable, objectif et accessible de décompte des heures, en plus des demi-journées, pour vérifier les 48 h hebdomadaires des PH et des internes. Le contrôle exige un décompte horaire en plus du tableau de service en DJ. <span class="vb c">cours</span></p>
+      <p>Le Conseil d'État (22 juin 2022, n° 446917, 446944 et 447003) admet le décompte en demi-journées sans valeur horaire. Il impose à chaque établissement un dispositif fiable, objectif et accessible qui compte aussi les heures de chaque praticien, pour vérifier la limite de 48 h. <span class="vb o">texte</span> (cité par l'instruction de 2025)</p>
     </div>
   </div>
 
@@ -543,12 +572,12 @@ input[type=search]{font:inherit}
     <h2>Internes et docteurs juniors</h2>
     <p>Les juniors relèvent d'un régime distinct. Pour la DAM, l'enjeu est double : respecter leur temps de travail, sous peine de perdre l'agrément du terrain de stage, et les attirer, car un interne bien accueilli est souvent un futur praticien.</p>
     <ul>
-      <li>Temps de travail effectif de 9 DJ par semaine, 48 h au plus par période de 7 jours en moyenne sur le trimestre. Récupération en fin de trimestre, dans la limite de 8 DJ en stage et 2 DJ hors stage par semaine. <span class="vb c">cours</span></li>
-      <li>Tableau de service nominatif établi par le responsable du terrain de stage et le coordonnateur du DES ; relevés mensuels et trimestriels remis à l'interne. <span class="vb c">cours</span></li>
-      <li>En cas de désaccord, l'interne saisit le directeur ou le doyen, puis le DG ARS ; sanctions financières ou retrait d'agrément possibles. <span class="vb c">cours</span></li>
+      <li>Internes : 8 DJ en stage et 2 DJ hors stage par semaine, en moyenne sur le trimestre ; la DJ de formation compte comme temps de travail effectif, la DJ de temps personnel non ; 48 h au plus par période de 7 jours en moyenne sur le trimestre (R6153-2 et R6153-2-1). Voir l'onglet <a href="#f-interne" class="go-memo">Formation</a>. <span class="vb o">texte</span></li>
+      <li>Tableau de service nominatif élaboré par le responsable du lieu de stage avec le coordonnateur, arrêté chaque mois par le directeur ; relevés mensuels et trimestriels remis à l'interne (R6153-2-2 et R6153-2-3). <span class="vb o">texte</span></li>
+      <li>En cas de désaccord, l'interne saisit le directeur, le directeur de l'UFR et le PCME, puis le DG ARS ; réexamen de l'agrément et pénalité financière possibles (R6153-2-4 à R6153-2-6). <span class="vb o">texte</span></li>
       <li>Permanence des soins : en principe une nuit par semaine et un dimanche ou férié par mois ; 6 internes au moins pour tenir une ligne ; repos de sécurité le lendemain. Indemnités de garde des internes revalorisées au 1er janvier 2024 (234,80 € ou 256,86 € selon le type de garde). <span class="vb o">texte</span></li>
       <li>Docteur junior : actes autonomes définis en début de stage avec le chef de service et le coordonnateur ; participation à la PDS senior sur volontariat, avec l'accord des deux et une astreinte de supervision <span class="vb c">cours</span>. Ses gardes seniors sont payées comme celles d'un PH (422,03 €) et ses astreintes au forfait de la ligne (article 15 bis de l'arrêté du 30 avril 2003 modifié ; le forfait est celui de l'article 14 réformé le 8 juillet 2025) <span class="vb o">texte</span>.</li>
-      <li>Congés : 30 jours ouvrables pour l'interne, 25 jours ouvrés pour le docteur junior ; jours non pris indemnisables (6 jours à 70 € pour l'interne, 5 jours à 90 € pour le docteur junior). <span class="vb c">cours</span></li>
+      <li>Congés : 30 jours ouvrables pour l'interne, 25 jours ouvrés pour le docteur junior (R6153-1-9) <span class="vb o">texte</span> ; jours non pris indemnisables (6 jours à 70 € pour l'interne, 5 jours à 90 € pour le docteur junior). <span class="vb c">cours</span></li>
     </ul>
   </div>
 
@@ -889,7 +918,10 @@ input[type=search]{font:inherit}
       <label class="f">Statut<select id="p-st"><option value="ph">Praticien hospitalier</option><option value="pc">Praticien contractuel</option><option value="as">Assistant</option></select></label>
       <label class="f">Échelon PH<select id="p-ech"></select></label>
       <label class="f">Émoluments annuels base temps plein (€)<input type="number" id="p-ann" step="0.01"></label>
-      <label class="f">Quotité (%)<input type="number" id="p-q" value="100" min="10" max="100"></label>
+      <label class="f">Mode de décompte<select id="p-mode"><option value="dj">Demi-journées (régime général)</option><option value="h">Temps continu (heures)</option></select></label>
+      <label class="f" id="p-djw">Obligations hebdomadaires (DJ)<input type="number" id="p-dj" value="10" min="1" max="10"></label>
+      <label class="f" id="p-hw" hidden>Heures hebdomadaires du praticien<input type="number" id="p-h" value="48" min="1" max="48" step="0.5"></label>
+      <label class="f" id="p-hbw" hidden>Heures d'un temps plein dans le service<input type="number" id="p-hb" value="48" min="1" max="48" step="0.5"></label>
       <label class="f">Gardes de nuit / dimanche<input type="number" id="p-g" value="4" min="0"></label>
       <label class="f">Demi-gardes<input type="number" id="p-dg" value="0" min="0"></label>
       <label class="f">Astreintes dans le mois<input type="number" id="p-a" value="0" min="0"></label>
@@ -903,7 +935,8 @@ input[type=search]{font:inherit}
       <label><input type="checkbox" id="p-pcme"> PCME ou PCMG (600 €)</label>
     </div>
     <div class="out" id="p-out"></div>
-    <p class="small">Garde 422,03 €, demi-garde 211,01 € (PH, PC, assistant). IESPE 1 010 € à temps plein, 606 € à temps partiel, non versée aux contractuels. Indemnités managériales cumulées plafonnées à 1 000 €. Le TTA est versé en fin de quadrimestre.</p>
+    <div class="raison small" id="p-rais"></div>
+    <p class="small">Émoluments et IESPE au prorata des obligations de service hebdomadaires (articles R6152-23 et D6152-23-1, 6°) <span class="vb o">texte</span>. Un PH exerce 10 DJ à temps plein, 5 à 9 DJ à temps partiel (R6152-26) <span class="vb o">texte</span>. En temps continu, le texte fixe un maximum de 48 h et ne donne pas de règle de quotité : le site retient heures du praticien ÷ heures d'un temps plein dans le service <span class="vb i">interprétation</span>. Garde 422,03 €, demi-garde 211,01 € (PH, PC, assistant). IESPE non versée aux contractuels. Indemnités managériales cumulées plafonnées à 1 000 €. Le TTA est versé en fin de quadrimestre.</p>
   </div>
 
   <div class="calc" id="c-ast">
@@ -925,6 +958,24 @@ input[type=search]{font:inherit}
     <div class="row"><label class="f" style="flex-direction:row;align-items:center;gap:6px"><span>Grille</span><select id="f-mode"><option value="txt">Barème par défaut (4 critères du texte)</option><option value="ghre">Grille du GHRE (exemple du cours)</option></select></label></div>
     <div class="checks" id="f-crit"></div>
     <div class="out" id="f-out"></div>
+  </div>
+
+  <div class="calc" id="c-conv">
+    <h3>Convertir un temps de travail : heures, demi-journées, base hebdomadaire</h3>
+    <p class="small">Le texte ne fixe aucune équivalence générale entre une demi-journée et un nombre d'heures : « la réglementation ne détermine pas la durée d'une demi-journée » ; chaque établissement la précise dans son règlement intérieur (instruction DGOS du 30 décembre 2025, II.A) <span class="vb o">texte</span>. Les seules conversions fixées par les textes portent sur des situations précises : nuit, déplacement d'astreinte, activité programmée en soirée, TTA. Choisissez la situation.</p>
+    <div class="fields">
+      <label class="f" style="grid-column:1/-1">Situation<select id="v-mode">
+        <option value="jour">Activité de jour : heures ⇄ demi-journées</option>
+        <option value="nuit">Nuit de travail dans les obligations de service</option>
+        <option value="ast">Déplacements en astreinte</option>
+        <option value="soir">Activité programmée en première partie de soirée</option>
+        <option value="tta">TTA en temps continu (bilan du quadrimestre)</option>
+        <option value="base">Base hebdomadaire : 48 h, 40 h, 39 h…</option>
+      </select></label>
+    </div>
+    <div class="fields" id="v-fields"></div>
+    <div class="out" id="v-out"></div>
+    <div class="raison small" id="v-rais"></div>
   </div>
 
   <div class="calc" id="c-os">
@@ -1004,6 +1055,8 @@ input[type=search]{font:inherit}
       <li><a href="https://www.legifrance.gouv.fr/codes/section_lc/JORFTEXT000000602745/LEGISCTA000006105843/" target="_blank" rel="noopener">Arrêté du 30 avril 2003, articles 13 à 18, version consolidée intégrant les arrêtés du 8 juillet 2025 et du 17 avril 2026 : gardes, astreintes, TTA, récupération</a></li>
       <li><a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052211817" target="_blank" rel="noopener">Arrêté du 5 septembre 2025 : plafond de l'intérim</a></li>
       <li><a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000822129/" target="_blank" rel="noopener">Arrêté du 28 mars 2007 : part complémentaire variable</a></li>
+      <li><a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000006199526" target="_blank" rel="noopener">CSP, articles R6152-26 et R6152-27 : obligations de service et temps continu</a></li>
+      <li><a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000006196762" target="_blank" rel="noopener">CSP, articles R6152-23 et D6152-23-1 : émoluments et IESPE au prorata des obligations de service</a></li>
       <li><a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045614818" target="_blank" rel="noopener">Arrêté du 19 avril 2022 : procédure d'appariement pour l'accès au 3ᵉ cycle</a></li>
       <li><a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034419758" target="_blank" rel="noopener">Arrêté du 12 avril 2017 : organisation du 3ᵉ cycle (agrément, répartition, choix de stage, thèse)</a></li>
       <li><a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000037153679" target="_blank" rel="noopener">CSP, articles R6153-2 à R6153-2-6 : temps de travail et recours des internes</a></li>
@@ -1031,6 +1084,7 @@ input[type=search]{font:inherit}
       <li><a href="https://www.cng.sante.fr/sites/default/files/media/2023-10/MEMENTO%20du%20candidat%20EDN%202024%20VF.pdf" target="_blank" rel="noopener">CNG, mémento du candidat aux EDN 2024</a></li>
       <li><a href="https://fhf.fr/sites/default/files/documents/R%C3%A9sum%C3%A9%20relatif%20%C3%A0%20l%27arr%C3%AAt%C3%A9%20du%208%20novembre%202013.pdf" target="_blank" rel="noopener">FHF, décompte des déplacements en astreinte (arrêté du 8 novembre 2013)</a></li>
     </ul>
+      <li><a href="https://bulletins-officiels.social.gouv.fr/instruction-ndeg-dgossdrhrh52025170-du-30-decembre-2025-relative-au-temps-de-travail-des-personnels-medicaux-odontologiques-et-pharmaceutiques-des-etablissements-publics-de-sante" target="_blank" rel="noopener">Instruction DGOS du 30 décembre 2025 relative au temps de travail des personnels médicaux</a></li>
       <li><a href="https://bulletins-officiels.social.gouv.fr/instruction-interministerielle-ndeg-dgosrh2dgesip202644-du-21-mai-2026-relative-la-mise-en-oeuvre-de-la-quatrieme-annee-du-diplome-detudes-specialisees-des-de-medecine-generale" target="_blank" rel="noopener">Instruction DGOS/DGESIP du 21 mai 2026 : 4ᵉ année du DES de médecine générale</a></li>
       <li><a href="https://www.fhf.fr/expertises/ressources-humaines/developpement-des-competences-formation-etudiants-en-sante/ajout-dune-4e-annee-au-des-de-medecine-generale-publication-des-textes-concernant-la-remuneration" target="_blank" rel="noopener">FHF, rémunération des docteurs juniors de médecine générale</a></li>
       <li><a href="https://www.fhf.fr/expertises/ressources-humaines/developpement-des-competences-formation-etudiants-en-sante/publication-dun-decret-precisant-les-modalites-dapplication-de-la-certification-periodique" target="_blank" rel="noopener">FHF, décret du 22 mars 2024 sur la certification périodique</a></li>
@@ -1053,7 +1107,7 @@ input[type=search]{font:inherit}
       <ul>
         <li>Montant de l'intéressement collectif : vos notes uniquement.</li>
         <li>Minimum de 3 forfaits d'astreinte par établissement : support de cours ; l'article 14 ne fixe pas de nombre.</li>
-        <li>Règles de temps de travail des seniors et des juniors issues du support du 28 mai 2026, non relues dans les décrets.</li>
+        <li>Temps de travail : relu dans R6152-26, R6152-27, R6153-2 et l'arrêté du 30 avril 2003 modifié, et dans l'instruction DGOS du 30 décembre 2025. Restent issus du seul cours : le caractère obligatoire du décompte horaire aux urgences, les 208 jours, 416 DJ, 1 996 h et 1 622 h, l'horaire de 18h30, les 11 DJ des HU, les 2 représentants des internes à la COPS et l'indemnisation des congés non pris des internes et des docteurs juniors.</li>
         <li>Les montants restent ceux en vigueur au 10 octobre 2026 ; un sujet d'examen qui fournit un barème prime sur le site.</li>
       </ul>
     </div>
@@ -1644,6 +1698,30 @@ function fCalc(){const m=$('f-mode').value;const L=m==='txt'?CRIT_TXT:CRIT_GHRE;
  $('f-out').innerHTML=kpi(n,'Critères remplis')+kpi(f===null?'Hors grille':fmt(f,2)+' €','Forfait par astreinte')+kpi(rec,'Récupération (sans déplacement)');}
 $('f-mode').onchange=fBuild;fBuild();
 
+/* ---------- conversions temps de travail ---------- */
+const VF={
+ jour:[['v-sens','Sens',`<select id="v-sens"><option value="h2dj">Heures → demi-journées</option><option value="dj2h">Demi-journées → heures</option></select>`],['v-x','Valeur à convertir','<input type="number" id="v-x" value="24" step="0.5" min="0">'],['v-d','Durée d’une DJ fixée par le règlement intérieur (h)','<input type="number" id="v-d" value="4.8" step="0.1" min="1">']],
+ nuit:[['v-x','Nombre de nuits travaillées','<input type="number" id="v-x" value="3" min="0">'],['v-hn','Durée d’une nuit (h), pour le temps continu','<input type="number" id="v-hn" value="14" step="0.5" min="1">']],
+ ast:[['v-x','Heures cumulées sur le quadrimestre, trajet compris (h)','<input type="number" id="v-x" value="23" step="1" min="0">']],
+ soir:[['v-x','Heures cumulées en soirée (hors plages de 4 h consécutives)','<input type="number" id="v-x" value="12" step="0.5" min="0">'],['v-c','Plages de 4 h consécutives ou plus','<input type="number" id="v-c" value="2" min="0">']],
+ tta:[['v-hw','Heures hebdomadaires convenues','<input type="number" id="v-hw" value="48" step="0.5" min="1" max="48">'],['v-sem','Semaines travaillées sur le quadrimestre','<input type="number" id="v-sem" value="15" step="0.5" min="0">'],['v-x','Heures réellement travaillées sur le quadrimestre','<input type="number" id="v-x" value="760" step="1" min="0">']],
+ base:[['v-b','Base hebdomadaire d’un temps plein (h)','<input type="number" id="v-b" value="40" step="0.5" min="1" max="48">'],['v-j','Jours travaillés par an','<input type="number" id="v-j" value="208" min="1">'],['v-n','Besoin annuel à couvrir (h)','<input type="number" id="v-n" value="8760" step="1" min="0">']]};
+function vBuild(){const m=$('v-mode').value;$('v-fields').innerHTML=VF[m].map(f=>`<label class="f">${f[1]}${f[2]}</label>`).join('');
+ $('v-fields').querySelectorAll('input,select').forEach(e=>{e.oninput=vCalc;e.onchange=vCalc;});vCalc();}
+const vv=id=>+($(id)?$(id).value:0)||0;
+function vCalc(){const m=$('v-mode').value;let k='',r=[],src='';
+ if(m==='jour'){const sens=$('v-sens').value,x=vv('v-x'),d=vv('v-d')||1;
+  if(sens==='h2dj'){const dj=x/d;k=kpi(fmt(dj,2),'Demi-journées');r=[`Le texte ne fixe pas la durée d’une DJ : on applique celle du règlement intérieur, ici ${fmt(d,1)} h.`,`${fmt(x,1)} h ÷ ${fmt(d,1)} h = <b>${fmt(dj,2)} DJ</b>.`,`Le cours indique une présence de jour d’environ 8h30 à 18h30, soit une DJ estimée entre 4 et 5 heures. La valeur 4,8 h proposée par défaut correspond à 48 h ÷ 10 DJ.`];}
+  else{const h=x*d;k=kpi(fmt(h,1)+' h','Heures');r=[`Durée d’une DJ selon le règlement intérieur : ${fmt(d,1)} h.`,`${fmt(x,1)} DJ × ${fmt(d,1)} h = <b>${fmt(h,1)} h</b>.`,`Quel que soit le résultat, la durée de travail ne dépasse pas 48 h par semaine en moyenne sur 4 mois (R6152-27).`];}
+  src='Instruction DGOS du 30 décembre 2025, II.A ; R6152-27 <span class="vb o">texte</span> ; durée de 4 à 5 h <span class="vb c">cours</span> ; valeur par défaut 4,8 h <span class="vb i">interprétation</span>';}
+ if(m==='nuit'){const n=vv('v-x'),hn=vv('v-hn');k=kpi(fmt(n*2),'DJ (décompte en demi-journées)')+kpi(fmt(n*hn,1)+' h','Heures (temps continu)');r=[`En décompte en demi-journées, une nuit effectuée dans les obligations de service compte pour 2 DJ : ${fmt(n)} × 2 = <b>${fmt(n*2)} DJ</b>.`,`En temps continu, on compte les heures réellement faites : ${fmt(n)} × ${fmt(hn,1)} h = <b>${fmt(n*hn,1)} h</b>.`,`C’est pourquoi le temps continu coûte plus cher la nuit : 2 DJ, soit 1/208ᵉ d’ETP, deviennent 14 h, soit 14/1 996ᵉ d’ETP.`];src='R6152-27 ; instruction DGOS du 30 décembre 2025, I.B <span class="vb o">texte</span> ; nuit de 14 h et 1 996 h <span class="vb c">cours</span>';}
+ if(m==='ast'){const h=vv('v-x');const dj=Math.floor(h/5),rel=h-dj*5;k=kpi(fmt(dj),'DJ dans les obligations de service')+kpi(fmt(rel,1)+' h','Reliquat reporté');r=[`Le temps de déplacement est d’abord décompté déplacement par déplacement : intervention arrondie à l’heure, 1 h de trajet, 2 h de trajet au plus par astreinte, 3 h d’intervention sur place = 5 h, 10 h au plus par période (calculateur ci-dessus).`,`Au quadrimestre, chaque plage de 5 h cumulées devient une demi-journée : ${fmt(h,1)} h ÷ 5 = <b>${fmt(dj)} DJ</b>.`,`Le reliquat de ${fmt(rel,1)} h passe au quadrimestre suivant.`];src='Article 14 de l’arrêté du 30 avril 2003, dans sa rédaction issue de l’arrêté du 8 juillet 2025 <span class="vb o">texte</span>';}
+ if(m==='soir'){const h=vv('v-x'),c=vv('v-c');const a=Math.floor(h/5);k=kpi(fmt(a+c),'DJ comptées dans les obligations');r=[`Une plage d’au moins 4 h consécutives en soirée vaut 1 DJ : <b>${fmt(c)} DJ</b>.`,`Les autres heures se cumulent et valent 1 DJ toutes les 5 h : ${fmt(h,1)} h ÷ 5 = <b>${fmt(a)} DJ</b> (reste ${fmt(h-a*5,1)} h).`,`Total : <b>${fmt(a+c)} DJ</b>, intégrées aux obligations de service. Activité possible à partir de 18h30, sans permanence des soins simultanée pour le même praticien.`];src='Arrêté du 4 novembre 2016 modifié ; instruction DGOS du 30 décembre 2025, annexe 4 <span class="vb o">texte</span> ; horaires <span class="vb c">cours</span>';}
+ if(m==='tta'){const hw=vv('v-hw'),sem=vv('v-sem'),x=vv('v-x');const ob=hw*sem,ex=Math.max(0,x-ob),pl=Math.floor(ex/5);k=kpi(fmt(ob,1)+' h','Obligations du quadrimestre')+kpi(fmt(ex,1)+' h','Heures au-delà')+kpi(fmt(pl),'Demi-périodes de TTA')+kpi(fmt(pl*167.79,2)+' €','Si indemnisées');r=[`Obligations du quadrimestre : ${fmt(hw,1)} h × ${fmt(sem,1)} semaines = <b>${fmt(ob,1)} h</b>. En temps continu, elles ne dépassent pas 48 h par semaine en moyenne sur 4 mois.`,`Heures au-delà : ${fmt(x,1)} − ${fmt(ob,1)} = <b>${fmt(ex,1)} h</b>.`,`Elles se cumulent par plages de 5 h, chacune convertie en une demi-période de TTA : <b>${fmt(pl)}</b>, soit ${fmt(pl*167.79,2)} € si le praticien choisit l’indemnisation (167,79 €), ou récupérées. Le TTA suppose le volontariat.`,`Aux urgences, le TTA naît une fois atteint le temps clinique posté (39 h au plus) ; il ne porte que sur des activités postées.`];src='R6152-27 ; instruction DGOS du 30 décembre 2025, I.A.3 et II.C.1 ; article 13 de l’arrêté du 30 avril 2003 modifié <span class="vb o">texte</span>';}
+ if(m==='base'){const b=vv('v-b')||48,j=vv('v-j'),n=vv('v-n');const hj=b/5,ha=hj*j,h48=48/5*j;const e=ha?n/ha:0,e48=h48?n/h48:0;k=kpi(fmt(hj,2)+' h','Par jour')+kpi(fmt(ha,0)+' h','Par an et par ETP')+kpi(fmt(e,2),'ETP pour le besoin')+kpi('+'+fmt((48/b-1)*100,1)+' %','Effectif en plus par rapport à 48 h');r=[`Une semaine de ${fmt(b,1)} h sur 5 jours donne ${fmt(hj,2)} h par jour.`,`Sur ${fmt(j)} jours travaillés par an : ${fmt(hj,2)} × ${fmt(j)} = <b>${fmt(ha,0)} h par ETP</b>. À 48 h, le cours retient 9,6 h × 208 = 1 996 h ; aux urgences, 7,8 h × 208 = 1 622 h de temps posté.`,`Besoin de ${fmt(n,0)} h : ${fmt(n,0)} ÷ ${fmt(ha,0)} = <b>${fmt(e,2)} ETP</b>, contre ${fmt(e48,2)} ETP à 48 h.`,`Passer de 48 h à ${fmt(b,1)} h multiplie l’effectif par 48 ÷ ${fmt(b,1)}, soit ${fmt((48/b-1)*100,1)} % de plus. En temps continu, 48 h est un maximum ; l’établissement peut fixer une borne inférieure dans son règlement intérieur, et le TTA commence au-delà des heures convenues.`];src='R6152-27 ; instruction DGOS du 30 décembre 2025, annexe 2.C et II.C.1 <span class="vb o">texte</span> ; 208 jours, 1 996 h, 1 622 h <span class="vb c">cours</span>';}
+ $('v-out').innerHTML=k;$('v-rais').innerHTML=`<b>Raisonnement</b><ol>${r.map(x=>`<li>${x}</li>`).join('')}</ol><p style="margin:6px 0 0">Sources : ${src}.</p>`;}
+$('v-mode').onchange=vBuild;vBuild();
+
 /* ---------- obligations de service ---------- */
 function oCalc(){const s=+$('o-sem').value||0,f=+$('o-fer').value||0,q=(+$('o-q').value||0)/100;const j=s*5-f;
  $('o-out').innerHTML=kpi(fmt(j),'Jours ouvrés')+kpi(fmt(j*2*q,1)+' DJ','Décompte en DJ')+kpi(fmt(j*9.6*q,1)+' h','Temps continu (9,6 h/j)')+kpi(fmt(j*7.8*q,1)+' h','Urgences : posté')+kpi(fmt(j*1.8*q,1)+' h','Urgences : non posté (max)');}
@@ -1670,17 +1748,23 @@ $('r-add').onclick=()=>{per.push({t:'s',j:365,q:100});rRender()};rRender();
 const GRILLE=[55607.79,58082.41,62148.07,66567.09,68688.21,71162.83,76465.74,79647.54,90549.14,94557.64,99810.26,105062.89,112416.56];
 $('p-ech').innerHTML=GRILLE.map((v,i)=>`<option value="${i}" ${i===5?'selected':''}>Échelon ${i+1} · ${fmt(v,2)} €</option>`).join('');
 $('p-ann').value=GRILLE[5];
+function pQuot(){const m=$('p-mode').value;['p-djw'].forEach(i=>$(i).hidden=m!=='dj');['p-hw','p-hbw'].forEach(i=>$(i).hidden=m!=='h');
+ if(m==='dj'){const dj=Math.min(+$('p-dj').value||0,10);return {q:dj/10,txt:`${fmt(dj,1)} DJ ÷ 10 DJ d'un temps plein = <b>${fmt(dj*10,0)} %</b>`,dj};}
+ const h=Math.min(+$('p-h').value||0,48),hb=Math.min(+$('p-hb').value||48,48);const q=Math.min(h/hb,1);return {q,txt:`${fmt(h,1)} h ÷ ${fmt(hb,1)} h d'un temps plein dans le service = <b>${fmt(q*100,1)} %</b>`,dj:q*10};}
 function pCalc(){const st=$('p-st').value;$('p-ech').disabled=st!=='ph';
- const q=Math.min(+$('p-q').value||0,100)/100;const ann=+$('p-ann').value||0;let warn='';
- if(st==='pc'&&(ann<41386.48||ann>71162.83))warn='Hors fourchette des contractuels (41 386,48 à 71 162,83 € hors motif 2).';
- const em=ann*q/12;const iespe=(st==='pc'||$('p-lib').checked)?0:(q>=1?1010:606);
+ const Q=pQuot();const q=Q.q;const ann=+$('p-ann').value||0;const w=[];
+ if(st==='pc'&&(ann<41386.48||ann>71162.83))w.push('Hors fourchette des contractuels (41 386,48 à 71 162,83 € hors motif 2).');
+ if(st==='ph'&&Q.dj<5-1e-9)w.push('Un PH exerce au moins 5 DJ par semaine (R6152-26) : en dessous, le statut de PH n’est pas possible.');
+ if($('p-lib').checked&&Q.dj<8-1e-9)w.push('Activité libérale réservée aux praticiens à 8 DJ au moins (L6154-2).');
+ const em=ann*q/12;const iespe=(st==='pc'||$('p-lib').checked)?0:1010*q;
  const pds=(+$('p-g').value||0)*422.03+(+$('p-dg').value||0)*211.01+(+$('p-a').value||0)*(+$('p-af').value||0);
  const man=Math.min(($('p-cs').checked?200:0)+($('p-cp').checked?400:0)+($('p-pcme').checked?600:0),1000);
  const pet=+$('p-pet').value||0;const tot=em+iespe+pds+man+pet;
- $('p-out').innerHTML=kpi(fmt(em,2)+' €','Émoluments')+kpi(fmt(iespe,2)+' €','IESPE')+kpi(fmt(pds,2)+' €','Gardes et astreintes')+kpi(fmt(man+pet,2)+' €','Indemnités et PET')+kpi(fmt(tot,2)+' €','Total brut du mois')+(warn?`<div class="kpi" style="grid-column:1/-1"><span>${warn}</span></div>`:'');}
+ $('p-out').innerHTML=kpi(fmt(q*100,1)+' %','Quotité')+kpi(fmt(em,2)+' €','Émoluments')+kpi(fmt(iespe,2)+' €','IESPE')+kpi(fmt(pds,2)+' €','Gardes et astreintes')+kpi(fmt(man+pet,2)+' €','Indemnités et PET')+kpi(fmt(tot,2)+' €','Total brut du mois')+w.map(x=>`<div class="kpi" style="grid-column:1/-1"><span>${x}</span></div>`).join('');
+ $('p-rais').innerHTML=`<b>Raisonnement</b><ol><li>Quotité : ${Q.txt}.</li><li>Émoluments du mois : ${fmt(ann,2)} € × ${fmt(q*100,1)} % ÷ 12 = <b>${fmt(em,2)} €</b>.</li><li>IESPE : ${iespe?`1 010 € × ${fmt(q*100,1)} % = <b>${fmt(iespe,2)} €</b>`:'non due (contractuel ou activité libérale)'}.</li><li>Gardes, demi-gardes et forfaits d'astreinte du mois : <b>${fmt(pds,2)} €</b>. Le TTA n'apparaît pas : il se constate en fin de quadrimestre.</li><li>Indemnités managériales (1 000 € au plus) et PET : <b>${fmt(man+pet,2)} €</b>.</li></ol>`;}
 $('p-ech').onchange=()=>{$('p-ann').value=GRILLE[+$('p-ech').value];pCalc()};
 $('p-st').onchange=()=>{const st=$('p-st').value;if(st==='pc')$('p-ann').value=55000;else if(st==='as')$('p-ann').value=41387.28;else $('p-ann').value=GRILLE[+$('p-ech').value];pCalc()};
-document.querySelectorAll('#c-paie input').forEach(i=>i.addEventListener('input',pCalc));pCalc();
+document.querySelectorAll('#c-paie input').forEach(i=>i.addEventListener('input',pCalc));$('p-mode').onchange=pCalc;pCalc();
 
 /* ---------- CET ---------- */
 function tCalc(){const s=+$('t-s').value||0,e=+$('t-e').value||0;const ep=Math.min(e,20);const tot=Math.min(s+ep,208);const opt=Math.max(0,tot-20);const ind=Math.min(+$('t-i').value||0,opt);
