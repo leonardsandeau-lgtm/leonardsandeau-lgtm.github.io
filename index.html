@@ -212,7 +212,7 @@ ul.xm-list>li.n{background:var(--saumon);border-color:var(--saumon)} ul.xm-list>
 .partie{display:flex;flex-direction:column;gap:2px;padding:16px 20px;background:var(--bleu-clair);border-left:14px solid var(--fam);margin-top:10px}
 .partie-n{font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .partie-t{font-size:30px;font-weight:800;line-height:1.1;color:var(--bleu)}
-nav.tabs a{padding:8px 5px;font-size:14.5px;gap:4px}
+nav.tabs a{padding:8px 4px;font-size:14px;gap:4px}
 nav.tabs a svg.pi{width:18px!important;height:18px!important}
 nav.tabs a[data-grp]{margin-left:0;border-left:1px solid var(--line);padding-left:4px}
 .voir{display:grid!important;grid-template-columns:auto 1fr;gap:6px 10px}
@@ -273,6 +273,104 @@ nav.tabs{gap:0}
 .cover-art svg.pi{position:absolute;left:0;top:28px;width:170px;height:153px}
 @media (min-width:820px){.cover-in{padding-right:230px}}
 @media (max-width:819px){.cover-art{order:9;position:relative;transform:none;top:auto;width:120px;height:120px;align-self:flex-end;margin-top:-6px}.cover-art svg.pi{width:100px;height:90px;top:18px}.cover-art .disque{inset:12px 0 0 12px}}
+
+/* ---------- atelier CV ---------- */
+.at-start{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.at-opt{background:var(--bleu-clair);border-top:5px solid var(--bleu);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.at-opt h3{font-size:18px}
+.at-opt .row select{flex:1;min-width:150px}
+.at-step{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.at-h{display:flex;align-items:center;gap:10px;font-size:22px}
+.at-n{display:inline-grid;place-items:center;width:34px;height:34px;background:var(--bleu);color:var(--blanc);font-weight:800;font-size:18px;flex:none}
+.cv{--cv:var(--bleu-ciel);background:var(--blanc);border:1px solid var(--line);border-top:8px solid var(--cv);box-shadow:0 1px 0 var(--line);display:flex;flex-direction:column}
+.cv-h{display:flex;gap:16px;align-items:center;padding:18px 20px;background:linear-gradient(90deg,var(--bleu-clair),var(--blanc))}
+.cv-av{width:72px;height:72px;flex:none;display:grid;place-items:center;background:var(--cv);color:var(--noir);font-weight:800;font-size:28px;letter-spacing:.02em;border:3px solid var(--blanc);outline:1px solid var(--line)}
+.cv-id{display:flex;flex-direction:column;gap:2px;min-width:0}
+.cv-name{font-family:var(--f-display);font-weight:800;font-size:26px;line-height:1.1;color:var(--bleu)}
+.cv-l{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;background:var(--bleu);color:var(--blanc);padding:2px 7px;vertical-align:4px}
+.cv-spe{font-size:17px;font-weight:500}
+.cv-fun{font-size:14.5px;color:var(--muted);font-style:italic}
+.cv-fun span{font-style:normal;font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--bleu);margin-right:4px}
+.cv-g{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.cv-g section{padding:14px 20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;min-width:0}
+.cv-g section+section:not(.cv-wide){border-left:1px solid var(--line)}
+.cv-g .cv-wide{grid-column:1/-1}
+.cv-g h4{font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--bleu)}
+.cv-ul{gap:4px}
+.cv-tl{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0;border-left:3px solid var(--cv);margin-left:6px}
+.cv-tl li{display:grid;grid-template-columns:minmax(150px,210px) 1fr;gap:4px 14px;padding:6px 0 6px 22px;position:relative}
+.cv-tl li::before{content:"";position:absolute;left:-8.5px;top:12px;width:12px;height:12px;background:var(--blanc);border:3px solid var(--cv)}
+.cv-d{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14.5px}
+.cv-kv{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 16px}
+.cv-kv li::before{content:none}
+.cv-kv li{display:flex;flex-direction:column;gap:1px}
+.cv-kv span{font-size:12.5px;color:var(--muted)}
+.cv-kv b{font-weight:500}
+.cv-post{background:var(--bleu-clair)}
+.cv-q{padding:14px 20px;background:var(--bleu);color:var(--blanc);font-size:17px;font-weight:500}
+.cv-q span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-right:8px}
+@media (max-width:640px){.cv-g{grid-template-columns:1fr}.cv-g section+section:not(.cv-wide){border-left:0}.cv-tl li{grid-template-columns:1fr}.cv-h{padding:14px}.cv-av{width:56px;height:56px;font-size:22px}.cv-name{font-size:22px}.cv-g section{padding:12px 14px}}
+details.at-data{border-top:1px solid var(--filet);padding-top:10px}
+details.at-data>summary{cursor:pointer;color:var(--bleu);font-weight:500}
+.at-form{display:flex;flex-direction:column;gap:12px;padding-top:12px}
+.at-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px 16px}
+.at-exp{padding:10px;background:var(--bleu-clair)}
+.at-live{display:inline-flex;gap:6px;align-items:center}
+.at-sol{display:flex;flex-direction:column;gap:14px}
+.at-sol .kpi b{font-size:20px}
+.at-reco .at-reco-t{font-family:var(--f-display);font-weight:800;font-size:24px;color:var(--bleu);line-height:1.15}
+.at-note{border-left:3px solid var(--saumon);padding-left:10px}
+.at-st{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
+.at-s{border:1px solid var(--line);border-left:6px solid #b9b9b9;padding:12px 14px;display:flex;flex-direction:column;gap:7px;background:var(--blanc)}
+.at-s.ok{border-left-color:var(--bleu)}
+.at-s.cond{border-left-color:var(--jaune)}
+.at-s.no{background:#f6f6f6;color:var(--muted)}
+.at-s.best{outline:2px solid var(--bleu);background:var(--bleu-clair)}
+.at-s-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.at-s ul{gap:4px;font-size:14.5px}
+.at-s p{font-size:14.5px}
+.at-k{display:inline-block;font-size:11.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--bleu);margin-right:4px}
+.at-tag{font-size:12px;font-weight:500;padding:2px 8px;white-space:nowrap}
+.at-tag.ok{background:var(--bleu);color:var(--blanc)}
+.at-tag.cond{background:var(--jaune);color:var(--noir)}
+.at-tag.no{background:#d9d9d9;color:var(--noir)}
+.at-ans-type{background:var(--blanc);border:1px solid var(--line);border-left:6px solid var(--bleu);padding:14px 16px;display:flex;flex-direction:column;gap:9px}
+ul.at-chk{gap:4px}
+ul.at-chk li.ok::before{content:"✓";color:var(--vert)}
+ul.at-chk li.ko::before{content:"✗";color:#c0392b}
+.tl{display:flex;flex-direction:column;gap:4px;background:var(--blanc);border:1px solid var(--line);padding:12px 14px}
+.tl-row{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:12px;align-items:center}
+.tl-lbl{font-size:13.5px;line-height:1.25;display:flex;flex-direction:column}
+.tl-lbl small{color:var(--muted);font-size:12px}
+.tl-track{position:relative;height:22px;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--line) calc(10% - 1px) 10%)}
+.tl-axis .tl-track{background:none;height:18px;border-bottom:1px solid var(--filet)}
+.tl-axis .tl-track span{position:absolute;bottom:2px;transform:translateX(-50%);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tl-bar{position:absolute;top:3px;height:16px;display:block}
+.tl-bar.s,.tl-key i.s{background:var(--bleu)}
+.tl-bar.l,.tl-key i.l{background:var(--bleu-ciel)}
+.tl-bar.n,.tl-key i.n{background:repeating-linear-gradient(45deg,#c9ced6 0 4px,#e8eaee 4px 8px)}
+.tl-bar.here,.tl-key i.here{box-shadow:inset 0 -5px 0 var(--orange)}
+.tl-m{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--rose);display:block}
+.tl-marks .tl-track{height:40px;background:none}
+.tl-ml{position:absolute;top:0;z-index:1;padding-inline:3px;font-size:12px;font-weight:500;color:var(--rose);white-space:nowrap;display:flex;flex-direction:column;align-items:center;padding-top:2px;background:var(--blanc)}
+.tl-ml small{color:var(--muted);font-weight:400}
+.tl-key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);padding-top:6px}
+.tl-key span{display:inline-flex;align-items:center;gap:6px}
+.tl-key i{display:inline-block;width:18px;height:12px}
+@media (max-width:640px){.tl-row{grid-template-columns:1fr;gap:2px}.tl-axis .tl-lbl,.tl-marks .tl-lbl{display:none}.tl-row+.tl-row{margin-top:6px}}
+/* cas pratiques : boîte à outils et réponse */
+.c-tools{display:flex;flex-wrap:wrap;gap:8px}
+details.c-rep>summary{cursor:pointer;color:var(--bleu);font-weight:500}
+details.c-rep textarea{min-height:160px;margin-top:8px}
+.tbx-btn{position:fixed;right:16px;bottom:16px;z-index:20;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.tbx{position:fixed;right:0;top:0;bottom:0;width:min(420px,100%);z-index:30;background:var(--blanc);border-left:1px solid var(--filet);box-shadow:-6px 0 18px rgba(0,0,0,.12);display:flex;flex-direction:column}
+.tbx-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;background:var(--bleu);color:var(--blanc)}
+.tbx-h b{font-size:18px}
+.tbx-h .btn{background:var(--blanc);color:var(--bleu);border-color:var(--blanc)}
+.tbx-tabs{display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.tbx-body{overflow:auto;padding:12px 14px 80px;display:flex;flex-direction:column;gap:10px;font-size:15px}
+.tbx-body table{font-size:14px}
+@media (max-width:640px){.tbx{top:auto;height:78vh;width:100%;border-left:0;border-top:1px solid var(--filet)}}
 </style>
 </head>
 <body>
@@ -292,7 +390,8 @@ nav.tabs{gap:0}
   <a role="tab" data-grp="raisonner" id="t-logi" href="#logi" aria-controls="logi" aria-selected="false">Logigrammes</a>
   <a role="tab" id="t-calc" href="#calc" aria-controls="calc" aria-selected="false">Calculateurs</a>
   <a role="tab" data-grp="entrainer" id="t-cas" href="#cas" aria-controls="cas" aria-selected="false">Cas pratiques</a>
-  <a role="tab" id="t-quiz" href="#quiz" aria-controls="quiz" aria-selected="false">Quiz et calculs</a>
+  <a role="tab" id="t-at" href="#atelier" aria-controls="atelier" aria-selected="false">Atelier CV</a>
+  <a role="tab" id="t-quiz" href="#quiz" aria-controls="quiz" aria-selected="false">Quiz</a>
   <a role="tab" id="t-exam" href="#exam" aria-controls="exam" aria-selected="false">Examen blanc</a>
   <a role="tab" data-grp="ressources" id="t-sg" href="#sigles" aria-controls="sigles" aria-selected="false">Ressources</a>
 </nav>
@@ -308,7 +407,7 @@ nav.tabs{gap:0}
     <div class="step"><span class="step-n">1</span><h3>Comprendre</h3><p><a href="#memo" class="go-tab" data-tab="memo">Mémo</a> : les règles de la DAM, en six parties, de la méthode de résolution aux études et aux juniors.</p><p><a href="#formation" class="go-tab" data-tab="formation">Formation</a> : le parcours des médecins, de l'entrée en études à la formation continue.</p></div>
     <div class="step"><span class="step-n">2</span><h3>Raisonner</h3><p><a href="#logi" class="go-tab" data-tab="logi">Logigrammes</a> : des arbres de décision pour qualifier une situation question par question.</p></div>
     <div class="step"><span class="step-n">3</span><h3>Calculer</h3><p><a href="#calc" class="go-tab" data-tab="calc">Calculateurs</a> : statut, ancienneté, paie, CET, temps de travail, astreintes. Chaque résultat affiche son raisonnement.</p></div>
-    <div class="step"><span class="step-n">4</span><h3>S'entraîner</h3><p><a href="#cas" class="go-tab" data-tab="cas">Cas pratiques</a> : <span id="nbCas"></span> cas corrigés avec démarche guidée, dont ceux du sujet de juillet 2025.</p><p><a href="#quiz" class="go-tab" data-tab="quiz">Quiz et calculs</a> : questions et flashcards par thème, et calculs à chiffres changeants.</p><p><a href="#exam" class="go-tab" data-tab="exam">Examen blanc</a> : des cas tirés au sort, chronométrés, avec une zone de rédaction, la correction et une note sur 6.</p></div>
+    <div class="step"><span class="step-n">4</span><h3>S'entraîner</h3><p><a href="#cas" class="go-tab" data-tab="cas">Cas pratiques</a> : <span id="nbCas"></span> cas corrigés avec démarche guidée, dont ceux du sujet de juillet 2025 et des diapositives du cours.</p><p><a href="#atelier" class="go-tab" data-tab="atelier">Atelier CV</a> : des CV à analyser, dont des CV tirés au sort, avec la solution et une réponse type calculées par l’atelier.</p><p><a href="#quiz" class="go-tab" data-tab="quiz">Quiz</a> : questions et flashcards par thème, et calculs à chiffres changeants.</p><p><a href="#exam" class="go-tab" data-tab="exam">Examen blanc</a> : des cas tirés au sort, chronométrés, avec une zone de rédaction, la correction et une note sur 6.</p></div>
   </div>
   <div class="block" id="prog">
     <h2>Ma progression</h2>
@@ -499,7 +598,7 @@ nav.tabs{gap:0}
       <tr><th>Motif</th><th>Quand l'utiliser</th><th>Durée</th><th>Quotité</th><th>Rémunération</th></tr>
       <tr><td>1</td><td>Remplacer un praticien absent ou faire face à un accroissement temporaire d'activité</td><td>6 mois au plus, renouvelable 6 mois ; 2 ans au total dans l'établissement</td><td>Jusqu'à 10 DJ, sans minimum</td><td>Grille de l'établissement, entre le minimum et le maximum</td></tr>
       <tr><td>2</td><td>Difficultés particulières de recrutement ou d'exercice, compétences hautement spécialisées, risque avéré sur la continuité de l'offre de soins</td><td>6 mois à 3 ans, renouvelable ; 6 ans au plus</td><td>4 à 10 DJ</td><td>Fixe et part variable sur objectifs ; total plafonné à 119 130 € brut par an</td></tr>
-      <tr><td>3</td><td>Dans l'attente de l'inscription sur la liste d'aptitude du concours de PH</td><td>3 ans au plus</td><td>5 à 10 DJ</td><td>Grille ; possibilité de jouer sur l'échelon et la date de nomination</td></tr>
+      <tr><td>3</td><td>Dans l'attente de l'inscription sur la liste d'aptitude du concours de PH</td><td>3 ans au plus</td><td>5 à 10 DJ</td><td>Plafond : l'échelon de PH auquel le praticien serait classé (annexe III de l'arrêté du 8 juillet 2022, renvoi à R6152-17). Le cours retient l'échelon projeté à la date de nomination prévue.</td></tr>
       <tr><td>4</td><td>Compléter l'offre de soins avec la médecine de ville, les ESPIC ou les cliniques</td><td>3 ans au plus, renouvelable par décision expresse jusqu'à 6 ans ; CDI possible après 3 ans, de droit après 6 ans sur le même emploi</td><td>4 DJ au plus (40 %)</td><td>Grille</td></tr>
     </table></div>
     <p class="small">Articles R6152-338, R6152-339 et R6152-349 du code de la santé publique, consultés sur Légifrance ; plafond du motif 2 : FAQ DGOS de décembre 2024 <span class="vb o">texte</span>.</p>
@@ -1168,6 +1267,38 @@ nav.tabs{gap:0}
   <div class="block" id="caseList"></div>
 </section>
 
+
+<!-- ===================== ATELIER CV ===================== -->
+<section class="panel" id="atelier" role="tabpanel" aria-labelledby="t-at" hidden>
+  <div class="block">
+    <h2>Atelier CV</h2>
+    <p class="lede">La plupart des cas de recrutement partent d'un CV : quel statut proposer, pour quelle durée, avec quelle rémunération ? L'atelier calcule les dates clés et applique les règles de chaque statut, articles à l'appui. Il rédige aussi une réponse type, selon la grille de correction.</p>
+    <div class="at-start">
+      <div class="at-opt"><span class="at-step">Option 1</span><h3>Un cas du cours</h3><p class="small">Les 7 CV des diapositives de Mme Pluchon (Dr A à Dr I) et ceux du sujet 2025.</p><select id="at-preset" aria-label="Choisir un cas du cours"></select></div>
+      <div class="at-opt"><span class="at-step">Option 2</span><h3>Un CV au hasard</h3><p class="small">Parcours, dates et prétentions tirés au sort. La solution est calculée par l'atelier.</p><div class="row"><select id="at-arch" aria-label="Type de profil"></select><button class="btn" type="button" id="at-rand">Tirer un CV</button></div></div>
+      <div class="at-opt"><span class="at-step">Option 3</span><h3>Votre propre CV</h3><p class="small">Saisissez le CV d'un sujet : l'analyse se met à jour à chaque modification.</p><button class="btn ghost" type="button" id="at-free">Partir d'un CV vierge</button></div>
+    </div>
+  </div>
+
+  <div class="block" id="at-case">
+    <h3 class="at-h"><span class="at-n">1</span>Lire le CV</h3>
+    <div id="at-cv"></div>
+    <details class="at-data" id="at-data"><summary>Modifier les données du CV</summary><div id="at-form" class="at-form"></div></details>
+  </div>
+
+  <div class="block">
+    <h3 class="at-h"><span class="at-n">2</span>Rédiger votre réponse</h3>
+    <p class="small">Suivez la grille : qualifier, prérequis, règle, décider et chiffrer, sécuriser. Votre texte reste enregistré dans ce navigateur.</p>
+    <textarea id="at-ans" aria-label="Votre réponse" placeholder="Qualifier : …&#10;Prérequis : …&#10;Règle : …&#10;Décider et chiffrer : …&#10;Sécuriser : …"></textarea>
+    <div class="row"><button class="btn" type="button" id="at-show">Voir la solution</button><label class="small at-live"><input type="checkbox" id="at-live"> Analyse en direct pendant la saisie</label></div>
+  </div>
+
+  <div class="block" id="at-sol-b">
+    <h3 class="at-h"><span class="at-n">3</span>Comparer avec la solution</h3>
+    <div id="at-sol" class="at-sol" hidden></div>
+  </div>
+</section>
+
 <!-- ===================== LOGIGRAMMES ===================== -->
 <section class="panel" id="logi" role="tabpanel" aria-labelledby="t-logi">
   <div class="block">
@@ -1194,7 +1325,7 @@ nav.tabs{gap:0}
     <p class="small">Les cas sont tirés dans des thèmes différents quand c'est possible. Vos réponses sont enregistrées dans ce navigateur pendant que vous écrivez.</p>
   </div>
   <div class="block" id="xm-run" hidden>
-    <div class="xm-bar"><span class="xm-time" id="xm-time">90:00</span><span class="small" id="xm-info"></span><span class="xm-sp"></span><button class="btn" id="xm-end" type="button">Terminer et corriger</button></div>
+    <div class="xm-bar"><span class="xm-time" id="xm-time">90:00</span><span class="small" id="xm-info"></span><span class="xm-sp"></span><button class="btn" id="xm-tbx" type="button">Boîte à outils</button><button class="btn" id="xm-end" type="button">Terminer et corriger</button></div>
     <div id="xm-cases"></div>
   </div>
   <div class="block" id="xm-res" hidden></div>
@@ -1401,6 +1532,7 @@ nav.tabs{gap:0}
       <li>« Statuts médicaux hospitalo-universitaires », N. Mevel, CHU de Rennes.</li>
       <li>« Les études de médecine », I. Richard.</li>
       <li>« Temps de travail médical et PDSES », A. Oger et C. Pluchon, 28 mai 2026.</li>
+      <li>« Statuts médicaux : praticiens contractuels et praticiens hospitaliers », C. Pluchon, EHESP, diapositives du 20 mai 2025 (7 études de cas, repris dans l’atelier CV).</li>
       <li>CNG, Guide de gestion statutaire des praticiens hospitaliers, juillet 2022.</li>
       <li>CNG, Situations individuelles complexes des praticiens hospitaliers, février 2025.</li>
       <li>CNG, simulateur de classement des primo-nommés.</li>
@@ -1414,6 +1546,8 @@ nav.tabs{gap:0}
       <li><a href="https://www.legifrance.gouv.fr/codes/section_lc/JORFTEXT000000602745/LEGISCTA000006105843/" target="_blank" rel="noopener">Arrêté du 30 avril 2003, articles 13 à 18, version consolidée intégrant les arrêtés du 8 juillet 2025 et du 17 avril 2026 : gardes, astreintes, TTA, récupération</a></li>
       <li><a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052211817" target="_blank" rel="noopener">Arrêté du 5 septembre 2025 : plafond de l'intérim</a></li>
       <li><a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000822129/" target="_blank" rel="noopener">Arrêté du 28 mars 2007 : part complémentaire variable</a></li>
+      <li><a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000046029572" target="_blank" rel="noopener">Arrêté du 8 juillet 2022 : émoluments ; annexe III, seuils des contractuels et plafond du motif 3</a></li>
+      <li><a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000045124423" target="_blank" rel="noopener">Décret 2022-135 du 5 février 2022, article 9 : contrats antérieurs comptés dans les 6 ans</a></li>
       <li><a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000006199526" target="_blank" rel="noopener">CSP, articles R6152-26 et R6152-27 : obligations de service et temps continu</a></li>
       <li><a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000006196762" target="_blank" rel="noopener">CSP, articles R6152-23 et D6152-23-1 : émoluments et IESPE au prorata des obligations de service</a></li>
       <li><a href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045614818" target="_blank" rel="noopener">Arrêté du 19 avril 2022 : procédure d'appariement pour l'accès au 3ᵉ cycle</a></li>
@@ -1478,7 +1612,7 @@ nav.tabs{gap:0}
 <footer class="pied"><span>Révisions DAM – UE 10 – 10.2026</span><span>Outil personnel de révision entre élèves, non officiel</span></footer>
 
 <script>
-const ICONS={"memo":["0 0 48 48",["M6 10h14c2.5 0 4 1.5 4 4v26c0-2-1.5-3-4-3H6zM42 10H28c-2.5 0-4 1.5-4 4v26c0-2 1.5-3 4-3h14z"]],"form":["0 0 48 48",["M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"]],"cas":["0 0 48 48",["M5 12h14l4 4h20v24H5zM5 20h38"]],"logi":["0 0 48 48",["M24 4l9 9-9 9-9-9zM24 22v6M10 28h28M10 28v8M38 28v8M4 36h12v8H4zM32 36h12v8H32z"]],"quiz":["0 0 48 48",["M6 8h36v26H22l-10 8v-8H6zM19 16c0-3 2-5 5-5s5 2 5 5c0 4-5 4-5 8M24 27v3"]],"calc":["0 0 48 48",["M10 4h28v40H10zM15 9h18v9H15zM15 24h4M22 24h4M29 24h4M15 31h4M22 31h4M29 31h4M15 38h4M22 38h4M29 38h4"]],"sg":["0 0 48 48",["M6 6h22l14 14v22H6zM28 6v14h14M12 26h20M12 33h20M12 19h10"]],"src":["0 0 48 48",["M24 6v34M14 42h20M8 12h32M8 12l-5 14h10zM40 12l-5 14h10zM3 26c0 3 2 5 5 5s5-2 5-5M35 26c0 3 2 5 5 5s5-2 5-5"]],"methode":["0 0 48 48",["M8 8h32v34H8zM14 16l3 3 5-6M26 16h8M14 26l3 3 5-6M26 26h8M14 36h20"]],"exercice":["0 0 48 48",["M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10zM24 15v16M16 23h16"]],"padhue":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M4 24h40M24 4c-6 6-8 13-8 20s2 14 8 20M24 4c6 6 8 13 8 20s-2 14-8 20"]],"statut":["0 0 48 48",["M8 8h32v32H8zM8 16h32M24 22a5 5 0 1 0 0.01 0M15 36c1-5 5-7 9-7s8 2 9 7"]],"pc":["0 0 48 48",["M10 4h20l8 8v32H10zM30 4v8h8M16 20h16M16 27h16M16 36c3-4 5 2 8-2s4 3 8 0"]],"ph":["0 0 48 48",["M24 4a12 12 0 1 0 0.01 0M17 26l-5 18 12-6 12 6-5-18M18 16l4 4 8-8"]],"remu":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M31 15c-2-2-4-3-7-3-6 0-10 5-10 12s4 12 10 12c3 0 5-1 7-3M10 21h16M10 27h16"]],"temps":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M24 12v12l8 6"]],"pds":["0 0 48 48",["M30 6a16 16 0 1 0 14 22 13 13 0 0 1-14-22zM10 8v8M6 12h8"]],"ast":["0 0 48 48",["M14 4h20v40H14zM14 10h20M14 36h20M24 40v0.1M38 14c3 3 3 9 0 12M42 10c5 5 5 15 0 20"]],"cet":["0 0 48 48",["M6 10h36v32H6zM6 18h36M14 6v8M34 6v8M13 26h6M21 26h6M29 26h6M13 33h6M21 33h6"]],"junior":["0 0 48 48",["M12 4v12c0 6 4 10 8 10s8-4 8-10V4M20 26v6c0 6 5 10 11 10s9-4 9-9v-5M40 22a4 4 0 1 0 0.01 0M8 4h8M24 4h8"]],"lib":["0 0 48 48",["M6 16h36v26H6zM17 16V9h14v7M24 23v12M18 29h12"]],"interim":["0 0 48 48",["M6 16h28M28 8l8 8-8 8M42 32H14M20 24l-8 8 8 8"]],"sic":["0 0 48 48",["M24 5l21 37H3zM24 18v12M24 34v4"]],"etudes":["0 0 48 48",["M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"]],"vue":["0 0 48 48",["M4 40h10V30h10V20h10V10h10M36 4l8 6-8 6"]],"acces":["0 0 48 48",["M10 44V4h22v40M32 8l8 3v30l-8 3M26 24v4M4 44h40"]],"c2":["0 0 48 48",["M14 6h20v6H14zM10 9h4v35h20V9h4v35H10zM17 24l4 4 8-8M17 36h14"]],"stages":["0 0 48 48",["M6 44V14h36v30M18 44V32h12v12M20 18h8v10h-8zM24 20v6M21 23h6M2 44h44M16 8h16v6H16z"]],"continue":["0 0 48 48",["M40 20A17 17 0 0 0 9 16M8 28a17 17 0 0 0 31 4M9 6v10h10M39 42V32H29"]],"retenir":["0 0 48 48",["M24 4c-8 0-13 6-13 13 0 5 3 8 5 11 1 2 2 4 2 6h12c0-2 1-4 2-6 2-3 5-6 5-11 0-7-5-13-13-13zM18 40h12M20 45h8"]],"exemple":["0 0 48 48",["M20 4a16 16 0 1 0 0.01 0M31 31l13 13"]],"ehesp-plus":["0 0 48 48",["M24 6v36M6 24h36"]],"megaphone":["0 0 261.40 242.65",["M67.65 186.73L83.83 239.65L125.75 226.84L109.76 173.85","M144.22 24.41C144.22 24.41 149.43 62.29 99.81 77.47L3.00 107.06L14.44 144.49L27.26 186.42L122.00 157.46L124.07 156.82C173.70 141.65 190.56 175.97 190.56 175.97M154.56 21.25L200.90 172.81","M181.78 51.03L211.49 3.00M261.94 71.20L212.24 86.13M206.61 132.26L258.40 156.44"]],"communaute":["0 0 259.33 232.88",["M31.77 121.06C31.77 121.06 30.06 107.88 29.04 100.49C24.89 79.05 10.22 79.21 2.23 84.27C4.75 104.26 7.41 132.99 10.05 152.96C10.84 158.96 10.74 162.65 16.05 166.77C28.34 176.31 45.75 186.13 58.36 195.38C61.81 197.83 63.83 202.20 63.79 208.91M105.97 205.87C105.07 197.90 103.67 183.49 102.65 175.53C101.26 164.62 99.66 161.38 90.20 155.13C77.25 146.56 67.64 139.63 54.43 131.45C49.49 128.39 45.28 124.91 39.11 126.27C32.77 127.68 28.65 133.83 29.46 140.24C30.23 146.33 33.69 147.96 38.18 151.29C45.40 156.65 52.94 161.68 60.36 166.71M112.72 230.64L112.77 205.38L56.31 209.45L56.30 230.64M227.57 121.06C227.57 121.06 229.28 107.88 230.29 100.49C234.44 79.05 249.11 79.21 257.10 84.27C254.59 104.26 251.92 132.99 249.28 152.96C248.49 158.96 248.60 162.65 243.29 166.77C231.00 176.31 213.58 186.13 200.98 195.38C197.53 197.83 195.50 202.20 195.54 208.91M153.37 205.87C154.26 197.90 155.66 183.49 156.68 175.53C158.07 164.62 159.68 161.38 169.13 155.13C182.08 146.56 191.69 139.63 204.90 131.45C209.84 128.39 214.05 124.91 220.22 126.27C226.56 127.68 230.69 133.83 229.88 140.24C229.11 146.33 225.65 147.96 221.15 151.29C213.93 156.65 206.39 161.68 198.97 166.71M146.61 230.64L146.56 205.38L203.02 209.45L203.04 230.64M107.74 41.97C107.74 41.97 111.43 58.61 127.38 58.61C143.33 58.61 147.02 41.97 147.02 41.97M107.74 35.31C107.74 35.31 111.43 18.66 127.38 18.66C143.33 18.66 147.02 35.31 147.02 35.31M156.84 116.19L156.84 101.41C156.84 84.86 143.65 68.60 127.38 68.60C111.11 68.60 97.92 84.86 97.92 101.41L97.92 116.19M30.05 25.54C30.05 25.54 33.74 42.18 49.69 42.18C65.64 42.18 69.33 25.54 69.33 25.54M30.05 18.88C30.05 18.88 33.74 2.23 49.69 2.23C65.64 2.23 69.33 18.88 69.33 18.88M79.15 99.76L79.15 84.98C79.15 68.43 65.96 52.17 49.69 52.17C40.91 52.17 33.02 56.91 27.62 63.88M185.44 25.54C185.44 25.54 189.13 42.18 205.08 42.18C221.02 42.18 224.72 25.54 224.72 25.54M185.44 18.88C185.44 18.88 189.13 2.23 205.08 2.23C221.02 2.23 224.72 18.88 224.72 18.88M229.10 66.67C223.76 58.21 214.99 52.17 205.08 52.17C188.81 52.17 175.62 68.43 175.62 84.98L175.62 99.76"]]};
+const ICONS={"cv":["0 0 48 48",["M9 5h22l8 8v30H9zM31 5v8h8","M19 21a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0-9 0","M14 36c1.2-5 4.6-7.5 9.5-7.5S31.8 31 33 36"]],"memo":["0 0 48 48",["M6 10h14c2.5 0 4 1.5 4 4v26c0-2-1.5-3-4-3H6zM42 10H28c-2.5 0-4 1.5-4 4v26c0-2 1.5-3 4-3h14z"]],"form":["0 0 48 48",["M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"]],"cas":["0 0 48 48",["M5 12h14l4 4h20v24H5zM5 20h38"]],"logi":["0 0 48 48",["M24 4l9 9-9 9-9-9zM24 22v6M10 28h28M10 28v8M38 28v8M4 36h12v8H4zM32 36h12v8H32z"]],"quiz":["0 0 48 48",["M6 8h36v26H22l-10 8v-8H6zM19 16c0-3 2-5 5-5s5 2 5 5c0 4-5 4-5 8M24 27v3"]],"calc":["0 0 48 48",["M10 4h28v40H10zM15 9h18v9H15zM15 24h4M22 24h4M29 24h4M15 31h4M22 31h4M29 31h4M15 38h4M22 38h4M29 38h4"]],"sg":["0 0 48 48",["M6 6h22l14 14v22H6zM28 6v14h14M12 26h20M12 33h20M12 19h10"]],"src":["0 0 48 48",["M24 6v34M14 42h20M8 12h32M8 12l-5 14h10zM40 12l-5 14h10zM3 26c0 3 2 5 5 5s5-2 5-5M35 26c0 3 2 5 5 5s5-2 5-5"]],"methode":["0 0 48 48",["M8 8h32v34H8zM14 16l3 3 5-6M26 16h8M14 26l3 3 5-6M26 26h8M14 36h20"]],"exercice":["0 0 48 48",["M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10zM24 15v16M16 23h16"]],"padhue":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M4 24h40M24 4c-6 6-8 13-8 20s2 14 8 20M24 4c6 6 8 13 8 20s-2 14-8 20"]],"statut":["0 0 48 48",["M8 8h32v32H8zM8 16h32M24 22a5 5 0 1 0 0.01 0M15 36c1-5 5-7 9-7s8 2 9 7"]],"pc":["0 0 48 48",["M10 4h20l8 8v32H10zM30 4v8h8M16 20h16M16 27h16M16 36c3-4 5 2 8-2s4 3 8 0"]],"ph":["0 0 48 48",["M24 4a12 12 0 1 0 0.01 0M17 26l-5 18 12-6 12 6-5-18M18 16l4 4 8-8"]],"remu":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M31 15c-2-2-4-3-7-3-6 0-10 5-10 12s4 12 10 12c3 0 5-1 7-3M10 21h16M10 27h16"]],"temps":["0 0 48 48",["M24 4a20 20 0 1 0 0.01 0M24 12v12l8 6"]],"pds":["0 0 48 48",["M30 6a16 16 0 1 0 14 22 13 13 0 0 1-14-22zM10 8v8M6 12h8"]],"ast":["0 0 48 48",["M14 4h20v40H14zM14 10h20M14 36h20M24 40v0.1M38 14c3 3 3 9 0 12M42 10c5 5 5 15 0 20"]],"cet":["0 0 48 48",["M6 10h36v32H6zM6 18h36M14 6v8M34 6v8M13 26h6M21 26h6M29 26h6M13 33h6M21 33h6"]],"junior":["0 0 48 48",["M12 4v12c0 6 4 10 8 10s8-4 8-10V4M20 26v6c0 6 5 10 11 10s9-4 9-9v-5M40 22a4 4 0 1 0 0.01 0M8 4h8M24 4h8"]],"lib":["0 0 48 48",["M6 16h36v26H6zM17 16V9h14v7M24 23v12M18 29h12"]],"interim":["0 0 48 48",["M6 16h28M28 8l8 8-8 8M42 32H14M20 24l-8 8 8 8"]],"sic":["0 0 48 48",["M24 5l21 37H3zM24 18v12M24 34v4"]],"etudes":["0 0 48 48",["M4 18l20-9 20 9-20 9zM12 22v10c0 3 5 6 12 6s12-3 12-6V22M44 18v12"]],"vue":["0 0 48 48",["M4 40h10V30h10V20h10V10h10M36 4l8 6-8 6"]],"acces":["0 0 48 48",["M10 44V4h22v40M32 8l8 3v30l-8 3M26 24v4M4 44h40"]],"c2":["0 0 48 48",["M14 6h20v6H14zM10 9h4v35h20V9h4v35H10zM17 24l4 4 8-8M17 36h14"]],"stages":["0 0 48 48",["M6 44V14h36v30M18 44V32h12v12M20 18h8v10h-8zM24 20v6M21 23h6M2 44h44M16 8h16v6H16z"]],"continue":["0 0 48 48",["M40 20A17 17 0 0 0 9 16M8 28a17 17 0 0 0 31 4M9 6v10h10M39 42V32H29"]],"retenir":["0 0 48 48",["M24 4c-8 0-13 6-13 13 0 5 3 8 5 11 1 2 2 4 2 6h12c0-2 1-4 2-6 2-3 5-6 5-11 0-7-5-13-13-13zM18 40h12M20 45h8"]],"exemple":["0 0 48 48",["M20 4a16 16 0 1 0 0.01 0M31 31l13 13"]],"ehesp-plus":["0 0 48 48",["M24 6v36M6 24h36"]],"megaphone":["0 0 261.40 242.65",["M67.65 186.73L83.83 239.65L125.75 226.84L109.76 173.85","M144.22 24.41C144.22 24.41 149.43 62.29 99.81 77.47L3.00 107.06L14.44 144.49L27.26 186.42L122.00 157.46L124.07 156.82C173.70 141.65 190.56 175.97 190.56 175.97M154.56 21.25L200.90 172.81","M181.78 51.03L211.49 3.00M261.94 71.20L212.24 86.13M206.61 132.26L258.40 156.44"]],"communaute":["0 0 259.33 232.88",["M31.77 121.06C31.77 121.06 30.06 107.88 29.04 100.49C24.89 79.05 10.22 79.21 2.23 84.27C4.75 104.26 7.41 132.99 10.05 152.96C10.84 158.96 10.74 162.65 16.05 166.77C28.34 176.31 45.75 186.13 58.36 195.38C61.81 197.83 63.83 202.20 63.79 208.91M105.97 205.87C105.07 197.90 103.67 183.49 102.65 175.53C101.26 164.62 99.66 161.38 90.20 155.13C77.25 146.56 67.64 139.63 54.43 131.45C49.49 128.39 45.28 124.91 39.11 126.27C32.77 127.68 28.65 133.83 29.46 140.24C30.23 146.33 33.69 147.96 38.18 151.29C45.40 156.65 52.94 161.68 60.36 166.71M112.72 230.64L112.77 205.38L56.31 209.45L56.30 230.64M227.57 121.06C227.57 121.06 229.28 107.88 230.29 100.49C234.44 79.05 249.11 79.21 257.10 84.27C254.59 104.26 251.92 132.99 249.28 152.96C248.49 158.96 248.60 162.65 243.29 166.77C231.00 176.31 213.58 186.13 200.98 195.38C197.53 197.83 195.50 202.20 195.54 208.91M153.37 205.87C154.26 197.90 155.66 183.49 156.68 175.53C158.07 164.62 159.68 161.38 169.13 155.13C182.08 146.56 191.69 139.63 204.90 131.45C209.84 128.39 214.05 124.91 220.22 126.27C226.56 127.68 230.69 133.83 229.88 140.24C229.11 146.33 225.65 147.96 221.15 151.29C213.93 156.65 206.39 161.68 198.97 166.71M146.61 230.64L146.56 205.38L203.02 209.45L203.04 230.64M107.74 41.97C107.74 41.97 111.43 58.61 127.38 58.61C143.33 58.61 147.02 41.97 147.02 41.97M107.74 35.31C107.74 35.31 111.43 18.66 127.38 18.66C143.33 18.66 147.02 35.31 147.02 35.31M156.84 116.19L156.84 101.41C156.84 84.86 143.65 68.60 127.38 68.60C111.11 68.60 97.92 84.86 97.92 101.41L97.92 116.19M30.05 25.54C30.05 25.54 33.74 42.18 49.69 42.18C65.64 42.18 69.33 25.54 69.33 25.54M30.05 18.88C30.05 18.88 33.74 2.23 49.69 2.23C65.64 2.23 69.33 18.88 69.33 18.88M79.15 99.76L79.15 84.98C79.15 68.43 65.96 52.17 49.69 52.17C40.91 52.17 33.02 56.91 27.62 63.88M185.44 25.54C185.44 25.54 189.13 42.18 205.08 42.18C221.02 42.18 224.72 25.54 224.72 25.54M185.44 18.88C185.44 18.88 189.13 2.23 205.08 2.23C221.02 2.23 224.72 18.88 224.72 18.88M229.10 66.67C223.76 58.21 214.99 52.17 205.08 52.17C188.81 52.17 175.62 68.43 175.62 84.98L175.62 99.76"]]};
 /* ---------- onglets ---------- */
 const tabs=[...document.querySelectorAll('nav.tabs a')];
 const ids=tabs.map(b=>b.getAttribute('aria-controls'));
@@ -1562,7 +1696,7 @@ c:`<h4>Ce qu'il faut repérer</h4><p>L'énoncé fournit la grille du GHRE : on l
 {f:'contrat',t:'Pontivy : un radiologue « très attendu » demande un motif 2',tag:'Construit',
 e:`Le centre hospitalier de Pontivy cherche un radiologue depuis 18 mois ; le CPOM autorise 2 contrats de motif 2 en imagerie. Le Dr Quentin Morvan, inscrit à l'Ordre depuis 4 ans, ancien interne à Rennes, accepte de venir à temps plein pour 110 000 € brut par an. Le Dr Hélène Rivière, PH radiologue au CHU de Rennes actuellement en disponibilité, se porte aussi candidate sur la même base. Une agence d'intérim propose par ailleurs un radiologue à 2 900 € HT les 24 heures.`,
 c:`<h4>Ce qu'il faut repérer</h4><ul><li>110 000 € dépasse le maximum de 71 162,83 € : seul le motif 2 le permet.</li><li>Le motif 2 a deux conditions personnelles : 5 ans d'Ordre et ne pas être PH en disponibilité.</li><li>L'offre d'intérim dépasse le plafond de 2 681 € HT.</li></ul>
-<h4>Raisonnement</h4><ul><li><b>Dr Morvan</b> : 4 ans d'inscription, il lui manque un an. Motif 2 impossible ; motif 3 s'il prépare le concours, au plus haut de la grille (71 162,83 €), avec gardes, TTA et prime d'exercice territorial si le poste est partagé. La radiologie ouvre droit à la PECH (10 000 € si seule la tension nationale est retenue, 30 000 € si la tension locale l'est aussi).</li><li><b>Dr Rivière</b> : PH en disponibilité, exclue du motif 2 partout. La voie est la réintégration sur un poste de PH, publiable entre deux tours.</li><li><b>Intérim</b> : 2 900 € &gt; 2 681 € ; le comptable public bloquerait le paiement.</li></ul>
+<h4>Raisonnement</h4><ul><li><b>Dr Morvan</b> : 4 ans d'inscription, il lui manque un an. Motif 2 impossible ; motif 3 s'il prépare le concours, plafonné à l'échelon de PH auquel il serait classé (annexe III de l'arrêté du 8 juillet 2022) : avec 4 ans de services repris, l'échelon 3 (62 148,07 €). Il touche aussi les gardes, TTA et prime d'exercice territorial si le poste est partagé. La radiologie ouvre droit à la PECH (10 000 € si seule la tension nationale est retenue, 30 000 € si la tension locale l'est aussi).</li><li><b>Dr Rivière</b> : PH en disponibilité, exclue du motif 2 partout. La voie est la réintégration sur un poste de PH, publiable entre deux tours.</li><li><b>Intérim</b> : 2 900 € &gt; 2 681 € ; le comptable public bloquerait le paiement.</li></ul>
 <h4>Réponse</h4><p>Proposer au Dr Morvan un motif 3 assorti de la PECH, avec engagement sur le concours ; ouvrir le poste de PH pour le Dr Rivière ; refuser l'offre d'intérim en l'état.</p>`},
 
 {f:'contrat',t:'Ploërmel : un généraliste de maison de santé, 3 demi-journées',tag:'Construit',
@@ -1646,9 +1780,9 @@ c:`<div class="tbl"><table><tr><th>Élément</th><th>Calcul</th><th>Montant</th>
 {f:'remu',t:'Saint-Brieuc : retenir une anesthésiste en fin d’assistanat',tag:'Construit',
 e:`Le Dr Julie Caradec termine son assistanat d'anesthésie-réanimation au CH de Saint-Brieuc, où la spécialité est en tension. Elle passera le concours de PH à la prochaine session. Une clinique privée de la ville lui propose 90 000 €. Construisez l'offre la plus attractive possible, dans les règles.`,
 c:`<h4>Ce qu'il faut repérer</h4><p>Pas encore inscrite sur la liste d'aptitude : nomination impossible. Pas de remplacement : motif 1 inadapté. Motif 2 peu probable en sortie d'assistanat (5 ans d'Ordre).</p>
-<h4>Offre</h4><ul><li><b>Motif 3</b> à temps plein, au maximum de la grille : 71 162,83 €.</li><li><b>PECH de 30 000 €</b> (anesthésie-réanimation en tension nationale, tension locale à déclarer) : engagement à passer le concours puis à exercer 3 ans comme PH ; versée en 2 fois, dont la seconde à la nomination.</li><li>Gardes à 422,03 €, TTA sur contrat.</li><li>Après nomination : reprise de l'assistanat et du contrat, plus IESPE (12 120 € par an) après signature du contrat d'engagement de service public exclusif.</li></ul>
-<h4>Ordre de grandeur</h4><p>Première année : 71 162,83 + 15 000 = 86 162,83 € avant gardes. Après nomination à l'échelon 3 : 62 148,07 + 12 120 = 74 268,07 €, plus le second versement de 15 000 €. Arguments non financiers : temps continu possible en anesthésie, valences non cliniques, formation.</p>
-<div class="box vigil"><span class="lbl">Limite</span><p>Ne pas promettre un motif 2 ni une rémunération hors plafond : le comptable public et l'ARS contrôlent.</p></div>`},
+<h4>Offre</h4><ul><li><b>Motif 3</b> à temps plein. Sa rémunération est plafonnée à l'échelon de PH auquel elle serait classée (annexe III de l'arrêté du 8 juillet 2022, renvoi à R6152-17). Hypothèse : 2 ans d'assistanat et nomination 1 an plus tard, soit 3 ans repris : échelon 2, 58 082,41 €.</li><li><b>PECH de 30 000 €</b> (anesthésie-réanimation en tension nationale, tension locale à déclarer) : engagement à passer le concours puis à exercer 3 ans comme PH ; versée en 2 fois, dont la seconde à la nomination.</li><li>Gardes à 422,03 €, TTA sur contrat.</li><li>Après nomination : reprise de l'assistanat et du contrat, plus IESPE (12 120 € par an) après signature du contrat d'engagement de service public exclusif.</li></ul>
+<h4>Ordre de grandeur</h4><p>Première année : 58 082,41 + 15 000 = 73 082,41 € avant gardes. Après nomination à l'échelon 2 : 58 082,41 + 12 120 = 70 202,41 € avec l'IESPE, plus le second versement de 15 000 €. L'écart avec la clinique reste important. Arguments non financiers : temps continu possible en anesthésie, valences non cliniques, formation.</p>
+<div class="box vigil"><span class="lbl">Limite</span><p>Ne pas promettre un motif 2 ni une rémunération hors plafond : le comptable public et l'ARS contrôlent. Le maximum de la grille (71 162,83 €) ne vaut que pour les motifs 1 et 4 ; il exige ici un vrai besoin temporaire.</p></div>`},
 
 {f:'remu',t:'Lannion : régulariser la part variable d’un motif 2',tag:'Construit',
 e:`Le Dr Nicolas Hamon, radiologue en motif 2 à temps plein au CH de Lannion, perçoit un fixe de 71 162,83 € et une part variable contractuelle de 36 000 €, versée en acomptes de 3 000 € par mois. Trois objectifs pondérés à égalité figuraient au contrat : délai de compte rendu des scanners des urgences, participation à la permanence d'imagerie du territoire, mise en place de la téléradiologie avec Paimpol. À l'évaluation annuelle, la cheffe de service constate que 2 objectifs sur 3 sont atteints.`,
@@ -1698,10 +1832,10 @@ c:`<h4>Grille de lecture</h4><div class="tbl"><table><tr><th>Projet du candidat<
 e:`Thèse le 20/09/2021, DES de pneumologie et FST de cancérologie le 15/10/2022. Docteur junior 2021-2022 ; assistant partagé CHU de Caen / CH Saint-Lô du 1/11/2022 au 31/10/2023 ; mission humanitaire du 1/11/2023 au 31/10/2024 ; praticien contractuel au CH de Cherbourg du 1/1/2025 au 30/06/2025. Candidat sur un poste vacant (départ en retraite) au 1er juillet 2025 ; veut passer le concours de PH à la prochaine session. Politique de l'établissement : nomination PH sur poste vacant après 2 ans de contrat. Grille fournie : échelon 1 4 633,98 €, échelon 2 4 840,20 €, échelon 3 5 179,01 €, échelon 4 5 547,26 € (2 ans par échelon).`,
 c:`<h4>Contrat</h4><ul><li><b>Motif 3</b> (dans l'attente de l'inscription sur la liste d'aptitude) : poste permanent, projet de concours. Durée de 2 ans conforme à la politique de l'établissement (3 ans max).</li><li>Motif 1 écarté : il ne s'agit ni d'un remplacement ni d'un surcroît temporaire. Motif 2 écarté : inscription de plein exercice à l'Ordre en 2022 (le tableau spécial des docteurs juniors ne compte pas), donc moins de 5 ans.</li><li>Le contrat de Cherbourg est conclu dans un autre établissement : il ne s'impute pas sur les 6 ans.</li></ul>
 <h4>Rémunération</h4><ul><li>Reprise : assistanat 365 j + contrat 181 j = 546 j. Docteur junior et mission humanitaire non repris (sauf cadre de coopération figurant dans la liste du CNG).</li><li>Alignement sur l'<b>échelon 1, soit 4 633,98 € brut mensuel</b>, avec 546 j d'ancienneté conservée : passage à l'échelon 2 (4 840,20 €) après 184 jours, soit début janvier 2026.</li><li>Pas d'IESPE en contrat. En sus : PDS, TTA ; PET si exercice multisite ; PECH de 20 000 € seulement si la pneumologie est déclarée en tension locale (elle ne figure pas dans la liste nationale).</li></ul>
-<p class="small">À la nomination (juillet 2027), son ancienneté atteindra environ 1 276 jours : échelon 2 de PH.</p>`},
+<p class="small">À la nomination (juillet 2027), son ancienneté atteindra environ 1 276 jours : échelon 2 de PH. Le plafond du motif 3 est l'échelon de PH auquel il serait classé (annexe III de l'arrêté du 8 juillet 2022). Si l'on retient, comme le cours, l'échelon projeté à la nomination, le contrat peut aller jusqu'à l'échelon 2 (4 840,20 €).</p>`},
 {f:'annale',t:'Dr Canule, anesthésiste : le motif 3 est-il faisable ?',tag:'Sujet 2025 · Q5.4',
 e:`Thèse septembre 2019, DES d'anesthésie-réanimation octobre 2019. CCA à Nancy puis Besançon du 1/11/2019 au 31/10/2022 ; anesthésiste remplaçant à 80 % en clinique du 1/11/2022 au 31/10/2025. A passé le concours de PH en avril 2025 ; veut un temps plein et 6 800 € brut mensuels ; souhaite rejoindre le CHU de Rennes au 1er novembre 2025. L'établissement envisage un motif 3 avec nomination après 1 an, sur un poste partagé 60 % Rennes / 40 % Fougères.`,
-c:`<h4>Faisabilité du motif 3</h4><p>Non adaptée : le motif 3 couvre l'attente de l'inscription sur la liste d'aptitude. Ayant passé le concours en avril 2025, il est inscrit sur la liste (si lauréat) : il peut être nommé PH directement sur le poste vacant (tour de recrutement ou publication entre deux tours). De plus, un contractuel est plafonné à 5 930,24 € brut mensuels de fixe hors motif 2, en dessous de sa demande.</p>
+c:`<h4>Faisabilité du motif 3</h4><p>Non adaptée : le motif 3 couvre l'attente de l'inscription sur la liste d'aptitude. Ayant passé le concours en avril 2025, il est inscrit sur la liste (si lauréat) : il peut être nommé PH directement sur le poste vacant (tour de recrutement ou publication entre deux tours). De plus, la rémunération d'un contractuel est plafonnée à 5 930,24 € brut mensuels en motifs 1 et 4, et en motif 3 à l'échelon de PH auquel il serait classé, ici l'échelon 3 (5 179,01 €). Les deux montants sont en dessous de sa demande.</p>
 <h4>Proposition principale : nomination PH</h4><ul><li>Reprise : CCA 1 096 j ; remplacements libéraux 1 096 j × 80 % × 2/3 = 584 j ; total ≈ 1 680 j → <b>échelon 3</b> (220 j conservés).</li><li>Rémunération, s'il signe le contrat d'engagement de service public exclusif : 5 179,01 € + IESPE 1 010 € + prime d'exercice territorial pour 4 DJ par semaine à Fougères, à plus de 20 km (700 €) = <b>6 889,01 € brut mensuels</b>, supérieur aux 6 800 € demandés, avant PDS.</li></ul>
 <h4>Alternative si un contrat est maintenu</h4><p>Motif 2, s'il est prévu au CPOM : inscription à l'Ordre depuis 2019, soit plus de 5 ans. Fixe 71 162,83 € et part variable sur objectifs (dont l'exercice à Fougères) : 6 800 × 12 = 81 600 €, sous le plafond de 119 130 €. Solution plus fragile et soumise au regard de l'ARS : la nomination est préférable.</p>`},
 {f:'annale',t:'Éligibilité au motif 2 : Dr Iris et Dr Broche',tag:'Sujet 2025 · Q5.5',
@@ -1887,7 +2021,7 @@ recrut:{t:'Recruter un praticien : quel statut ?',start:'q0',n:{
  r_m4:{r:'ok',t:'Contractuel motif 4',b:'3 ans maximum, renouvelable par décision expresse jusqu’à 6 ans ; CDI possible après 3 ans, de droit après 6 ans sur le même emploi. Pas de nomination PH ni de libéral à l’hôpital.'},
  r_m2:{r:'ok',t:'Contractuel motif 2',b:'6 mois à 3 ans, renouvelable, 6 ans maximum ; 4 DJ minimum ; fixe + part variable sur objectifs écrits, total ≤ 119 130 € brut/an. Vérifier le cumul des contrats déjà conclus dans l’établissement.'},
  r_dispo:{r:'no',t:'Motif 2 interdit',b:'Un PH en disponibilité ne peut pas être recruté en motif 2, quel que soit l’établissement. Proposer la réintégration et une nomination sur poste.'},
- r_m3:{r:'ok',t:'Contractuel motif 3',b:'Dans l’attente de l’inscription sur la liste d’aptitude ; 3 ans maximum ; 5 à 10 DJ ; levier sur l’échelon et la date de nomination ; PECH possible selon la spécialité.'},
+ r_m3:{r:'ok',t:'Contractuel motif 3',b:'Dans l’attente de l’inscription sur la liste d’aptitude ; 3 ans maximum ; 5 à 10 DJ ; rémunération plafonnée à l’échelon de PH auquel il serait classé ; PECH possible selon la spécialité.'},
  r_m1b:{r:'no',t:'Pas de motif évident',b:'Besoin permanent sans difficulté de recrutement ni projet de concours : publier le poste de PH. À défaut, motif 1 seulement si un remplacement ou un surcroît temporaire existe.'}
 }},
 sic:{t:'Situation individuelle complexe d’un PH',start:'s1',n:{
@@ -2181,7 +2315,7 @@ function tCalc(){const s=+$('t-s').value||0,e=+$('t-e').value||0;const ep=Math.m
   if(id.startsWith('m-')){const l=document.createElement('span');l.className='fam-lbl';l.innerHTML=`<i></i>${FAM[f]}`;b.insertBefore(l,w);}
   document.querySelectorAll(`.toc a[href="#${id}"]`).forEach(a=>a.classList.add('fam-'+f));});
  const toc=document.querySelector('#memo .toc');if(toc&&!document.querySelector('#memo .toc-grp')){const k=document.createElement('div');k.className='fam-key';k.innerHTML='<b style="color:var(--bleu);font-weight:500">Code couleur des sections :</b>'+Object.entries(FAM).map(([f,t])=>`<span class="fam-${f}"><i></i>${t}</span>`).join('');toc.parentNode.insertBefore(k,toc);}
- const TAB={'t-acc':'vue','t-exam':'c2','t-memo':'memo','t-form':'form','t-cas':'cas','t-logi':'logi','t-quiz':'quiz','t-calc':'calc','t-sg':'sg','t-src':'src'};
+ const TAB={'t-at':'cv','t-acc':'vue','t-exam':'c2','t-memo':'memo','t-form':'form','t-cas':'cas','t-logi':'logi','t-quiz':'quiz','t-calc':'calc','t-sg':'sg','t-src':'src'};
  Object.entries(TAB).forEach(([id,ic])=>{const a=document.getElementById(id);if(a)a.insertAdjacentHTML('afterbegin',pic(ic));});
  const CALC={'c-contrat':['statuts','statut'],'c-paie':['remu','remu'],'c-ast':['temps','ast'],'c-forf':['temps','remu'],'c-conv':['temps','temps'],'c-os':['temps','cet'],'c-etp':['temps','communaute'],'c-anc':['remu','vue'],'c-cet':['remu','cet']};
  Object.entries(CALC).forEach(([id,[f,ic]])=>{const c=document.getElementById(id);if(!c)return;c.classList.add('fam-'+f);const h=c.querySelector(':scope>h3');if(h)h.insertAdjacentHTML('afterbegin',`<span class="ic-tile">${pic(ic,chartIc(ic)?'chart':'')}</span>`);});
@@ -2384,6 +2518,501 @@ $('prog-reset').onclick=()=>{if(!confirmReset())return;prog.d={cases:{},quiz:{},
 let resetArmed=false;function confirmReset(){if(resetArmed){resetArmed=false;$('prog-reset').textContent='Effacer ma progression';return true;}resetArmed=true;$('prog-reset').textContent='Cliquer à nouveau pour confirmer';setTimeout(()=>{resetArmed=false;$('prog-reset').textContent='Effacer ma progression';},4000);return false;}
 function decorateCasesRefresh(){document.querySelectorAll('#caseList .c-done').forEach(b=>b.closest('.row').remove());document.querySelectorAll('#caseList .done-mk').forEach(m=>m.remove());decorateCases();}
 renderProg();
+
+/* ---------- atelier CV : moteur ---------- */
+const AT_TYPES=[
+ ['cca','Chef de clinique ou AHU (CHU)','s'],
+ ['asst','Assistant des hôpitaux (dont assistant partagé)','s'],
+ ['pc1','Praticien contractuel, motif 1','s'],
+ ['pc2','Praticien contractuel, motif 2','s'],
+ ['pc3','Praticien contractuel, motif 3','s'],
+ ['pc4','Praticien contractuel, motif 4','s'],
+ ['pcx','Contractuel ou attaché, motif non précisé (ou avant 2022)','s'],
+ ['ph','Praticien hospitalier','s'],
+ ['lib','Libéral ou remplacements en libéral','l'],
+ ['interim','Intérim','n'],
+ ['dj','Interne ou docteur junior','n'],
+ ['hum','Mission humanitaire ou exercice hors UE','n'],
+ ['pause','Interruption (voyage, congé…)','n']];
+const AT_T=Object.fromEntries(AT_TYPES.map(t=>[t[0],t]));
+const AT={PA:[2803.59,3052.10,3448.94],PCMIN:41386.48,PCMAX:71162.83,M2MAX:119130,IESPE:1010,PECH:{non:0,nat:10000,loc:20000,both:30000},
+ G:[55607.79,58082.41,62148.07,66567.09,68688.21,71162.83,76465.74,79647.54,90549.14,94557.64,99810.26,105062.89,112416.56],
+ S:[0,730,1460,2190,2920,3650,4380,5110,5840,7300,8760,10220,11680]};
+const atDAY=864e5;
+const atD=s=>{if(!s)return null;const p=String(s).split('-').map(Number);if(!p[0])return null;return Date.UTC(p[0],(p[1]||1)-1,p[2]||1);};
+const atIso=t=>new Date(t).toISOString().slice(0,10);
+const atAddM=(t,n)=>{const d=new Date(t);return Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+n,d.getUTCDate());};
+const atMonths=(a,b)=>{const x=new Date(a),y=new Date(b);return (y.getUTCFullYear()-x.getUTCFullYear())*12+(y.getUTCMonth()-x.getUTCMonth())+(y.getUTCDate()-x.getUTCDate())/30.4375;};
+const AT_MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const atFd=t=>{const d=new Date(t);const j=d.getUTCDate();return (j===1?'1er':j)+' '+AT_MOIS[d.getUTCMonth()]+' '+d.getUTCFullYear();};
+const atFm=t=>{const d=new Date(t);return AT_MOIS[d.getUTCMonth()]+' '+d.getUTCFullYear();};
+const atDur=m=>{m=Math.max(0,Math.round(m));const y=Math.floor(m/12),r=m%12;return [y?y+' an'+(y>1?'s':''):'',r?r+' mois':''].filter(Boolean).join(' et ')||'0 mois';};
+const atNorm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+const atEur=n=>n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+const atNb=n=>n.toLocaleString('fr-FR',{maximumFractionDigits:0});
+const atEch=j=>{let e=1;AT.S.forEach((s,i)=>{if(j>=s)e=i+1});return e;};
+
+function atReprise(exps,R,extra){
+ const per=[];
+ exps.forEach(e=>{const t=AT_T[e.type];if(!t||t[2]==='n')return;const a=atD(e.deb),f=atD(e.fin);if(a==null||f==null)return;const b=Math.min(f+atDAY,R);if(!(b>a))return;per.push({a,b,q:Math.min(+e.q||0,100)/100,k:t[2],e});});
+ (extra||[]).forEach(x=>per.push(x));
+ if(!per.length)return {S:0,L:0,lc:0,tot:0,rows:[]};
+ const a0=Math.min(...per.map(p=>p.a)),b0=Math.max(...per.map(p=>p.b));
+ let S=0,L=0;const acc=per.map(()=>0);
+ for(let t=a0;t<b0;t+=atDAY){let s=0,l=0;per.forEach(p=>{if(t>=p.a&&t<p.b){if(p.k==='s')s+=p.q;else l+=p.q;}});
+  const fs=s>1?1/s:1;const s2=Math.min(1,s);const l2=Math.min(1-s2,l);const fl=l>0?l2/l:0;
+  per.forEach((p,i)=>{if(t>=p.a&&t<p.b)acc[i]+=p.k==='s'?p.q*fs:p.q*fl;});S+=s2;L+=l2;}
+ const l1=Math.min(L,4383),lx=Math.min(Math.max(0,L-4383),2922);const lc=l1*2/3+lx/3;
+ const rows=per.map((p,i)=>({e:p.e,a:p.a,b:p.b,q:p.q,k:p.k,days:Math.round((p.b-p.a)/atDAY),w:acc[i]}));
+ return {S,L,lc,tot:Math.floor(S+lc+1e-9),rows};}
+
+function atAnalyze(cv){
+ const R=atD(cv.rec),des=atD(cv.des),ord=atD(cv.ordre)||des;
+ const dj=Math.min(10,Math.max(1,Math.round(+cv.dj||10)));const q=dj/10;
+ const tgt=atNorm(cv.etab);
+ const exps=(cv.exps||[]).filter(e=>atD(e.deb)!=null&&atD(e.fin)!=null);
+ const inT=e=>!!tgt&&atNorm(e.etab)===tgt;
+ const mo=e=>{const a=atD(e.deb),b=Math.min(atD(e.fin)+atDAY,R);return b>a?atMonths(a,b):0;};
+ const sum=f=>exps.filter(f).reduce((s,e)=>s+mo(e),0);
+ const used13=sum(e=>inT(e)&&['pc1','pc2','pc3','pcx'].includes(e.type));
+ const used1=sum(e=>inT(e)&&e.type==='pc1');
+ const used2=sum(e=>inT(e)&&e.type==='pc2');
+ const used4=sum(e=>inT(e)&&e.type==='pc4');
+ const usedA=sum(e=>e.type==='asst');
+ const pcxT=exps.some(e=>inT(e)&&e.type==='pcx');
+ const ordM=atMonths(ord,R);const ord5=atAddM(ord,60);
+ const rep0=atReprise(exps,R);const e0=atEch(rep0.tot);
+ const rem13=72-used13;
+ const rem3=Math.max(0,Math.min(36,rem13));
+ const delai=Math.max(0,Math.min(+cv.delai||0,rem3||36));
+ const N=atAddM(R,delai);
+ const repN=atReprise(exps,R,[{a:R,b:N,q,k:'s',e:null}]);const eN=atEch(repN.tot);
+ const pet=+cv.pet||0;const pret=+cv.pret||0;
+ const conc0=cv.concours||'non';
+ const liste=atD(cv.liste);const listeOK=conc0==='inscrit'&&(!liste||R<atAddM(liste,48));
+ const conc=(conc0==='inscrit'&&!listeOK&&!cv.dispo)?'prepare':conc0;
+ const pech=AT.PECH[cv.tension||'non']||0;
+ const G=e=>AT.G[e-1]/12;
+ const st={};
+ /* Assistant */
+ {const remA=72-usedA;const idx=usedA<24?0:usedA<48?1:2;const base=AT.PA[idx]*q;const ie=q===1?AT.IESPE:0;
+  const why=['Plein exercice : conditions légales d’exercice et diplôme de spécialité (R6152-503).',`Assistanat déjà accompli : ${atDur(usedA)}, sur 6 ans au plus (R6152-511).`];
+  let v='ok';if(remA<=0.01){v='no';why.push('Les 6 ans d’assistanat sont atteints.');}
+  else if(cv.dispo){v='no';why.push('Un PH en disponibilité relève d’une réintégration.');}
+  st.asst={label:'Assistant des hôpitaux',v,why,dur:remA>0?`1 an, ou 2 ans renouvelable par période d’1 an ; il reste ${atDur(remA)} sur 6 ans`:'—',
+   rem:`Échelon ${idx+1} de la grille des assistants : ${atEur(base)} brut par mois${q<1?' au prorata':''}${ie?` ; IESPE de 1 010 € s’il signe le contrat d’engagement de service public exclusif (temps plein)`:''}`,max:base+ie+pet,base,ie};}
+ /* Motif 1 */
+ {const rem1=Math.min(24-used1,rem13);const why=[];let v='ok';
+  why.push(`Motif 1 déjà accompli dans l’établissement : ${atDur(used1)} sur 2 ans (R6152-338, 1°).`);
+  why.push(`Contrats de motifs 1 à 3 dans l’établissement : ${atDur(used13)} sur 6 ans (R6152-339).`);
+  if(rem1<=0.01){v='no';why.push(used1>=23.99?'La durée de 2 ans en motif 1 est atteinte.':'La durée de 6 ans en motifs 1 à 3 est atteinte.');}
+  else if(cv.besoin!=='temp'){v='cond';why.push('Seulement pour remplacer un praticien absent ou faire face à un accroissement temporaire d’activité. Le besoin décrit est permanent.');}
+  const rep=Math.min(G(Math.min(e0,6)),AT.PCMAX/12)*q;
+  st.m1={label:'Contractuel, motif 1',v,why,dur:rem1>0?`6 mois au plus, renouvelable 6 mois ; reste dans l’établissement : ${atDur(rem1)}`:'—',
+   rem:`Grille de l’établissement, entre ${atEur(AT.PCMIN/12*q)} et ${atEur(AT.PCMAX/12*q)} brut par mois${q<1?' (au prorata)':''}. Repère : l’échelon ${Math.min(e0,6)} de PH qui correspond à son ancienneté, soit ${atEur(rep)}.`,max:AT.PCMAX/12*q+pet,rep};}
+ /* Motif 2 */
+ {const rem2=Math.min(72-used2,rem13);const why=[];let v='ok';
+  why.push(`Inscription à l’Ordre : ${atDur(ordM)} au ${atFd(R)} ; 5 ans exigés (R6152-336).`);
+  why.push(`Motif 2 déjà accompli dans l’établissement : ${atDur(used2)} ; motifs 1 à 3 : ${atDur(used13)} sur 6 ans.`);
+  if(cv.dispo){v='no';why.push('Un PH en disponibilité ne peut pas être recruté en motif 2 (R6152-338, 2°).');}
+  else if(ordM<59.99){v='no';why.push(`Moins de 5 ans d’inscription à l’Ordre : la condition sera remplie le ${atFd(ord5)}.`);}
+  else if(rem2<5.99){v='no';why.push('Il reste moins de 6 mois avant la limite de 6 ans dans l’établissement : le contrat minimal de 6 mois est impossible.');}
+  else{if(!cv.cpom){v='cond';why.push('Il faut que la spécialité figure au CPOM pour les contrats de motif 2 (R6152-340).');}
+   if(dj<4){v='cond';why.push('Quotité minimale de 4 DJ.');}}
+  const fixe=Math.min(G(e0),AT.PCMAX/12)*q;const plaf=AT.M2MAX/12*q;
+  let rem=`Part fixe dans les seuils de la grille (repère : échelon ${Math.min(e0,6)}, ${atEur(fixe)}) et part variable sur objectifs écrits ; total plafonné à ${atEur(plaf)} brut par mois (119 130 € par an à temps plein).`;
+  if(pret>0){rem+=pret<=plaf?` Pour atteindre ${atEur(pret)} : part variable de ${atEur(Math.max(0,pret-fixe))} par mois.`:` Les ${atEur(pret)} demandés dépassent ce plafond.`;}
+  const d2=Math.min(36,rem2);
+  st.m2={label:'Contractuel, motif 2',v,why,dur:d2>=6?`De 6 mois à ${atDur(d2)} pour le premier contrat ; reste dans l’établissement : ${atDur(rem2)} (6 ans au plus)`:'—',rem,max:Math.max(fixe,Math.min(pret||plaf,plaf))+pet,fixe,plaf};}
+ /* Motif 3 */
+ {const why=[];let v='ok';
+  why.push(`Contrats de motifs 1 à 3 dans l’établissement : ${atDur(used13)} sur 6 ans ; motif 3 limité à 3 ans (R6152-338, 3°, et R6152-339).`);
+  if(conc0==='inscrit'&&!listeOK&&!cv.dispo)why.push('Sa liste d’aptitude a plus de 4 ans : il doit repasser le concours ; le motif 3 couvre l’attente de la nouvelle inscription.');
+  if(conc==='inscrit'){v='no';why.push('Il est déjà inscrit sur la liste d’aptitude : le motif 3 couvre l’attente de cette inscription. Il faut le nommer PH.');}
+  else if(rem3<=0.01){v='no';why.push('La durée de 6 ans en motifs 1 à 3 est atteinte dans l’établissement.');}
+  else{if(conc==='non'){v='cond';why.push('À condition qu’il prépare le concours de PH : ce n’est pas son projet actuel.');}
+   if(dj<5){v='cond';why.push('Quotité minimale de 5 DJ (R6152-349).');}
+   if(conc==='passe')why.push('Le concours est passé : le contrat ne dure que jusqu’à la publication de la liste d’aptitude, puis il faut nommer.');}
+  const pR=G(e0)*q,pN=G(eN)*q;
+  st.m3={label:'Contractuel, motif 3',v,why,dur:rem3>0?`${atDur(rem3)} au plus`:'—',
+   rem:`Plafond : l’échelon de PH auquel il serait classé (annexe III de l’arrêté du 8 juillet 2022, renvoi à R6152-17). Échelon ${e0} à la date du recrutement (${atEur(pR)})${delai?` ; le cours retient l’échelon projeté à la nomination, après ${atDur(delai)} : échelon ${eN} (${atEur(pN)})`:''}${q<1?', au prorata':''}.`,max:Math.max(pR,pN)+pet,pR,pN};}
+ /* Motif 4 */
+ {const why=[];let v='ok';
+  if(!cv.ville){v='cond';why.push('Réservé à un praticien qui exerce aussi en ville, en ESPIC ou en clinique, pour compléter l’offre de l’établissement (R6152-338, 4°).');}
+  else why.push('Il garde une activité en ville, en ESPIC ou en clinique.');
+  if(dj>4){v=v==='ok'?'cond':v;why.push('Quotité de 4 DJ au plus (R6152-349) : la quotité envisagée est trop élevée.');}
+  if(used4>0)why.push(`Motif 4 déjà accompli dans l’établissement : ${atDur(used4)}.`);
+  st.m4={label:'Contractuel, motif 4',v,why,dur:'3 ans au plus, renouvelable par décision expresse jusqu’à 6 ans ; CDI possible après 3 ans, de droit après 6 ans sur le même emploi',
+   rem:`Grille de l’établissement, entre ${atEur(AT.PCMIN/12*q)} et ${atEur(AT.PCMAX/12*q)} brut par mois au prorata de la quotité.`,max:AT.PCMAX/12*q+pet};}
+ /* PH */
+ {const why=[];let v='ok';let e=e0;
+  if(cv.dispo){why.push('Il est déjà PH, en disponibilité : il demande sa réintégration 2 mois avant la fin (R6152-68). Le poste peut être publié au fil de l’eau pour sa réintégration.');}
+  else if(conc0==='inscrit'&&!listeOK){v='no';why.push('La liste d’aptitude ne vaut que 4 ans (R6152-304) : elle est périmée. Il doit repasser le concours.');}
+  else if(conc==='inscrit'){why.push(`Inscrit sur la liste d’aptitude${liste?' depuis le '+atFd(liste):''} (valable 4 ans, R6152-304).`);if(dj<5){v='cond';why.push('Quotité de 50 % au moins.');}}
+  else if(conc==='passe'){v='cond';e=eN;why.push('Possible dès la publication de la liste d’aptitude, s’il est lauréat.');}
+  else{v='no';why.push('Il doit d’abord réussir le concours national et être inscrit sur la liste d’aptitude.');}
+  const base=G(e)*q,ie=AT.IESPE*q;
+  st.ph={label:'Praticien hospitalier',v,why,dur:'Nomination par le DG du CNG sur un poste publié (tours d’avril et d’octobre, ou publication au fil de l’eau sur proposition du DG ARS) ; période probatoire d’1 an',
+   rem:`Échelon ${e} : ${atEur(base)} brut par mois${q<1?' au prorata':''}, plus l’IESPE (${atEur(ie)}) s’il signe le contrat d’engagement de service public exclusif${pet?` et la PET (${atEur(pet)})`:''}.`,max:base+ie+pet,base,ie,e};}
+ /* recommandation */
+ const ok=k=>st[k].v==='ok',okc=k=>st[k].v!=='no';
+ let reco=null;const alt=[];
+ if(cv.dispo)reco='ph';
+ else if(conc==='inscrit'&&ok('ph'))reco='ph';
+ else if(conc==='passe')reco=(pret>st.m3.max&&st.ph.max>=pret)?'ph':'m3';
+ else if(cv.ville&&okc('m4'))reco='m4';
+ else if(cv.besoin==='temp'&&ok('m1'))reco='m1';
+ else if(conc==='prepare'&&okc('m3'))reco=(pret>st.m3.max&&ok('m2'))?'m2':'m3';
+ else if(ok('m2')&&pret>AT.PCMAX/12*q)reco='m2';
+ else if((cv.conso||cv.liberal)&&okc('asst'))reco='asst';
+ else if(ok('m2'))reco='m2';
+ else if(okc('m3'))reco='m3';
+ else if(okc('asst')&&ordM<36)reco='asst';
+ if(!reco&&rem13<=0.01)reco='none6';
+ if(!reco)reco=['m2','m3','m1','asst','m4'].find(k=>st[k].v!=='no')||'none';
+ ['ph','m2','m3','m1','m4','asst'].forEach(k=>{if(k!==reco&&st[k].v!=='no')alt.push(k);});
+ const soon2=st.m2.v==='no'&&!cv.dispo&&ordM<59.99&&atMonths(R,ord5)<=12&&Math.min(72-used2,rem13)>=6;
+ const pechOK=pech>0&&reco&&['asst','m1','m2','m3'].includes(reco)&&(conc==='prepare'||conc==='passe'||reco==='m3');
+ return {soon2,conc0,cv,R,des,ord,ordM,ord5,q,dj,used13,used1,used2,used4,usedA,pcxT,rem13,rep0,e0,repN,eN,N,delai,st,reco,alt,pech,pechOK,pret,pet,conc,listeOK,exps};}
+
+/* ---------- atelier CV : cas préchargés et tirage au sort ---------- */
+const AT_SPE={
+ 'anesthésie-réanimation':{t:'nat',noms:[['Anne','Esthésie'],['Paul','Curare'],['Alain','Tubation'],['Sam','Dort'],['Vincent','Tilation']],loisirs:['compte les moutons à rebours','fait la sieste avec un saturomètre','collectionne les masques de plongée']},
+ 'psychiatrie':{t:'nat',noms:[['Jean','Divan'],['Lydie','Bido'],['Sue','Konscient'],['Freddy','Lapsus'],['Ella','Transfert']],loisirs:['interprète les rêves de son chat','joue aux tests de Rorschach à l’apéritif','écrit un roman sur le complexe d’Œdipe des pigeons']},
+ 'radiologie':{t:'nat',noms:[['Iris','Ayonx'],['Ray','Diographie'],['Thor','Ax'],['Marc','Opaque'],['Lucie','Contraste']],loisirs:['voit à travers les murs (dit-il)','photographie uniquement en noir et blanc','fait des puzzles de scanners']},
+ 'pédiatrie':{t:'non',noms:[['Lucie','Biberon'],['Tom','Poucet'],['Jean','Kouche'],['Lola','Rougeole'],['Max','Dodo']],loisirs:['chante des berceuses au karaoké','négocie les vaccins contre des autocollants','collectionne les doudous perdus']},
+ 'gériatrie':{t:'non',noms:[['Anne','Tique'],['Henri','Dentier'],['Gérard','Iatrie'],['Mamie','Lefort'],['Paul','Ochon']],loisirs:['joue au scrabble en tournoi','tricote des charentaises connectées','anime un club de belote']},
+ 'gastro-entérologie':{t:'non',noms:[['Colette','Ascopie'],['Anne','Testin'],['Philippe','Ylore'],['Gaston','Mac'],['Lise','Fibre']],loisirs:['écrit un blog sur la choucroute','teste tous les kebabs de Bretagne','fait du yoga digestif']},
+ 'cardiologie':{t:'non',noms:[['Hervé','Ntricule'],['Sophie','Brillation'],['Tachy','Cardie'],['Aurore','Ticule'],['Stan','Tachy']],loisirs:['court des marathons à 180 battements par minute','danse la salsa en rythme sinusal','offre des cœurs en chocolat']},
+ 'médecine d’urgence':{t:'non',noms:[['Jean','Brancard'],['Pierre','Fusion'],['Sam','Urge'],['Lise','Tdattente'],['Mel','Ambulance']],loisirs:['déteste attendre au restaurant','gare sa voiture en double file par réflexe','court partout, même en vacances']},
+ 'néphrologie':{t:'non',noms:[['Albert','Rein'],['Lise','Dialyse'],['Cora','Créatinine'],['Neph','Ron'],['Ursule','Urée']],loisirs:['boit deux litres d’eau par jour, ostensiblement','filtre ses courriels avec soin','collectionne les haricots secs']},
+ 'pneumologie':{t:'non',noms:[['Al','Véole'],['Paul','Mont'],['Lucie','Spiro'],['Bronche','Itte'],['Toussaint','Sèche']],loisirs:['joue du saxophone','souffle les bougies des autres','court sur le GR34 contre le vent']}};
+const AT_ETAB=['CH de Saint-Brieuc','GHBS Lorient','CH de Vannes','CH de Cornouaille (Quimper)','CH de Morlaix','CH de Saint-Malo','CH de Pontivy','CH de Lannion'];
+const AT_CHU=['CHU de Rennes','CHU de Brest','CHU de Nantes','CHU d’Angers'];
+
+/* Cas des diapositives (cours du 20 mai 2025) et CV du sujet 2025 */
+const AT_PRESETS=[
+ {id:'A',grp:'Cours',lbl:'Dr A · gériatrie, sortie de DES',q:'Quel contrat proposer ?',cv:{prenom:'Agathe',nom:'Riatrie',lettre:'A',spe:'gériatrie',des:'2024-11-01',ordre:'',etab:'Votre établissement',rec:'2025-07-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:true,liberal:true,decouvrir:false,ville:false,cpom:false,dispo:false,tension:'non',loisirs:'prépare déjà la plaque de son futur cabinet',exps:[]},
+  note:'Hypothèses : recrutement au 1er juillet 2025 ; inscription à l’Ordre à la date du DES.'},
+ {id:'B',grp:'Cours',lbl:'Dr B · pédiatrie, poste vacant et concours',q:'Quel contrat proposer ?',cv:{prenom:'Bérénice',nom:'Biberon',lettre:'B',spe:'pédiatrie',des:'2020-11-01',ordre:'',etab:'Votre établissement',rec:'2025-07-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'prepare',liste:'',delai:12,conso:false,liberal:false,decouvrir:false,ville:false,cpom:false,dispo:false,tension:'non',loisirs:'titulaire d’un DU de neurologie pédiatrique (2023) et d’un record de berceuses',exps:[{type:'cca',etab:'CHU de Caen',deb:'2021-01-01',fin:'2022-12-31',q:100},{type:'pcx',etab:'CH de Cherbourg',deb:'2023-01-01',fin:'2025-05-31',q:100}]},
+  note:'Hypothèses : recrutement au 1er juillet 2025 dans un autre établissement que Cherbourg ; nomination envisagée 1 an plus tard.'},
+ {id:'C',grp:'Cours',lbl:'Dr C · gastro-entérologie, remplacement',q:'Quel contrat proposer ?',cv:{prenom:'Colette',nom:'Ascopie',lettre:'C',spe:'gastro-entérologie',des:'2023-11-01',ordre:'',etab:'Votre établissement',rec:'2025-07-01',dj:10,pret:0,pet:0,besoin:'temp',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:true,ville:false,cpom:false,dispo:false,tension:'non',loisirs:'rentre de six mois de voyage avec un carnet de cantines',exps:[{type:'asst',etab:'CHU de Rennes et CH de Saint-Brieuc',deb:'2023-11-01',fin:'2024-10-31',q:100},{type:'pause',etab:'Voyage',deb:'2024-11-01',fin:'2025-05-31',q:100}]},
+  note:'Hypothèses : recrutement au 1er juillet 2025 ; le poste vacant permet de commencer par un remplacement.'},
+ {id:'D',grp:'Cours',lbl:'Dr D · pédiatrie, motif 3 imposé',q:'Quelle rémunération proposer ?',cv:{prenom:'Diane',nom:'Couche',lettre:'D',spe:'pédiatrie',des:'2020-11-01',ordre:'',etab:'Votre établissement',rec:'2025-07-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'passe',liste:'',delai:12,conso:false,liberal:false,decouvrir:false,ville:false,cpom:false,dispo:false,tension:'non',loisirs:'DU de neurologie pédiatrique (2023), jongle avec trois tétines',exps:[{type:'cca',etab:'CHU de Caen',deb:'2021-01-01',fin:'2022-12-31',q:100},{type:'pcx',etab:'CH de Cherbourg',deb:'2023-01-01',fin:'2025-05-31',q:100}]},
+  note:'Données du cours : contrat de motif 3 au 1er juillet 2025, nomination PH après 1 an de contrat ; concours passé en avril 2025.'},
+ {id:'E',grp:'Cours',lbl:'Dr E · imagerie, prétentions à 5 930,24 €',q:'Le motif envisagé est-il faisable ? Quelles propositions alternatives ?',cv:{prenom:'Émile',nom:'Hirm',lettre:'E',spe:'radiologie',des:'2020-11-01',ordre:'',etab:'Votre établissement',rec:'2025-07-01',dj:10,pret:5930.24,pet:0,besoin:'perm',concours:'passe',liste:'',delai:12,conso:false,liberal:false,decouvrir:false,ville:false,cpom:false,dispo:false,tension:'nat',loisirs:'DU d’imagerie cardiaque interventionnelle (2024), voit la vie en niveaux de gris',exps:[{type:'cca',etab:'CHU de Tours',deb:'2021-01-01',fin:'2023-12-31',q:100},{type:'pcx',etab:'CHU de Tours',deb:'2024-01-01',fin:'2025-05-31',q:100}]},
+  note:'Données du cours : motif 3 envisagé, nomination après 1 an de contrat ; concours passé en avril 2025. Hypothèse : recrutement au 1er juillet 2025.'},
+ {id:'F',grp:'Cours',lbl:'Dr F · anesthésie, prétentions à 7 500 €',q:'Quel contrat et quelle rémunération proposer ?',cv:{prenom:'Fanny',nom:'Esthésie',lettre:'F',spe:'anesthésie-réanimation',des:'2020-11-01',ordre:'',etab:'CH de La Rochelle',rec:'2025-07-01',dj:10,pret:7500,pet:0,besoin:'perm',concours:'non',liste:'',delai:36,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'nat',loisirs:'s’endort pendant les films, jamais pendant les inductions',exps:[{type:'cca',etab:'CHU de Bordeaux',deb:'2021-01-01',fin:'2023-12-31',q:100},{type:'pc1',etab:'CH de La Rochelle',deb:'2024-01-01',fin:'2025-05-31',q:100}]},
+  note:'Hypothèses : le recrutement se fait au CH de La Rochelle au 1er juillet 2025 ; l’anesthésie figure au CPOM pour le motif 2 ; pas de politique de nomination, donc projection sur 3 ans.'},
+ {id:'G',grp:'Cours',lbl:'Dr G · psychiatrie, motif 2 au GH Rance Émeraude ?',q:'Éligible au motif 2 ? Sur quelle durée ?',cv:{prenom:'Gaspard',nom:'Divan',lettre:'G',spe:'psychiatrie',des:'2023-11-01',ordre:'',etab:'GH Rance Émeraude',rec:'2025-06-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'nat',loisirs:'analyse les lapsus de son GPS',exps:[{type:'interim',etab:'Missions d’intérim',deb:'2023-11-01',fin:'2024-12-31',q:100},{type:'pcx',etab:'CH Guillaume Régnier',deb:'2025-01-01',fin:'2025-05-31',q:100}]},
+  note:'Hypothèse : la psychiatrie figure au CPOM du GH Rance Émeraude ; date d’analyse : 1er juin 2025.'},
+ {id:'H1',grp:'Cours',lbl:'Dr H · psychiatrie, motif 2 à Guillaume Régnier',q:'Éligible au motif 2 ? Sur quelle durée ?',cv:{prenom:'Hector',nom:'Freudien',lettre:'H',spe:'psychiatrie',des:'2019-11-01',ordre:'',etab:'CH Guillaume Régnier',rec:'2025-06-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'nat',loisirs:'tient un journal de ses rêves depuis 1999',exps:[{type:'asst',etab:'CH Guillaume Régnier',deb:'2019-11-01',fin:'2022-10-31',q:100},{type:'pcx',etab:'CH Guillaume Régnier',deb:'2022-11-01',fin:'2025-05-31',q:100}]},
+  note:'Hypothèse : la psychiatrie figure au CPOM ; date d’analyse : 1er juin 2025.'},
+ {id:'H2',grp:'Cours',lbl:'Dr H · psychiatrie, motif 2 au GH Rance Émeraude',q:'Éligible au motif 2 ? Sur quelle durée ?',cv:{prenom:'Hector',nom:'Freudien',lettre:'H',spe:'psychiatrie',des:'2019-11-01',ordre:'',etab:'GH Rance Émeraude',rec:'2025-06-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'nat',loisirs:'tient un journal de ses rêves depuis 1999',exps:[{type:'asst',etab:'CH Guillaume Régnier',deb:'2019-11-01',fin:'2022-10-31',q:100},{type:'pcx',etab:'CH Guillaume Régnier',deb:'2022-11-01',fin:'2025-05-31',q:100}]},
+  note:'Hypothèse : la psychiatrie figure au CPOM ; date d’analyse : 1er juin 2025.'},
+ {id:'I1',grp:'Cours',lbl:'Dr I · psychiatrie, renouvellement à Saint-Malo',q:'Éligible au motif 2 ? Sur quelle durée ?',cv:{prenom:'Igor',nom:'Lacan',lettre:'I',spe:'psychiatrie',des:'2018-11-01',ordre:'',etab:'CH de Saint-Malo',rec:'2025-04-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'nat',loisirs:'parle en nœuds borroméens',exps:[{type:'pc1',etab:'CH de Saint-Malo',deb:'2019-04-01',fin:'2021-03-31',q:100},{type:'pc2',etab:'CH de Saint-Malo',deb:'2021-04-01',fin:'2024-03-31',q:100},{type:'pc2',etab:'CH de Saint-Malo',deb:'2024-04-01',fin:'2025-03-31',q:100}]},
+  note:'Hypothèses : renouvellement au 1er avril 2025 ; la psychiatrie figure au CPOM. Les contrats antérieurs à 2022 comptent dans les 6 ans (article 9 du décret 2022-135).'},
+ {id:'I2',grp:'Cours',lbl:'Dr I · psychiatrie, motif 2 à Saint-Brieuc',q:'Éligible au motif 2 ? Sur quelle durée ?',cv:{prenom:'Igor',nom:'Lacan',lettre:'I',spe:'psychiatrie',des:'2018-11-01',ordre:'',etab:'CH de Saint-Brieuc',rec:'2025-04-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'nat',loisirs:'parle en nœuds borroméens',exps:[{type:'pc1',etab:'CH de Saint-Malo',deb:'2019-04-01',fin:'2021-03-31',q:100},{type:'pc2',etab:'CH de Saint-Malo',deb:'2021-04-01',fin:'2024-03-31',q:100},{type:'pc2',etab:'CH de Saint-Malo',deb:'2024-04-01',fin:'2025-03-31',q:100}]},
+  note:'Hypothèses : recrutement au 1er avril 2025 ; la psychiatrie figure au CPOM de Saint-Brieuc.'},
+ {id:'BON',grp:'Sujet 2025',lbl:'Dr Bonsouffle · pneumologie (Q5.3)',q:'Quel contrat et quelle rémunération ?',cv:{prenom:'',nom:'Bonsouffle',lettre:'',spe:'pneumologie',des:'2022-10-15',ordre:'',etab:'Votre établissement',rec:'2025-07-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'prepare',liste:'',delai:24,conso:false,liberal:false,decouvrir:false,ville:false,cpom:false,dispo:false,tension:'non',loisirs:'FST de cancérologie, thèse le 20/09/2021',exps:[{type:'dj',etab:'CHU de Caen',deb:'2021-11-01',fin:'2022-10-31',q:100},{type:'asst',etab:'CHU de Caen et CH de Saint-Lô',deb:'2022-11-01',fin:'2023-10-31',q:100},{type:'hum',etab:'Mission humanitaire',deb:'2023-11-01',fin:'2024-10-31',q:100},{type:'pcx',etab:'CH de Cherbourg',deb:'2025-01-01',fin:'2025-06-30',q:100}]},
+  note:'Données du sujet : poste vacant au 1er juillet 2025 ; politique de l’établissement : nomination après 2 ans de contrat.'},
+ {id:'CAN',grp:'Sujet 2025',lbl:'Dr Canule · anesthésie (Q5.4)',q:'Le motif 3 est-il faisable ?',cv:{prenom:'',nom:'Canule',lettre:'',spe:'anesthésie-réanimation',des:'2019-10-01',ordre:'',etab:'CHU de Rennes',rec:'2025-11-01',dj:10,pret:6800,pet:700,besoin:'perm',concours:'inscrit',liste:'2025-07-01',delai:12,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'nat',loisirs:'poste partagé 60 % Rennes et 40 % Fougères (PET de 700 €)',exps:[{type:'cca',etab:'CHU de Nancy puis Besançon',deb:'2019-11-01',fin:'2022-10-31',q:100},{type:'lib',etab:'Remplacements en clinique',deb:'2022-11-01',fin:'2025-10-31',q:80}]},
+  note:'Hypothèse : lauréat du concours d’avril 2025, liste publiée avant novembre 2025.'},
+ {id:'IRIS',grp:'Sujet 2025',lbl:'Dr Iris · ophtalmologie (Q5.5)',q:'Éligible au motif 2 ?',cv:{prenom:'',nom:'Iris',lettre:'',spe:'ophtalmologie',des:'2021-10-25',ordre:'',etab:'GHBS Lorient',rec:'2025-11-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'non',loisirs:'thèse le 12/09/2020',exps:[{type:'asst',etab:'CHU de Nantes et CH de Cholet',deb:'2021-11-01',fin:'2023-10-30',q:100},{type:'lib',etab:'Remplacements libéraux',deb:'2023-11-01',fin:'2025-10-31',q:100}]},note:''},
+ {id:'BRO',grp:'Sujet 2025',lbl:'Dr Broche · orthopédie (Q5.5)',q:'Renouvellement du motif 2 pour 3 ans ?',cv:{prenom:'',nom:'Broche',lettre:'',spe:'chirurgie orthopédique',des:'2018-10-01',ordre:'',etab:'CH de Saint-Brieuc',rec:'2026-05-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:true,dispo:false,tension:'non',loisirs:'DES obtenu à Bruxelles',exps:[{type:'asst',etab:'CHU de Rennes et CH de Saint-Brieuc',deb:'2019-05-01',fin:'2020-04-30',q:100},{type:'pcx',etab:'CH de Saint-Brieuc',deb:'2020-05-01',fin:'2022-04-30',q:100},{type:'pc2',etab:'CH de Saint-Brieuc',deb:'2022-05-01',fin:'2026-04-30',q:100}]},note:''},
+ {id:'OCY',grp:'Sujet 2025',lbl:'Dr Ocytocine · reclassement (Q5.6)',q:'Calculer l’échelon et la rémunération à la nomination.',cv:{prenom:'',nom:'Ocytocine',lettre:'',spe:'gynécologie-obstétrique',des:'2018-04-01',ordre:'',etab:'CH de Morlaix',rec:'2026-01-01',dj:10,pret:0,pet:0,besoin:'perm',concours:'inscrit',liste:'2025-07-01',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:false,dispo:false,tension:'non',loisirs:'nommée PH le 1er janvier 2026',exps:[{type:'asst',etab:'CHU de Brest et CH de Carhaix',deb:'2018-05-01',fin:'2020-04-30',q:100},{type:'hum',etab:'Mission humanitaire',deb:'2020-06-01',fin:'2020-12-31',q:100},{type:'pcx',etab:'CH de Morlaix',deb:'2021-01-01',fin:'2022-12-31',q:50},{type:'lib',etab:'Cabinet libéral',deb:'2021-01-01',fin:'2022-12-31',q:50},{type:'pc2',etab:'CH de Morlaix',deb:'2023-01-01',fin:'2025-12-31',q:100}]},
+  note:'Hypothèses : date du DES non donnée (avril 2018 retenu) ; contrat de motif 2 au CH de Morlaix.'}
+];
+
+/* Tirage au sort */
+const atR=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const atPick=a=>a[Math.floor(Math.random()*a.length)];
+const AT_ARCH=[['sortie','Sortie de DES'],['rempl','Remplacement'],['concours','Préparation du concours'],['laureat','Lauréat du concours'],['m2','Motif 2 et ses 5 ans'],['sixans','Les 6 ans de contrats'],['ville','Exercice mixte avec la ville'],['dispo','PH en disponibilité']];
+function atRandom(kind){
+ kind=kind&&kind!=='any'?kind:atPick(AT_ARCH)[0];
+ const now=new Date();const R=Date.UTC(now.getUTCFullYear(),now.getUTCMonth()+atR(1,4),1);const Ry=new Date(R).getUTCFullYear();
+ const speK=kind==='m2'||kind==='sixans'?atPick(Object.keys(AT_SPE)):atPick(Object.keys(AT_SPE));const S=AT_SPE[speK];const nm=atPick(S.noms);
+ const etab=atPick(AT_ETAB);const chu=atPick(AT_CHU);
+ const nov=y=>atIso(Date.UTC(y,10,1));const eom=t=>atIso(t-atDAY);
+ const cv={prenom:nm[0],nom:nm[1],lettre:'',spe:speK,des:'',ordre:'',etab,rec:atIso(R),dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:false,dispo:false,tension:S.t,loisirs:atPick(S.loisirs),exps:[]};
+ const autre=atPick(AT_ETAB.filter(x=>x!==etab));
+ if(kind==='sortie'){const y=atMonths(Date.UTC(Ry,10,1),R)>=2?Ry:Ry-1;const d=Date.UTC(y,10,1);cv.des=atIso(d);cv.exps=[{type:'dj',etab:chu,deb:atIso(Date.UTC(y-1,10,1)),fin:eom(d),q:100}];cv.conso=true;cv.liberal=Math.random()<.5;}
+ else if(kind==='rempl'){const y=Ry-atR(2,5);const d=Date.UTC(y,10,1);cv.des=atIso(d);const a=atR(1,2);cv.exps=[{type:atPick(['cca','asst']),etab:chu,deb:atIso(d),fin:eom(Date.UTC(y+a,10,1)),q:100}];
+  const used=atPick([0,6,12,18,24]);if(used){cv.exps.push({type:'pc1',etab,deb:atIso(atAddM(R,-used)),fin:eom(R),q:100});}
+  cv.besoin='temp';cv.decouvrir=true;}
+ else if(kind==='concours'){const y=Ry-atR(2,4);const d=Date.UTC(y,10,1);cv.des=atIso(d);const a=atR(2,3);const e1=Date.UTC(y+a,0,1);
+  cv.exps=[{type:'cca',etab:chu,deb:atIso(Date.UTC(y+1,0,1)),fin:eom(e1),q:100}];if(e1<atAddM(R,-3))cv.exps.push({type:'pcx',etab:Math.random()<.5?etab:autre,deb:atIso(e1),fin:eom(atAddM(R,-1)),q:atPick([100,100,80])});
+  cv.concours='prepare';cv.delai=atPick([12,24]);if(Math.random()<.5)cv.pret=atPick([5500,6000,6500,7000]);}
+ else if(kind==='laureat'){const y=Ry-atR(3,6);const d=Date.UTC(y,10,1);cv.des=atIso(d);cv.exps=[{type:'cca',etab:chu,deb:atIso(d),fin:eom(Date.UTC(y+2,10,1)),q:100},{type:atPick(['pcx','lib']),etab:atPick([autre,'Remplacements libéraux']),deb:atIso(Date.UTC(y+2,10,1)),fin:eom(atAddM(R,-1)),q:atPick([100,80,60])}];
+  cv.concours='inscrit';cv.liste=atIso(Math.random()<.2?atAddM(R,-atR(49,60)):atAddM(R,-atR(2,30)));if(Math.random()<.3)cv.pet=atPick([250,450,700]);}
+ else if(kind==='m2'){const yrs=atR(4,7);const d=atAddM(R,-yrs*12-atR(-5,5));cv.des=atIso(Date.UTC(new Date(d).getUTCFullYear(),10,1));
+  const dd=atD(cv.des);cv.exps=[{type:'cca',etab:chu,deb:atIso(atAddM(dd,2)),fin:eom(atAddM(dd,38)),q:100}];if(atAddM(dd,38)<atAddM(R,-2))cv.exps.push({type:'lib',etab:'Remplacements libéraux',deb:atIso(atAddM(dd,38)),fin:eom(atAddM(R,-1)),q:100});
+  cv.cpom=Math.random()<.85;cv.pret=atPick([7000,7500,8000,8500,9500,10500]);}
+ else if(kind==='sixans'){const y=Ry-atR(8,10);cv.des=atIso(Date.UTC(y,10,1));const used=atR(54,75);const start=atAddM(R,-used);const m1=Math.min(24,atR(12,24));
+  cv.exps=[{type:'pc1',etab,deb:atIso(start),fin:eom(atAddM(start,m1)),q:100},{type:'pc2',etab,deb:atIso(atAddM(start,m1)),fin:eom(R),q:100}];cv.cpom=true;cv.pret=atPick([0,7500,8500]);}
+ else if(kind==='ville'){const y=Ry-atR(3,12);cv.des=atIso(Date.UTC(y,10,1));cv.exps=[{type:'lib',etab:'Cabinet de ville',deb:atIso(Date.UTC(y+1,0,1)),fin:eom(R),q:atPick([60,70,80])}];cv.ville=true;cv.dj=atPick([2,3,4,4,5]);}
+ else if(kind==='dispo'){const y=Ry-atR(10,16);cv.des=atIso(Date.UTC(y,10,1));const p=Date.UTC(y+3,0,1);const f=atAddM(R,-atR(6,30));
+  cv.exps=[{type:'ph',etab:autre,deb:atIso(p),fin:eom(f),q:100},{type:'lib',etab:'Clinique privée',deb:atIso(f),fin:eom(R),q:100}];cv.dispo=true;cv.cpom=true;cv.pret=atPick([8000,9000]);cv.concours='inscrit';cv.liste='';}
+ return {id:'rand',grp:'Aléatoire',lbl:'CV tiré au sort',q:'Quel contrat proposer, pour quelle durée et quelle rémunération ?',cv,note:'CV tiré au sort : dates et parcours fictifs. La solution est calculée par l’atelier.',kind};}
+
+/* ---------- cas des diapositives (cours du 20 mai 2025) ---------- */
+const AT_CASES=[
+{f:'contrat',at:'A',t:'Dr A (Agathe Riatrie), gériatre : quel contrat proposer ?',tag:'Cours du 20 mai 2025 · cas 1',
+e:`<b>Dr Agathe Riatrie</b> (Dr A du cours). DES de gériatrie en novembre 2024. Aucune expérience depuis. Projet : consolider les acquis de l’internat, puis s’installer en libéral d’ici 1 à 2 ans. Hypothèse : recrutement au 1er juillet 2025.`,
+c:`<h4>Ce qu’il faut repérer</h4><ul><li>Elle sort du DES et ne prépare pas le concours : pas de motif 3.</li><li>Elle est inscrite à l’Ordre depuis 8 mois : pas de motif 2 (5 ans exigés, R6152-336).</li><li>Le besoin n’est pas un remplacement : le motif 1 ne convient pas.</li></ul>
+<h4>Réponse</h4><ul><li><b>Assistante des hôpitaux</b> : contrat d’1 an, ou de 2 ans renouvelable par période d’1 an, 6 ans au plus (R6152-511). C’est le statut de consolidation après l’internat.</li><li>Rémunération : échelon 1 de la grille des assistants, 2 803,59 € brut par mois, plus l’IESPE de 1 010 € si elle signe le contrat d’engagement de service public exclusif, soit 3 813,59 € <span class="vb c">cours</span>.</li><li>Argument pour son projet : le titre d’ancien assistant ouvre l’accès au secteur 2. Le cours indique 2 ans de fonctions, ramenés à 1 an depuis la réforme du docteur junior <span class="vb c">cours</span>.</li></ul>
+<div class="box vigil"><span class="lbl">Piège</span><p>Proposer un motif 3 « pour la garder » : elle ne prépare pas le concours, et le motif 3 couvre l’attente de l’inscription sur la liste d’aptitude.</p></div>`},
+{f:'contrat',at:'B',t:'Dr B (Bérénice Biberon), pédiatre : quel contrat proposer ?',tag:'Cours du 20 mai 2025 · cas 2',
+e:`<b>Dr Bérénice Biberon</b> (Dr B du cours). DES de pédiatrie en novembre 2020 ; DU de neurologie pédiatrique en 2023. Cheffe de clinique en néonatologie au CHU de Caen de janvier 2021 à janvier 2023 ; praticienne contractuelle en pédiatrie au CH de Cherbourg de janvier 2023 à mai 2025. Candidate sur un poste vacant (départ en retraite) ; souhaite passer le concours de PH à la prochaine session. Hypothèse : recrutement au 1er juillet 2025, dans un autre établissement que Cherbourg.`,
+c:`<h4>Ce qu’il faut repérer</h4><ul><li>Poste vacant et projet de concours : c’est la situation du motif 3, « dans l’attente de l’inscription sur la liste d’aptitude » (R6152-338, 3°).</li><li>Inscription à l’Ordre depuis novembre 2020 : 4 ans et 8 mois au 1er juillet 2025. Le motif 2 n’est pas possible avant le 1er novembre 2025.</li><li>Le contrat de Cherbourg a été conclu dans un autre établissement : il ne compte pas dans les 6 ans (R6152-339).</li></ul>
+<h4>Réponse</h4><ul><li><b>Motif 3</b>, 3 ans au plus, à temps plein (5 DJ au moins).</li><li>Rémunération plafonnée à l’échelon de PH auquel elle serait classée (annexe III de l’arrêté du 8 juillet 2022) : services repris 730 jours (CCA) + 882 jours (Cherbourg) = 1 612 jours, soit l’<b>échelon 3, 5 179,01 €</b> brut par mois. Avec une nomination 1 an plus tard, l’échelon projeté reste le 3 (1 977 jours).</li><li>PECH : la pédiatrie ne figure pas sur la liste nationale ; 20 000 € seulement si le DG ARS a reconnu le poste en tension sur le territoire.</li></ul>
+<div class="box vigil"><span class="lbl">Piège</span><p>Proposer un motif 1 : il ne s’agit ni d’un remplacement ni d’un surcroît temporaire. Le besoin est permanent.</p></div>`},
+{f:'contrat',at:'C',t:'Dr C (Colette Ascopie), gastro-entérologue : quel contrat proposer ?',tag:'Cours du 20 mai 2025 · cas 3',
+e:`<b>Dr Colette Ascopie</b> (Dr C du cours). DES de gastro-entérologie en novembre 2023. Assistante partagée CHU de Rennes et CH de Saint-Brieuc de novembre 2023 à novembre 2024, puis voyage jusqu’en mai 2025. Candidate sur un poste vacant, avec la possibilité de commencer par un remplacement ; souhaite découvrir différents services et établissements pour définir son projet professionnel. Hypothèse : recrutement au 1er juillet 2025.`,
+c:`<h4>Ce qu’il faut repérer</h4><ul><li>Elle veut garder de la souplesse et un remplacement existe : c’est le motif 1.</li><li>Pas de projet de concours pour l’instant : le motif 3 viendra plus tard, si elle s’engage.</li><li>Inscription à l’Ordre depuis 1 an et 8 mois : motif 2 impossible.</li></ul>
+<h4>Réponse</h4><ul><li><b>Motif 1</b> : 6 mois au plus, renouvelable 6 mois, 2 ans au plus dans l’établissement (R6152-338, 1°).</li><li>Rémunération dans la grille de l’établissement, entre 3 448,87 € et 5 930,24 € brut par mois. Repère : 366 jours repris (assistanat), soit l’échelon 1 de PH, 4 633,98 €. Le voyage n’est pas repris.</li><li>Alternative : un nouveau contrat d’assistante (il lui reste 5 ans sur 6) si elle préfère un cadre d’1 an.</li></ul>
+<div class="box retenir"><span class="lbl">Pour la suite</span><p>Si elle décide de passer le concours, basculer en motif 3 sur le poste vacant ; le motif 1 accompli compte dans les 6 ans de contrats.</p></div>`},
+{f:'remu',at:'D',t:'Dr D (Diane Couche), pédiatre : quelle rémunération en motif 3 ?',tag:'Cours du 20 mai 2025 · cas 4',
+e:`<b>Dr Diane Couche</b> (Dr D du cours). DES de pédiatrie en novembre 2020 ; DU de neurologie pédiatrique en 2023. Cheffe de clinique en néonatologie au CHU de Caen de janvier 2021 à janvier 2023 ; praticienne contractuelle en pédiatrie au CH de Cherbourg de janvier 2023 à mai 2025. A passé le concours de PH en avril 2025. Contrat proposé : motif 3 au 1er juillet 2025. Politique de l’établissement : nomination PH après 1 an de contrat. La grille des PH est fournie.`,
+c:`<h4>Ce qu’il faut repérer</h4><ul><li>Le plafond du motif 3 est l’échelon de PH auquel elle serait classée (annexe III de l’arrêté du 8 juillet 2022, renvoi à R6152-17). Le cours retient l’échelon projeté à la date de nomination.</li><li>Il faut donc reprendre son ancienneté, à la date du contrat puis à la date de nomination prévue.</li></ul>
+<h4>Calcul</h4><div class="tbl"><table><tr><th>Période</th><th>Jours repris</th></tr><tr><td>CCA, janvier 2021 à décembre 2022</td><td class="num">730</td></tr><tr><td>Contractuelle à Cherbourg, janvier 2023 à mai 2025</td><td class="num">882</td></tr><tr><td><b>Au 1er juillet 2025</b></td><td class="num"><b>1 612 : échelon 3</b></td></tr><tr><td>Motif 3, juillet 2025 à juin 2026</td><td class="num">+ 365</td></tr><tr><td><b>À la nomination, 1er juillet 2026</b></td><td class="num"><b>1 977 : échelon 3</b></td></tr></table></div>
+<h4>Réponse</h4><p>Proposer <b>5 179,01 € brut par mois</b> (échelon 3, 62 148,07 € par an), sans IESPE, avec les gardes et le TTA. L’échelon 4 commence à 2 190 jours : elle l’atteindra fin janvier 2027.</p>
+<div class="box vigil"><span class="lbl">Vigilance</span><p>Le texte vise l’attente de l’<b>inscription</b> sur la liste d’aptitude. Si elle est lauréate du concours d’avril 2025, la liste paraît dans l’année : à sa publication, le motif 3 n’a plus d’objet et il faut la nommer, sans attendre le terme d’un an fixé par l’établissement.</p></div>`},
+{f:'remu',at:'E',t:'Dr E (Émile Hirm), radiologue : le motif 3 tient-il face à ses prétentions ?',tag:'Cours du 20 mai 2025 · cas 5',
+e:`<b>Dr Émile Hirm</b> (Dr E du cours). DES d’imagerie en novembre 2020 ; DU d’imagerie cardiaque interventionnelle en 2024. Chef de clinique en imagerie au CHU de Tours de janvier 2021 à janvier 2024 ; praticien contractuel en imagerie interventionnelle au CHU de Tours de janvier 2024 à mai 2025. A passé le concours de PH en avril 2025. Prétentions : 5 930,24 € brut par mois. Position de l’établissement : motif 3, nomination PH après 1 an de contrat. Le motif envisagé est-il faisable ? Quelles propositions alternatives ?`,
+c:`<h4>Faisabilité du motif 3</h4><ul><li>Services repris au 1er juillet 2025 : 1 095 jours (CCA) + 517 jours (contrat) = 1 612 jours, soit l’échelon 3 ; échelon 3 aussi à la nomination prévue (1 977 jours).</li><li>Le motif 3 est donc plafonné à <b>5 179,01 €</b> : les 5 930,24 € demandés (échelon 6) ne sont pas atteignables.</li><li>Le concours est passé : dès son inscription sur la liste d’aptitude, le motif 3 n’a plus d’objet.</li></ul>
+<h4>Propositions alternatives</h4><ul><li><b>Nomination comme PH dès la publication de la liste</b> : échelon 3, 5 179,01 €, plus l’IESPE de 1 010 € s’il signe le contrat d’engagement de service public exclusif, soit <b>6 189,01 €</b>, au-dessus de ses prétentions. C’est la proposition à retenir.</li><li>Motif 1 jusqu’à 5 930,24 € : seulement s’il existe un vrai besoin temporaire, ce qui n’est pas le cas.</li><li>Motif 2 : impossible avant le 1er novembre 2025 (5 ans d’inscription à l’Ordre), et seulement si l’imagerie figure au CPOM.</li><li>En attendant la liste : motif 3 à 5 179,01 €, avec la PECH de 10 000 € (radiologie, spécialité en tension nationale), versée pour moitié à la signature et pour moitié à la nomination.</li></ul>`},
+{f:'remu',at:'F',t:'Dr F (Fanny Esthésie), anesthésiste : 7 500 € par mois, est-ce possible ?',tag:'Cours du 20 mai 2025 · cas 6',
+e:`<b>Dr Fanny Esthésie</b> (Dr F du cours). DES d’anesthésie en novembre 2020. Cheffe de clinique en anesthésie au CHU de Bordeaux de janvier 2021 à janvier 2024 ; praticienne contractuelle en anesthésie au CH de La Rochelle, sur un remplacement, de janvier 2024 à mai 2025. Prétentions : 7 500 € brut par mois. Quel contrat et quelle rémunération proposer ? Hypothèses : recrutement au CH de La Rochelle au 1er juillet 2025 ; l’anesthésie figure au CPOM pour le motif 2.`,
+c:`<h4>Ce qu’il faut repérer</h4><ul><li>7 500 € dépasse le maximum de la grille (5 930,24 €) : seul le motif 2 permet d’y arriver, avec une part variable.</li><li>Inscription à l’Ordre depuis novembre 2020 : 4 ans et 8 mois au 1er juillet 2025. Le motif 2 n’est possible qu’à partir du <b>1er novembre 2025</b>.</li><li>Elle a déjà 17 mois de motif 1 à La Rochelle : il en reste 7, et le besoin n’est plus un remplacement.</li></ul>
+<h4>Les options chiffrées</h4><ul><li><b>Motif 3</b>, si elle prépare le concours : plafond à l’échelon 3 (5 179,01 €, 1 612 jours repris). Le cours retient l’échelon projeté à la nomination : après 3 ans, 2 708 jours, échelon 4 (5 547,26 €). PECH de 10 000 € (anesthésie, tension nationale). C’est en dessous de 7 500 €.</li><li><b>Motif 2</b> à partir du 1er novembre 2025 : part fixe à l’échelon 3 (5 179,01 €) et part variable de 2 320,99 € par mois sur objectifs écrits, soit 7 500 €, sous le plafond de 9 927,50 € (119 130 € par an). Durée : 6 mois à 3 ans ; il reste 4 ans et 7 mois de contrats possibles à La Rochelle.</li></ul>
+<h4>Proposition</h4><p>Un contrat de motif 3 (ou de motif 1 si un remplacement subsiste) de juillet à octobre 2025, puis un contrat de motif 2 à compter du 1er novembre 2025, avec des objectifs d’activité et de participation à la PDS. Gardes et TTA en sus.</p>
+<div class="box vigil"><span class="lbl">La date change la réponse</span><p>Analysée en 2026, la condition des 5 ans est remplie et le motif 2 est possible tout de suite ; l’ancienneté reprise augmente aussi. L’atelier CV permet de modifier la date de recrutement pour le vérifier.</p></div>`},
+{f:'contrat',at:'H1',t:'Dr G, H et I, psychiatres : éligibles au motif 2, et pour combien de temps ?',tag:'Cours du 20 mai 2025 · cas 7',
+e:`<b>Dr Gaspard Divan</b> (Dr G) : DES de psychiatrie en novembre 2023 ; intérim de novembre 2023 à décembre 2024 ; praticien contractuel au CH Guillaume Régnier (Rennes) depuis janvier 2025. Projet : motif 2 au GH Rance Émeraude.<br><b>Dr Hector Freudien</b> (Dr H) : DES de psychiatrie en novembre 2019 ; assistant au CH Guillaume Régnier de novembre 2019 à novembre 2022 ; contractuel au même hôpital de novembre 2022 à mai 2025. Projet : passer en motif 2 à Guillaume Régnier, ou être recruté en motif 2 au GH Rance Émeraude.<br><b>Dr Igor Lacan</b> (Dr I) : DES de psychiatrie en novembre 2018 ; contractuel au CH de Saint-Malo en motif 1 d’avril 2019 à avril 2021, puis en motif 2 d’avril 2021 à avril 2024 et d’avril 2024 à avril 2025. Projet : renouvellement en motif 2 à Saint-Malo, ou recrutement en motif 2 au CH de Saint-Brieuc.<br>Hypothèse : la psychiatrie figure au CPOM des établissements concernés.`,
+c:`<h4>Dr G : non</h4><p>Inscription à l’Ordre depuis novembre 2023 : 1 an et 7 mois au 1er juin 2025, loin des 5 ans exigés (R6152-336). Motif 2 possible au plus tôt le 1er novembre 2028. Alternatives au GH Rance Émeraude : motif 3 s’il prépare le concours, avec la PECH de 10 000 € (psychiatrie, tension nationale), ou motif 1 sur un remplacement.</p>
+<h4>Dr H : oui, dans les deux établissements</h4><ul><li>Inscription depuis novembre 2019 : 5 ans et 7 mois, condition remplie.</li><li>À Guillaume Régnier : les contrats depuis novembre 2022 (2 ans et 7 mois) comptent dans les 6 ans ; l’assistanat n’y compte pas. Motif 2 de 6 mois à 3 ans pour le premier contrat ; 3 ans et 5 mois au total encore possibles.</li><li>Au GH Rance Émeraude : le compteur part de zéro. Motif 2 de 6 mois à 3 ans, renouvelable jusqu’à 6 ans.</li></ul>
+<h4>Dr I : non à Saint-Malo, oui à Saint-Brieuc</h4><ul><li>Saint-Malo : 2 ans de motif 1 et 4 ans de motif 2 font 6 ans de contrats successifs dans l’établissement. La limite de R6152-339 est atteinte ; les contrats antérieurs à février 2022 comptent (article 9 du décret 2022-135). Le renouvellement est impossible.</li><li>Saint-Brieuc : 6 ans et 5 mois d’inscription ; aucun contrat dans l’établissement. Motif 2 de 6 mois à 3 ans, renouvelable jusqu’à 6 ans.</li><li>À Saint-Malo, la voie durable est le concours de PH puis la nomination.</li></ul>
+<p class="small">Ouvrez chaque praticien dans l’atelier CV : Dr G, Dr H (Guillaume Régnier ou Rance Émeraude), Dr I (Saint-Malo ou Saint-Brieuc).</p>`}];
+CASES.push(...AT_CASES);
+
+/* ---------- cas pratiques : réponse personnelle, lien vers l'atelier, boîte à outils ---------- */
+(function(){
+ const RK='dam-reponses-v1';let rep={};try{rep=JSON.parse(localStorage.getItem(RK)||'{}')}catch(e){}
+ const saveRep=()=>{try{localStorage.setItem(RK,JSON.stringify(rep))}catch(e){}};
+ const AT_MAP={'Dr Canule':'CAN','Dr Bonsouffle':'BON','Éligibilité au motif 2':'IRIS','Dr Ocytocine':'OCY'};
+ const AT_SUB={'H1':[['G','Dr G'],['H1','Dr H à Guillaume Régnier'],['H2','Dr H au GH Rance Émeraude'],['I1','Dr I à Saint-Malo'],['I2','Dr I à Saint-Brieuc']],'IRIS':[['IRIS','Dr Iris'],['BRO','Dr Broche']]};
+ function enhance(){document.querySelectorAll('#caseList details.case').forEach(d=>{if(d.querySelector('.c-rep'))return;const t=d.querySelector('.t').textContent;const c=CASES.find(x=>x.t===t);if(!c)return;
+  const body=d.querySelector('.case-body');const cor=body.querySelector('details.cor');
+  const at=c.at||Object.entries(AT_MAP).find(([k])=>t.startsWith(k))?.[1];
+  const tools=document.createElement('div');tools.className='c-tools';
+  if(at){const subs=AT_SUB[at]||[[at,'ce CV']];tools.innerHTML=subs.map(([id,l])=>`<button class="btn ghost" type="button" data-at="${id}">Analyser ${subs.length>1?l:'ce CV'} dans l’atelier</button>`).join('');tools.querySelectorAll('[data-at]').forEach(b=>b.onclick=()=>window.atOpen&&window.atOpen(b.dataset.at));}
+  const tb=document.createElement('button');tb.className='btn ghost';tb.type='button';tb.textContent='Boîte à outils';tb.onclick=()=>openTbx();tools.appendChild(tb);
+  const r=document.createElement('details');r.className='c-rep';r.innerHTML=`<summary>Rédiger ma réponse${rep[t]?' (brouillon enregistré)':''}</summary><textarea aria-label="Ma réponse" placeholder="Qualifier, prérequis, règle, décider et chiffrer, sécuriser…"></textarea>`;
+  const ta=r.querySelector('textarea');ta.value=rep[t]||'';ta.addEventListener('input',()=>{rep[t]=ta.value;saveRep();});
+  body.insertBefore(r,cor);body.insertBefore(tools,r);});}
+ {const _rc=renderCases;renderCases=function(f){_rc(f);enhance();};}
+ const cur=document.querySelector('#caseFilters .chip[aria-pressed="true"]');renderCases(cur?cur.dataset.f:'all');
+ const nb=document.getElementById('nbCas');if(nb)nb.textContent=CASES.length;
+ /* boîte à outils */
+ const G=AT.G,mois=v=>atEur(v/12);
+ const T={
+  grille:`<p class="small">Grille des PH au 1er juillet 2023 (annexe II de l’arrêté du 8 juillet 2022) <span class="vb o">texte</span>. Échelons 1 à 8 : 2 ans ; 9 à 12 : 4 ans.</p><div class="tbl"><table><tr><th>Échelon</th><th>Dès (jours repris)</th><th>Par mois</th><th>Par an</th></tr>${G.map((v,i)=>`<tr><td>${i+1}</td><td class="num">${atNb(AT.S[i])}</td><td class="num">${mois(v)}</td><td class="num">${atEur(v)}</td></tr>`).join('')}</table></div><p class="small">IESPE : 1 010 € par mois, sur contrat d’engagement de service public exclusif, au prorata de la quotité.</p>`,
+  motifs:`<div class="tbl"><table><tr><th>Motif</th><th>Durée</th><th>Quotité</th><th>Rémunération</th></tr><tr><td>1 · remplacement, surcroît</td><td>6 mois, renouvelable 6 mois ; 2 ans au plus</td><td>1 à 10 DJ</td><td>3 448,87 à 5 930,24 €</td></tr><tr><td>2 · difficultés de recrutement (CPOM, 5 ans d’Ordre)</td><td>6 mois à 3 ans ; 6 ans au plus</td><td>4 à 10 DJ</td><td>Fixe + variable ≤ 9 927,50 €</td></tr><tr><td>3 · attente de l’inscription sur la liste</td><td>3 ans au plus</td><td>5 à 10 DJ</td><td>≤ échelon de PH de classement</td></tr><tr><td>4 · complément avec la ville</td><td>3 ans, jusqu’à 6 ; CDI</td><td>4 DJ au plus</td><td>3 448,87 à 5 930,24 €</td></tr></table></div><p class="small">Motifs 1 à 3 : 6 ans au plus de contrats successifs dans un même établissement (R6152-339), contrats d’avant 2022 compris. Montants mensuels bruts à temps plein. <span class="vb o">texte</span></p>`,
+  reprise:`<ul><li>Services hospitaliers (CCA, assistant, contractuel, PH) : au prorata de la quotité.</li><li>Libéral et remplacements libéraux : 2/3 sur les 12 premières années, puis 1/3 sur les 8 suivantes.</li><li>Deux activités simultanées : 100 % au plus sur une même période.</li><li>Non repris : internat, docteur junior, FFI, activité hors UE, humanitaire hors cadre de coopération, interruptions.</li></ul><p class="small">Simulateur et note de classement du CNG <span class="vb o">texte</span> ; l’intérim n’est pas repris par l’atelier <span class="vb i">interprétation</span>.</p>`,
+  autres:`<div class="tbl"><table><tr><th>Élément</th><th>Montant</th></tr><tr><td>Assistant, échelons 1 à 3</td><td class="num">2 803,59 · 3 052,10 · 3 448,94 €</td></tr><tr><td>Seuil minimum des contractuels</td><td class="num">3 448,87 € (41 386,48 €/an)</td></tr><tr><td>Seuil maximum (motifs 1 et 4)</td><td class="num">5 930,24 € (71 162,83 €/an)</td></tr><tr><td>Plafond du motif 2</td><td class="num">9 927,50 € (119 130 €/an)</td></tr><tr><td>PECH</td><td class="num">10 000 · 20 000 · 30 000 €</td></tr><tr><td>Garde</td><td class="num">422,03 €</td></tr></table></div><p class="small">Assistants et PECH : cours <span class="vb c">cours</span> ; seuils : annexe III de l’arrêté du 8 juillet 2022 <span class="vb o">texte</span> ; motif 2 : FAQ DGOS <span class="vb s">secondaire</span>.</p>`};
+ const L={grille:'Grille PH',motifs:'Motifs',reprise:'Reprise d’ancienneté',autres:'Autres montants'};
+ const box=document.createElement('aside');box.className='tbx';box.hidden=true;box.setAttribute('aria-label','Boîte à outils');
+ box.innerHTML=`<div class="tbx-h"><b>Boîte à outils</b><button class="btn" type="button" id="tbx-x">Fermer</button></div><div class="tbx-tabs">${Object.keys(T).map((k,i)=>`<button class="chip" type="button" data-tb="${k}" aria-pressed="${i===0}">${L[k]}</button>`).join('')}<button class="chip" type="button" id="tbx-at">Atelier CV</button></div><div class="tbx-body" id="tbx-b">${T.grille}</div>`;
+ document.body.appendChild(box);
+ box.querySelectorAll('[data-tb]').forEach(b=>b.onclick=()=>{box.querySelectorAll('[data-tb]').forEach(x=>x.setAttribute('aria-pressed',x===b));document.getElementById('tbx-b').innerHTML=T[b.dataset.tb];});
+ document.getElementById('tbx-x').onclick=()=>{box.hidden=true;};
+ document.getElementById('tbx-at').onclick=()=>{box.hidden=true;showTab('atelier');try{history.replaceState(null,'','#atelier')}catch(e){}window.scrollTo({top:document.querySelector('nav.tabs').offsetTop-4});};
+ function openTbx(){box.hidden=false;document.getElementById('tbx-x').focus();}
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!box.hidden)box.hidden=true;});
+ {const p=document.getElementById('cas');if(p){const b=document.createElement('button');b.className='btn tbx-btn';b.type='button';b.textContent='Boîte à outils';b.onclick=openTbx;p.appendChild(b);}const xb=document.getElementById('xm-tbx');if(xb)xb.onclick=openTbx;}
+})();
+
+/* ---------- atelier CV : interface ---------- */
+(function(){
+const root=document.getElementById('atelier');if(!root)return;
+const $a=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEY='dam-atelier-v1';
+let state={pid:'A',p:null,cv:null,ans:'',shown:false,live:false};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({pid:state.pid,p:state.p,cv:state.cv,ans:state.ans,shown:state.shown,live:state.live}))}catch(e){}};
+const SPEFAM={'anesthésie-réanimation':'var(--orange)','psychiatrie':'var(--rose)','radiologie':'var(--bleu-ciel)','pédiatrie':'var(--jaune)','gériatrie':'var(--saumon)','gastro-entérologie':'var(--vert)','cardiologie':'var(--saumon)','médecine d’urgence':'var(--orange)','néphrologie':'var(--bleu-ciel)','pneumologie':'var(--bleu-ciel)'};
+const nomDr=cv=>`Dr ${cv.prenom?cv.prenom+' ':''}${cv.nom||'Sans Nom'}`;
+const ini=cv=>((cv.prenom||'')[0]||'')+((cv.nom||'')[0]||'');
+const cap=s=>s?s[0].toUpperCase()+s.slice(1):'';
+const RECO_LBL={asst:'Assistant des hôpitaux',m1:'Contrat de motif 1',m2:'Contrat de motif 2',m3:'Contrat de motif 3',m4:'Contrat de motif 4',ph:'Nomination comme PH',none6:'Aucun contrat de motif 1 à 3 possible',none:'Pas de statut adapté sans information complémentaire'};
+
+/* ----- fiche CV ----- */
+function projetList(cv){const l=[];const c=cv.concours;
+ if(cv.conso)l.push('Consolider les acquis de l’internat');
+ if(cv.liberal)l.push('S’installer en libéral d’ici 1 à 2 ans');
+ if(cv.decouvrir)l.push('Découvrir plusieurs services et établissements avant de choisir');
+ if(c==='prepare')l.push('Passer le concours de PH à la prochaine session');
+ if(c==='passe')l.push('A passé le concours de PH ; résultats non publiés');
+ if(c==='inscrit'&&!cv.dispo)l.push(cv.liste?`Inscrit sur la liste d’aptitude publiée le ${atFd(atD(cv.liste))}`:'Inscrit sur la liste d’aptitude du concours de PH');
+ if(cv.ville)l.push('Garder son activité en ville et venir quelques demi-journées');
+ if(cv.dispo)l.push('PH en disponibilité ; souhaite revenir à l’hôpital');
+ if(!l.length)l.push('Non précisé');return l;}
+function cvCard(p){const cv=p.cv;const col=SPEFAM[cv.spe]||'var(--bleu-ciel)';
+ const exps=[...(cv.exps||[])].filter(e=>e.deb&&e.fin).sort((a,b)=>atD(a.deb)-atD(b.deb));
+ const post=[`<li><span>Établissement</span><b>${esc(cv.etab||'Non précisé')}</b></li>`,`<li><span>Prise de fonctions</span><b>${cv.rec?atFd(atD(cv.rec)):'—'}</b></li>`,
+  `<li><span>Besoin</span><b>${cv.besoin==='temp'?'Remplacement ou surcroît temporaire':'Poste vacant, besoin permanent'}</b></li>`,`<li><span>Quotité souhaitée</span><b>${cv.dj} demi-journées</b></li>`];
+ if(+cv.pret)post.push(`<li><span>Prétentions</span><b>${atEur(+cv.pret)} brut par mois</b></li>`);
+ if(+cv.pet)post.push(`<li><span>Prime d’exercice territorial</span><b>${atEur(+cv.pet)} par mois</b></li>`);
+ if(+cv.delai&&['prepare','passe'].includes(cv.concours))post.push(`<li><span>Nomination envisagée</span><b>après ${atDur(+cv.delai)} de contrat</b></li>`);
+ const etb=[];if(cv.cpom)etb.push('spécialité inscrite au CPOM pour le motif 2');if(cv.tension&&cv.tension!=='non')etb.push({nat:'spécialité en tension nationale',loc:'poste en tension territoriale',both:'tension nationale et territoriale'}[cv.tension]);
+ if(etb.length)post.push(`<li><span>Contexte</span><b>${etb.join(' ; ')}</b></li>`);
+ return `<article class="cv" style="--cv:${col}">
+ <header class="cv-h"><div class="cv-av" aria-hidden="true">${esc(ini(cv).toUpperCase()||'Dr')}</div><div class="cv-id"><p class="cv-name">${esc(nomDr(cv))}${cv.lettre?` <span class="cv-l">Dr ${esc(cv.lettre)} du cours</span>`:''}</p><p class="cv-spe">${esc(cap(cv.spe||'spécialité à préciser'))}</p>${cv.loisirs?`<p class="cv-fun"><span>Signe particulier</span> ${esc(cv.loisirs)}</p>`:''}</div></header>
+ <div class="cv-g">
+  <section><h4>Formation</h4><ul class="cv-ul"><li>DES de ${esc(cv.spe||'—')} : ${cv.des?atFm(atD(cv.des)):'—'}</li>${cv.ordre?`<li>Inscription à l’Ordre : ${atFm(atD(cv.ordre))}</li>`:''}</ul></section>
+  <section><h4>Projet</h4><ul class="cv-ul">${projetList(cv).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>
+  <section class="cv-wide"><h4>Parcours</h4>${exps.length?`<ol class="cv-tl">${exps.map(e=>`<li><span class="cv-d">${atFm(atD(e.deb))} → ${atFm(atD(e.fin))}</span><span class="cv-x"><b>${esc((AT_T[e.type]||[,'?'])[1])}</b> · ${esc(e.etab||'')}${+e.q<100?` · ${+e.q} %`:''}</span></li>`).join('')}</ol>`:'<p class="small">Aucune expérience depuis le DES.</p>'}</section>
+  <section class="cv-wide cv-post"><h4>Le poste</h4><ul class="cv-kv">${post.join('')}</ul></section>
+ </div>
+ <p class="cv-q"><span>Question</span> ${esc(p.q||'Quel contrat proposer, pour quelle durée et quelle rémunération ?')}</p></article>`;}
+
+/* ----- formulaire ----- */
+const F=[['prenom','Prénom','text'],['nom','Nom','text'],['spe','Spécialité','text'],['des','Date du DES','date'],['ordre','Inscription à l’Ordre (si différente du DES)','date'],['etab','Établissement qui recrute','text'],['rec','Date de recrutement','date'],['dj','Quotité (DJ par semaine)','number'],['pret','Prétentions (€ brut par mois)','number'],['pet','PET (€ par mois)','number'],['delai','Nomination envisagée après (mois)','number'],['liste','Publication de la liste d’aptitude','date']];
+function formHtml(cv){
+ const fld=([k,l,t])=>`<label class="f">${l}<input type="${t}" data-k="${k}" value="${esc(cv[k]==null?'':cv[k])}"${t==='number'?' min="0" step="any"':''}></label>`;
+ const sel=(k,l,opts)=>`<label class="f">${l}<select data-k="${k}">${opts.map(([v,t])=>`<option value="${v}"${cv[k]===v?' selected':''}>${t}</option>`).join('')}</select></label>`;
+ const chk=(k,l)=>`<label><input type="checkbox" data-k="${k}"${cv[k]?' checked':''}> ${l}</label>`;
+ return `<div class="fields">${F.slice(0,7).map(fld).join('')}${F.slice(7,10).map(fld).join('')}
+ ${sel('besoin','Besoin',[['perm','Poste vacant, besoin permanent'],['temp','Remplacement ou surcroît temporaire']])}
+ ${sel('concours','Concours de PH',[['non','Pas de projet de concours'],['prepare','Prépare le concours'],['passe','Concours passé, liste non publiée'],['inscrit','Inscrit sur la liste d’aptitude']])}
+ ${sel('tension','Tension sur la spécialité (PECH)',[['non','Aucune'],['nat','Nationale (10 000 €)'],['loc','Territoriale (20 000 €)'],['both','Les deux (30 000 €)']])}
+ ${F.slice(10).map(fld).join('')}</div>
+ <div class="checks at-checks">${chk('conso','Veut consolider sa formation')}${chk('liberal','Projet d’installation en libéral')}${chk('decouvrir','Veut découvrir plusieurs services')}${chk('ville','Garde une activité en ville, en ESPIC ou en clinique')}${chk('cpom','Spécialité inscrite au CPOM pour le motif 2')}${chk('dispo','Est PH en disponibilité')}</div>
+ <h4>Parcours</h4><div id="at-exps">${(cv.exps||[]).map((e,i)=>`<div class="fields at-exp"><label class="f">Statut<select data-e="${i}" data-x="type">${AT_TYPES.map(t=>`<option value="${t[0]}"${e.type===t[0]?' selected':''}>${t[1]}</option>`).join('')}</select></label><label class="f">Établissement<input type="text" data-e="${i}" data-x="etab" value="${esc(e.etab)}"></label><label class="f">Début<input type="date" data-e="${i}" data-x="deb" value="${esc(e.deb)}"></label><label class="f">Fin (incluse)<input type="date" data-e="${i}" data-x="fin" value="${esc(e.fin)}"></label><label class="f">Quotité (%)<input type="number" min="0" max="100" data-e="${i}" data-x="q" value="${esc(e.q)}"></label><label class="f">&nbsp;<button class="btn ghost" type="button" data-del="${i}">Retirer</button></label></div>`).join('')}</div>
+ <div class="row"><button class="btn ghost" type="button" id="at-addexp">Ajouter une expérience</button></div>
+ <p class="small">Indiquez le nom exact de l’établissement qui recrute dans les expériences qui s’y sont déroulées : l’atelier s’en sert pour compter les durées de contrat dans un même établissement.</p>`;}
+function bindForm(){const box=$a('at-form');
+ box.querySelectorAll('[data-k]').forEach(el=>{const ev=el.type==='checkbox'||el.tagName==='SELECT'?'change':'input';el.addEventListener(ev,()=>{const k=el.dataset.k;state.cv[k]=el.type==='checkbox'?el.checked:el.type==='number'?(el.value===''?0:+el.value):el.value;changed();});});
+ box.querySelectorAll('[data-e]').forEach(el=>{const ev=el.tagName==='SELECT'?'change':'input';el.addEventListener(ev,()=>{const e=state.cv.exps[+el.dataset.e];const x=el.dataset.x;e[x]=x==='q'?(+el.value||0):el.value;changed();});});
+ box.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{state.cv.exps.splice(+b.dataset.del,1);renderForm();changed();});
+ $a('at-addexp').onclick=()=>{const last=state.cv.exps[state.cv.exps.length-1];const deb=last&&last.fin?atIso(atD(last.fin)+atDAY):(state.cv.des||state.cv.rec||'2024-11-01');state.cv.exps.push({type:'pcx',etab:state.cv.etab||'',deb,fin:atIso(atAddM(atD(deb),12)-atDAY),q:100});renderForm();changed();};}
+function renderForm(){$a('at-form').innerHTML=formHtml(state.cv);bindForm();}
+let tm=null;function changed(){$a('at-cv').innerHTML=cvCard({...state.p,cv:state.cv});save();if(state.shown||state.live){clearTimeout(tm);tm=setTimeout(renderSol,180);}}
+
+/* ----- frise ----- */
+function frise(a){const cv=a.cv;const ex=a.exps.map(e=>({e,s:atD(e.deb),f:Math.min(atD(e.fin)+atDAY,a.R)})).filter(x=>x.f>x.s);
+ const marks=[[a.des,'DES'],[a.R,'Recrutement']];if(a.ordM<60&&a.ord5<=a.R+3*365*atDAY)marks.push([a.ord5,'Ordre + 5 ans']);if(a.delai&&['m3','ph'].includes(a.reco))marks.push([a.N,'Nomination']);
+ const t0=Date.UTC(new Date(Math.min(a.des||a.R,...ex.map(x=>x.s))).getUTCFullYear(),0,1);const t1=Date.UTC(new Date(Math.max(a.R,...marks.map(m=>m[0]))).getUTCFullYear()+1,0,1);
+ const pc=t=>((t-t0)/(t1-t0)*100).toFixed(2);const yrs=[];for(let y=new Date(t0).getUTCFullYear();y<=new Date(t1).getUTCFullYear();y++)yrs.push(y);
+ const cls=e=>{const k=(AT_T[e.type]||[])[2];return k==='s'?'s':k==='l'?'l':'n';};
+ const step=yrs.length>12?2:1;
+ const mk=marks.map(([t,l])=>`<i class="tl-m" style="left:${pc(t)}%" title="${l}"></i>`).join('');
+ const ml=marks.map(([t,l])=>({t,l,p:+pc(t),lv:0})).sort((x,y)=>x.p-y.p);ml.forEach((m,i)=>{for(let lv=0;lv<4;lv++){if(!ml.slice(0,i).some(o=>o.lv===lv&&m.p-o.p<16)){m.lv=lv;break;}}});const lvMax=Math.max(0,...ml.map(m=>m.lv));
+ return `<div class="tl" role="img" aria-label="Frise du parcours">
+ <div class="tl-row tl-axis"><span class="tl-lbl"></span><div class="tl-track">${yrs.map((y,i)=>i%step?'':`<span style="left:${pc(Date.UTC(y,0,1))}%">${y}</span>`).join('')}</div></div>
+ ${ex.map(x=>`<div class="tl-row"><span class="tl-lbl">${esc((AT_T[x.e.type]||[,'?'])[1])}<small>${esc(x.e.etab||'')}${+x.e.q<100?' · '+(+x.e.q)+' %':''}</small></span><div class="tl-track">${mk}<i class="tl-bar ${cls(x.e)}${atNorm(x.e.etab)&&atNorm(x.e.etab)===atNorm(cv.etab)?' here':''}" style="left:${pc(x.s)}%;width:${Math.max(.6,pc(x.f)-pc(x.s))}%"></i></div></div>`).join('')}
+ <div class="tl-row tl-marks"><span class="tl-lbl">Repères</span><div class="tl-track" style="height:${38+30*lvMax}px">${mk}${ml.map(m=>`<span class="tl-ml" style="left:${m.p}%;top:${m.lv*30}px;transform:translateX(${m.p<6?'0':m.p>94?'-100%':'-50%'})">${m.l}<small>${atFm(m.t)}</small></span>`).join('')}</div></div>
+ <p class="tl-key"><span><i class="s"></i>Services repris en totalité</span><span><i class="l"></i>Libéral, repris aux 2/3</span><span><i class="n"></i>Non repris</span><span><i class="s here"></i>Dans l’établissement qui recrute</span></p></div>`;}
+
+/* ----- réponse type ----- */
+function len3(a){return a.delai||Math.min(36,Math.max(0,a.rem13));}
+function decision(a){const st=a.st,cv=a.cv,q=a.q;let t='',mo=0;
+ const pechT=a.pechOK?` Il peut signer une convention d’engagement dans la carrière hospitalière : PECH de ${atNb(a.pech*q)} €, versée pour moitié à la signature et pour moitié à la nomination, s’il s’engage à passer le concours puis à exercer 3 ans comme PH.`:'';
+ switch(a.reco){
+ case 'asst':{const s=st.asst;mo=s.base+s.ie;t=`Proposer un contrat d’assistant des hôpitaux d’1 an, ou de 2 ans renouvelable par période d’1 an, à ${a.dj} demi-journées. Rémunération : ${atEur(s.base)} brut par mois (échelon ${a.usedA<24?1:a.usedA<48?2:3} de la grille des assistants)${s.ie?`, plus l’IESPE de 1 010 € s’il signe le contrat d’engagement de service public exclusif, soit ${atEur(mo)}`:''}.${cv.liberal?' Pour son projet libéral, le titre d’ancien assistant ouvre l’accès au secteur 2 ; le cours indique 2 ans de fonctions, 1 an depuis la réforme du docteur junior.':''}`;break;}
+ case 'm1':{const s=st.m1;mo=s.rep;const r1=Math.min(24-a.used1,a.rem13);t=`Proposer un contrat de motif 1 de ${atDur(Math.min(6,r1))}, renouvelable 6 mois (reste dans l’établissement : ${atDur(r1)}). Rémunération fixée dans la grille de l’établissement, entre ${atEur(AT.PCMIN/12*q)} et ${atEur(AT.PCMAX/12*q)} : par exemple l’échelon ${Math.min(a.e0,6)} de PH qui correspond à son ancienneté, ${atEur(s.rep)} brut par mois. Pas d’IESPE en contrat.`;break;}
+ case 'm2':{const s=st.m2;const d2=Math.min(36,Math.min(72-a.used2,a.rem13));mo=a.pret&&a.pret<=s.plaf?a.pret:s.fixe;t=`Proposer un contrat de motif 2 de ${atDur(d2)}, à ${a.dj} demi-journées, avec des objectifs quantitatifs et qualitatifs écrits au contrat. Part fixe : ${atEur(s.fixe)} (échelon ${Math.min(a.e0,6)}).${a.pret?(a.pret<=s.plaf?` Part variable : ${atEur(Math.max(0,a.pret-s.fixe))} par mois sur objectifs, pour atteindre les ${atEur(a.pret)} demandés, sous le plafond de ${atEur(s.plaf)}.`:` Les ${atEur(a.pret)} demandés dépassent le plafond de ${atEur(s.plaf)} : il faut renégocier.`):` Part variable possible jusqu’au plafond de ${atEur(s.plaf)} brut par mois.`} Évaluation des objectifs au bout d’un an par le chef de service ; la part variable est versée en acomptes, puis régularisée.`;break;}
+ case 'm3':{const s=st.m3;const L=len3(a);mo=s.pN||s.pR;t=`${a.conc==='passe'?'En attendant la publication de la liste d’aptitude, proposer':'Proposer'} un contrat de motif 3 ${L?`de ${atDur(L)} `:''}à ${a.dj} demi-journées${a.conc==='non'?', à condition que le praticien s’engage à préparer le concours de PH':''}. Rémunération plafonnée à l’échelon de PH auquel il serait classé : échelon ${a.e0} au recrutement (${atEur(s.pR)})${a.delai?` ; en retenant, comme le cours, l’échelon projeté à la nomination après ${atDur(a.delai)}, échelon ${a.eN} (${atEur(s.pN)})`:''}. Pas d’IESPE en contrat.${a.conc==='passe'?' Dès son inscription sur la liste, le nommer PH.':''}`;break;}
+ case 'm4':{mo=AT.PCMAX/12*q;t=`Proposer un contrat de motif 4 de 3 ans au plus, à ${a.dj} demi-journées (4 au plus), en complément de son activité de ville. Rémunération dans la grille de l’établissement, entre ${atEur(AT.PCMIN/12*q)} et ${atEur(AT.PCMAX/12*q)}. Le contrat se renouvelle par décision expresse jusqu’à 6 ans ; un CDI est possible après 3 ans et de droit après 6 ans.`;break;}
+ case 'ph':{const s=st.ph;mo=s.max;t=cv.dispo?`Préparer sa réintégration comme PH : il la demande 2 mois avant la fin de sa disponibilité, et le poste peut être publié au fil de l’eau pour la réintégration. Le motif 2 lui est fermé. Rémunération à son échelon (repère : échelon ${s.e}, ${atEur(s.base)}), plus l’IESPE s’il signe le contrat d’engagement.`
+  :`${a.conc==='passe'?'Dès la publication de la liste d’aptitude, nommer':'Nommer'} le praticien PH sur le poste : publication au tour d’avril ou d’octobre, ou au fil de l’eau sur proposition du DG ARS ; nomination par le DG du CNG ; période probatoire d’1 an. Reprise d’ancienneté : ${atNb(a.conc==='passe'?a.repN.tot:a.rep0.tot)} jours, échelon ${s.e}. Rémunération : ${atEur(s.base)} brut par mois, plus l’IESPE de ${atEur(s.ie)} s’il signe le contrat d’engagement de service public exclusif${a.pet?`, plus la PET de ${atEur(a.pet)}`:''}, soit ${atEur(s.max)}.${a.conc==='passe'?` D’ici là, un motif 3 reste possible, plafonné à l’échelon ${a.e0} (${atEur(st.m3.pR)}).`:''}`;break;}
+ case 'none6':t=`Aucun contrat de motif 1, 2 ou 3 n’est possible dans cet établissement : les contrats successifs atteignent ${atDur(a.used13)}, au-delà des 6 ans (R6152-339). Solutions : nomination comme PH après le concours, recrutement dans un autre établissement (le compteur y repart à zéro), ou motif 4 s’il exerce aussi en ville.`;break;
+ default:t='Aucun statut ne convient sans information complémentaire : préciser le besoin (permanent ou temporaire), le projet de concours et l’ancienneté d’inscription à l’Ordre.';}
+ if(a.soon2&&a.reco!=='m2')t+=` Le motif 2 deviendra possible le ${atFd(a.ord5)}, quand il aura 5 ans d’inscription à l’Ordre${cv.cpom?'':', si la spécialité figure au CPOM'}.`;
+ if(a.pret&&mo){const max=a.st[a.reco]?a.st[a.reco].max:mo;if(a.pret>max+0.005&&a.reco!=='m2')t+=` Ses prétentions (${atEur(a.pret)}) dépassent ce que permet ce statut (${atEur(max)} au plus${a.pet?' avec la PET':''}) : on complète par les gardes, le TTA et, le cas échéant, la PET et la PECH${a.st.m2.v!=='no'&&a.reco!=='m2'?', ou on étudie le motif 2':''}.`;
+  else if(a.pret<=max+0.005&&a.reco!=='m2')t+=` Ses prétentions (${atEur(a.pret)}) sont atteignables.`;}
+ return {t:t+pechT,mo};}
+function essai(m){return m<=6?'1 mois':m<=24?'2 mois':'3 mois';}
+function answer(a){const cv=a.cv;const st=a.st;const out=[];
+ const proj=projetList(cv).join(' ; ').toLowerCase();
+ out.push(['Qualifier',`${nomDr(cv)}, ${cv.spe||'spécialité non précisée'}, a obtenu son DES en ${atFm(a.des)}. Au ${atFd(a.R)}, son inscription à l’Ordre date de ${atDur(a.ordM)}. Projet : ${proj}. Il faut choisir un statut, une durée et une rémunération pour un recrutement au ${cv.etab||'sein de l’établissement'}.`]);
+ out.push(['Prérequis',`Le praticien remplit les conditions d’exercice et justifie d’une inscription à l’Ordre (R6152-336). Services repris pour un classement de PH : ${atNb(a.rep0.tot)} jours, soit l’échelon ${a.e0}. Dans l’établissement : ${atDur(a.used13)} de contrats de motifs 1 à 3 sur 6 ans au plus, dont ${atDur(a.used1)} de motif 1 sur 2 ans au plus.${a.pcxT?' Les contrats antérieurs dont le motif n’est pas précisé comptent dans les 6 ans (article 9 du décret 2022-135).':''}`]);
+ const INFO=/^(Motif 1 déjà|Contrats de motifs|Inscription à l’Ordre :|Motif 2 déjà|Motif 4 déjà|Plein exercice|Assistanat déjà|Il garde|Inscrit sur la liste|Le concours est passé)/;
+ const ex=['asst','m1','m2','m3','m4','ph'].filter(k=>k!==a.reco).map(k=>{const s=st[k];const w=(s.v==='ok'?s.why[0]:(s.why.find(x=>!INFO.test(x))||s.why[s.why.length-1]));return `${s.label} : ${s.v==='no'?'écarté':s.v==='cond'?'sous condition':'possible'}. ${w}`;});
+ out.push(['Règle',ex.join(' ')]);
+ const d=decision(a);out.push(['Décider et chiffrer',d.t]);
+ const sec=[];
+ if(['m1','m2','m3','m4'].includes(a.reco)){const m=a.reco==='m1'?Math.min(6,Math.min(24-a.used1,a.rem13)):a.reco==='m2'?Math.min(36,Math.min(72-a.used2,a.rem13)):a.reco==='m3'?len3(a):36;
+  sec.push(`Contrat écrit de droit public : motif, fonctions, quotité, participation à la PDS, durée, rémunération. Période d’essai de ${essai(m)} au plus, renouvelable une fois (R6152-345) ; préavis de ${essai(m)} (R6152-346). Le praticien transmet son contrat au conseil de l’Ordre.`);}
+ if(a.reco==='m2')sec.push('Vérifier que le CPOM prévoit ce contrat de motif 2 ; l’ARS contrôle le recours au motif 2.');
+ if(a.reco==='m3')sec.push('Suivre les sessions du concours ; dès l’inscription sur la liste d’aptitude, ouvrir le poste et nommer.');
+ if(a.reco==='ph')sec.push('Profil de poste arrêté par le directeur ; entretiens à 6 et 12 mois de la période probatoire ; contrat d’engagement de service public exclusif pour l’IESPE.');
+ if(a.reco==='asst')sec.push('Contrat écrit avec le directeur, sur proposition du chef de pôle et après avis du PCME (R6152-510) ; contrat d’engagement de service public exclusif pour l’IESPE.');
+ sec.push('Tenir un tableau de suivi des durées de contrat par praticien et par établissement.');
+ out.push(['Sécuriser',sec.join(' ')]);return {parts:out,mo:d.mo};}
+
+/* ----- vérification de la réponse ----- */
+const RX={asst:/assistant/i,m1:/motif\s*(1|un)\b/i,m2:/motif\s*(2|deux)\b/i,m3:/motif\s*(3|trois)\b/i,m4:/motif\s*(4|quatre)\b/i,ph:/\bPH\b|praticien hospitalier|nomin/i,none6:/6\s*ans|six ans/i};
+function check(a,mo){const t=state.ans||'';if(!t.trim())return '<p class="small">Rédigez votre réponse à l’étape 2 : l’atelier y cherchera les repères du corrigé.</p>';
+ const flat=t.replace(/[\s  .]/g,'');const items=[];
+ if(RX[a.reco])items.push([RX[a.reco].test(t),`Le statut retenu : ${RECO_LBL[a.reco]}`]);
+ if(mo>0){const cand=[mo];const sr=a.st[a.reco];if(sr&&sr.base)cand.push(sr.base);if(a.reco==='m3')cand.push(a.st.m3.pR,a.st.m3.pN);const hit=cand.some(v=>{const n=Math.round(v*100)/100;return flat.includes(n.toFixed(2).replace('.',','))||flat.includes(String(Math.floor(n)));});items.push([hit,`Le montant mensuel : ${atEur(mo)}${cand.length>1&&sr&&sr.base&&Math.abs(sr.base-mo)>1?` (ou ${atEur(sr.base)} hors IESPE)`:''}`]);}
+ if(['m3','ph'].includes(a.reco)){const e=a.reco==='ph'?a.st.ph.e:(a.delai?a.eN:a.e0);items.push([new RegExp('[ée]chelon\\s*'+e+'\\b','i').test(t),`L’échelon : ${e}`]);}
+ if(a.st.m2.v==='no'&&/R6152-336|5\s*ans|cinq ans/i.test(a.st.m2.why.join(' '))&&a.ordM<60)items.push([/5\s*ans|cinq ans/i.test(t),'La condition des 5 ans d’inscription à l’Ordre pour le motif 2']);
+ if(a.used13>0||a.reco==='none6')items.push([/6\s*ans|six ans/i.test(t),'La limite de 6 ans de contrats dans l’établissement']);
+ if(a.pechOK)items.push([/PECH|engagement dans la carri/i.test(t),'La PECH']);
+ const ok=items.filter(x=>x[0]).length;
+ return `<p><b>${ok} repère${ok>1?'s':''} sur ${items.length}</b> retrouvé${ok>1?'s':''} dans votre texte.</p><ul class="at-chk">${items.map(([o,l])=>`<li class="${o?'ok':'ko'}">${o?'Présent':'Absent'} : ${l}</li>`).join('')}</ul><p class="small">Contrôle automatique et indicatif : relisez aussi votre raisonnement avec la réponse type.</p>`;}
+
+/* ----- solution ----- */
+function renderSol(){const a=atAnalyze(state.cv);const sol=$a('at-sol');if(!a.R||!a.des){sol.innerHTML='<p class="small">Indiquez au moins la date du DES et la date de recrutement.</p>';return;}
+ const ans=answer(a);const st=a.st;
+ const vlab={ok:'Possible',cond:'Sous condition',no:'Écarté'};
+ const kp=[[atDur(atMonths(a.des,a.R)),'Depuis le DES'],[atDur(a.ordM),'Inscription à l’Ordre'+(a.ordM<60?` (5 ans le ${atFd(a.ord5)})`:'')],[atNb(a.rep0.tot)+' j',`Services repris : échelon ${a.e0}`],[atDur(a.used13)+' / 6 ans','Motifs 1 à 3 dans l’établissement'],[atDur(a.used1)+' / 2 ans','Motif 1 dans l’établissement'],[atDur(a.usedA)+' / 6 ans','Assistanat']];
+ if(a.delai&&['m3','ph'].includes(a.reco))kp.push([`Échelon ${a.eN}`,`Projeté à la nomination (${atFm(a.N)})`]);
+ sol.innerHTML=`
+ <div class="box retenir at-reco"><span class="lbl">Proposition</span><p class="at-reco-t">${RECO_LBL[a.reco]||'—'}</p><p>${decision(a).t}</p></div>
+ ${state.p&&state.p.note?`<p class="small at-note"><b>Hypothèses de l’atelier.</b> ${esc(state.p.note.replace(/^Hypothèses?\s*:\s*/,''))} Inscription à l’Ordre retenue au ${atFd(a.ord)}${state.cv.ordre?'':' (date du DES : le tableau des docteurs juniors ne compte pas)'}.</p>`:''}
+ <h4>Le parcours en un coup d’œil</h4>${frise(a)}
+ <div class="out">${kp.map(([v,l])=>kpi(v,l)).join('')}</div>
+ <h4>Statut par statut</h4>
+ <div class="at-st">${['ph','asst','m1','m2','m3','m4'].sort((x,y)=>(x===a.reco?-1:y===a.reco?1:0)||({ok:0,cond:1,no:2}[st[x].v]-{ok:0,cond:1,no:2}[st[y].v])).map(k=>{const s=st[k];return `<div class="at-s ${s.v}${k===a.reco?' best':''}"><div class="at-s-h"><b>${s.label}</b><span class="at-tag ${s.v}">${k===a.reco?(s.v==='cond'?'Retenu, sous condition':'Retenu'):vlab[s.v]}</span></div><ul>${s.why.map(w=>`<li>${w}</li>`).join('')}</ul>${s.v!=='no'?`<p><span class="at-k">Durée</span> ${s.dur}</p><p><span class="at-k">Rémunération</span> ${s.rem}</p>`:''}</div>`;}).join('')}</div>
+ <h4>Réponse type, selon la grille</h4>
+ <div class="at-ans-type">${ans.parts.map(([h,t])=>`<p><b>${h}.</b> ${t}</p>`).join('')}</div>
+ <div class="row"><button class="btn ghost" type="button" id="at-copy">Copier la réponse type</button><span class="small" id="at-copy-msg" aria-live="polite"></span></div>
+ <h4>Ma réponse face au corrigé</h4><div class="xm-chk" id="at-check">${check(a,ans.mo)}</div>
+ <p class="small">Sources : R6152-336, R6152-338, R6152-339, R6152-345, R6152-346, R6152-349 et R6152-503 à R6152-511 du code de la santé publique <span class="vb o">texte</span> ; annexe III de l’arrêté du 8 juillet 2022 (seuils, plafond du motif 3) <span class="vb o">texte</span> ; article 9 du décret 2022-135 <span class="vb o">texte</span> ; plafond du motif 2 : FAQ DGOS <span class="vb s">secondaire</span> ; grille des assistants, PECH, projection de l’échelon à la nomination, reprise du libéral : cours du 20 mai 2025 et simulateur du CNG <span class="vb c">cours</span>. L’intérim n’est pas repris par l’atelier <span class="vb i">interprétation</span>.</p>`;
+ $a('at-copy').onclick=()=>{const txt=ans.parts.map(([h,t])=>h+'. '+t).join('\n\n');const done=()=>{$a('at-copy-msg').textContent='Réponse type copiée.';};if(navigator.clipboard)navigator.clipboard.writeText(txt).then(done,()=>{$a('at-copy-msg').textContent='Copie impossible ici : sélectionnez le texte.';});};
+ sol.hidden=false;}
+
+/* ----- chargement ----- */
+function load(p,keepAns){state.p=clone(p);state.pid=p.id;state.cv=clone(p.cv);if(!keepAns)state.ans='';state.shown=false;
+ $a('at-cv').innerHTML=cvCard(state.p);renderForm();$a('at-ans').value=state.ans;$a('at-sol').hidden=true;$a('at-sol').innerHTML='';$a('at-show').hidden=false;
+ if(state.live)renderSol();save();}
+function blank(){const now=new Date();return {id:'free',grp:'Libre',lbl:'Saisie libre',q:'Quel contrat proposer, pour quelle durée et quelle rémunération ?',note:'',
+ cv:{prenom:'',nom:'',lettre:'',spe:'',des:'',ordre:'',etab:'',rec:atIso(Date.UTC(now.getUTCFullYear(),now.getUTCMonth()+1,1)),dj:10,pret:0,pet:0,besoin:'perm',concours:'non',liste:'',delai:0,conso:false,liberal:false,decouvrir:false,ville:false,cpom:false,dispo:false,tension:'non',loisirs:'',exps:[]}};}
+
+/* ----- sélecteurs ----- */
+const sel=$a('at-preset');const grps=[...new Set(AT_PRESETS.map(p=>p.grp))];
+sel.innerHTML='<option value="">Choisir un cas…</option>'+grps.map(g=>`<optgroup label="${g==='Cours'?'Diapositives du cours (20 mai 2025)':g}">${AT_PRESETS.filter(p=>p.grp===g).map(p=>`<option value="${p.id}">${esc(p.lbl)}</option>`).join('')}</optgroup>`).join('');
+sel.onchange=()=>{const p=AT_PRESETS.find(x=>x.id===sel.value);if(p){load(p);scrollCase();}};
+$a('at-arch').innerHTML='<option value="any">Profil au hasard</option>'+AT_ARCH.map(([k,l])=>`<option value="${k}">${l}</option>`).join('');
+$a('at-rand').onclick=()=>{load(atRandom($a('at-arch').value));sel.value='';scrollCase();};
+$a('at-free').onclick=()=>{load(blank());sel.value='';$a('at-data').open=true;state.live=true;$a('at-live').checked=true;renderSol();scrollCase();};
+$a('at-ans').addEventListener('input',e=>{state.ans=e.target.value;save();if(state.shown){const c=$a('at-check');if(c){const a=atAnalyze(state.cv);c.innerHTML=check(a,answer(a).mo);}}});
+$a('at-show').onclick=()=>{state.shown=true;renderSol();$a('at-show').hidden=true;save();$a('at-sol-b').scrollIntoView({behavior:'smooth',block:'start'});};
+$a('at-live').onchange=e=>{state.live=e.target.checked;if(state.live){state.shown=true;renderSol();$a('at-show').hidden=true;}save();};
+function scrollCase(){$a('at-case').scrollIntoView({behavior:'smooth',block:'start'});}
+window.atOpen=id=>{const p=AT_PRESETS.find(x=>x.id===id);if(!p)return;showTab('atelier');try{history.replaceState(null,'','#atelier')}catch(e){}sel.value=id;load(p);setTimeout(scrollCase,30);};
+
+/* ----- état initial ----- */
+let saved=null;try{saved=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+if(saved&&saved.cv&&saved.p){state={...state,...saved};$a('at-cv').innerHTML=cvCard({...state.p,cv:state.cv});renderForm();$a('at-ans').value=state.ans||'';$a('at-live').checked=!!state.live;if(state.pid&&AT_PRESETS.some(p=>p.id===state.pid))sel.value=state.pid;if(state.shown){renderSol();$a('at-show').hidden=true;}}
+else load(AT_PRESETS[0]);
+})();
+
 </script>
 </body>
 </html>
