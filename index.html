@@ -2646,6 +2646,7 @@ function destName(id){const e=document.getElementById(id);if(!e)return '';const 
 const SIGLES=[
 ['DG','Directeur général','Dirige une ARS, le CNG ou un CHU ; « DG ARS » désigne le directeur général de l’agence régionale de santé.','m-acteurs'],
 ['FHF','Fédération hospitalière de France','Fédération des établissements publics de santé et médico-sociaux ; publie des fiches juridiques.','m-pc'],
+['UE (unité d’enseignement)','Unité d’enseignement','Module de la formation des élèves directeurs d’hôpital à l’EHESP. Sur ce site, « UE 10 » désigne l’enseignement consacré aux ressources humaines médicales.','src-block'],
 ['UE','Union européenne','Le diplôme obtenu dans l’UE ouvre l’exercice en France ; hors UE, la procédure d’autorisation s’applique.','m-padhue'],
 ['EEE','Espace économique européen','Union européenne, Islande, Liechtenstein et Norvège.','m-padhue'],
 ['RTT','Réduction du temps de travail','Jours de repos ; les HU n’en ont pas.','m-statuts'],
@@ -3549,13 +3550,14 @@ if(!restored)load(AT_PRESETS[0],false,true);
  SIGLES.forEach(r=>{const keys=r[0]==='DJ (docteur junior)'?[]:r[0].split(',').map(x=>x.trim().replace(/\s*\(.*\)$/,''));keys.forEach(k=>{if(k&&!MAP.has(k))MAP.set(k,r);});});
  const keys=[...MAP.keys()].sort((a,b)=>b.length-a.length).map(k=>k.replace(/[-]/g,'\\-'));
  const RX=new RegExp('(?<![A-Za-zÀ-ÿ0-9\\-])('+keys.join('|')+')(?![A-Za-zÀ-ÿ0-9\\-])','g');
+ MAP.set('UE-ens',SIGLES.find(r=>r[0].startsWith('UE (unité')));
  const SKIP='a,input,textarea,select,option,script,style,code,svg,nav,.acr,.vb,.acr-pop,.cv-av,.tl,.at-tag,#sigles,.tbx-tabs,.xm-bar,.rp-l,.gres,.topbar,.ctx';
  /* dans un bouton, un intitulé ou un titre, le sigle n'est pas cliquable : il porte seulement une infobulle */
  const SOFT='button,label,summary,h1,h2,h3,h4,th,dt';
  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
  function wrapText(node){const t=node.nodeValue;RX.lastIndex=0;if(!RX.test(t))return;RX.lastIndex=0;
   const frag=document.createDocumentFragment();let last=0,m;
-  while((m=RX.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));const r=MAP.get(m[1]);const soft=node.parentElement&&node.parentElement.closest(SOFT);const a=document.createElement(soft?'abbr':'a');a.className=soft?'acr acr-i':'acr';if(!soft)a.href='#sigles';else a.title=r[1];a.dataset.k=m[1];a.dataset.tip=r[1];a.textContent=m[1];frag.appendChild(a);last=m.index+m[1].length;}
+  while((m=RX.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));const kk=(m[1]==='UE'&&/^[\s\u00a0]?\d/.test(t.slice(m.index+2)))?'UE-ens':m[1];const r=MAP.get(kk);const soft=node.parentElement&&node.parentElement.closest(SOFT);const a=document.createElement(soft?'abbr':'a');a.className=soft?'acr acr-i':'acr';if(!soft)a.href='#sigles';else a.title=r[1];a.dataset.k=kk;a.dataset.tip=r[1];a.textContent=m[1];frag.appendChild(a);last=m.index+m[1].length;}
   if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));node.parentNode.replaceChild(frag,node);}
  function scan(root){if(!root)return;if(root.nodeType===3){const p=root.parentElement;if(p&&!p.closest(SKIP)&&p.closest('section.panel'))wrapText(root);return;}
   if(root.nodeType!==1||root.closest(SKIP))return;
@@ -3570,7 +3572,7 @@ if(!restored)load(AT_PRESETS[0],false,true);
  function close(){pop.hidden=true;cur=null;}
  document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a.acr');
   if(a){e.preventDefault();if(cur===a){close();return;}cur=a;const r=MAP.get(a.dataset.k);
-   pop.innerHTML=`<p class="acr-k">${esc(a.dataset.k)}</p><p class="acr-l">${esc(r[1])}</p><p>${esc(r[2])}</p><div class="row"><button class="btn" type="button" data-go="memo">${esc(destName(r[3])||'Voir la fiche')}</button><button class="btn ghost" type="button" data-go="sg">Tous les sigles</button></div>`;
+   pop.innerHTML=`<p class="acr-k">${esc(a.textContent)}</p><p class="acr-l">${esc(r[1])}</p><p>${esc(r[2])}</p><div class="row"><button class="btn" type="button" data-go="memo">${esc(destName(r[3])||'Voir la fiche')}</button><button class="btn ghost" type="button" data-go="sg">Tous les sigles</button></div>`;
    pop.hidden=false;const b=a.getBoundingClientRect();const w=Math.min(340,window.innerWidth-24);pop.style.width=w+'px';
    let x=b.left+window.scrollX;x=Math.max(12+window.scrollX,Math.min(x,window.scrollX+window.innerWidth-w-12));pop.style.left=x+'px';
    const below=b.bottom+window.scrollY+6;pop.style.top=below+'px';
