@@ -368,6 +368,11 @@ ul.at-chk li.ko::before{content:"✗";color:#c0392b}
 .c-tools{display:flex;flex-wrap:wrap;gap:8px}
 details.c-rep>summary{cursor:pointer;color:var(--bleu);font-weight:500}
 details.c-rep textarea{min-height:160px;margin-top:8px}
+.ck-row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:10px}
+.ck-out{margin-top:10px;padding:12px 14px;border:1px solid var(--line);background:var(--blanc)}
+.ck-sum{margin:0 0 6px}.ck-g{margin:8px 0 2px;font-weight:500;color:var(--bleu)}
+.ck-l{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px}
+.ck-l li::before{content:none}.ck-y span[aria-hidden]{color:#0a7a3d;font-weight:800}.ck-n{color:var(--muted)}
 .tbx-btn{position:fixed;right:16px;bottom:16px;z-index:20;box-shadow:0 2px 0 rgba(0,0,0,.15)}
 .tbx{position:fixed;right:0;top:0;bottom:0;width:min(420px,100%);z-index:30;background:var(--blanc);border-left:1px solid var(--filet);box-shadow:-6px 0 18px rgba(0,0,0,.12);display:flex;flex-direction:column}
 .tbx-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;background:var(--bleu);color:var(--blanc)}
@@ -3295,6 +3300,31 @@ c:`<h4>Réponse du cours</h4><ul><li>Il a réussi les EVC en 2019 et poursuit so
 CASES.push(...PADHUE_CV);
 
 
+/* ---------- cas pratiques : comparer sa réponse aux repères du corrigé ---------- */
+function ckNorm(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u00a0\u202f]/g,' ').replace(/(\d) (?=\d{3}\b)/g,'$1').replace(/demi-journees?/g,'dj').replace(/\beuros?\b/g,'€').replace(/\bheures?\b/g,'h').replace(/\bans?\b|\bannees?\b/g,'an').replace(/\bjours?\b/g,'j').replace(/\s+/g,' ');}
+const CK_GLOSS=['stagiaire associé','faisant fonction d’interne','PACT','praticien associé','praticien contractuel','motif 1','motif 2','motif 3','motif 4','liste complémentaire','liste principale','EVC','attestation d’exercice','IESPE','TTA','CET','COPS','PECH','période probatoire','liste d’aptitude','temps continu','indemnité de sujétion','récupération','prime de solidarité territoriale','intérim','protection fonctionnelle','suspension','titre de séjour','autorisation de travail','droit d’option','reprise d’ancienneté','échelon','disponibilité','temps partiel','activité libérale','obligations de service','quadrimestre','CDI','période d’essai','préavis','indemnité de fin de contrat','part variable','conseil de discipline','comité médical','CME','préfet','DG ARS','CNG'];
+function ckRepere(html){const box=document.createElement('div');box.innerHTML=html;box.querySelectorAll('.vb,.lbl').forEach(e=>e.remove());const txt=box.textContent.replace(/[\u00a0\u202f]/g,' ');const out=[],seen=new Set();
+ const add=(k,label,key,unit)=>{const id=k+key+(unit||'');if(!key||seen.has(id))return;seen.add(id);out.push({k,label:label.trim(),key,unit});};
+ (txt.match(/\b[LRD]\.?\s?\d{4}-\d+(?:-\d+)*/g)||[]).forEach(r=>{const n=r.replace(/[.\s]/g,'');add('Texte cité',n,n.toLowerCase());});
+ (txt.match(/\b(?:arrêté|décret|loi|ordonnance) (?:n° ?[\d-]+ )?du \d{1,2}(?:er)? [a-zéû]+ \d{4}/gi)||[]).forEach(r=>{const m=r.match(/(\d{1,2})(?:er)? ([a-zéû]+) (\d{4})/i);add('Texte cité',r,ckNorm(m[1]+' '+m[2]+' '+m[3]));});
+ (txt.match(/\d[\d ]*(?:,\d+)?\s?(?:€|%|h\b|DJ\b|ETP\b|jours?\b|mois\b|ans?\b|semaines?\b|demi-journées?\b)/g)||[]).forEach(r=>{const num=r.match(/\d[\d ]*(?:,\d+)?/)[0].replace(/ /g,'').replace(/,$/,'');const v=parseFloat(num.replace(',','.'));if(isNaN(v))return;const u=ckNorm(r.replace(/^[\d ,]+/,'').trim());
+   if(v>=1900&&v<=2100&&!/€/.test(u))return;add('Montant ou durée',r.replace(/\s+/g,' '),num,v<10?u:'');});
+ box.querySelectorAll('b,strong').forEach(b=>{const t=b.textContent.replace(/\s+/g,' ').trim();if(t.length<3||t.length>45||/\d/.test(t))return;add('Notion',t,ckNorm(t).replace(/[«»:;.,()]/g,'').trim());});
+ const nt=ckNorm(txt);CK_GLOSS.forEach(g=>{const k=ckNorm(g);if(new RegExp('(^|[^a-z])'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![a-z])').test(nt)&&!out.some(o=>o.k==='Notion'&&(o.key.includes(k)||k.includes(o.key))))add('Notion',g,k);});
+ return out.slice(0,20);}
+function ckFound(r,ans){const a=ckNorm(ans);if(r.k==='Montant ou durée'){const n=r.key.replace(',',',?');const re=new RegExp('(^|[^\\d,])'+r.key.replace(',','[,.]')+'(?![\\d]|[,.]\\d)'+(r.unit?'\\s?'+r.unit.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'):''));const flat=a.replace(/(\d) (?=\d{3}\b)/g,'$1');return re.test(flat);}
+ if(r.k==='Texte cité')return a.replace(/[.\s]/g,'').includes(r.key.replace(/[.\s]/g,''))||a.includes(r.key);
+ const words=r.key.split(' ').filter(w=>w.length>=4);return words.length?words.every(w=>a.includes(w)):a.includes(r.key);}
+function ckMethod(ans){const a=ckNorm(ans);return [['Qualifier la situation',/statut|qualif|situation|il s'agit|est (un|une) (ph|praticien|contractuel|interne)|motif/],['Citer la règle',/\b[lrd]\.?\s?\d{4}-\d|article|arrete|decret|\bloi\b|code de la sante/],['Chiffrer',/\d/],['Conclure ou proposer',/donc|en conclusion|conclu|je propose|proposer|il faut|decision|recommand|retenir|refus/]].map(([l,re])=>[l,re.test(a)]);}
+function ckAttach(r,c){if(!c||!c.c)return;const ta=r.querySelector('textarea');const row=document.createElement('div');row.className='ck-row';
+ row.innerHTML='<button class="btn" type="button">Comparer ma réponse au corrigé</button><span class="small">Repère les éléments du corrigé présents dans votre réponse. Ne donne pas de note.</span>';const out=document.createElement('div');out.className='ck-out';out.hidden=true;r.appendChild(row);r.appendChild(out);
+ const e=s=>String(s).replace(/[&<>"]/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]));
+ row.querySelector('button').onclick=()=>{const ans=ta.value||'';out.hidden=false;if(ans.trim().split(/\s+/).length<15){out.innerHTML='<p class="small">Rédigez d’abord votre réponse (quelques lignes au moins), puis comparez.</p>';return;}
+  const reps=ckRepere(c.c);const res=reps.map(x=>[x,ckFound(x,ans)]);const ok=res.filter(x=>x[1]).length;const groups=['Notion','Texte cité','Montant ou durée'];
+  out.innerHTML=`<p class="ck-sum"><b>${ok} repère${ok>1?'s':''} sur ${reps.length}</b> présent${ok>1?'s':''} dans votre réponse.</p>`+
+   groups.map(g=>{const it=res.filter(x=>x[0].k===g);return it.length?`<p class="ck-g">${g}</p><ul class="ck-l">${it.map(([x,f])=>`<li class="${f?'ck-y':'ck-n'}"><span aria-hidden="true">${f?'✓':'○'}</span> ${e(x.label)}<span class="sr">${f?' : présent':' : absent'}</span></li>`).join('')}</ul>`:'';}).join('')+
+   `<p class="ck-g">Méthode</p><ul class="ck-l">${ckMethod(ans).map(([l,f])=>`<li class="${f?'ck-y':'ck-n'}"><span aria-hidden="true">${f?'✓':'○'}</span> ${l}<span class="sr">${f?' : présent':' : absent'}</span></li>`).join('')}</ul>`+
+   '<p class="small">Limites : un repère trouvé n’est pas forcément bien utilisé, et une formulation différente peut passer inaperçue. Lisez ensuite le corrigé pour comparer le raisonnement.</p>';};}
 /* ---------- cas pratiques : réponse personnelle, lien vers l'atelier, boîte à outils ---------- */
 (function(){
  const RK='dam-reponses-v1';let rep={};try{rep=JSON.parse(localStorage.getItem(RK)||'{}')}catch(e){}if(!rep||typeof rep!=='object'||Array.isArray(rep))rep={};
@@ -3308,7 +3338,7 @@ CASES.push(...PADHUE_CV);
   if(at){const subs=AT_SUB[at]||[[at,'ce CV']];tools.innerHTML=subs.map(([id,l])=>`<button class="btn ghost" type="button" data-at="${id}">Analyser ${subs.length>1?l:'ce CV'} dans l’atelier</button>`).join('');tools.querySelectorAll('[data-at]').forEach(b=>b.onclick=()=>window.atOpen&&window.atOpen(b.dataset.at));}
   const tb=document.createElement('button');tb.className='btn ghost';tb.type='button';tb.textContent='Boîte à outils';tb.onclick=()=>openTbx();tools.appendChild(tb);
   const r=document.createElement('details');r.className='c-rep';r.innerHTML=`<summary>Rédiger ma réponse${rep[t]?' (brouillon enregistré)':''}</summary><textarea aria-label="Ma réponse" placeholder="Qualifier, prérequis, règle, décider et chiffrer, sécuriser…"></textarea>`;
-  const ta=r.querySelector('textarea');ta.value=rep[t]||'';ta.addEventListener('input',()=>{rep[t]=ta.value;saveRep();});
+  const ta=r.querySelector('textarea');ta.value=rep[t]||'';ta.addEventListener('input',()=>{rep[t]=ta.value;saveRep();});ckAttach(r,c);
   body.insertBefore(r,cor);body.insertBefore(tools,r);});}
  {const _rc=renderCases;renderCases=function(f){_rc(f);enhance();};}
  const cur=document.querySelector('#caseFilters .chip[aria-pressed="true"]');renderCases(cur?cur.dataset.f:'all');
