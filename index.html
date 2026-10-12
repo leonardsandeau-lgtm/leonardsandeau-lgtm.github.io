@@ -371,6 +371,34 @@ details.c-rep textarea{min-height:160px;margin-top:8px}
 .tbx-body{overflow:auto;padding:12px 14px 80px;display:flex;flex-direction:column;gap:10px;font-size:15px}
 .tbx-body table{font-size:14px}
 @media (max-width:640px){.tbx{top:auto;height:78vh;width:100%;border-left:0;border-top:1px solid var(--filet)}}
+
+/* ---------- parcours parallèles HU ---------- */
+.lanes{display:flex;flex-direction:column;gap:6px;background:var(--blanc);border:1px solid var(--line);padding:12px}
+.ln-row{display:grid;grid-template-columns:130px repeat(4,1fr);gap:6px;align-items:stretch}
+.ln-head span{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 4px}
+.ln-lbl{font-weight:800;color:var(--bleu);font-size:14px;display:flex;align-items:center;line-height:1.2}
+.ln-c{position:relative;padding:10px 12px;display:flex;flex-direction:column;gap:3px;font-size:14px;background:var(--bleu-clair);border-left:5px solid var(--bleu)}
+.ln-u .ln-c{background:#fdeef8;border-left-color:var(--rose)}
+.ln-c b{font-weight:500;line-height:1.2}
+.ln-c small{color:var(--muted);font-size:12.5px;line-height:1.35}
+.ln-c .ln-or{margin-top:4px}
+.ln-c.ln-tit{border-left-width:10px}
+.ln-c:not(.ln-tit):not(.ln-ghost)::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);z-index:1;color:var(--bleu);font-weight:800;font-family:Arial,sans-serif;background:var(--blanc);line-height:1}
+.ln-h .ln-common{grid-row:span 1;background:#eef0f4;border-left-color:var(--muted)}
+.ln-ghost{background:none!important;border:0!important;border-left:5px dotted var(--muted)!important}
+.ln-ghost::before{content:"même formation";font-size:12px;color:var(--muted)}
+.ln-pass{background:var(--bleu-clair);padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.ln-pass .lbl{font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--bleu)}
+table.ln-tab td:first-child{font-weight:500;color:var(--bleu);white-space:normal;min-width:120px}
+@media (max-width:760px){.lanes{padding:8px}.ln-head{display:none}.ln-row{grid-template-columns:1fr;gap:4px}.ln-lbl{margin-top:6px}.ln-ghost{display:none}.ln-c:not(.ln-tit):not(.ln-ghost)::after{content:"↓";right:auto;left:14px;top:auto;bottom:-13px;transform:none}.ln-c{margin-bottom:6px}}
+/* ---------- sigles cliquables ---------- */
+a.acr{color:inherit;text-decoration:underline dotted var(--bleu);text-decoration-thickness:1.5px;text-underline-offset:3px;cursor:help;position:relative}
+a.acr:hover,a.acr:focus-visible{color:var(--bleu)}
+@media (hover:hover){a.acr:hover::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);background:var(--noir);color:var(--blanc);font-size:13px;font-weight:400;line-height:1.3;padding:5px 8px;white-space:nowrap;max-width:none;z-index:40;pointer-events:none;text-decoration:none}}
+.acr-pop{position:absolute;z-index:50;background:var(--blanc);border:1px solid var(--filet);border-top:5px solid var(--bleu);box-shadow:0 6px 18px rgba(0,0,0,.15);padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.acr-pop .acr-k{font-weight:800;font-size:20px;color:var(--bleu);line-height:1}
+.acr-pop .acr-l{font-weight:500}
+.sg-hit{outline:3px solid var(--bleu);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -518,6 +546,43 @@ details.c-rep textarea{min-height:160px;margin-top:8px}
       <tr><td>Hospitalo-universitaire</td><td>Bi-appartenance : université (employeur principal) et CHU</td><td>Post-internat : CCA-AH, AHU ; titulaires : MCU-PH, PU-PH ; PHU temporaire</td><td>11 DJ, sans partage horaire entre soins et université</td><td>Non</td><td>Oui</td></tr>
     </table></div>
     <p class="small">Sources : statuts et durées des assistants <span class="vb o">texte</span> ; HU <span class="vb c">cours</span>.</p>
+    <h3>Deux parcours en parallèle : la voie hospitalière et la voie hospitalo-universitaire</h3>
+    <p>Après l'internat, le médecin suit l'une de deux voies. La voie hospitalière mène au statut de PH, géré par le CNG. La voie hospitalo-universitaire (HU) mène aux corps de MCU-PH et de PU-PH : le praticien soigne au CHU, enseigne et fait de la recherche à l'université. Des passerelles relient les deux voies.</p>
+    <div class="lanes" role="table" aria-label="Parcours hospitalier et hospitalo-universitaire">
+      <div class="ln-row ln-head" role="row"><span role="columnheader"></span><span role="columnheader">Formation</span><span role="columnheader">Après l'internat</span><span role="columnheader">En attente de titularisation</span><span role="columnheader">Titulaire</span></div>
+      <div class="ln-row ln-h" role="row"><span class="ln-lbl" role="rowheader">Voie hospitalière</span>
+        <div class="ln-c ln-common" role="cell"><b>Interne, puis docteur junior</b><small>Étudiant de 3ᵉ cycle ; thèse, puis DES</small></div>
+        <div class="ln-c" role="cell"><b>Assistant des hôpitaux</b><small>Contrat d'1 an, ou de 2 ans renouvelable par an ; 6 ans au plus</small><b class="ln-or">ou praticien contractuel</b><small>4 motifs</small></div>
+        <div class="ln-c" role="cell"><b>Contractuel, motif 3</b><small>Dans l'attente de l'inscription sur la liste d'aptitude du concours de PH</small></div>
+        <div class="ln-c ln-tit" role="cell"><b>Praticien hospitalier</b><small>Concours national, liste valable 4 ans, période probatoire d'1 an, 13 échelons</small></div>
+      </div>
+      <div class="ln-row ln-u" role="row"><span class="ln-lbl" role="rowheader">Voie hospitalo-universitaire</span>
+        <div class="ln-c ln-common ln-ghost" role="cell" aria-hidden="true"></div>
+        <div class="ln-c" role="cell"><b>CCA-AH ou AHU</b><small>Chef de clinique (disciplines cliniques) ou assistant hospitalier universitaire (biologie, pharmacie) : 2 ans, renouvelables 2 fois 1 an</small></div>
+        <div class="ln-c" role="cell"><b>Praticien hospitalier universitaire (PHU)</b><small>Fonctions temporaires ; avec le clinicat, 8 ans au plus au CHU</small></div>
+        <div class="ln-c ln-tit" role="cell"><b>MCU-PH, puis PU-PH</b><small>Concours nationaux par discipline ; MCU-PH stagiaire 1 an</small></div>
+      </div>
+    </div>
+    <div class="ln-pass">
+      <span class="lbl">Les passerelles</span>
+      <ul>
+        <li><b>Ancien CCA ou AHU vers PH</b> : il passe le concours national de PH. Le titre d'ancien chef de clinique exige 2 ans de fonctions effectives (article 90). <span class="vb o">texte</span></li>
+        <li><b>PH vers MCU-PH</b> : le premier concours de MCU-PH est ouvert aux PH qui justifient d'1 an de fonctions et d'un master (article 45). <span class="vb o">texte</span></li>
+        <li><b>PH vers PU-PH</b> : un concours spécial est réservé aux PH classés au moins au 5ᵉ échelon (article 62). <span class="vb o">texte</span></li>
+        <li><b>MCU-PH vers PU-PH</b> : concours de droit commun après 2 ans de fonctions, avec l'habilitation à diriger des recherches et 1 an de mobilité hors du CHU (articles 61 et 68) ; ou concours réservé après 10 ans d'ancienneté comme MCU-PH (article 63). <span class="vb o">texte</span></li>
+      </ul>
+    </div>
+    <div class="tbl"><table class="ln-tab">
+      <tr><th>Étape</th><th>Voie hospitalière</th><th>Voie hospitalo-universitaire</th></tr>
+      <tr><td>Après l'internat : statut</td><td>Assistant des hôpitaux. Recruté par le directeur, sur proposition du chef de pôle et après avis du PCME (R6152-510). Contrat d'1 an, ou de 2 ans renouvelable par période d'1 an, 6 ans au plus (R6152-511). <span class="vb o">texte</span></td><td>CCA-AH ou AHU. DES exigé (article 88). Nommé par le DG du CHU et le directeur de l'UFR, après avis du conseil de l'UFR et de la CME, pour 2 ans avec deux renouvellements d'1 an, soit 4 ans au plus (articles 87 et 90). <span class="vb o">texte</span></td></tr>
+      <tr><td>Après l'internat : rémunération</td><td>2 803,59 € à 3 448,94 € brut par mois selon l'échelon <span class="vb c">cours</span>, plus l'IESPE de 1 010 € sur contrat d'engagement.</td><td>Émoluments hospitaliers de 18 658,79 € par an, puis 21 728,46 € après 2 ans de fonctions, plus une rémunération universitaire ; IESPE de 1 010 € (annexe I de l'arrêté du 8 juillet 2022). <span class="vb o">texte</span></td></tr>
+      <tr><td>Titre et secteur 2</td><td>Titre d'ancien assistant des hôpitaux après 2 ans de fonctions. <span class="vb o">texte</span></td><td>Titre d'ancien chef de clinique ou d'ancien AHU après 2 ans de fonctions effectives (article 90). <span class="vb o">texte</span> Ces titres ouvrent l'accès au secteur 2 en libéral. <span class="vb c">cours</span></td></tr>
+      <tr><td>En attente de titularisation</td><td>Contractuel de motif 3, 3 ans au plus, dans l'attente de l'inscription sur la liste d'aptitude (R6152-338, 3°). <span class="vb o">texte</span></td><td>PHU : 2 ans de clinicat au moins, inscription sur la liste d'aptitude du concours de PH et candidature à un poste de PH (article 82). Rémunération égale à celle d'un PH du même échelon, pour moitié à la charge de l'État et pour moitié à celle du CHU (article 84). <span class="vb o">texte</span></td></tr>
+      <tr><td>Titularisation</td><td>PH : concours national, nomination par le DG du CNG, période probatoire d'1 an. Émoluments de 55 607,79 € à 112 416,56 € par an. <span class="vb o">texte</span></td><td>MCU-PH : concours national par discipline, jugé par une section du CNU (articles 45 et 48) ; nommé stagiaire, titularisé après 1 an (article 51). PU-PH : concours national (articles 61 à 63). Émoluments hospitaliers : de 34 689,71 € à 50 451,46 € (MCU-PH), de 40 304,21 € à 60 930,45 € (PU-PH), plus le traitement universitaire. <span class="vb o">texte</span></td></tr>
+      <tr><td>Temps de travail</td><td>10 DJ par semaine, 48 h au plus en moyenne sur 4 mois ; TTA possible. <span class="vb o">texte</span></td><td>11 DJ par semaine de soins, d'enseignement et de recherche (article 6). <span class="vb o">texte</span> Ni TTA, ni RTT, ni CET. <span class="vb c">cours</span></td></tr>
+      <tr><td>Employeur et gestion</td><td>Un employeur : l'établissement ; carrière gérée par le CNG pour les PH.</td><td>Deux employeurs : l'université, employeur principal, et le CHU. Deux fiches de paie ; actes de gestion cosignés par l'UFR ; tout mouvement de carrière passe d'abord par la faculté. <span class="vb c">cours</span></td></tr>
+    </table></div>
+    <p class="small">Source : décret 2021-1645 du 13 décembre 2021 relatif au personnel enseignant et hospitalier des CHU, version en vigueur au 12 octobre 2026, et arrêté du 8 juillet 2022, annexes I et II, consultés sur Légifrance ; cours de N. Mevel (CHU de Rennes).</p>
     <div class="grid2">
       <div class="box retenir"><span class="lbl">Particularités de l'assistant</span>
         <ul>
@@ -2100,6 +2165,30 @@ lgRender();
 
 /* ---------- sigles ---------- */
 const SIGLES=[
+['DG','Directeur général','Dirige une ARS, le CNG ou un CHU ; « DG ARS » désigne le directeur général de l’agence régionale de santé.','m-acteurs'],
+['FHF','Fédération hospitalière de France','Fédération des établissements publics de santé et médico-sociaux ; publie des fiches juridiques.','m-pc'],
+['UE','Union européenne','Le diplôme obtenu dans l’UE ouvre l’exercice en France ; hors UE, la procédure d’autorisation s’applique.','m-padhue'],
+['EEE','Espace économique européen','Union européenne, Islande, Liechtenstein et Norvège.','m-padhue'],
+['RTT','Réduction du temps de travail','Jours de repos ; les HU n’en ont pas.','m-statuts'],
+['CDI, CDD','Contrat à durée indéterminée, contrat à durée déterminée','Le motif 4 peut devenir un CDI après 3 ans, de droit après 6 ans.','m-pc'],
+['JO','Journal officiel','Publication des lois, décrets, arrêtés et des listes d’aptitude.','m-ph'],
+['AP-HP','Assistance publique-Hôpitaux de Paris','CHU d’Île-de-France ; citée en exemple pour les forfaits d’astreinte.','m-ast-hyp'],
+['GHU','Groupe hospitalier universitaire','Regroupement d’hôpitaux au sein de l’AP-HP.','m-ast-hyp'],
+['GHRE','Groupe hospitalier Rance Émeraude','Hôpitaux de Saint-Malo, Dinan et Cancale ; cité en exemple pour les forfaits d’astreinte.','m-ast-hyp'],
+['DRH','Direction des ressources humaines','Gère le personnel non médical ; la DAM gère le personnel médical.','m-acteurs'],
+['PCMG','Président de la commission médicale de groupement','Président de l’instance médicale du GHT.','m-acteurs'],
+['CESEDA','Code de l’entrée et du séjour des étrangers et du droit d’asile','Fixe les titres de séjour, dont la carte « talent – profession médicale ».','m-padhue'],
+['GCS','Groupement de coopération sanitaire','Structure de coopération entre établissements ; un PH peut y être mis à disposition.','m-carriere'],
+['GIP','Groupement d’intérêt public','Structure de coopération entre personnes publiques et privées.','m-carriere'],
+['UHCD','Unité d’hospitalisation de courte durée','Unité des urgences pour une surveillance de moins de 24 h.','m-tt'],
+['CNU','Conseil national des universités','Ses sections de santé jugent les concours de MCU-PH et de PU-PH.','m-statuts'],
+['HDR','Habilitation à diriger des recherches','Diplôme exigé pour le concours de PU-PH.','m-statuts'],
+['CE','Conseil d’État','Juridiction administrative suprême.','m-tt'],
+['PACS','Pacte civil de solidarité','Ouvre les mêmes droits que le mariage pour certains congés et disponibilités.','m-carriere'],
+['EHPAD','Établissement d’hébergement pour personnes âgées dépendantes','Un assistant peut y être recruté (R6152-501).','m-statuts'],
+['PMI','Protection maternelle et infantile','Service départemental ; lieu d’exercice possible du dispositif outre-mer.','m-padhue'],
+['HAD','Hospitalisation à domicile','Les auxiliaires médicaux libéraux peuvent y intervenir (L6146-2).','m-pc'],
+['EHESP','École des hautes études en santé publique','Forme les directeurs d’hôpital.','m-methode'],
 ['AHU','Assistant hospitalier universitaire','Statut HU temporaire après l’internat.','m-statuts'],
 ['ARS','Agence régionale de santé','Pilote l’offre de soins régionale ; son DG arrête le schéma de PDSES, approuve les contrats d’activité libérale, délivre l’attestation des PACT.','m-acteurs'],
 ['CCA-AH','Chef de clinique des universités-assistant des hôpitaux','Statut HU temporaire après l’internat, en CHU.','m-statuts'],
@@ -3011,6 +3100,45 @@ window.atOpen=id=>{const p=AT_PRESETS.find(x=>x.id===id);if(!p)return;showTab('a
 let saved=null;try{saved=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
 if(saved&&saved.cv&&saved.p){state={...state,...saved};$a('at-cv').innerHTML=cvCard({...state.p,cv:state.cv});renderForm();$a('at-ans').value=state.ans||'';$a('at-live').checked=!!state.live;if(state.pid&&AT_PRESETS.some(p=>p.id===state.pid))sel.value=state.pid;if(state.shown){renderSol();$a('at-show').hidden=true;}}
 else load(AT_PRESETS[0]);
+})();
+
+
+/* ---------- sigles cliquables avec infobulle ---------- */
+(function(){
+ const MAP=new Map();
+ SIGLES.forEach(r=>{const keys=r[0]==='DJ (docteur junior)'?[]:r[0].split(',').map(x=>x.trim().replace(/\s*\(.*\)$/,''));keys.forEach(k=>{if(k&&!MAP.has(k))MAP.set(k,r);});});
+ const keys=[...MAP.keys()].sort((a,b)=>b.length-a.length).map(k=>k.replace(/[-]/g,'\\-'));
+ const RX=new RegExp('(?<![A-Za-zÀ-ÿ0-9\\-])('+keys.join('|')+')(?![A-Za-zÀ-ÿ0-9\\-])','g');
+ const SKIP='a,button,input,textarea,select,option,label,script,style,summary,h1,h2,h3,code,svg,nav,.acr,.vb,.acr-pop,.cv-av,.tl,.at-tag,#sigles,.tbx-tabs,th,.xm-bar,dt';
+ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+ function wrapText(node){const t=node.nodeValue;RX.lastIndex=0;if(!RX.test(t))return;RX.lastIndex=0;
+  const frag=document.createDocumentFragment();let last=0,m;
+  while((m=RX.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));const r=MAP.get(m[1]);const a=document.createElement('a');a.className='acr';a.href='#sigles';a.dataset.k=m[1];a.dataset.tip=r[1];a.textContent=m[1];frag.appendChild(a);last=m.index+m[1].length;}
+  if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));node.parentNode.replaceChild(frag,node);}
+ function scan(root){if(!root)return;if(root.nodeType===3){const p=root.parentElement;if(p&&!p.closest(SKIP)&&p.closest('section.panel'))wrapText(root);return;}
+  if(root.nodeType!==1||root.closest(SKIP))return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;return (!p||p.closest(SKIP)||!/[A-Z]{2}/.test(n.nodeValue))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+  const list=[];while(w.nextNode())list.push(w.currentNode);list.forEach(wrapText);}
+ document.querySelectorAll('section.panel').forEach(scan);
+ let pend=new Set(),raf=0;
+ new MutationObserver(ms=>{ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1&&n.classList&&n.classList.contains('acr'))return;pend.add(n);}));if(!raf)raf=requestAnimationFrame(()=>{raf=0;const ns=[...pend];pend.clear();ns.forEach(n=>{if(n.isConnected)scan(n);});});}).observe(document.body,{childList:true,subtree:true});
+ /* fenêtre au clic */
+ const pop=document.createElement('div');pop.className='acr-pop';pop.hidden=true;pop.setAttribute('role','dialog');document.body.appendChild(pop);
+ let cur=null;
+ function close(){pop.hidden=true;cur=null;}
+ document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a.acr');
+  if(a){e.preventDefault();if(cur===a){close();return;}cur=a;const r=MAP.get(a.dataset.k);
+   pop.innerHTML=`<p class="acr-k">${esc(a.dataset.k)}</p><p class="acr-l">${esc(r[1])}</p><p>${esc(r[2])}</p><div class="row"><button class="btn" type="button" data-go="memo">Voir la fiche</button><button class="btn ghost" type="button" data-go="sg">Tous les sigles</button></div>`;
+   pop.hidden=false;const b=a.getBoundingClientRect();const w=Math.min(340,window.innerWidth-24);pop.style.width=w+'px';
+   let x=b.left+window.scrollX;x=Math.max(12+window.scrollX,Math.min(x,window.scrollX+window.innerWidth-w-12));pop.style.left=x+'px';
+   const below=b.bottom+window.scrollY+6;pop.style.top=below+'px';
+   const ph=pop.offsetHeight;if(b.bottom+ph+12>window.innerHeight&&b.top>ph+12)pop.style.top=(b.top+window.scrollY-ph-6)+'px';
+   pop.querySelector('[data-go="memo"]').onclick=()=>{close();if(typeof jumpTo==='function')jumpTo(r[3]);};
+   pop.querySelector('[data-go="sg"]').onclick=()=>{close();showTab('sigles');try{history.replaceState(null,'','#sigles')}catch(err){}const q=document.getElementById('sg-q');if(q){q.value=a.dataset.k;q.dispatchEvent(new Event('input'));}window.scrollTo({top:document.querySelector('nav.tabs').offsetTop-4});const hit=[...document.querySelectorAll('#sg-list .sg')].find(x=>{const dt=x.querySelector('dt');return dt&&dt.textContent.split(',').map(y=>y.trim()).includes(a.dataset.k);});if(hit){hit.parentNode.prepend(hit);hit.classList.add('sg-hit');}};
+   pop.querySelector('.btn').focus({preventScroll:true});return;}
+  if(!pop.hidden&&!pop.contains(e.target))close();},true);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pop.hidden){const a=cur;close();if(a)a.focus();}});
+ window.addEventListener('resize',close);
 })();
 
 </script>
