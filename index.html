@@ -392,6 +392,7 @@ details.c-rep textarea{min-height:160px;margin-top:8px}
 table.ln-tab td:first-child{font-weight:500;color:var(--bleu);white-space:normal;min-width:120px}
 @media (max-width:760px){.lanes{padding:8px}.ln-head{display:none}.ln-row{grid-template-columns:1fr;gap:4px}.ln-lbl{margin-top:6px}.ln-ghost{display:none}.ln-c:not(.ln-tit):not(.ln-ghost)::after{content:"↓";right:auto;left:14px;top:auto;bottom:-13px;transform:none}.ln-c{margin-bottom:6px}}
 /* ---------- sigles cliquables ---------- */
+abbr.acr-i{text-decoration:underline dotted currentColor;text-underline-offset:3px;cursor:help}
 a.acr{color:inherit;text-decoration:underline dotted var(--bleu);text-decoration-thickness:1.5px;text-underline-offset:3px;cursor:help;position:relative}
 a.acr:hover,a.acr:focus-visible{color:var(--bleu)}
 @media (hover:hover){a.acr:hover::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);background:var(--noir);color:var(--blanc);font-size:13px;font-weight:400;line-height:1.3;padding:5px 8px;white-space:nowrap;max-width:none;z-index:40;pointer-events:none;text-decoration:none}}
@@ -461,6 +462,16 @@ ol.rp-log li.ok{border-left-color:var(--vert)}ol.rp-log li.mid{border-left-color
 .rp-tag{font-size:12px;font-weight:500;padding:1px 7px;margin-left:6px;white-space:nowrap}
 .rp-tag.ok{background:var(--vert);color:var(--blanc)}.rp-tag.mid{background:var(--jaune)}.rp-tag.ko{background:#c0392b;color:var(--blanc)}
 @media (max-width:640px){.rp-g{grid-template-columns:1fr 1fr;top:48px}.rp-say{font-size:16.5px}.rp-score{width:100px;height:100px}.rp-score b{font-size:30px}}
+.rp-why{background:#eef6ee;border-left:6px solid #2e7d32;padding:8px 12px;display:flex;flex-direction:column;gap:4px}
+.rp-cons{background:#fff3e0;border-left:6px solid #e65100;padding:8px 12px}
+.rp-cor .rp-say{border-left-color:#e65100}
+.rp-over{background:#fdecea;border-left:8px solid #b71c1c;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.rp-over h3{color:#b71c1c;margin:0}
+.rp-dx{border:1px solid var(--line);padding:6px 10px;background:var(--blanc)}
+.rp-dx summary{cursor:pointer;font-weight:500}
+.rp-tag.cor{background:#fff3e0;color:#8a3b00}
+button.lnk{font:inherit;background:none;border:0;padding:0;color:var(--bleu);text-decoration:underline;cursor:pointer;text-align:left}
+.btn.danger{background:#b71c1c;border-color:#b71c1c}
 .rp-redir{background:#fff8d6;border-left:6px solid var(--jaune);padding:8px 12px;font-size:15px}
 </style>
 </head>
@@ -2048,7 +2059,7 @@ const Q=[
 {th:'tt',q:'Plafond global du CET depuis 2016 ?',o:['60 jours','150 jours','208 jours','300 jours'],a:2,x:'208 jours au total (CET historique + pérenne).'},
 {th:'tt',q:'Date limite d’exercice du droit d’option du CET pérenne ?',o:['31 décembre N','31 janvier N+1','31 mars N+1','30 juin N+1'],a:2,x:'Avant le 31 mars N+1, pour les jours au-delà du 20ᵉ.'},
 {th:'tt',q:'Combien de DJ hebdomadaires constituent le temps de travail effectif d’un interne ?',o:['8','9','10','11'],a:1,x:'9 DJ, 48 h max en moyenne sur le trimestre.'},
-{th:'tt',q:'Quelle loi instaure le schéma régional de PDSES et la responsabilité collective des établissements ?',o:['Loi HPST 2009','Loi RIST 2021','Loi Valletoux 2023','Loi Ma santé 2022'],a:2,x:'Loi n° 2023-1268 du 27 décembre 2023, art. 17, et décret du 3 février 2025.'},
+{th:'tt',q:'Quelle loi instaure le schéma régional de PDSES et la responsabilité collective des établissements ?',o:['Loi HPST 2009','Loi Rist 2021','Loi Valletoux 2023','Loi Ma santé 2022'],a:2,x:'Loi n° 2023-1268 du 27 décembre 2023, art. 17, et décret du 3 février 2025.'},
 {th:'tt',q:'Combien de gardes un externe doit-il réaliser au cours du 2ᵉ cycle ?',o:['10','15','25','36'],a:2,x:'25 gardes (arrêté du 17 juin 2013, R6153-47-1).'},
 {th:'sic',q:'Qui inflige un blâme à un PH ?',o:['Le directeur','Le PCME','Le DG du CNG','Le DG ARS'],a:2,x:'Le DG du CNG, avec ou sans conseil de discipline pour les sanctions de 1er niveau.'},
 {th:'sic',q:'Durée maximale de la suspension du droit d’exercer par le DG ARS ?',o:['1 mois','3 mois','5 mois','6 mois'],a:2,x:'5 mois, émoluments maintenus, audition sous 3 jours (L4113-14).'},
@@ -2257,10 +2268,39 @@ const SIGLES=[
 ['EHPAD','Établissement d’hébergement pour personnes âgées dépendantes','Un assistant peut y être recruté (R6152-501).','m-statuts'],
 ['PMI','Protection maternelle et infantile','Service départemental ; lieu d’exercice possible du dispositif outre-mer.','m-padhue'],
 ['HAD','Hospitalisation à domicile','Les auxiliaires médicaux libéraux peuvent y intervenir (L6146-2).','m-pc'],
+['CH','Centre hospitalier','Établissement public de santé non universitaire.','m-acteurs'],
+['GH','Groupe hospitalier','Établissement issu du regroupement de plusieurs hôpitaux, souvent sur plusieurs sites.','m-acteurs'],
+['GHBS','Groupe hospitalier Bretagne Sud','Établissement public de santé de Lorient et de son territoire.','m-pds'],
+['CV','Curriculum vitae','Parcours du praticien : diplômes, inscription à l’Ordre, fonctions exercées.','m-pc'],
+['HT','Hors taxes','Montant avant TVA ; le plafond de l’intérim est exprimé hors taxes.','m-interim'],
+['CA','Congé annuel','Congés annuels du praticien : 25 jours ouvrés par an.','m-carriere'],
+['FAQ','Foire aux questions','Document de questions et réponses publié par la DGOS.','m-pc'],
+['AVC','Accident vasculaire cérébral','Urgence neurologique prise en charge dans une filière dédiée.','m-garde'],
+['IRM','Imagerie par résonance magnétique','Équipement lourd d’imagerie.','m-pc'],
+['ECG','Électrocardiogramme','Examen du cœur, parfois interprété à distance.','m-garde'],
+['CSE','Comité social d’établissement','Instance consultative du personnel non médical ; il n’est pas compétent pour l’organisation du temps médical.','m-acteurs'],
+['DU','Diplôme universitaire','Diplôme délivré par une université, hors diplômes nationaux.','m-etudes'],
+['RH','Ressources humaines','Gestion des personnels ; pour les médecins, elle relève de la DAM.','m-methode'],
+['DGESIP','Direction générale de l’enseignement supérieur et de l’insertion professionnelle','Direction du ministère chargé de l’enseignement supérieur.','m-etudes'],
+['MESR','Ministère de l’Enseignement supérieur et de la Recherche','Co-employeur des personnels hospitalo-universitaires.','m-statuts'],
+['SISA','Société interprofessionnelle de soins ambulatoires','Forme juridique des maisons de santé pluriprofessionnelles.','m-etudes'],
+['EDH','Élève directeur d’hôpital','Élève fonctionnaire en formation à l’EHESP.','m-methode'],
+['CPP','Code de procédure pénale','Son article 40 oblige tout agent public à signaler au procureur un crime ou un délit dont il a connaissance.','m-sic'],
+['CAA','Cour administrative d’appel','Juridiction d’appel des tribunaux administratifs.','m-sic'],
+['LRAR','Lettre recommandée avec accusé de réception','Courrier dont la date de réception est prouvée ; il fait courir les délais.','m-sic'],
+['HAS','Haute Autorité de santé','Autorité publique indépendante : certification des établissements, recommandations de bonne pratique.','m-acteurs'],
+['ETT','Entreprise de travail temporaire','Agence d’intérim qui met un médecin à disposition de l’établissement.','m-interim'],
+['HPST','Loi Hôpital, patients, santé et territoires','Loi du 21 juillet 2009 ; elle a notamment créé les ARS.','m-acteurs'],
+['APH','Action praticiens hôpital','Intersyndicale de praticiens hospitaliers.','m-garde'],
+['GPM','Groupe Pasteur Mutualité','Mutuelle des professionnels de santé.','m-garde'],
+['APPA','Association pour les praticiens hospitaliers et assimilés','Association de praticiens hospitaliers.','m-padhue'],
+['TVA','Taxe sur la valeur ajoutée','Les plafonds de l’intérim sont exprimés hors taxes.','m-interim'],
+['GPS','Système de positionnement par satellite','Employé ici dans les CV humoristiques de l’atelier.','m-pc'],
+['IP','Insuffisance professionnelle','Incapacité à exercer ses fonctions, sans faute ni maladie ; procédure gérée par le CNG.','m-sic'],
 ['EHESP','École des hautes études en santé publique','Forme les directeurs d’hôpital.','m-methode'],
 ['AHU','Assistant hospitalier universitaire','Statut HU temporaire après l’internat.','m-statuts'],
 ['ARS','Agence régionale de santé','Pilote l’offre de soins régionale ; son DG arrête le schéma de PDSES, approuve les contrats d’activité libérale, délivre l’attestation des PACT.','m-acteurs'],
-['CCA-AH','Chef de clinique des universités-assistant des hôpitaux','Statut HU temporaire après l’internat, en CHU.','m-statuts'],
+['CCA-AH, CCA','Chef de clinique des universités-assistant des hôpitaux','Statut HU temporaire après l’internat, en CHU.','m-statuts'],
 ['ANDPC','Agence nationale du développement professionnel continu','Pilote et contrôle le dispositif de DPC.','f-continue'],
 ['CET','Compte épargne-temps','Stockage des jours non pris ; option au-delà du 20ᵉ jour ; plafond de 208 jours.','m-cet'],
 ['CHU','Centre hospitalier universitaire','Établissement lié par convention à une université ; emploie les HU.','m-statuts'],
@@ -3178,11 +3218,13 @@ else load(AT_PRESETS[0]);
  SIGLES.forEach(r=>{const keys=r[0]==='DJ (docteur junior)'?[]:r[0].split(',').map(x=>x.trim().replace(/\s*\(.*\)$/,''));keys.forEach(k=>{if(k&&!MAP.has(k))MAP.set(k,r);});});
  const keys=[...MAP.keys()].sort((a,b)=>b.length-a.length).map(k=>k.replace(/[-]/g,'\\-'));
  const RX=new RegExp('(?<![A-Za-zÀ-ÿ0-9\\-])('+keys.join('|')+')(?![A-Za-zÀ-ÿ0-9\\-])','g');
- const SKIP='a,button,input,textarea,select,option,label,script,style,summary,h1,h2,h3,code,svg,nav,.acr,.vb,.acr-pop,.cv-av,.tl,.at-tag,#sigles,.tbx-tabs,th,.xm-bar,dt';
+ const SKIP='a,input,textarea,select,option,script,style,code,svg,nav,.acr,.vb,.acr-pop,.cv-av,.tl,.at-tag,#sigles,.tbx-tabs,.xm-bar,.rp-l';
+ /* dans un bouton, un intitulé ou un titre, le sigle n'est pas cliquable : il porte seulement une infobulle */
+ const SOFT='button,label,summary,h1,h2,h3,h4,th,dt';
  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
  function wrapText(node){const t=node.nodeValue;RX.lastIndex=0;if(!RX.test(t))return;RX.lastIndex=0;
   const frag=document.createDocumentFragment();let last=0,m;
-  while((m=RX.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));const r=MAP.get(m[1]);const a=document.createElement('a');a.className='acr';a.href='#sigles';a.dataset.k=m[1];a.dataset.tip=r[1];a.textContent=m[1];frag.appendChild(a);last=m.index+m[1].length;}
+  while((m=RX.exec(t))){if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));const r=MAP.get(m[1]);const soft=node.parentElement&&node.parentElement.closest(SOFT);const a=document.createElement(soft?'abbr':'a');a.className=soft?'acr acr-i':'acr';if(!soft)a.href='#sigles';else a.title=r[1];a.dataset.k=m[1];a.dataset.tip=r[1];a.textContent=m[1];frag.appendChild(a);last=m.index+m[1].length;}
   if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));node.parentNode.replaceChild(frag,node);}
  function scan(root){if(!root)return;if(root.nodeType===3){const p=root.parentElement;if(p&&!p.closest(SKIP)&&p.closest('section.panel'))wrapText(root);return;}
   if(root.nodeType!==1||root.closest(SKIP))return;
@@ -3409,6 +3451,324 @@ const RP=[
   {t:'Le licencier pour insuffisance professionnelle.',lv:'bad',fx:{j:-25},fb:'L’insuffisance est une incapacité sans faute et sans maladie. Ici, la maladie est établie.',src:'guide CNG',to:'fin'}]}},
  retenir:['Danger immédiat : suspension conservatoire par le directeur, information des DG du CNG et de l’ARS.','Santé en cause : comité médical d’abord, saisi par le directeur après avis du PCME (R6152-36).','Pas de discipline contre un praticien inapte.','Congé de maladie : 3 mois à 90 %, puis 9 mois à mi-traitement (R6152-37).']}
 ];
+/* ---------- jeu de rôle : réponses trompeuses, conséquences et fins de partie ---------- */
+/* Chaque mauvais choix mène à une scène de conséquence (rattrapable) ou à une fin de partie (choix illégal ou irréversible).
+   Les mauvaises réponses reposent sur un raisonnement plausible mais faux ; le retour nomme le piège. */
+const FIN=(t,d,src)=>({t,d,src});
+const RP_PATCH={
+radio:{ch:{
+ 'a:0':{t:'Un contrat de motif 2, prévu pour les difficultés particulières de recrutement : il autorise une part variable au-delà de la grille, si ses conditions sont remplies.'},
+ 'a:1':{t:'Un contrat de motif 1 au dernier échelon de la grille, complété par des gardes : c’est le contrat le plus rapide à signer, et il ne dépend pas du CPOM.',fb:'Le piège : la rapidité. Le motif 1 couvre un remplacement ou un surcroît temporaire d’activité ; le besoin est permanent, et le maximum de la grille (5 930,24 €) reste loin de 9 000 €.',to:'a1'},
+ 'a:2':{t:'Une mission d’intérim de quelques mois, le temps de préparer un recrutement : l’intérim médical reste autorisé, et l’IRM rouvre tout de suite.',fb:'Le piège : l’intérim est autorisé, mais plafonné à 2 681 € HT pour 24 h, et il ne règle pas un besoin permanent.',to:'a2'},
+ 'b:0':{t:'Ses 5 ans d’inscription au tableau de l’Ordre, et la présence de l’imagerie parmi les spécialités ouvertes au motif 2 dans le CPOM.'},
+ 'b:1':{t:'Son inscription sur la liste d’aptitude de PH et l’avis de la commission statutaire : le motif 2 est réservé aux praticiens reçus au concours.',fb:'Le piège : la confusion avec la nomination. Le motif 2 ne suppose pas le concours ; il exige 5 ans d’inscription à l’Ordre et l’inscription de la spécialité au CPOM.',src:'R6152-336 ; R6152-340',to:'b1'},
+ 'b:2':{t:'Que le budget du pôle couvre le surcoût et que le contrat de pôle est signé : c’est ce contrat qui fonde la part variable du praticien.',fb:'Le piège : la part variable repose sur des objectifs écrits dans le contrat du praticien. Les conditions réglementaires passent d’abord : 5 ans d’Ordre et CPOM.',src:'R6152-336 ; R6152-340',to:'b1'},
+ 'c:0':{t:'Une part fixe dans la grille, au plus 5 930,24 €, et une part variable sur objectifs écrits pour atteindre 9 000 €, sous le plafond de 9 927,50 € par mois.'},
+ 'c:1':{t:'9 000 € de part fixe : le motif 2 permet de dépasser la grille, et une part fixe sécurise mieux le candidat qu’une part variable incertaine.',fb:'Le piège : le motif 2 dépasse la grille par la part variable seulement. La part fixe reste dans les seuils de la grille.',to:'c1'},
+ 'c:2':{t:'7 000 € de part fixe, et une part variable fixée en fin d’année par le chef de service : on garde de la souplesse pour l’ajuster à l’activité.',fb:'Le piège : la souplesse. Sans objectifs écrits au contrat, la part variable n’a pas de base.',to:'c2'},
+ 'd:0':{t:'Demander à l’ARS un avenant au CPOM pour ouvrir le motif 2 en imagerie, puis signer une fois l’avenant conclu.',to:v=>v.ord>=5?'e':'d1'},
+ 'd:1':{t:'Un contrat de motif 3 s’il s’engage à préparer le concours, avec la PECH ; le motif 2 sera réexaminé à ses 5 ans d’inscription.',to:'e'},
+ 'd:2':{t:'Signer le motif 2 tout de suite : l’urgence de santé publique permet de déroger aux conditions, et l’ARS régularisera dans le prochain CPOM.',fb:'Le piège : aucune urgence ne permet de déroger aux conditions du motif 2.',fatal:FIN('Contrat irrégulier','Vous signez un contrat de motif 2 alors qu’une condition manque. L’ARS conteste ce recours lors de l’évaluation du CPOM, et le comptable public suspend les paiements. Le Dr Diographie n’est pas payé.','R6152-336 ; R6152-340 ; loi Rist')},
+ 'e:0':{t:'Le contractuel est recruté sur proposition du chef de service, après votre avis et celui du chef de pôle. Je vous transmets le dossier avant de signer.'},
+ 'e:1':{t:'Le directeur recrute seul les contractuels ; la CME n’est consultée que sur les nominations de praticiens hospitaliers. Je vous tiendrai informé.',fb:'Le piège : le directeur recrute, mais après l’avis du PCME et du chef de pôle, sur proposition du chef de service.',to:'e1'},
+ 'e:2':{t:'Votre avis sera recueilli pendant la période d’essai : c’est le moment prévu pour évaluer un contractuel avant de confirmer son recrutement.',lv:'bad',fx:{j:-10,c:-10},fb:'Le piège : les avis se recueillent avant le recrutement, pas après.',src:'R6152-337',to:'e1'}},
+ nodes:{
+ a1:{cor:1,who:'compta',say:'Je reçois un projet de contrat de motif 1 à 9 000 € par mois. Le seuil maximum des contractuels est de 5 930,24 € : je rejetterai le paiement au-delà. Et le motif 1 ne couvre pas un poste permanent.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je retire ce projet et j’étudie un contrat de motif 2, seul contrat qui permet une part variable au-delà de la grille, sous réserve de ses conditions.',lv:'best',fx:{j:10},fb:'Le motif 2 répond aux difficultés particulières de recrutement.',src:'R6152-338, 2°',to:'b'},
+  {t:'Je garde le motif 1 au maximum de la grille et j’ajoute chaque mois un forfait de temps de travail additionnel pour atteindre 9 000 €.',lv:'bad',fx:{j:-20},fb:'Le piège : le TTA rémunère des heures réellement faites au-delà des obligations de service ; il ne peut pas être forfaitisé.',src:'arrêté du 30 avril 2003, article 4',fatal:FIN('Paiement rejeté','Le comptable public rejette le TTA forfaitaire, versé sans service fait. Le motif 1 sur un poste permanent est irrégulier. Le Dr Diographie n’est pas payé comme prévu et part en clinique.','R6152-338, 1° ; arrêté du 30 avril 2003, article 4')}]},
+ a2:{cor:1,who:'compta',say:'Le devis de l’agence affiche 3 100 € HT pour 24 h de travail. Le plafond est de 2 681 € : je rejetterai le paiement.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je négocie une mission sous le plafond pour quelques semaines, et je lance en parallèle un recrutement en motif 2.',lv:'best',fx:{j:10,s:5},fb:'L’intérim peut dépanner, sous le plafond ; la solution durable est un recrutement.',src:'arrêté du 5 septembre 2025',to:'b'},
+  {t:'Je paie le devis : le plafond porte sur la rémunération du médecin, et les frais de l’agence s’ajoutent en dehors du plafond.',lv:'bad',fx:{j:-25},fb:'Le piège : le plafond porte sur la dépense engagée par l’établissement pour la mission.',src:'L6146-4 ; loi Rist',fatal:FIN('Paiement bloqué','Le comptable public rejette le paiement au-delà du plafond et en informe le DG de l’ARS, qui défère le contrat au tribunal administratif. L’agence retire son médecin : l’IRM ferme le soir.','L6146-4 ; loi Rist ; arrêté du 5 septembre 2025')}]},
+ b1:{cor:1,who:'ars',say:'Avant tout contrat de motif 2, vérifiez-vous les 5 ans d’inscription à l’Ordre et l’inscription de la spécialité au CPOM ? Nous contrôlons ce recours.',q:'Que faites-vous ?',ch:[
+  {t:'Je reprends le dossier et je vérifie ces deux conditions avant toute signature.',lv:'best',fx:{j:10},fb:'C’est le contrôle attendu du directeur.',src:'R6152-336 ; R6152-340',to:v=>v.ord>=5&&v.cpom?'c':'d'},
+  {t:'Je signe : ces conditions visent un premier recrutement, et le candidat a déjà exercé comme assistant dans un CHU.',lv:'bad',fx:{j:-25},fb:'Le piège : les conditions du motif 2 s’appliquent à chaque contrat.',src:'R6152-336 ; R6152-340',fatal:FIN('Signature à l’aveugle','Vous signez un contrat de motif 2 sans en vérifier les conditions. L’ARS demande la justification du recours ; faute de contrôle préalable, le contrat est suspendu, et l’IRM reste fermée le soir.','R6152-336 ; R6152-340')}]},
+ c1:{cor:1,who:'compta',say:'Une part fixe de 9 000 € dépasse le seuil maximum de 5 930,24 €. Je rejetterai la part irrégulière.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je réécris le contrat : part fixe dans la grille, part variable sur objectifs écrits jusqu’à 9 000 €.',lv:'best',fx:{j:10,c:5},fb:'Le total reste sous le plafond de 119 130 € par an.',src:'R6152-355',to:'e'},
+  {t:'Je classe la part au-delà de la grille en indemnité de sujétion mensuelle : elle n’entre pas dans les seuils de la grille.',lv:'bad',fx:{j:-25},fb:'Le piège : aucune indemnité ne peut être créée hors des textes.',src:'annexe III de l’arrêté du 8 juillet 2022',fatal:FIN('Paiement rejeté','Le comptable public rejette l’indemnité, qui ne repose sur aucun texte. Le praticien n’est payé qu’en partie et dénonce son contrat.','annexe III de l’arrêté du 8 juillet 2022 ; loi Rist')}]},
+ c2:{cor:1,who:'cand',say:'Sans objectifs écrits, sur quoi sera calculée ma part variable ? À 7 000 € garantis, je préfère la clinique.',q:'Que lui proposez-vous ?',ch:[
+  {t:'J’écris au contrat des objectifs d’activité et de qualité ; la part variable porte le total à 9 000 € et elle est évaluée au bout d’un an.',lv:'best',fx:{c:10,j:5,b:-5},fb:'La part variable repose sur des objectifs écrits.',src:'R6152-355',to:'e'},
+  {t:'Je lui garantis par courrier de la direction que la part variable sera versée chaque année : cet écrit engage l’établissement.',lv:'bad',fx:{c:-15,j:-15},fb:'Le piège : un courrier ne remplace pas des objectifs écrits au contrat.',src:'R6152-355',fatal:FIN('Le candidat part','Le comptable public refuse de verser une part variable sans objectifs inscrits au contrat. Le Dr Diographie se sent trompé et signe en clinique.','R6152-355')}]},
+ d1:{cor:1,who:'ars',say:'Un avenant au CPOM ne suffira pas : le Dr Diographie n’a pas 5 ans d’inscription à l’Ordre.',q:'Que proposez-vous ?',ch:[
+  {t:'Un motif 3 s’il prépare le concours, avec la PECH, et un motif 2 à réexaminer à ses 5 ans d’inscription.',lv:'best',fx:{j:10,c:5},fb:'C’est la solution régulière en attendant les 5 ans.',src:'R6152-338, 3° ; R6152-347',to:'e'},
+  {t:'Je compte ses années d’internat dans les 5 ans : il exerçait déjà la médecine pendant toute cette période.',lv:'bad',fx:{j:-25},fb:'Le piège : la condition porte sur l’inscription au tableau de l’Ordre.',src:'R6152-336',fatal:FIN('Contrat irrégulier','Le contrat de motif 2 est signé sans les 5 ans d’inscription exigés. L’ARS et le comptable public le contestent ; il doit être rompu.','R6152-336')}]},
+ e1:{cor:1,who:'pcme',say:'Sans mon avis ni celui du chef de pôle, la procédure est irrégulière. J’inscris ce recrutement à l’ordre du jour de la CME.',q:'Que faites-vous ?',ch:[
+  {t:'Je suspends la signature, je recueille votre avis et celui du chef de pôle, puis je signe.',lv:'best',fx:{j:10,c:10},fb:'Le contrat est conclu après les avis prévus.',src:'R6152-337',to:'fin'},
+  {t:'Je signe aujourd’hui et je vous transmets le dossier pour un avis après coup : l’urgence justifie de régulariser ensuite.',lv:'bad',fx:{j:-20,c:-20},fb:'Le piège : un avis recueilli après la décision ne régularise pas la procédure.',src:'R6152-337',fatal:FIN('Recrutement contesté','Le contrat est signé sans les avis du PCME et du chef de pôle. La CME vote une motion de défiance, et le recrutement peut être contesté devant le juge.','R6152-337')}]}}},
+
+clinique:{ch:{
+ 'a:0':{t:'La nommer PH sur le poste vacant : c’est le statut le plus stable, et il lui ouvre le contrat d’engagement de service public exclusif.',to:v=>v.liste?'b':'a1'},
+ 'a:1':{t:'Un contrat de motif 3 : il est prévu pour les praticiens qui préparent le concours ou attendent leur inscription sur la liste d’aptitude.',to:v=>v.liste?'a2':'b'},
+ 'a:2':{t:'Un contrat de motif 2 à 8 000 € : ses 2 ans d’assistanat s’ajoutent à ses 3 ans d’internat, ce qui fait les 5 ans requis.',fb:'Le piège : l’internat ne compte pas. Le motif 2 exige 5 ans d’inscription à l’Ordre.',to:'a3'},
+ 'b:0':{t:v=>v.liste?'L’IESPE avec le contrat d’engagement de service public exclusif, la reprise d’ancienneté, le temps continu en anesthésie et des valences non cliniques.':'La PECH, versée pour moitié à la signature, le temps continu en anesthésie et des valences non cliniques.'},
+ 'b:1':{t:'Une activité libérale à l’hôpital, une demi-journée par semaine : c’est le levier le plus proche de ce que lui offre la clinique.',to:v=>v.liste?'c':'b1'},
+ 'b:2':{t:'Une prime d’installation de 15 000 € sur le budget du pôle : le directeur peut créer une prime d’attractivité après avis du directoire.',fb:'Le piège : aucune prime ne peut être créée hors des textes, même après avis du directoire.',to:'b2'},
+ 'c:0':{t:'Une rémunération globale : émoluments, gardes, TTA sur contrat et primes réglementaires, chacun sous son plafond.'},
+ 'c:1':{t:'Un temps partiel à 60 % complété par du TTA : le TTA est mieux payé que les émoluments, ce qui rapproche l’offre de celle de la clinique.',fb:'Le piège : le TTA suppose que les obligations de service sont accomplies. Ce montage détourne les règles.',to:'c1'},
+ 'c:2':{t:'Un salaire aligné sur la clinique, 8 000 € par mois, en justifiant l’écart devant le comptable par la concurrence locale.',fb:'Le piège : la concurrence ne permet pas de sortir des seuils réglementaires.',src:'annexe III de l’arrêté du 8 juillet 2022',fatal:FIN('Paiement rejeté','Le comptable public rejette la part de rémunération au-delà des seuils. La praticienne n’est pas payée comme promis et rejoint la clinique.','annexe III de l’arrêté du 8 juillet 2022 ; loi Rist')}},
+ nodes:{
+ a1:{cor:1,who:'cng',say:'Le Dr Dort n’est pas inscrite sur la liste d’aptitude : je ne peux pas la nommer.',q:'Que proposez-vous ?',ch:[
+  {t:'Un contrat de motif 3 en attendant son inscription sur la liste.',lv:'best',fx:{j:10},fb:'Le motif 3 couvre l’attente de l’inscription.',src:'R6152-338, 3°',to:'b'},
+  {t:'Une nomination à titre provisoire, régularisée dès son inscription sur la liste au prochain tour de recrutement.',lv:'bad',fx:{j:-20},fb:'Le piège : la nomination suppose l’inscription sur la liste ; aucune nomination provisoire n’existe.',src:'R6152-304',fatal:FIN('Nomination impossible','Le CNG refuse la nomination. Sans contrat, le Dr Dort accepte l’offre de la clinique.','R6152-304')}]},
+ a2:{cor:1,who:'cng',say:'Le Dr Dort est inscrite sur la liste d’aptitude : le motif 3 n’a plus d’objet. Pourquoi ne pas la nommer ?',q:'Que faites-vous ?',ch:[
+  {t:'Je propose sa nomination sur le poste vacant.',lv:'best',fx:{j:10,c:10},fb:'C’est le statut stable qu’elle attend.',src:'R6152-304',to:'b'},
+  {t:'Je garde le motif 3 pendant 1 an : cela me laisse le temps de vérifier qu’elle convient avant de la nommer.',lv:'bad',fx:{j:-15,c:-15},fb:'Le piège : le motif 3 n’est pas une période d’essai ; la candidate le sait.',src:'R6152-338, 3°',fatal:FIN('Elle part en clinique','Le Dr Dort refuse un contrat qui ne correspond pas à sa situation et signe en clinique.','R6152-338, 3°')}]},
+ a3:{cor:1,who:'ars',say:'Le Dr Dort n’a que 3 ans d’inscription à l’Ordre : le motif 2 est impossible.',q:'Que proposez-vous ?',ch:[
+  {t:v=>v.liste?'La nomination comme PH sur le poste vacant.':'Un contrat de motif 3, avec la PECH.',lv:'best',fx:{j:10},fb:'C’est le statut qui correspond à sa situation.',src:v=>v.liste?'R6152-304':'R6152-338, 3° ; R6152-347',to:'b'},
+  {t:'Un motif 2 à 5 900 € seulement : sous le seuil de la grille, la condition des 5 ans ne s’applique pas.',lv:'bad',fx:{j:-25},fb:'Le piège : la condition des 5 ans vaut quel que soit le montant.',src:'R6152-336',fatal:FIN('Contrat irrégulier','Le contrat de motif 2 est conclu sans les 5 ans d’inscription. L’ARS le conteste et le comptable public suspend les paiements.','R6152-336')}]},
+ b1:{cor:1,who:'pcme',say:'Un contractuel ne peut pas exercer d’activité libérale à l’hôpital.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je retire cette promesse et je mets en avant la PECH, le temps continu et des valences non cliniques.',lv:'best',fx:{j:10,c:5},fb:'Ces leviers sont réguliers.',src:'L6154-1 ; R6152-347',to:'c'},
+  {t:'Je la maintiens : un contractuel à temps plein peut exercer en libéral, comme un PH à temps plein.',lv:'bad',fx:{j:-25},fb:'Le piège : l’activité libérale à l’hôpital est réservée aux praticiens statutaires à temps plein.',src:'L6154-1',fatal:FIN('Promesse illégale','La promesse écrite engage l’établissement sur une activité interdite. La CME et l’ARS s’y opposent ; la candidate se sent trompée et part.','L6154-1')}]},
+ b2:{cor:1,who:'compta',say:'Cette prime n’existe dans aucun texte : je rejetterai le paiement.',q:'Comment corrigez-vous ?',ch:[
+  {t:v=>v.liste?'Je la remplace par l’IESPE avec le contrat d’engagement, la reprise d’ancienneté et le temps continu.':'Je la remplace par la PECH, versée pour moitié à la signature, et le temps continu.',lv:'best',fx:{j:10,c:5},fb:'Ces éléments sont prévus par les textes.',src:v=>v.liste?'arrêté du 8 juin 2000':'R6152-347',to:'c'},
+  {t:'Je la verse sous forme d’heures de TTA payées d’avance : le TTA est un élément de rémunération prévu par les textes.',lv:'bad',fx:{j:-25,b:-10},fb:'Le piège : le TTA rémunère un travail réellement fait, après les obligations de service.',src:'arrêté du 30 avril 2003, article 4',fatal:FIN('Paiement rejeté','Le comptable public rejette le TTA payé sans service fait. La candidate perd confiance et signe en clinique.','arrêté du 30 avril 2003, article 4')}]},
+ c1:{cor:1,who:'compta',say:'Un temps partiel complété par du TTA détourne les règles : le TTA suppose des obligations de service accomplies.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je reviens à un temps plein et je présente la rémunération globale réelle.',lv:'best',fx:{j:10},fb:'L’offre est régulière et lisible.',src:'arrêté du 30 avril 2003, article 4',to:'fin'},
+  {t:'Je garde le montage : c’est la praticienne qui demande le temps partiel, et le TTA reste volontaire.',lv:'bad',fx:{j:-25},fb:'Le piège : le volontariat ne change rien à la condition des obligations accomplies.',src:'arrêté du 30 avril 2003, article 4',fatal:FIN('Montage rejeté','Le comptable public rejette le TTA versé sans obligations accomplies. L’établissement doit récupérer les sommes, et la praticienne démissionne.','arrêté du 30 avril 2003, article 4')}]}}},
+
+continu:{ch:{
+ 'a:0':{t:v=>`Oui : la ${v.svc} fait partie des structures qui peuvent opter pour un décompte du temps de travail en heures.`,to:v=>v.svc==='réanimation'?'b':'a1'},
+ 'a:1':{t:'Non : le temps continu n’est ouvert qu’à une liste fermée de structures, fixée par l’arrêté sur l’organisation de la permanence des soins.',to:v=>v.svc==='réanimation'?'a2':'z'},
+ 'a:2':{t:'Oui : tout service qui assure une garde sur place peut demander le temps continu, puisque ses nuits dépassent déjà 10 heures.',fb:'Le piège : la garde sur place ne suffit pas. Le temps continu est une option réservée à certaines structures.',to:v=>v.svc==='réanimation'?'a3':'a1'},
+ 'z:0':{t:'Analyser la charge de nuit, garantir le repos de sécurité, adapter la permanence et proposer du TTA sur contrat au-delà des obligations.'},
+ 'z:1':{t:'Expérimenter le temps continu pendant 1 an, avec un bilan en COPS : une expérimentation limitée ne demande pas de base réglementaire.',fb:'Le piège : une expérimentation reste soumise aux textes.',fatal:FIN('Organisation irrégulière','La cardiologie passe en temps continu sans base réglementaire. Un praticien conteste son décompte ; le juge annule l’organisation, et l’établissement doit recalculer les obligations de service.','arrêté du 30 avril 2003, article 2')},
+ 'b:0':{t:'Une proposition de la CME, après avis de la COPS, à l’initiative du responsable médical, pour 1 an renouvelable, avec mise à jour du règlement intérieur.'},
+ 'b:1':{t:'Une décision du directeur après avis du CSE : c’est une modification de l’organisation du travail, comme pour le personnel non médical.',fb:'Le piège : le CSE n’est pas compétent pour l’organisation du temps médical.',to:'b1'},
+ 'b:2':{t:'Une autorisation du DG de l’ARS : le temps continu modifie la permanence des soins, que l’ARS organise dans le schéma régional.',fb:'Le piège : le schéma régional finance des lignes de permanence ; il ne décide pas du mode de décompte du temps dans un service.',to:'b2'},
+ 'c:0':{t:'8 ETP : (3 × 10 h + 14 h) × 364 = 16 016 h, divisées par 1 996 h par ETP.'},
+ 'c:1':{t:'7 ETP : (3 × 2 + 2) × 364 = 2 912 demi-journées, divisées par 416 demi-journées par ETP.',fb:'Le piège : c’est le calcul en demi-journées. En temps continu, on compte en heures, et la nuit de 14 h pèse plus lourd.',to:'c1'},
+ 'c:2':{t:'9 ETP : 16 016 h divisées par 1 820 h, la durée légale de 35 h par semaine sur 52 semaines, arrondi au supérieur.',fb:'Le piège : la référence n’est pas les 35 h. La base du cours est de 1 996 h par ETP.',to:'c1'},
+ 'd:0':{t:'Recruter avant la bascule, installer un décompte horaire fiable et faire un bilan à 1 an en COPS.'},
+ 'd:1':{t:'Basculer tout de suite et couvrir le manque par du TTA en attendant le recrutement : l’équipe s’est dite volontaire.'},
+ 'd:2':{t:'Reporter la décision d’un an pour mesurer la charge réelle : recruter avant que le temps continu soit acté serait prématuré.',fb:'Le piège : la charge est déjà connue et chiffrée. Le report démobilise l’équipe.',to:'d1'}},
+ nodes:{
+ a1:{cor:1,who:'cops',say:'La cardiologie ne figure pas parmi les structures qui peuvent opter pour le temps continu.',q:'Que faites-vous ?',ch:[
+  {t:'Je reviens vers le chef de service pour étudier d’autres leviers dans le décompte en demi-journées.',lv:'best',fx:{j:10},fb:'Le décompte en demi-journées reste la règle.',src:'arrêté du 30 avril 2003, article 2',to:'z'},
+  {t:'Je le mets en place par accord local : si tous les praticiens sont volontaires, le décompte en heures devient possible.',lv:'bad',fx:{j:-25},fb:'Le piège : un accord local ne crée pas de droit que le texte ne prévoit pas.',src:'arrêté du 30 avril 2003, article 2',fatal:FIN('Organisation irrégulière','L’organisation est contestée et annulée ; les obligations de service doivent être recalculées pour tout le service.','arrêté du 30 avril 2003, article 2')}]},
+ a2:{cor:1,who:'chef',say:'Mais la réanimation figure bien dans la liste !',q:'Que répondez-vous ?',ch:[
+  {t:'Vous avez raison : j’instruis la demande.',lv:'best',fx:{c:10},fb:'La demande est recevable.',src:'arrêté du 30 avril 2003, article 2',to:'b'},
+  {t:'Elle y figure seulement quand elle est rattachée à un service d’anesthésie : votre réanimation médicale n’entre pas dans la liste.',lv:'bad',fx:{c:-25},fb:'Le piège : la réanimation figure dans la liste sans cette condition.',src:'arrêté du 30 avril 2003, article 2',fatal:FIN('Refus non fondé','Votre refus repose sur une erreur de droit. L’équipe saisit la CME, et deux réanimateurs annoncent leur départ.','arrêté du 30 avril 2003, article 2')}]},
+ a3:{cor:1,who:'cops',say:'Attention : le temps continu n’est pas ouvert à tous les services. C’est une option pour certaines structures ; la réanimation en fait partie.',q:'Que faites-vous ?',ch:[
+  {t:'Je retiens ce fondement et j’instruis la demande de la réanimation.',lv:'best',fx:{j:10},fb:'La demande est recevable pour la bonne raison.',src:'arrêté du 30 avril 2003, article 2',to:'b'},
+  {t:'J’instruis la demande et je l’ouvre aussi, à titre d’essai, aux autres services qui assurent une garde sur place.',lv:'bad',fx:{j:-25},fb:'Le piège : les autres services n’y ont pas droit, même à titre d’essai.',src:'arrêté du 30 avril 2003, article 2',fatal:FIN('Organisation irrégulière','Plusieurs services passent en temps continu sans base réglementaire. Le juge annule ces organisations.','arrêté du 30 avril 2003, article 2')}]},
+ b1:{cor:1,who:'pcme',say:'Ce n’est ni au CSE ni au directeur seul de décider : la CME propose le temps continu, après avis de la COPS.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je saisis la COPS, puis la CME.',lv:'best',fx:{j:10,c:5},fb:'La procédure est respectée.',src:'arrêté du 30 avril 2003, article 2',to:'c'},
+  {t:'Je décide après avis du CSE et j’informe la CME ensuite : la décision finale appartient de toute façon au directeur.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : sans proposition de la CME, la décision n’a pas de base.',src:'arrêté du 30 avril 2003, article 2',fatal:FIN('Décision annulée','La CME conteste la décision ; l’organisation est annulée et le climat médical se dégrade durablement.','arrêté du 30 avril 2003, article 2')}]},
+ b2:{cor:1,who:'ars',say:'Ce n’est pas à l’ARS de décider : c’est une organisation interne, proposée par la CME après avis de la COPS.',q:'Que faites-vous ?',ch:[
+  {t:'Je saisis la COPS, puis la CME.',lv:'best',fx:{j:10},fb:'La procédure est respectée.',src:'arrêté du 30 avril 2003, article 2',to:'c'},
+  {t:'Je saisis seulement la COPS : elle organise la permanence des soins, son avis suffit pour décider.',lv:'bad',fx:{j:-25},fb:'Le piège : la COPS donne un avis ; c’est la CME qui propose.',src:'arrêté du 30 avril 2003, article 2',fatal:FIN('Décision annulée','L’organisation est mise en place sans proposition de la CME ; elle est annulée.','arrêté du 30 avril 2003, article 2')}]},
+ c1:{cor:1,who:'pole',say:'Votre chiffre ne tient pas. En temps continu, on compte en heures : 3 × 10 h le jour, 14 h la nuit, 364 jours, et 1 996 h par ETP.',q:'Quel est le bon résultat ?',ch:[
+  {t:'8 ETP : 16 016 h ÷ 1 996 h. Il faut 1 ETP de plus.',lv:'best',fx:{j:5,b:-10},fb:'Le calcul est juste.',src:'cours',to:'d'},
+  {t:'Je garde le décompte en demi-journées pour la CME : il est plus simple à présenter, et l’écart se réglera au premier bilan.',lv:'bad',fx:{s:-25},fb:'Le piège : le projet sera sous-dimensionné dès le départ.',src:'cours',fatal:FIN('Chiffrage faux','La CME adopte un projet sous-dimensionné. Après la bascule, les réanimateurs dépassent 48 h par semaine et le temps continu est suspendu.','R6152-27')}]},
+ d1:{cor:1,who:'chef',say:'La demande est recevable et chiffrée. Pourquoi attendre encore un an ?',q:'Que répondez-vous ?',ch:[
+  {t:'Je reviens sur ma position : recrutement avant la bascule, décompte horaire fiable, bilan à 1 an en COPS.',lv:'best',fx:{c:15,j:5},fb:'La décision est fondée et préparée.',src:'CE, 22 juin 2022',to:'fin'},
+  {t:'Je maintiens le report : un recrutement engagé avant la décision de la CME serait irrégulier.',lv:'bad',fx:{c:-25,s:-10},fb:'Le piège : rien n’interdit de recruter en préparant la bascule.',src:'',fatal:FIN('Équipe démobilisée','Deux réanimateurs partent pour un CHU en temps continu. La ligne de nuit est menacée.','')}]}}},
+
+neuro:{ch:{
+ 'a:0':{t:'Chiffrer le coût actuel de l’astreinte et deux scénarios de garde, l’un avec recrutement, l’autre à effectif constant.'},
+ 'a:1':{t:'Accepter : la garde remplace l’astreinte, donc les indemnités d’astreinte et de déplacement économisées compensent son coût.',fb:'Le piège : une garde sur place coûte plus cher que l’astreinte, et demande souvent des recrutements.',to:'a1'},
+ 'a:2':{t:'Refuser : une ligne de garde relève du schéma régional, et l’établissement ne peut pas en créer une de lui-même.',fb:'Le piège : le schéma régional finance des lignes ; l’établissement peut organiser une garde, mais il doit la chiffrer et la financer.',to:'a2'},
+ 'b:0':{t:'347 902 € : 287 402 + 270 320 − 209 820.'},
+ 'b:1':{t:'557 722 € : 287 402 + 270 320, soit le coût complet de la garde et des recrutements.',fb:'Le piège : c’est le coût total du scénario ; le surcoût retire le coût actuel de l’astreinte.',to:'b1'},
+ 'b:2':{t:'77 582 € : 287 402 − 209 820, puisque les recrutements relèvent d’un autre budget.',fb:'Le piège : les recrutements font partie du coût du scénario.',to:'b1'},
+ 'c:0':{t:'Une garde toute la semaine, avec recrutement.',to:v=>v.fin?'d':'c1'},
+ 'c:1':{t:'L’astreinte en semaine et une garde le week-end à effectif constant, contre un engagement d’activité.',to:'d'},
+ 'c:2':{t:'Le statu quo, avec une revalorisation des indemnités d’astreinte décidée par l’établissement pour compenser les déplacements.',fb:'Le piège : les indemnités d’astreinte sont fixées par arrêté ; l’établissement ne peut pas les revaloriser.',to:'c2'},
+ 'd:0':{t:'La COPS et la CME, puis le tableau de service mensuel arrêté avant le 20 du mois précédent.'},
+ 'd:1':{t:'Le directoire, qui valide les projets de pôle, puis une note au chef de pôle : la COPS n’est consultée que sur les lignes déjà existantes.',fb:'Le piège : la COPS est consultée sur l’organisation de la permanence des soins, y compris une nouvelle ligne.',to:'d1'},
+ 'd:2':{t:'Le chef de service seul : il organise son tableau de garde, et la direction n’a qu’à en être informée.',lv:'bad',fx:{j:-15,c:-5},fb:'Le piège : le chef de service propose le tableau ; la COPS et la CME sont consultées sur l’organisation.',src:'arrêté du 30 avril 2003',to:'d1'}},
+ nodes:{
+ a1:{cor:1,who:'pole',say:'Vous créez une ligne de garde sans savoir ce qu’elle coûte ni qui la finance ?',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je reprends : je chiffre le coût actuel et les scénarios avant de décider.',lv:'best',fx:{j:5,b:10},fb:'La décision sera fondée.',src:'méthode du cours',to:'b'},
+  {t:'Je crée la ligne dès le mois prochain : le surcoût sera couvert par l’activité supplémentaire de la filière AVC.',lv:'bad',fx:{b:-25},fb:'Le piège : une recette espérée ne finance pas une dépense certaine.',src:'',fatal:FIN('Dépense non financée','La ligne de garde ouvre sans chiffrage. Le surcoût, près de 350 000 € par an, n’est pas financé ; l’ARS demande un plan de retour à l’équilibre.','schéma régional de PDSES')}]},
+ a2:{cor:1,who:'chef',say:'Vous refusez sans avoir regardé les chiffres ?',q:'Que répondez-vous ?',ch:[
+  {t:'Je chiffre d’abord, puis je décide.',lv:'best',fx:{c:10},fb:'La décision sera fondée.',src:'méthode du cours',to:'b'},
+  {t:'Je maintiens : sans ligne financée par l’ARS, aucune garde n’est possible, et le chiffrage n’y changera rien.',lv:'bad',fx:{c:-25,s:-15},fb:'Le piège : l’établissement peut organiser une garde ; il doit la chiffrer et la financer.',src:'',fatal:FIN('Filière fragilisée','Épuisés, deux neurologues quittent l’établissement. La filière AVC perd sa ligne d’astreinte.','')}]},
+ b1:{cor:1,who:'pole',say:'Votre chiffre ne tient pas. Reprenez chaque poste : coût de la garde, coût des recrutements, coût actuel de l’astreinte.',q:'Quel est le bon résultat ?',ch:[
+  {t:'347 902 € : 287 402 + 270 320 − 209 820.',lv:'best',fx:{j:5},fb:'Le surcoût est l’écart entre le coût du scénario et le coût actuel.',src:'méthode du cours',to:'c'},
+  {t:'557 722 € : l’astreinte reste payée pendant les mois de transition, on ne la retire donc pas.',lv:'bad',fx:{b:-25},fb:'Le piège : le surcoût annuel compare deux organisations en régime normal.',src:'méthode du cours',fatal:FIN('Note fausse','Le directoire décide sur un chiffre faux ; l’écart apparaît à l’exécution du budget.','méthode du cours')}]},
+ c1:{cor:1,who:'compta',say:'Sans financement régional, ce surcoût reste à la charge de l’établissement.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je propose l’astreinte en semaine et une garde le week-end à effectif constant, contre un engagement d’activité.',lv:'best',fx:{b:10,s:5},fb:'C’est le compromis du cours quand la ligne n’est pas financée.',src:'méthode du cours',to:'d'},
+  {t:'Je crée la garde complète maintenant et je demande le financement à l’ARS l’an prochain, une fois la ligne en place.',lv:'bad',fx:{b:-25},fb:'Le piège : rien n’oblige l’ARS à financer après coup une ligne absente du schéma régional.',src:'schéma régional de PDSES',fatal:FIN('Déficit creusé','L’établissement finance seul 347 902 € par an. L’ARS demande un plan de retour à l’équilibre.','schéma régional de PDSES')}]},
+ c2:{cor:1,who:'chef',say:'Rien ne change ? Et les indemnités d’astreinte sont fixées par arrêté : vous ne pouvez pas les augmenter.',q:'Que proposez-vous ?',ch:[
+  {t:v=>v.fin?'Une garde toute la semaine, financée par le schéma régional.':'L’astreinte en semaine et une garde le week-end à effectif constant.',lv:'best',fx:{c:15,s:10},fb:'La proposition répond à la charge et au financement.',src:'schéma régional de PDSES',to:'d'},
+  {t:'Un forfait mensuel de déplacement pour les neurologues, voté par le directoire : ce n’est pas une indemnité d’astreinte.',lv:'bad',fx:{c:-10,j:-25},fb:'Le piège : un forfait créé localement reste un élément de rémunération sans texte.',src:'',fatal:FIN('Paiement rejeté','Le comptable public rejette le forfait, qui ne repose sur aucun texte. Deux neurologues démissionnent.','contrôle du comptable public')}]},
+ d1:{cor:1,who:'cops',say:'La COPS doit être consultée sur l’organisation de la permanence des soins, y compris pour une nouvelle ligne.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je saisis la COPS et la CME, puis j’inscris la ligne au tableau arrêté avant le 20 du mois précédent.',lv:'best',fx:{j:10,c:5},fb:'La procédure est respectée.',src:'arrêté du 30 avril 2003, article 11',to:'fin'},
+  {t:'Je consulte la COPS après le premier mois de fonctionnement, quand elle pourra juger sur des données réelles.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : la consultation se fait avant la mise en place.',src:'arrêté du 30 avril 2003',fatal:FIN('Organisation contestée','La CME conteste la nouvelle ligne et refuse d’y affecter des praticiens.','arrêté du 30 avril 2003')}]}}},
+
+ophtalmo:{ch:{
+ 'a:0':{t:v=>`J’examine la demande au regard des nécessités du service, et je motiverai un éventuel refus. La demande se fait 2 mois avant : ${v.mois<2?'la date de début doit donc être reportée.':'le délai est respecté.'}`},
+ 'a:1':{t:'Je l’accepte : le temps partiel à 80 % est de droit pour un praticien à temps plein, dès lors qu’il le demande 2 mois avant.',fb:'Le piège : le délai de 2 mois est exact, mais ce temps partiel est sur autorisation. Il n’est de droit que dans des cas précis.',to:'a1'},
+ 'a:2':{t:'Je la refuse : un praticien à temps partiel ne peut pas exercer une autre activité rémunérée en dehors de l’hôpital.',fb:'Le piège : le texte prévoit au contraire une activité libérale extérieure pour le praticien à temps partiel.',to:'a2'},
+ 'b:0':{t:'Saisir la CME : après son avis, je peux interdire l’installation dans un rayon de 10 km.',to:v=>v.km<=10?'c':'b1'},
+ 'b:1':{t:'Rien : il doit seulement m’informer 2 mois avant de commencer cette activité.',to:'c'},
+ 'b:2':{t:'Je l’interdis : le règlement intérieur peut prévoir une clause de non-concurrence pour tout praticien à temps partiel.',fb:'Le piège : seul le texte prévoit l’interdiction, dans un rayon de 10 km et après avis de la CME.',to:'b2'},
+ 'c:0':{t:'Il doit choisir : l’activité libérale à l’hôpital exclut une activité libérale en dehors des établissements publics.'},
+ 'c:1':{t:'Il peut garder sa demi-journée : l’interdiction de cumul ne vise que les praticiens à temps plein.',fb:'Le piège : le cumul est interdit quel que soit le temps de travail.',to:'c1'},
+ 'c:2':{t:'Il peut garder sa demi-journée si son cabinet est à plus de 10 km : la règle des 10 km vaut pour toute activité libérale.',lv:'bad',fx:{j:-15},fb:'Le piège : la règle des 10 km concerne l’interdiction d’installation ; le cumul reste interdit à toute distance.',src:'L6154-2, I',to:'c1'},
+ 'd:0':{t:'Appliquer la clause de non-concurrence du GHT, si elle couvre l’ophtalmologie : 24 mois et 10 km au plus, avec une indemnité en cas de non-respect.'},
+ 'd:1':{t:'Rien : sa démission met fin à toute obligation envers l’hôpital.'},
+ 'd:2':{t:'Demander au conseil de l’Ordre de refuser son installation, au titre de la concurrence déloyale envers l’hôpital.',fb:'Le piège : l’Ordre n’a pas ce rôle ; la non-concurrence relève de la clause prévue par la loi.',to:'d1'}},
+ nodes:{
+ a1:{cor:1,who:'pcme',say:'Ce temps partiel n’est pas de droit : il ne remplace ni un congé parental, ni des soins à un proche, ni une formation.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je l’examine comme un temps partiel sur autorisation, au regard des nécessités du service, et je motiverai un éventuel refus.',lv:'best',fx:{j:10},fb:'C’est le bon régime.',src:'R6152-26-1',to:'b'},
+  {t:'Je l’accorde sans examen : le refuser serait plus risqué que de réorganiser le service.',lv:'bad',fx:{j:-10,s:-15},fb:'Le piège : l’accord est possible, mais il se décide au regard des nécessités du service.',src:'R6152-26-1',to:'b'}]},
+ a2:{cor:1,who:'chef',say:'Vous refusez ? Le texte prévoit justement une activité libérale à côté du temps partiel.',q:'Que répondez-vous ?',ch:[
+  {t:'J’examine sa demande et je motiverai ma décision au regard des nécessités du service.',lv:'best',fx:{j:10,c:10},fb:'La décision sera régulière.',src:'R6152-26-1 ; R6152-26-4',to:'b'},
+  {t:'Je maintiens le refus, motivé par l’interdiction de cumul d’activités des agents publics.',lv:'bad',fx:{j:-25},fb:'Le piège : ce motif est faux en droit pour ce statut.',src:'R6152-26-4',fatal:FIN('Refus annulé','Le juge annule le refus, fondé sur un motif erroné. Le praticien quitte l’hôpital pour la ville.','R6152-26-1 ; R6152-26-4')}]},
+ b1:{cor:1,who:'pcme',say:'Son cabinet est au-delà de 10 km : l’interdiction n’est pas possible.',q:'Que faites-vous ?',ch:[
+  {t:'Je renonce à l’interdiction ; il m’informe 2 mois avant de commencer.',lv:'best',fx:{j:10},fb:'C’est la règle.',src:'R6152-26-4 ; R6152-26-5',to:'c'},
+  {t:'Je l’interdis quand même : le rayon de 10 km est un minimum, que la CME peut étendre selon le territoire.',lv:'bad',fx:{j:-25},fb:'Le piège : 10 km est un maximum.',src:'R6152-26-5',fatal:FIN('Décision annulée','Le juge annule l’interdiction, prise au-delà du rayon de 10 km. Le praticien démissionne.','R6152-26-5')}]},
+ b2:{cor:1,who:'chef',say:'Vous m’interdisez de m’installer sans même consulter la CME ? Je saisis le tribunal administratif.',q:'Que faites-vous ?',ch:[
+  {t:v=>v.km<=10?'Je retire ma décision et je saisis la CME pour avis.':'Je retire ma décision : au-delà de 10 km, aucune interdiction n’est possible.',lv:'best',fx:{j:10,c:5},fb:'La décision est régularisée.',src:'R6152-26-5',to:'c'},
+  {t:'Je maintiens l’interdiction et je présenterai la décision à la CME à sa prochaine séance.',lv:'bad',fx:{j:-25},fb:'Le piège : l’avis de la CME est préalable.',src:'R6152-26-5',fatal:FIN('Décision annulée','Le juge annule l’interdiction prise sans avis préalable de la CME. Le praticien démissionne.','R6152-26-5')}]},
+ c1:{cor:1,who:'pcme',say:'L’activité libérale à l’hôpital exclut toute activité libérale en dehors des établissements publics.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je lui demande de choisir entre les deux.',lv:'best',fx:{j:10},fb:'C’est la règle.',src:'L6154-2, I',to:'d'},
+  {t:'Je l’autorise à garder les deux pendant 1 an, le temps que sa patientèle de ville se constitue.',lv:'bad',fx:{j:-25},fb:'Le piège : aucune période de transition n’est prévue.',src:'L6154-2, I',fatal:FIN('Cumul illégal','La commission de l’activité libérale relève le cumul ; le DG de l’ARS retire l’autorisation d’activité libérale, et l’établissement est mis en cause.','L6154-2 ; L6154-6')}]},
+ d1:{cor:1,who:'pole',say:'L’Ordre n’a pas ce rôle. Avons-nous un autre moyen ?',q:'Que faites-vous ?',ch:[
+  {t:'J’applique la clause de non-concurrence prévue dans le GHT, si elle couvre l’ophtalmologie.',lv:'best',fx:{j:10},fb:'C’est l’outil prévu par la loi.',src:'L6152-5-1',to:'fin'},
+  {t:'Je saisis le tribunal judiciaire pour concurrence déloyale.',lv:'bad',fx:{j:-10,b:-10},fb:'Le piège : la voie prévue est la clause de non-concurrence du GHT.',src:'L6152-5-1',to:'fin'}]}}},
+
+dispo:{ch:{
+ 'a:0':{t:'Elle est de droit : je la transmets au DG du CNG, qui la prononce par arrêté.',to:v=>v.motif==='conjoint'?'b':'a1'},
+ 'a:1':{t:'Elle dépend des nécessités du service : je transmets mon avis, avec ceux du chef de pôle, du chef de service et du PCME ; le CNG décide.',to:v=>v.motif==='perso'?'b':'a2'},
+ 'a:2':{t:'Je l’accorde par décision du directeur : une disponibilité de moins d’un an relève de la gestion de l’établissement.',fb:'Le piège : quelle que soit sa durée, la disponibilité est prononcée par arrêté du DG du CNG.',to:'a3'},
+ 'b:0':{t:'Il est déclaré vacant, puisque la disponibilité dépasse 6 mois : je peux le publier.'},
+ 'b:1':{t:'Il lui reste réservé : un praticien en disponibilité garde son poste pendant toute la durée accordée.',fb:'Le piège : au-delà de 6 mois, le poste est déclaré vacant.',to:'b1'},
+ 'b:2':{t:'Il est vacant dès son départ : un poste sans titulaire en fonctions doit être publié au tour suivant.',fb:'Le piège : le seuil est de 6 mois.',to:'b2'},
+ 'c:0':{t:'La clause de non-concurrence du GHT peut s’appliquer : elle vise les départs temporaires comme définitifs. Son avancement est conservé si elle travaille au moins 600 h par an.'},
+ 'c:1':{t:'Rien : en disponibilité, elle n’est plus soumise aux obligations du statut, donc à aucune clause de non-concurrence.',fb:'Le piège : la loi vise le départ « temporaire ou définitif ».',to:'c1'},
+ 'c:2':{t:'Elle doit d’abord me demander une autorisation de cumul d’activités, comme tout praticien en fonctions.',lv:'bad',fx:{j:-10},fb:'Le piège : en disponibilité, elle n’exerce plus ses fonctions ; la question est celle de la clause de non-concurrence.',src:'L6152-5-1',to:'c1'},
+ 'd:0':{t:'Elle demande sa réintégration au moins 2 mois avant. Si elle ne peut pas être réintégrée, elle est placée en disponibilité d’office ; si elle ne reprend pas ses fonctions sans prolongation, elle est rayée des cadres.'},
+ 'd:1':{t:'Elle revient de droit sur son ancien poste, à la date de son choix, puisque sa disponibilité prend fin.',fb:'Le piège : son poste a pu être pourvu ; la réintégration suit une procédure et un délai de 2 mois.',to:'d1'},
+ 'd:2':{t:'Elle doit repasser le concours de PH : sa disponibilité de plus de 6 mois lui a fait perdre son statut.',lv:'bad',fx:{j:-15,c:-10},fb:'Le piège : elle perd son poste, pas son statut.',src:'R6152-68',to:'d1'}},
+ nodes:{
+ a1:{cor:1,who:'cng',say:'Les convenances personnelles ne sont pas un motif de droit. J’ai besoin des avis locaux pour décider.',q:'Que faites-vous ?',ch:[
+  {t:'Je transmets les avis du chef de pôle, du chef de service, du PCME et le mien.',lv:'best',fx:{j:10},fb:'Le CNG décide au vu des avis.',src:'R6152-65',to:'b'},
+  {t:'Je refuse moi-même la demande : c’est moi qui apprécie les nécessités du service, le CNG n’a qu’à en être informé.',lv:'bad',fx:{j:-25},fb:'Le piège : le directeur donne un avis ; seul le DG du CNG statue.',src:'R6152-65',fatal:FIN('Décision incompétente','Le refus du directeur est annulé : seul le DG du CNG statue. La praticienne obtient gain de cause.','R6152-65')}]},
+ a2:{cor:1,who:'chef',say:'Suivre son conjoint, c’est de droit !',q:'Que répondez-vous ?',ch:[
+  {t:'Vous avez raison : je transmets la demande au CNG, sans la soumettre aux nécessités du service.',lv:'best',fx:{j:10,c:10},fb:'La disponibilité est de droit.',src:'R6152-64',to:'b'},
+  {t:'Je propose au CNG de différer son départ de 6 mois, le temps de trouver un remplaçant.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : une disponibilité de droit ne se diffère pas pour les besoins du service.',src:'R6152-64',fatal:FIN('Refus illégal','La disponibilité pour suivre son conjoint est de droit. Votre demande de report est écartée, et la praticienne démissionne.','R6152-64')}]},
+ a3:{cor:1,who:'cng',say:'La disponibilité est prononcée par arrêté du DG du CNG : votre décision est sans valeur.',q:'Que faites-vous ?',ch:[
+  {t:v=>v.motif==='conjoint'?'Je vous transmets la demande, qui est de droit.':'Je vous transmets la demande, avec les avis requis.',lv:'best',fx:{j:10},fb:'La procédure est respectée.',src:'R6152-65',to:'b'},
+  {t:'Je garde ma décision et je vous la transmets pour régularisation : l’effet sera le même.',lv:'bad',fx:{j:-25},fb:'Le piège : un acte pris par une autorité incompétente ne se régularise pas.',src:'R6152-65',fatal:FIN('Acte sans valeur','La décision est sans effet. La praticienne part sans position régulière : sa situation statutaire doit être reprise.','R6152-65')}]},
+ b1:{cor:1,who:'pole',say:'On garde le poste vide pendant 8 mois ?',q:'Que faites-vous ?',ch:[
+  {t:'Non : au-delà de 6 mois, le poste est déclaré vacant ; je le publie.',lv:'best',fx:{s:15},fb:'C’est la règle.',src:'R6152-68',to:'c'},
+  {t:'Oui : publier son poste l’empêcherait de revenir, ce qui reviendrait à transformer sa disponibilité en départ.',lv:'bad',fx:{s:-25},fb:'Le piège : la réintégration reste possible sur un autre poste.',src:'R6152-68',fatal:FIN('Service désorganisé','Sans recrutement pendant 8 mois, l’équipe s’épuise et deux pédiatres demandent leur mutation.','R6152-68')}]},
+ b2:{cor:1,who:'cng',say:'Le poste n’est déclaré vacant qu’au-delà de 6 mois de disponibilité.',q:'Que faites-vous ?',ch:[
+  {t:'Je publie le poste à partir du moment où la disponibilité dépasse 6 mois.',lv:'best',fx:{j:10},fb:'C’est la règle.',src:'R6152-68',to:'c'},
+  {t:'Je le publie quand même dès maintenant : la durée accordée est de 8 mois, le seuil sera de toute façon dépassé.',lv:'bad',fx:{j:-20},fb:'Le piège : la vacance n’existe pas encore au jour de la publication.',src:'R6152-68',fatal:FIN('Publication irrégulière','La publication prématurée est annulée ; le praticien recruté ne peut pas être nommé sur ce poste.','R6152-68')}]},
+ c1:{cor:1,who:'pole',say:'Une clinique à 5 km capte nos patients pendant sa disponibilité. N’avons-nous aucun moyen ?',q:'Que faites-vous ?',ch:[
+  {t:'Je vérifie la clause de non-concurrence prévue dans le GHT : elle vise aussi les départs temporaires.',lv:'best',fx:{j:10},fb:'C’est l’outil prévu par la loi.',src:'L6152-5-1',to:'d'},
+  {t:'Je laisse faire : la clause ne vise que les démissions et les départs à la retraite.',lv:'bad',fx:{s:-10},fb:'Le piège : la loi vise aussi les départs temporaires.',src:'L6152-5-1',to:'d'}]},
+ d1:{cor:1,who:'cng',say:'Son ancien poste est pourvu depuis 2 mois. Comment comptez-vous la réintégrer ?',q:'Que faites-vous ?',ch:[
+  {t:'Je lui rappelle la demande 2 mois avant et je prépare avec vous une proposition de poste.',lv:'best',fx:{j:10,c:5},fb:'La réintégration suit la procédure.',src:'R6152-68',to:'fin'},
+  {t:'Je la remets sur son ancien poste et je propose un autre poste au praticien recruté entre-temps.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : le praticien recruté a été régulièrement nommé sur ce poste.',src:'R6152-68',fatal:FIN('Éviction irrégulière','Le praticien recruté conteste son changement d’affectation et obtient gain de cause. Deux praticiens revendiquent le même poste.','R6152-68')}]}}},
+
+conflit:{ch:{
+ 'a:0':{t:'Suspendre le Dr Bistouri à titre conservatoire : la paralysie du bloc met en cause la continuité des soins.',fb:'Le piège : la suspension suppose un danger pour les patients. Des difficultés relationnelles ne suffisent pas.',to:'a1'},
+ 'a:1':{t:'Ouvrir une conciliation locale, avec le PCME et le chef de pôle.',to:'b'},
+ 'a:2':{t:v=>v.ins?'Transmettre au DG du CNG un dossier circonstancié sur les insultes, sans proposer de sanction.':'Transmettre au DG du CNG un dossier disciplinaire : un conflit qui paralyse le bloc est un manquement aux obligations de service.',to:v=>v.ins?'b':'a2'},
+ 'b:0':{t:'La médiation régionale, puis nationale ; en dernier recours, demander au DG du CNG un détachement d’office.'},
+ 'b:1':{t:'Placer l’un d’eux en recherche d’affectation auprès du CNG : cela l’éloigne du bloc sans être une sanction.',fb:'Le piège : la recherche d’affectation est réservée aux cas prévus par le texte ; les conflits en sont exclus.',to:'b1'},
+ 'b:2':{t:'Affecter le Dr Bistouri sur un autre site du GHT, dans l’intérêt du service : ce n’est pas une sanction.',fb:'Le piège : une affectation imposée en raison du conflit est une mutation d’office, donc une sanction.',to:'b2'},
+ 'c:0':{t:'L’accorder : elle est visée par des propos diffamatoires en raison de ses fonctions.'},
+ 'c:1':{t:'La refuser : la protection fonctionnelle ne joue pas entre deux praticiens du même établissement.',fb:'Le piège : l’auteur peut être un collègue ; ce qui compte, c’est que les propos visent ses fonctions.',to:'c1'},
+ 'c:2':{t:'La transmettre au DG du CNG : il gère la carrière des praticiens hospitaliers, donc leur protection.',fb:'Le piège : le CNG gère la carrière, mais la protection est accordée par le directeur de l’établissement.',to:'c2'}},
+ nodes:{
+ a1:{cor:1,who:'cng',say:'Sur quel danger pour les patients fondez-vous cette suspension ? Des difficultés relationnelles ne suffisent pas.',q:'Comment corrigez-vous ?',ch:[
+  {t:v=>v.ins?'Je lève la suspension et je vous transmets un dossier circonstancié sur les insultes.':'Je lève la suspension et j’ouvre une conciliation locale.',lv:'best',fx:{j:15,c:5},fb:'La décision est régularisée.',src:'guide CNG de février 2025',to:'b'},
+  {t:'Je la maintiens jusqu’à la fin de la médiation : elle protège le fonctionnement du bloc en attendant.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : la suspension n’est pas un outil de gestion des conflits.',src:'L6143-7',fatal:FIN('Suspension annulée','Le juge administratif annule la suspension, faute de danger pour les patients. L’établissement est condamné, et le conflit s’aggrave.','L6143-7 ; guide CNG de février 2025')}]},
+ a2:{cor:1,who:'cng',say:'Votre dossier ne relate aucune faute : je ne peux pas engager de procédure disciplinaire.',q:'Que faites-vous ?',ch:[
+  {t:'J’ouvre une conciliation locale, avec le PCME et le chef de pôle.',lv:'best',fx:{c:10},fb:'Un conflit sans faute relève de la conciliation.',src:'guide CNG',to:'b'},
+  {t:'Je complète le dossier avec les plaintes de l’équipe sur l’ambiance du bloc, pour caractériser la faute.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : des plaintes sur l’ambiance ne caractérisent pas une faute.',src:'R6152-74',fatal:FIN('Procédure vouée à l’échec','Le CNG classe le dossier. Les deux praticiens se sentent mis en cause et saisissent le juge ; le bloc reste paralysé.','R6152-74')}]},
+ b1:{cor:1,who:'cng',say:'La recherche d’affectation n’est pas prévue pour régler un conflit.',q:'Que faites-vous ?',ch:[
+  {t:'Je saisis la médiation régionale, puis nationale.',lv:'best',fx:{j:10},fb:'C’est l’étape prévue.',src:'guide CNG',to:'c'},
+  {t:'Je demande à la place un détachement d’office, sans passer par la médiation : le blocage dure depuis 6 mois.',lv:'bad',fx:{j:-25},fb:'Le piège : le détachement d’office vient en dernier recours, après la médiation.',src:'R6152-54 ; guide CNG',fatal:FIN('Demande rejetée','Le CNG rejette la demande, faute de médiation préalable. Six mois sont perdus et le bloc reste paralysé.','R6152-54 ; guide CNG')}]},
+ b2:{cor:1,who:'cng',say:'Une affectation imposée en raison du conflit est une mutation d’office : c’est une sanction, que seul le DG du CNG prononce après une procédure disciplinaire.',q:'Que faites-vous ?',ch:[
+  {t:'Je retire l’affectation et je saisis la médiation régionale, puis nationale.',lv:'best',fx:{j:10},fb:'C’est l’étape prévue.',src:'guide CNG',to:'c'},
+  {t:'Je la maintiens en la présentant comme une réorganisation des plages opératoires entre les sites.',lv:'bad',fx:{j:-25},fb:'Le piège : le juge regarde le motif réel de la mesure.',src:'R6152-74',fatal:FIN('Sanction déguisée','La mutation est annulée comme sanction prononcée par une autorité incompétente. Le Dr Bistouri est réintégré dans son service.','R6152-74')}]},
+ c1:{cor:1,who:'cand',say:'Je suis visée en raison de mes fonctions. Je vais contester votre refus.',q:'Que faites-vous ?',ch:[
+  {t:'Je reconsidère ma décision et j’accorde la protection fonctionnelle.',lv:'best',fx:{j:10,c:10},fb:'La protection est due.',src:'guide CNG ; CE, 29 juin 2020',to:'fin'},
+  {t:'Je maintiens le refus : accorder la protection reviendrait à prendre parti contre le Dr Bistouri.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : la protection ne juge pas le conflit ; elle protège un praticien visé dans ses fonctions.',src:'guide CNG',fatal:FIN('Refus annulé','Le juge annule le refus de protection. Le Dr Scalpel quitte l’établissement.','guide CNG')}]},
+ c2:{cor:1,who:'cng',say:'La protection fonctionnelle relève du directeur de l’établissement.',q:'Que faites-vous ?',ch:[
+  {t:'Je l’accorde moi-même.',lv:'best',fx:{j:10,c:10},fb:'Le directeur est compétent.',src:'CE, 29 juin 2020',to:'fin'},
+  {t:'J’attends la décision écrite du CNG avant de répondre au Dr Scalpel.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : pendant ce temps, le silence vaut refus.',src:'',fatal:FIN('Refus implicite annulé','Le silence vaut refus. Le juge l’annule et l’établissement est condamné.','guide CNG')}]}}},
+
+sante:{ch:{
+ 'a:0':{t:'Une suspension conservatoire immédiate, avec information des DG du CNG et de l’ARS.',to:v=>v.nuit?'b':'a1'},
+ 'a:1':{t:'Saisir le comité médical, après avis du PCME : sa santé est peut-être en cause.',to:v=>v.nuit?'a2':'b'},
+ 'a:2':{t:'Engager une procédure disciplinaire : des retards répétés sont un manquement aux obligations de service, quelle qu’en soit la cause.',fb:'Le piège : « quelle qu’en soit la cause ». Si la santé est en cause, la discipline ne peut pas aboutir.',to:'a3'},
+ 'b:0':{t:'Je saisis le comité médical, je propose un accompagnement par la médecine du travail et je tiens un dossier daté et signé.'},
+ 'b:1':{t:'Je lui fais signer un engagement écrit de soins et d’abstinence, versé à son dossier : cela le responsabilise.',fb:'Le piège : cet écrit n’a aucune valeur et porte atteinte à sa vie privée ; la santé relève du comité médical.',to:'b1'},
+ 'b:2':{t:'J’informe l’équipe de garde de la situation, pour qu’elle puisse m’alerter en cas de nouvel incident.',fb:'Le piège : la sécurité semble le justifier, mais la santé d’un praticien relève du secret.',fatal:FIN('Secret violé','Vous avez révélé une question de santé à l’équipe. Le Dr Ponctuel saisit le juge et l’Ordre ; l’établissement engage sa responsabilité.','secret professionnel ; protection de la vie privée')},
+ 'c:0':{t:'Congé de maladie : 90 % de ses émoluments pendant 3 mois, puis la moitié ; la voie disciplinaire est écartée tant que la santé est en cause ; il faut organiser son remplacement.'},
+ 'c:1':{t:'Engager une procédure pour insuffisance professionnelle : ses retards ont désorganisé le service, ce qui suffit à la fonder.',fb:'Le piège : l’insuffisance professionnelle suppose une incapacité sans faute et sans maladie.',fatal:FIN('Procédure annulée','L’insuffisance professionnelle est une incapacité sans faute et sans maladie. Ici, la maladie est établie : la procédure est annulée.','guide CNG ; R6152-37')}},
+ nodes:{
+ a1:{cor:1,who:'cng',say:'Quel danger immédiat justifie cette suspension ? Des retards ne suffisent pas.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je lève la suspension et je saisis le comité médical, après avis du PCME.',lv:'best',fx:{j:15},fb:'La santé est peut-être en cause.',src:'R6152-36',to:'b'},
+  {t:'Je la maintiens jusqu’à l’avis du comité médical, par précaution.',lv:'bad',fx:{j:-25},fb:'Le piège : la précaution ne remplace pas un danger établi.',src:'L6143-7',fatal:FIN('Suspension annulée','Le juge annule la suspension, faute de danger immédiat. Le Dr Ponctuel reprend son service sans accompagnement.','L6143-7 ; guide CNG')}]},
+ a2:{cor:1,who:'chef',say:'Et ce soir, il est de garde à nouveau !',q:'Que faites-vous ?',ch:[
+  {t:'Je le suspends à titre conservatoire et j’informe les DG du CNG et de l’ARS.',lv:'best',fx:{s:15,j:5},fb:'Le danger pour les patients est immédiat.',src:'L6143-7 ; guide CNG',to:'b'},
+  {t:'Je le laisse prendre sa garde, avec un collègue d’astreinte prévenu : la suspension attendra l’avis du comité médical.',lv:'bad',fx:{s:-25,j:-25},fb:'Le piège : un collègue d’astreinte ne supprime pas le danger.',src:'',fatal:FIN('Patient en danger','Une nouvelle urgence n’est pas prise en charge à temps. L’établissement engage sa responsabilité, et le DG de l’ARS suspend le praticien.','L4113-14')}]},
+ a3:{cor:1,who:'cng',say:'Si sa santé est en cause, une procédure disciplinaire ne pourra pas aboutir.',q:'Comment corrigez-vous ?',ch:[
+  {t:v=>v.nuit?'Je le suspends à titre conservatoire et je saisis le comité médical, après avis du PCME.':'Je saisis d’abord le comité médical, après avis du PCME.',lv:'best',fx:{j:15},fb:'C’est l’ordre de raisonnement du guide du CNG.',src:'R6152-36 ; guide CNG',to:'b'},
+  {t:'Je mène les deux procédures en parallèle, pour gagner du temps.',lv:'bad',fx:{j:-25},fb:'Le piège : le comité médical passe d’abord.',src:'guide CNG',fatal:FIN('Procédure annulée','La procédure disciplinaire est annulée : le praticien était malade. Le problème de santé n’a pas été pris en charge à temps.','guide CNG')}]},
+ b1:{cor:1,who:'pcme',say:'Un engagement écrit de ce type n’a aucune valeur et porte atteinte à sa vie privée. La question de santé relève du comité médical.',q:'Comment corrigez-vous ?',ch:[
+  {t:'Je saisis le comité médical et je propose un accompagnement par la médecine du travail.',lv:'best',fx:{j:10,c:10},fb:'C’est la procédure.',src:'R6152-36',to:'c'},
+  {t:'J’insiste : sans cet engagement signé, je ne peux pas le laisser reprendre ses gardes.',lv:'bad',fx:{j:-25,c:-15},fb:'Le piège : l’aptitude se décide au comité médical, pas par un écrit du praticien.',src:'R6152-36',fatal:FIN('Pression dénoncée','Le Dr Ponctuel dénonce une pression et saisit le juge ; le dossier de santé n’avance pas.','R6152-36')}]}}}
+};
+
+/* ---------- explications pédagogiques des bonnes réponses, avec renvoi au mémo ---------- */
+const RP_EX={
+radio:{
+ a:['Le besoin est permanent et le montant demandé dépasse la grille. Parmi les 4 motifs de contrat, seul le motif 2 (difficultés particulières de recrutement) permet une part variable au-delà du seuil de la grille. Le motif 1 couvre un besoin temporaire ; l’intérim est plafonné.','m-pc'],
+ b:['Le motif 2 a deux conditions. Une condition personnelle : 5 ans d’inscription à l’Ordre pour un spécialiste. Une condition d’établissement : la spécialité figure au CPOM pour ce type de contrat. Le directeur les vérifie avant de signer, car l’ARS et le comptable public contrôlent ensuite.','m-pc'],
+ c:['La rémunération du motif 2 a deux parts. La part fixe reste dans les seuils de la grille (5 930,24 € au plus). La part variable dépend d’objectifs écrits au contrat. Le total ne dépasse pas 119 130 € par an, soit 9 927,50 € par mois : 9 000 € y entrent.','m-pc'],
+ d:[v=>v.ord>=5?'Le candidat remplit la condition personnelle (5 ans d’Ordre). Il manque seulement l’inscription de l’imagerie au CPOM, que l’ARS peut ouvrir par avenant.':'La condition des 5 ans d’Ordre manque, et aucun avenant ne la remplace. Le motif 3 accueille un praticien qui prépare le concours ; la PECH améliore l’offre ; le motif 2 redevient possible à 5 ans d’inscription.','m-pc'],
+ e:['Le texte fixe la procédure : proposition du chef de service, avis du chef de pôle et du PCME, puis décision du directeur. Les avis sont recueillis avant la signature.','m-acteurs'],
+ a1:['Le motif 1 couvre un besoin temporaire, dans les seuils de la grille. Le TTA rémunère seulement des heures faites au-delà des obligations de service.','m-pc'],
+ a2:['L’intérim est possible pour dépanner, sous le plafond de dépense fixé par arrêté. Le comptable public bloque tout paiement au-delà.','m-interim']},
+clinique:{
+ a:[v=>v.liste?'Inscrite sur la liste d’aptitude, elle peut être nommée sur un poste vacant publié : c’est le statut le plus stable. Le motif 3 sert seulement à attendre l’inscription.':'Sans inscription sur la liste d’aptitude, la nomination est impossible. Le motif 3 est prévu pour cette attente. Le motif 2 exige 5 ans d’inscription à l’Ordre : elle n’en a que 3.','m-ph'],
+ b:[v=>v.liste?'Comme PH, elle peut signer le contrat d’engagement de service public exclusif, qui ouvre droit à l’IESPE (elle n’est pas automatique). La reprise d’ancienneté fixe un échelon plus favorable.':'Comme contractuelle de motif 3, elle peut signer une convention d’engagement de carrière (PECH), versée pour moitié à la signature, si elle s’engage à passer le concours.','m-remu'],
+ c:['Le comptable public contrôle chaque élément de rémunération. Une offre solide additionne des éléments prévus par les textes, chacun sous son plafond, pour se comparer à la clinique.','m-remu']},
+continu:{
+ a:['Le temps continu (décompte en heures) est une option réservée à une liste fermée de structures, fixée par l’arrêté du 30 avril 2003. La réanimation y figure ; la cardiologie n’y figure pas. Les autres services restent au décompte en demi-journées.','m-tt'],
+ z:['Hors de la liste, les leviers restent ceux du décompte en demi-journées : une nuit compte pour 2 demi-journées, le repos de sécurité est obligatoire, et le TTA rémunère le travail au-delà des obligations de service.','m-tt'],
+ b:['Le temps continu est une organisation interne. Le texte prévoit l’initiative du responsable médical, l’avis de la COPS et la proposition de la CME, pour 1 an renouvelable.','m-tt'],
+ c:['En temps continu, on compte en heures. On calcule le besoin annuel (3 lignes de 10 h le jour, 1 ligne de 14 h la nuit, 364 jours), puis on le divise par la référence annuelle d’un ETP (1 996 h dans le cours). Le calcul en demi-journées sous-estime le poids des nuits.','m-tt'],
+ d:['Le Conseil d’État exige un décompte fiable des heures de chaque praticien, pour vérifier le plafond de 48 h par semaine. Recruter avant la bascule évite de dépasser ce plafond.','m-tt']},
+neuro:{
+ a:['Toute décision sur la permanence des soins commence par un chiffrage : le coût actuel (astreinte et déplacements), puis des scénarios comparés. C’est la méthode de la note au directeur.','m-garde'],
+ b:['Le surcoût est la différence entre le coût du scénario (garde et recrutements) et le coût actuel (astreinte). Additionner sans retirer le coût actuel surestime le surcoût ; oublier les recrutements le sous-estime.','m-garde'],
+ c:[v=>v.fin?'Le schéma régional finance la ligne : la garde complète devient soutenable pour l’établissement.':'Sans financement régional, l’établissement porterait seul le surcoût. Le compromis du cours limite la garde au week-end, à effectif constant.','m-garde'],
+ d:['La COPS est consultée sur l’organisation de la permanence des soins, et la CME y est associée. Le tableau de service mensuel est arrêté avant le 20 du mois précédent.','m-pds']},
+ophtalmo:{
+ a:['Le temps partiel est de droit dans des cas précis : à la place d’un congé parental, pour des soins à un proche, ou pour une formation. Sinon, il est accordé sur autorisation, au regard des nécessités du service, et un refus est motivé. La demande se fait 2 mois avant.','m-carriere'],
+ b:[v=>v.km<=10?'Le praticien à temps partiel peut exercer une activité libérale extérieure. Le directeur peut l’interdire dans un rayon de 10 km, après avis de la CME.':'Au-delà de 10 km, l’interdiction n’est pas possible : le praticien informe seulement le directeur 2 mois avant.','m-lib'],
+ c:['L’activité libérale à l’hôpital est possible à une condition : ne pas exercer d’activité libérale en dehors des établissements publics.','m-lib'],
+ d:['Le GHT peut prévoir une clause de non-concurrence pour les praticiens qui partent : 24 mois et 10 km au plus, avec une indemnité en cas de non-respect. Il faut vérifier qu’elle couvre la spécialité.','m-carriere']},
+dispo:{
+ a:[v=>v.motif==='conjoint'?'Suivre son conjoint est un motif de droit : la disponibilité ne dépend pas des nécessités du service. Le DG du CNG la prononce par arrêté.':'Les convenances personnelles ne sont pas un motif de droit : le DG du CNG décide au vu des avis locaux et des nécessités du service.','m-carriere'],
+ b:['Au-delà de 6 mois de disponibilité, le poste est déclaré vacant et peut être publié. En deçà, il reste au praticien.','m-carriere'],
+ c:['La clause de non-concurrence vise les départs temporaires ou définitifs. En disponibilité, l’avancement est conservé si le praticien exerce une activité professionnelle (au moins 600 h par an).','m-carriere'],
+ d:['La réintégration se demande au moins 2 mois avant. Si aucun poste n’est disponible, le praticien est placé en disponibilité d’office ; s’il ne reprend pas ses fonctions, il est rayé des cadres.','m-carriere']},
+conflit:{
+ a:[v=>v.ins?'Les insultes sont un manquement : le directeur transmet des faits datés et signés au CNG, qui qualifie les faits et engage la procédure. La suspension suppose un danger pour les patients.':'Sans faute ni danger pour les patients, le conflit relève de la conciliation, puis de la médiation. La suspension et la discipline n’ont pas de base.','m-sic'],
+ b:['Le guide du CNG fixe une gradation : conciliation locale, médiation régionale puis nationale, et en dernier recours le détachement d’office. La recherche d’affectation et la mutation d’office ne règlent pas un conflit.','m-sic'],
+ c:['Le directeur accorde la protection fonctionnelle au praticien victime de propos ou d’agissements en raison de ses fonctions, même quand l’auteur est un collègue.','m-sic']},
+sante:{
+ a:[v=>v.nuit?'Le danger pour les patients est immédiat : le directeur suspend par une décision écrite et motivée, et informe les DG du CNG et de l’ARS. La question de santé est traitée ensuite par le comité médical.':'Rien n’établit un danger immédiat. Quand la santé est peut-être en cause, le comité médical passe avant toute procédure disciplinaire.','m-sic'],
+ b:['La santé du praticien relève du comité médical, de la médecine du travail et du secret. Le directeur tient un dossier factuel, daté et signé.','m-sic'],
+ c:['Le comité médical a conclu à une maladie : le praticien est en congé de maladie, avec 3 mois à 90 % de ses émoluments, puis la moitié. La discipline et l’insuffisance professionnelle sont écartées.','m-carriere']}
+};
+const RP_MEMO={'m-pc':'Praticiens contractuels : les 4 motifs','m-acteurs':'Les acteurs : qui décide quoi','m-interim':'L’intérim médical','m-ph':'Devenir praticien hospitalier','m-remu':'Rémunération, primes et indemnités','m-tt':'Le temps de travail des seniors','m-garde':'Passer une astreinte en garde','m-pds':'La permanence des soins','m-carriere':'Carrière du PH','m-lib':'L’activité libérale à l’hôpital','m-sic':'Les situations individuelles complexes'};
+
+/* application du correctif : remplacement de textes, nouvelles réponses, conséquences, explications */
+RP.forEach(sc=>{const P=RP_PATCH[sc.id];if(!P)return;Object.entries(P.ch||{}).forEach(([k,o])=>{const [n,i]=k.split(':');const nd=sc.nodes[n];if(!nd)throw new Error('Correctif : étape introuvable '+sc.id+' '+k);let c=nd.ch[+i];if(!c){if(+i!==nd.ch.length||!o.lv)throw new Error('Correctif : choix introuvable '+sc.id+' '+k);c={};nd.ch.push(c);}Object.assign(c,o);if('fatal' in o)delete c.to;if('to' in o)delete c.fatal;});Object.assign(sc.nodes,P.nodes||{});
+ const E=RP_EX[sc.id]||{};Object.entries(sc.nodes).forEach(([id,nd])=>{const src=E[id]||(nd.cor?E[id.replace(/\d+$/,'')]:null);if(src){nd.ex=src[0];nd.memo=src[1];}});});
+
 /* ---------- jeu de rôle : moteur ---------- */
 (function(){
 const root=document.getElementById('rp');if(!root)return;
@@ -3423,45 +3783,64 @@ const LV={best:['Choix expert','ok'],ok:['Choix acceptable','mid'],bad:['Choix r
 const KEY='dam-rp-v1';let best={};try{best=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
 let G=null;
 const ini=n=>n.replace(/^(Dr|Pr|M\.|Mme)\s+/,'').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase();
+const shuffle=a=>{const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;};
 function who(sc,k){if(k==='moi')return {n:'Vous',r:'Direction des affaires médicales',c:'var(--bleu)'};return (sc.cast&&sc.cast[k])||RPC[k]||{n:'?',r:'',c:'var(--bleu)'};}
 function gaugesHtml(d){return `<div class="rp-g">${GAUGES.map(([k,l])=>{const v=G.g[k];const dv=d&&d[k]||0;return `<div class="rp-gi"><span class="rp-gl">${l}</span><span class="rp-gb"><i style="width:${v}%" class="${v<35?'low':v>70?'high':''}"></i></span><span class="rp-gv">${v}${dv?`<em class="${dv>0?'up':'dn'}">${dv>0?'+':''}${dv}</em>`:''}</span></div>`;}).join('')}</div>`;}
+/* explication pédagogique de la bonne réponse, avec renvoi au mémo */
+function exHtml(ex,memo,titre){if(!ex)return '';return `<div class="rp-why"><p><b>${titre||'Pourquoi c’est la bonne réponse'}</b></p><p>${esc(ex)}</p>${memo&&RP_MEMO[memo]?`<p><button class="lnk" type="button" data-memo="${memo}">Voir la fiche du mémo : ${esc(RP_MEMO[memo])}</button></p>`:''}</div>`;}
+function bindMemo(){root.querySelectorAll('[data-memo]').forEach(b=>b.onclick=()=>{if(typeof jumpTo==='function')jumpTo(b.dataset.memo);});}
 /* ----- choix d'un scénario ----- */
-function menu(){G=null;root.innerHTML=`<div class="rp-intro"><p class="lede">Vous êtes à la direction des affaires médicales. Un chef de service, un praticien, le PCME ou l’ARS vous soumet une situation. Choisissez vos réponses : quatre jauges suivent vos décisions, et chaque partie se termine par un bilan qui cite les textes. Certains faits changent d’une partie à l’autre : rejouez pour tester d’autres cas.</p></div>
+function menu(){G=null;root.innerHTML=`<div class="rp-intro"><p class="lede">Vous êtes à la direction des affaires médicales. Un chef de service, un praticien, le PCME ou l’ARS vous soumet une situation. Toutes les réponses semblent défendables : lisez bien leur justification. Une erreur rattrapable entraîne une conséquence à corriger ; un choix illégal ou irréversible met fin à la partie. Certains faits changent d’une partie à l’autre.</p></div>
  ${Object.entries(FAM).map(([f,[l,cls]])=>`<h3 class="rp-fam ${cls}"><i></i>${l}</h3><div class="rp-list">${RP.filter(s=>s.fam===f).map(s=>`<button class="rp-card ${cls}" type="button" data-sc="${s.id}"><span class="rp-ct">${esc(s.titre)}</span><span class="rp-ca">${esc(s.accroche)}</span><span class="rp-cs">${best[s.id]!=null?`Meilleur score : ${best[s.id]} %`:'Pas encore joué'}</span></button>`).join('')}</div>`).join('')}`;
  root.querySelectorAll('[data-sc]').forEach(b=>b.onclick=()=>start(b.dataset.sc));}
 /* ----- partie ----- */
-function start(id,fixed){const sc=RP.find(s=>s.id===id);const v={};Object.entries(sc.dom||{}).forEach(([k,a])=>{v[k]=fixed&&k in fixed?fixed[k]:a[Math.floor(Math.random()*a.length)];});G={sc,v,known:new Set(),dossier:[],redir:null,g:{j:60,b:60,c:60,s:60},node:null,log:[]};rpEnter(sc.start);scene(null);top();}
+function start(id,fixed){const sc=RP.find(s=>s.id===id);const v={};Object.entries(sc.dom||{}).forEach(([k,a])=>{v[k]=fixed&&k in fixed?fixed[k]:a[Math.floor(Math.random()*a.length)];});G={sc,v,known:new Set(),dossier:[],g:{j:60,b:60,c:60,s:60},node:null,log:[],order:null};rpEnter(sc.start);scene(null);top();}
 window.rpStart=start;
 function top(){const n=document.querySelector('nav.tabs');window.scrollTo({top:(root.getBoundingClientRect().top+window.scrollY)-(n?n.offsetHeight:0)-10,behavior:'smooth'});}
 function head(){const sc=G.sc;const[l,cls]=FAM[sc.fam];return `<div class="rp-head ${cls}"><div><span class="eyebrow">${l}</span><h3>${esc(sc.titre)}</h3></div><div class="row"><button class="btn ghost" type="button" data-act="menu">Changer de scénario</button></div></div>`;}
-function bind(){root.querySelectorAll('[data-act="menu"]').forEach(b=>b.onclick=menu);root.querySelectorAll('[data-act="replay"]').forEach(b=>b.onclick=()=>start(G.sc.id));}
+function bind(){root.querySelectorAll('[data-act="menu"]').forEach(b=>b.onclick=menu);root.querySelectorAll('[data-act="replay"]').forEach(b=>b.onclick=()=>start(G.sc.id));root.querySelectorAll('[data-act="same"]').forEach(b=>b.onclick=()=>start(G.sc.id,G.v));bindMemo();}
 function scene(delta){const sc=G.sc,v=rpView(),n=sc.nodes[G.node];const p=who(sc,n.who);const step=G.log.length+1;const fx=n.facts?T(n.facts,v):'';
+ G.order=shuffle(n.ch.map((_,i)=>i));
  root.innerHTML=`${head()}${gaugesHtml(delta)}
- <div class="rp-scene"><div class="rp-who" style="--pc:${p.c}"><span class="rp-av">${n.who==='moi'?'DAM':ini(p.n)}</span><span><b>${esc(p.n)}</b><small>${esc(p.r)}</small></span></div>
- ${G.redir?`<p class="rp-redir"><b>La suite part du choix expert.</b> ${esc(G.redir)}</p>`:''}
+ <div class="rp-scene${n.cor?' rp-cor':''}">${n.cor?'<p class="rp-cons"><b>Conséquence de votre choix.</b> Vous pouvez encore corriger.</p>':''}<div class="rp-who" style="--pc:${p.c}"><span class="rp-av">${n.who==='moi'?'DAM':ini(p.n)}</span><span><b>${esc(p.n)}</b><small>${esc(p.r)}</small></span></div>
  <blockquote class="rp-say">${esc(T(n.say,v))}</blockquote>
  ${G.dossier.length?`<details class="rp-dos"><summary>Le dossier : ${G.dossier.length} élément${G.dossier.length>1?'s':''} déjà connu${G.dossier.length>1?'s':''}</summary><ul>${G.dossier.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></details>`:''}
  ${fx?`<div class="rp-facts"><span class="lbl">${G.dossier.length?'Nouveaux faits':'Les faits'}</span><p>${esc(fx)}</p></div>`:''}
  <p class="rp-q"><span>Décision ${step}</span>${esc(n.q)}</p>
- <div class="rp-ch">${n.ch.map((c,i)=>`<button class="rp-opt" type="button" data-i="${i}"><span class="rp-l">${String.fromCharCode(65+i)}</span><span>${esc(T(c.t,v))}</span></button>`).join('')}</div></div>`;
+ <div class="rp-ch">${G.order.map((i,k)=>`<button class="rp-opt" type="button" data-i="${i}"><span class="rp-l">${String.fromCharCode(65+k)}</span><span>${esc(T(n.ch[i].t,v))}</span></button>`).join('')}</div></div>`;
  bind();root.querySelectorAll('.rp-opt').forEach(b=>b.onclick=()=>choose(+b.dataset.i));}
 function choose(i){const sc=G.sc,v=rpView(),n=sc.nodes[G.node];const c=n.ch[i];const lv=T(c.lv,v);const fx=T(c.fx,v)||{};
  const d={};GAUGES.forEach(([k])=>{const x=fx[k]||0;if(x){const old=G.g[k];G.g[k]=Math.max(0,Math.min(100,old+x));d[k]=G.g[k]-old;}});
  const bestC=n.ch.find(x=>T(x.lv,v)==='best');
- G.log.push({q:n.q,who:who(sc,n.who).n,t:T(c.t,v),lv,fb:T(c.fb,v),src:T(c.src,v),best:bestC&&bestC!==c?T(bestC.t,v):null});
- const next=T((bestC||c).to,G.v);G.redir=lv!=='best'&&bestC?T(bestC.t,v):null;const [lt,lc]=LV[lv];
- root.querySelector('.rp-ch').outerHTML=`<div class="rp-fb ${lc}"><p class="rp-fbh"><b>${lt}</b>${Object.keys(d).length?`<span class="rp-dl">${GAUGES.filter(([k])=>d[k]).map(([k,l])=>`<em class="${d[k]>0?'up':'dn'}">${l} ${d[k]>0?'+':''}${d[k]}</em>`).join('')}</span>`:''}</p><p class="rp-you">Votre choix : ${esc(T(c.t,v))}</p><p>${esc(T(c.fb,v))}</p>${T(c.src,v)?`<p class="small">Référence : ${esc(T(c.src,v))}</p>`:''}${lv!=='best'&&bestC?`<p class="rp-exp"><b>Le choix expert :</b> ${esc(T(bestC.t,v))}</p>`:''}<div class="row"><button class="btn" type="button" id="rp-next">${next==='fin'?'Voir le bilan':'Continuer'}</button></div></div>`;
- const g=root.querySelector('.rp-g');if(g)g.outerHTML=gaugesHtml(d);
- const nb=document.getElementById('rp-next');nb.focus({preventScroll:true});nb.onclick=()=>{const f=n.facts?T(n.facts,v):'';if(f)G.dossier.push(f);if(next==='fin')bilan();else{rpEnter(next);scene(null);top();}};}
-function bilan(){const sc=G.sc;const nb=G.log.filter(x=>x.lv==='best').length,tot=G.log.length;const pts=G.log.reduce((s,x)=>s+(x.lv==='best'?2:x.lv==='ok'?1:0),0);const pct=Math.round(pts/(2*tot)*100);
+ const fatal=c.fatal?{t:T(c.fatal.t,G.v),d:T(c.fatal.d,G.v),src:T(c.fatal.src,G.v)}:null;
+ const next=fatal?null:T(c.to,G.v);
+ const corNext=!fatal&&next&&next!=='fin'&&sc.nodes[next]&&sc.nodes[next].cor;
+ const ex=n.ex?T(n.ex,v):'';
+ G.log.push({q:n.q,t:T(c.t,v),lv,fb:T(c.fb,v),src:T(c.src,v),best:bestC&&bestC!==c?T(bestC.t,v):null,ex,memo:n.memo,cor:!!n.cor,fixed:lv==='bad'&&!!corNext,fatal:!!fatal});
+ const [lt,lc]=LV[lv];
+ /* bonne réponse : explication ; réponse acceptable : choix expert et explication ; mauvaise réponse : la conséquence suit, sans révéler la réponse */
+ const extra=lv==='best'?exHtml(ex,n.memo):lv==='ok'?`${bestC?`<p class="rp-exp"><b>Le choix expert :</b> ${esc(T(bestC.t,v))}</p>`:''}${exHtml(ex,n.memo,'Pourquoi')}`:'';
+ const lbl=fatal?'Voir la conséquence':corNext?'Voir la conséquence':next==='fin'?'Voir le bilan':'Continuer';
+ root.querySelector('.rp-ch').outerHTML=`<div class="rp-fb ${lc}"><p class="rp-fbh"><b>${lt}</b>${Object.keys(d).length?`<span class="rp-dl">${GAUGES.filter(([k])=>d[k]).map(([k,l])=>`<em class="${d[k]>0?'up':'dn'}">${l} ${d[k]>0?'+':''}${d[k]}</em>`).join('')}</span>`:''}</p><p class="rp-you">Votre choix : ${esc(T(c.t,v))}</p><p>${esc(T(c.fb,v))}</p>${T(c.src,v)?`<p class="small">Référence : ${esc(T(c.src,v))}</p>`:''}${extra}<div class="row"><button class="btn${fatal?' danger':''}" type="button" id="rp-next">${lbl}</button></div></div>`;
+ const g=root.querySelector('.rp-g');if(g)g.outerHTML=gaugesHtml(d);bindMemo();
+ const nb=document.getElementById('rp-next');nb.focus({preventScroll:true});nb.onclick=()=>{const f=n.facts?T(n.facts,v):'';if(f)G.dossier.push(f);if(fatal)gameOver(fatal,bestC?T(bestC.t,v):'',ex,n.memo);else if(next==='fin')bilan();else{rpEnter(next);scene(null);top();}};}
+function logHtml(){return `<ol class="rp-log">${G.log.map(x=>`<li class="${LV[x.lv][1]}"><p class="rp-lq"><b>${esc(x.q)}</b> <span class="rp-tag ${LV[x.lv][1]}">${LV[x.lv][0]}</span>${x.fixed?' <span class="rp-tag mid">Erreur rattrapée ensuite</span>':''}${x.cor?' <span class="rp-tag cor">Correction</span>':''}</p><p>Votre choix : ${esc(x.t)}</p><p class="small">${esc(x.fb)}${x.src?` (${esc(x.src)})`:''}</p>${x.best?`<p class="rp-exp"><b>Le choix expert :</b> ${esc(x.best)}</p>`:''}${x.ex?`<details class="rp-dx"><summary>Pourquoi</summary><p>${esc(x.ex)}</p>${x.memo&&RP_MEMO[x.memo]?`<p><button class="lnk" type="button" data-memo="${x.memo}">Voir la fiche du mémo : ${esc(RP_MEMO[x.memo])}</button></p>`:''}</details>`:''}</li>`).join('')}</ol>`;}
+/* ----- fin de partie ----- */
+function gameOver(f,bestT,ex,memo){
+ root.innerHTML=`${head()}${gaugesHtml(null)}
+ <div class="rp-over"><span class="eyebrow">Fin de partie</span><h3>${esc(f.t)}</h3><p>${esc(f.d)}</p>${f.src?`<p class="small">Référence : ${esc(f.src)}</p>`:''}</div>
+ ${bestT?`<p class="rp-exp"><b>Ce qu’il fallait faire :</b> ${esc(bestT)}</p>`:''}${exHtml(ex,memo,'Pourquoi')}
+ <div class="row"><button class="btn" type="button" data-act="same">Recommencer au début (mêmes faits)</button><button class="btn ghost" type="button" data-act="replay">Rejouer avec d’autres faits</button><button class="btn ghost" type="button" data-act="menu">Changer de scénario</button></div>
+ <details class="rp-dx"><summary>Vos décisions dans cette partie</summary>${logHtml()}</details>`;
+ bind();top();}
+function bilan(){const sc=G.sc;const nb=G.log.filter(x=>x.lv==='best'&&!x.cor).length,tot=G.log.filter(x=>!x.cor).length;const pts=G.log.reduce((s,x)=>s+(x.lv==='best'?2:x.lv==='ok'?1:0),0);const pct=Math.round(pts/(2*G.log.length)*100);const fixed=G.log.filter(x=>x.fixed).length;
  best[sc.id]=Math.max(best[sc.id]||0,pct);try{localStorage.setItem(KEY,JSON.stringify(best))}catch(e){}
  const avg=Math.round(GAUGES.reduce((s,[k])=>s+G.g[k],0)/4);
- const verdict=pct>=85?'Direction exemplaire : décisions sûres et argumentées.':pct>=60?'Bonne gestion, avec quelques fragilités à corriger.':pct>=35?'Gestion risquée : plusieurs décisions seraient contestables.':'Situation à reprendre : relisez les fiches du mémo avant de rejouer.';
+ const verdict=pct>=85?'Direction exemplaire : décisions sûres et argumentées.':pct>=60?'Bonne gestion, avec quelques fragilités à corriger.':pct>=35?'Gestion risquée : plusieurs décisions ont dû être corrigées.':'Situation à reprendre : relisez les fiches du mémo avant de rejouer.';
  const weak=GAUGES.filter(([k])=>G.g[k]<45).map(([,l])=>l.toLowerCase());
  root.innerHTML=`${head()}${gaugesHtml(null)}
- <div class="rp-end"><div class="rp-score"><b>${pct} %</b><span>${nb} choix experts sur ${tot}</span></div><div><p class="rp-verd">${verdict}</p>${weak.length?`<p class="small">Point${weak.length>1?'s':''} faible${weak.length>1?'s':''} : ${weak.join(', ')}.</p>`:''}<p class="small">Moyenne des jauges : ${avg} sur 100.</p></div></div>
- <h4>Vos décisions</h4>
- <ol class="rp-log">${G.log.map(x=>`<li class="${LV[x.lv][1]}"><p class="rp-lq"><b>${esc(x.q)}</b> <span class="rp-tag ${LV[x.lv][1]}">${LV[x.lv][0]}</span></p><p>Votre choix : ${esc(x.t)}</p><p class="small">${esc(x.fb)}${x.src?` (${esc(x.src)})`:''}</p>${x.best?`<p class="rp-exp"><b>Le choix expert :</b> ${esc(x.best)}</p>`:''}</li>`).join('')}</ol>
+ <div class="rp-end"><div class="rp-score"><b>${pct} %</b><span>${nb} choix experts sur ${tot}</span></div><div><p class="rp-verd">${verdict}</p>${fixed?`<p class="small">Erreur${fixed>1?'s':''} rattrapée${fixed>1?'s':''} : ${fixed}.</p>`:''}${weak.length?`<p class="small">Point${weak.length>1?'s':''} faible${weak.length>1?'s':''} : ${weak.join(', ')}.</p>`:''}<p class="small">Moyenne des jauges : ${avg} sur 100.</p></div></div>
+ <h4>Vos décisions</h4>${logHtml()}
  <div class="box retenir"><span class="lbl">À retenir</span><ul>${sc.retenir.map(r=>`<li>${esc(r)}</li>`).join('')}</ul></div>
  <div class="row"><button class="btn" type="button" data-act="replay">Rejouer avec d’autres faits</button><button class="btn ghost" type="button" data-act="menu">Changer de scénario</button></div>`;
  bind();top();}
