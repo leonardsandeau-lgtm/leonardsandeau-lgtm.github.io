@@ -401,6 +401,10 @@ a.acr:hover,a.acr:focus-visible{color:var(--bleu)}
 .sg-hit{outline:3px solid var(--bleu);outline-offset:2px}
 
 /* ---------- jeu de rôle ---------- */
+.rp-dos{border:1px solid var(--line);padding:8px 12px;background:var(--blanc)}
+.rp-dos>summary{cursor:pointer;color:var(--bleu);font-weight:500;font-size:15px}
+.rp-dos ul{margin-top:8px;font-size:14.5px}
+
 .lg-mode{display:flex;flex-wrap:wrap;gap:8px}
 .lg-mode .chip{font-size:15.5px;padding:8px 16px}
 .rp-wrap{display:flex;flex-direction:column;gap:16px}
@@ -457,6 +461,7 @@ ol.rp-log li.ok{border-left-color:var(--vert)}ol.rp-log li.mid{border-left-color
 .rp-tag{font-size:12px;font-weight:500;padding:1px 7px;margin-left:6px;white-space:nowrap}
 .rp-tag.ok{background:var(--vert);color:var(--blanc)}.rp-tag.mid{background:var(--jaune)}.rp-tag.ko{background:#c0392b;color:var(--blanc)}
 @media (max-width:640px){.rp-g{grid-template-columns:1fr 1fr;top:48px}.rp-say{font-size:16.5px}.rp-score{width:100px;height:100px}.rp-score b{font-size:30px}}
+.rp-redir{background:#fff8d6;border-left:6px solid var(--jaune);padding:8px 12px;font-size:15px}
 </style>
 </head>
 <body>
@@ -3220,23 +3225,23 @@ const RP=[
 /* ===== 1. Recruter : le radiologue à 9 000 € ===== */
 {id:'radio',fam:'recrut',titre:'Le radiologue qui valait 9 000 €',accroche:'Le chef de service veut signer ce soir. Le candidat est parfait. Le contrat l’est-il ?',
  cast:{chef:{n:'Dr Thor Ax',r:'Chef du service d’imagerie',c:'var(--bleu-ciel)'},cand:{n:'Dr Ray Diographie',r:'Radiologue candidat',c:'var(--bleu)'}},
- vars:()=>({ord:rpPick([4,6]),cpom:rpPick([true,false])}),
+ dom:{ord:[4,6],cpom:[true,false]},
  start:'a',nodes:{
  a:{who:'chef',say:'Le Dr Ray Diographie veut venir chez nous à temps plein. Il demande 9 000 € brut par mois. Sans lui, l’IRM ferme le soir. Signez vite !',
-  facts:v=>`Le Dr Diographie est inscrit à l’Ordre depuis ${v.ord} ans. ${v.cpom?'Le CPOM prévoit 2 contrats de motif 2 en imagerie.':'Le CPOM ne prévoit aucun contrat de motif 2 en imagerie.'} Il ne prépare pas le concours de PH. Le poste est permanent.`,
+  facts:'Le poste est permanent : il est vacant depuis 18 mois. Le Dr Diographie ne prépare pas le concours de PH. Vous n’avez pas encore son dossier.',
   q:'Quel statut envisagez-vous ?',ch:[
   {t:'Un contrat de motif 2 : c’est le seul statut qui permet d’approcher ce montant, si ses conditions sont remplies.',lv:'best',fx:{j:5,c:5},fb:'Le motif 2 répond aux difficultés particulières de recrutement. Il permet une part variable sur objectifs, au-delà du maximum de la grille.',src:'R6152-338, 2°',to:'b'},
   {t:'Un contrat de motif 1, au maximum de la grille.',lv:'bad',fx:{j:-10,c:-5},fb:'Le motif 1 couvre un remplacement ou un surcroît temporaire d’activité. Le besoin est permanent. Le maximum de la grille (5 930,24 €) reste loin de 9 000 €.',src:'R6152-338, 1°',to:'b'},
   {t:'Une agence d’intérim : c’est plus rapide.',lv:'bad',fx:{b:-15,j:-5,s:5},fb:'L’intérim coûte cher et fragilise l’équipe. Sa dépense est plafonnée à 2 681 € HT pour 24 h ; au-delà, le comptable public bloque le paiement.',src:'arrêté du 5 septembre 2025 ; loi Rist',to:'b'}]},
- b:{who:'moi',say:'Avant de rédiger le contrat, vous ouvrez le dossier.',q:'Que vérifiez-vous ?',ch:[
+ b:{who:'moi',say:'Avant de rédiger le contrat de motif 2, vous demandez le dossier du candidat et le CPOM de l’établissement.',q:'Que vérifiez-vous en priorité ?',ch:[
   {t:'Ses 5 ans d’inscription à l’Ordre et l’inscription de l’imagerie au CPOM pour le motif 2.',lv:'best',fx:{j:10},fb:'Le motif 2 exige 5 ans d’inscription pour un spécialiste, et le CPOM fixe le nombre et les spécialités de ces contrats.',src:'R6152-336 ; R6152-340',to:v=>v.ord>=5&&v.cpom?'c':'d'},
   {t:'Seulement que le budget du pôle peut l’absorber.',lv:'bad',fx:{j:-10},fb:'Le budget compte, mais les conditions réglementaires passent d’abord : 5 ans d’Ordre et CPOM.',src:'R6152-336 ; R6152-340',to:v=>v.ord>=5&&v.cpom?'c':'d'},
   {t:'Rien : le chef de service a validé le candidat.',lv:'bad',fx:{j:-15,c:5},fb:'Le chef de service propose ; le directeur recrute et vérifie la régularité du contrat.',src:'R6152-337',to:v=>v.ord>=5&&v.cpom?'c':'d'}]},
- c:{who:'cand',say:'Les conditions sont remplies. Le Dr Diographie attend votre proposition chiffrée.',q:'Comment construisez-vous sa rémunération ?',ch:[
+ c:{who:'cand',show:['ord','cpom'],say:'J’attends votre proposition chiffrée.',facts:v=>`Vérification faite : le Dr Diographie est inscrit à l’Ordre depuis ${v.ord} ans, et le CPOM prévoit 2 contrats de motif 2 en imagerie. Les conditions du motif 2 sont remplies.`,q:'Comment construisez-vous sa rémunération ?',ch:[
   {t:'Une part fixe dans la grille (5 930,24 € au plus) et une part variable sur objectifs écrits, pour atteindre 9 000 €, sous le plafond de 9 927,50 € par mois.',lv:'best',fx:{j:10,b:-10,c:10,s:10},fb:'Le total fixe et variable reste sous 119 130 € par an. Les objectifs quantitatifs et qualitatifs sont écrits au contrat et évalués au bout d’un an.',src:'R6152-355 ; FAQ DGOS',to:'e'},
   {t:'9 000 € de part fixe, plus simple à gérer.',lv:'bad',fx:{j:-20,b:-10},fb:'La part fixe reste dans les seuils de la grille. Le comptable public rejetterait le paiement de la partie irrégulière.',src:'annexe III de l’arrêté du 8 juillet 2022',to:'e'},
   {t:'7 000 €, sans écrire d’objectifs pour garder de la souplesse.',lv:'bad',fx:{j:-10,c:-10},fb:'Sans objectifs écrits, la part variable n’a pas de base. Le candidat risque aussi de refuser.',src:'R6152-355',to:'e'}]},
- d:{who:'ars',say:v=>`Je vois votre dossier. ${v.ord<5?`Le Dr Diographie n’a que ${v.ord} ans d’inscription à l’Ordre.`:'L’imagerie ne figure pas au CPOM pour les contrats de motif 2.'} Que proposez-vous ?`,q:'Quelle solution choisissez-vous ?',ch:[
+ d:{who:'ars',show:['ord','cpom'],facts:v=>`Vérification faite : le Dr Diographie est inscrit à l’Ordre depuis ${v.ord} ans. ${v.cpom?'Le CPOM prévoit 2 contrats de motif 2 en imagerie.':'Le CPOM ne prévoit aucun contrat de motif 2 en imagerie.'}`,say:v=>`Je vois votre dossier. ${[v.ord<5?`Le Dr Diographie n’a que ${v.ord} ans d’inscription à l’Ordre.`:'',!v.cpom?'L’imagerie ne figure pas au CPOM pour les contrats de motif 2.':''].filter(Boolean).join(' ')} Que proposez-vous ?`,q:'Quelle solution choisissez-vous ?',ch:[
   {t:'Demander un avenant au CPOM pour ouvrir un contrat de motif 2 en imagerie, puis signer.',lv:v=>v.ord>=5?'best':'bad',fx:v=>v.ord>=5?{j:10,s:5}:{j:-10},fb:v=>v.ord>=5?'C’est la bonne voie : l’ARS valide le recours au motif 2 dans le CPOM. En attendant, un motif 1 reste possible si un remplacement existe.':'L’avenant ne règle pas tout : il manque les 5 ans d’inscription à l’Ordre.',src:'R6152-340 ; R6152-336',to:'e'},
   {t:'Un motif 3 s’il accepte de préparer le concours, avec la PECH, et un motif 2 à réexaminer à ses 5 ans d’inscription.',lv:v=>v.ord<5?'best':'ok',fx:v=>v.ord<5?{j:10,c:5,b:-5}:{j:5},fb:v=>v.ord<5?'La radiologie est en tension nationale : PECH de 10 000 €. Le motif 3 est plafonné à l’échelon de PH auquel il serait classé ; il ne permet pas 9 000 €.':'Possible s’il prépare le concours, mais il remplit déjà les conditions personnelles du motif 2 : l’avenant au CPOM est la voie directe.',src:'R6152-338, 3° ; annexe III de l’arrêté du 8 juillet 2022',to:'e'},
   {t:'Signer quand même un motif 2 : le besoin est urgent.',lv:'bad',fx:{j:-25,b:-5},fb:'L’ARS évalue le recours au motif 2 et le comptable public contrôle les rémunérations. Un contrat irrégulier expose l’établissement.',src:'R6152-340 ; loi Rist',to:'e'}]},
@@ -3248,9 +3253,9 @@ const RP=[
 /* ===== 2. Recruter : la clinique d'en face ===== */
 {id:'clinique',fam:'recrut',titre:'La clinique d’en face',accroche:'Une anesthésiste termine son assistanat. La clinique voisine lui offre 8 000 € par mois.',
  cast:{chef:{n:'Dr Paul Curare',r:'Chef du service d’anesthésie',c:'var(--orange)'},cand:{n:'Dr Sam Dort',r:'Assistante en anesthésie-réanimation',c:'var(--bleu)'}},
- vars:()=>({liste:rpPick([true,false])}),
+ dom:{liste:[true,false]},
  start:'a',nodes:{
- a:{who:'chef',say:'Le Dr Sam Dort termine son assistanat dans 2 mois. La clinique d’en face lui offre 8 000 € par mois. Si elle part, je ferme une salle.',
+ a:{who:'chef',show:['liste'],say:'Le Dr Sam Dort termine son assistanat dans 2 mois. La clinique d’en face lui offre 8 000 € par mois. Si elle part, je ferme une salle.',
   facts:v=>`Elle a 2 ans d’assistanat et 3 ans d’inscription à l’Ordre. ${v.liste?'Elle a réussi le concours de PH : elle est inscrite sur la liste d’aptitude, et un poste de PH est vacant.':'Elle passera le concours de PH à la prochaine session.'} L’anesthésie-réanimation est une spécialité en tension nationale.`,
   q:'Quel statut lui proposez-vous ?',ch:[
   {t:'La nommer PH sur le poste vacant.',lv:v=>v.liste?'best':'bad',fx:v=>v.liste?{j:10,c:10,s:10}:{j:-15},fb:v=>v.liste?'Inscrite sur la liste d’aptitude, elle peut être nommée par le DG du CNG sur un poste publié. C’est le statut le plus stable.':'Elle n’est pas encore inscrite sur la liste d’aptitude : la nomination est impossible.',src:'R6152-304 ; L6143-7',to:'b'},
@@ -3269,9 +3274,9 @@ const RP=[
 /* ===== 3. Temps de travail : le temps continu ===== */
 {id:'continu',fam:'temps',titre:'Nuits de 14 heures',accroche:'Une équipe veut passer en temps continu, « comme au CHU ».',
  cast:{chef:{n:'Dr Vincent Tilation',r:'Chef de service',c:'var(--orange)'}},
- vars:()=>({svc:rpPick(['réanimation','cardiologie'])}),
+ dom:{svc:['réanimation','cardiologie']},
  start:'a',nodes:{
- a:{who:'chef',say:'Mon équipe veut passer en temps continu, comme au CHU. On fait des nuits de 14 heures !',
+ a:{who:'chef',show:['svc'],say:'Mon équipe veut passer en temps continu, comme au CHU. On fait des nuits de 14 heures !',
   facts:v=>`Service de ${v.svc}. 3 praticiens le jour (10 h), 1 la nuit (14 h), 364 jours par an. Effectif actuel : 7 ETP en demi-journées.`,
   q:'La demande est-elle recevable ?',ch:[
   {t:v=>`Oui : la ${v.svc} fait partie des structures où le temps continu est possible.`,lv:v=>v.svc==='réanimation'?'best':'bad',fx:v=>v.svc==='réanimation'?{j:10}:{j:-15},fb:v=>v.svc==='réanimation'?'La réanimation figure parmi les structures qui peuvent opter pour le décompte horaire.':'La cardiologie ne figure pas parmi ces structures.',src:'arrêté du 30 avril 2003, article 2',to:v=>v.svc==='réanimation'?'b':'z'},
@@ -3297,10 +3302,10 @@ const RP=[
 /* ===== 4. Temps de travail : astreinte ou garde ===== */
 {id:'neuro',fam:'temps',titre:'Les neurologues ne dorment plus',accroche:'Des déplacements toutes les nuits pour les AVC : le chef de service veut une garde sur place.',
  cast:{chef:{n:'Dr Axel Neurone',r:'Chef du service de neurologie',c:'var(--rose)'}},
- vars:()=>({fin:rpPick([true,false])}),
+ dom:{fin:[true,false]},
  start:'a',nodes:{
  a:{who:'chef',say:'Mes neurologues se déplacent toutes les nuits pour les AVC. Je veux une garde sur place, toute la semaine.',
-  facts:v=>`Ligne d’astreinte au forfait de 220 €. 454 périodes par an. Déplacements valorisés 60 000 € chargés par an. Coût chargé d’un PH : 124 000 €. ${v.fin?'Le schéma régional reconnaît l’établissement comme siège de thrombectomie et finance une ligne de garde.':'Le schéma régional ne finance pas de garde de neurologie dans l’établissement.'}`,
+  facts:v=>`Ligne d’astreinte au forfait de 220 €. 454 périodes par an. Déplacements valorisés 60 000 € chargés par an. Coût chargé d’un PH : 124 000 €. Vous ne connaissez pas encore la position de l’ARS sur le financement.`,
   q:'Par quoi commencez-vous ?',ch:[
   {t:'Chiffrer le coût actuel et deux scénarios de garde : avec recrutement, et à effectif constant.',lv:'best',fx:{j:5,b:5},fb:'La note au directeur compare toujours le coût actuel à des scénarios chiffrés.',src:'méthode du cours',to:'b'},
   {t:'Accepter : la sécurité des patients n’a pas de prix.',lv:'bad',fx:{b:-20,c:10},fb:'Sans chiffrage ni financement, la décision n’est pas tenable.',src:'',to:'b'},
@@ -3309,7 +3314,7 @@ const RP=[
   {t:'347 902 € : 287 402 + 270 320 − 209 820.',lv:'best',fx:{j:5},fb:'Le surcoût est l’écart entre le coût du scénario et le coût actuel.',src:'méthode du cours',to:'c'},
   {t:'557 722 €.',lv:'bad',fx:{b:-10},fb:'C’est le coût total du scénario : il faut retirer le coût actuel de l’astreinte.',src:'méthode du cours',to:'c'},
   {t:'287 402 €.',lv:'bad',fx:{b:-10},fb:'Ce montant oublie les ETP à recruter et le coût actuel.',src:'méthode du cours',to:'c'}]},
- c:{who:'ars',say:v=>v.fin?'Le schéma régional finance une ligne de garde de neurologie chez vous.':'Je ne financerai pas de garde de neurologie : le schéma régional ne la prévoit pas chez vous.',q:'Que proposez-vous ?',ch:[
+ c:{who:'ars',show:['fin'],say:v=>v.fin?'Le schéma régional finance une ligne de garde de neurologie chez vous.':'Je ne financerai pas de garde de neurologie : le schéma régional ne la prévoit pas chez vous.',q:'Que proposez-vous ?',ch:[
   {t:'Une garde toute la semaine, avec recrutement.',lv:v=>v.fin?'best':'bad',fx:v=>v.fin?{s:15,c:10,b:-5}:{b:-25,s:10},fb:v=>v.fin?'Le financement couvre la ligne : la garde sécurise la filière AVC.':'Sans financement, le surcoût de 347 902 € reste à la charge de l’établissement.',src:'schéma régional de PDSES',to:'d'},
   {t:'L’astreinte en semaine et une garde le week-end à effectif constant, contre un engagement d’activité.',lv:v=>v.fin?'ok':'best',fx:v=>v.fin?{b:5,s:5}:{b:-5,s:10,c:5},fb:v=>v.fin?'Solution prudente, mais le financement régional permettait la garde complète.':'Surcoût de 122 720 € par an : c’est le compromis du cours quand la ligne n’est pas financée.',src:'méthode du cours',to:'d'},
   {t:'Le statu quo.',lv:'bad',fx:{c:-15,s:-10},fb:'La charge des déplacements reste entière et le climat se dégrade.',src:'',to:'d'}]},
@@ -3321,15 +3326,15 @@ const RP=[
 /* ===== 5. Demandes individuelles : 80 % et un cabinet ===== */
 {id:'ophtalmo',fam:'indiv',titre:'Le cabinet d’en bas de la rue',accroche:'Un PH veut passer à 80 % et ouvrir un cabinet en ville.',
  cast:{chef:{n:'Dr Iris Cristallin',r:'PH d’ophtalmologie',c:'var(--bleu)'}},
- vars:()=>({km:rpPick([8,15]),mois:rpPick([1,3])}),
+ dom:{km:[8,15],mois:[1,3]},
  start:'a',nodes:{
- a:{who:'chef',say:v=>`Je veux passer à 80 % et ouvrir un cabinet à ${v.km} km de l’hôpital. Je commence dans ${v.mois} mois.`,
+ a:{who:'chef',show:['mois'],say:v=>`Je veux passer à 80 % et ouvrir un cabinet en ville. Je commence dans ${v.mois} mois.`,
   facts:v=>`Le Dr Cristallin est PH à temps plein. Il exerce aussi une demi-journée d’activité libérale à l’hôpital. Le service peine à recruter.`,
   q:'Que répondez-vous sur le temps partiel ?',ch:[
-  {t:v=>`J’examine la demande au regard des nécessités du service. Elle se présente 2 mois avant ; ${v.mois<2?'la date doit donc être reportée.':'le délai est respecté.'} Je motiverai un éventuel refus.`,lv:'best',fx:{j:10,c:5},fb:'Le temps partiel sur autorisation est décidé par le directeur, qui informe le CNG ; la demande se fait 2 mois avant, une fois par an.',src:'R6152-26-1',to:'b'},
+  {t:v=>`J’examine la demande au regard des nécessités du service. La demande se fait 2 mois avant : ${v.mois<2?'la date de début doit donc être reportée.':'le délai est respecté.'} Je motiverai un éventuel refus.`,lv:'best',fx:{j:10,c:5},fb:'Le temps partiel sur autorisation est décidé par le directeur, qui informe le CNG ; la demande se fait 2 mois avant, une fois par an.',src:'R6152-26-1',to:'b'},
   {t:'Le temps partiel est de droit : j’accepte.',lv:'bad',fx:{j:-10,s:-5},fb:'Le temps partiel est de droit seulement à la place d’un congé parental, pour des soins à un proche, ou pour des études, une recherche ou une formation.',src:'R6152-26-2',to:'b'},
   {t:'Je refuse, sans explication.',lv:'bad',fx:{j:-15,c:-15},fb:'Un refus doit être motivé.',src:'R6152-26-1',to:'b'}]},
- b:{who:'pcme',say:v=>`Un cabinet à ${v.km} km va capter nos patients. Pouvons-nous l’en empêcher ?`,q:'Que faites-vous ?',ch:[
+ b:{who:'pcme',show:['km'],say:v=>`Son cabinet sera à ${v.km} km de l’hôpital. Il va capter nos patients. Pouvons-nous l’en empêcher ?`,q:'Que faites-vous ?',ch:[
   {t:v=>`Saisir la CME : après son avis, je peux interdire l’installation dans un rayon de 10 km.`,lv:v=>v.km<=10?'best':'bad',fx:v=>v.km<=10?{j:10,s:5}:{j:-10},fb:v=>v.km<=10?'L’activité libérale extérieure est possible à 90 % au plus, après information 2 mois avant ; le directeur peut l’interdire dans un rayon de 10 km après avis de la CME.':`Le cabinet est à ${v.km} km : au-delà de 10 km, l’interdiction n’est pas possible.`,src:'R6152-26-4 ; R6152-26-5 ; L6152-4',to:'c'},
   {t:'Rien : il est libre d’exercer en ville.',lv:v=>v.km>10?'best':'ok',fx:v=>v.km>10?{j:5,c:5}:{s:-10},fb:v=>v.km>10?`Exact : à ${v.km} km, aucune interdiction n’est possible ; il doit seulement vous informer 2 mois avant.`:'Vous renoncez à un levier : l’interdiction dans un rayon de 10 km était possible après avis de la CME.',src:'R6152-26-4 ; R6152-26-5',to:'c'},
   {t:'Je l’interdis moi-même, sans consulter personne.',lv:'bad',fx:{j:-20},fb:'L’interdiction suppose l’avis préalable de la CME.',src:'R6152-26-5',to:'c'}]},
@@ -3345,9 +3350,9 @@ const RP=[
 /* ===== 6. Demandes individuelles : la disponibilité ===== */
 {id:'dispo',fam:'indiv',titre:'Partir, revenir',accroche:'Une PH demande une disponibilité. Puis elle travaille en clinique. Puis elle veut revenir.',
  cast:{chef:{n:'Dr Mélanie Bagage',r:'PH de pédiatrie',c:'var(--jaune)'}},
- vars:()=>({motif:rpPick(['conjoint','perso'])}),
+ dom:{motif:['conjoint','perso']},
  start:'a',nodes:{
- a:{who:'chef',say:v=>v.motif==='conjoint'?'Mon conjoint est muté à Lyon. Je demande une disponibilité dans 3 mois.':'J’ai besoin d’une pause. Je demande une disponibilité pour convenances personnelles dans 3 mois.',
+ a:{who:'chef',show:['motif'],say:v=>v.motif==='conjoint'?'Mon conjoint est muté à Lyon. Je demande une disponibilité dans 3 mois.':'J’ai besoin d’une pause. Je demande une disponibilité pour convenances personnelles dans 3 mois.',
   q:'Comment traitez-vous la demande ?',ch:[
   {t:'Elle est de droit : je la transmets au DG du CNG, qui la prononce par arrêté.',lv:v=>v.motif==='conjoint'?'best':'bad',fx:v=>v.motif==='conjoint'?{j:10,c:5}:{j:-10,s:-5},fb:v=>v.motif==='conjoint'?'Suivre son conjoint ouvre une disponibilité de droit, 2 ans renouvelables, 10 ans au plus sur la carrière ; les avis locaux ne sont pas requis.':'Les convenances personnelles ne sont pas un motif de droit : la disponibilité est accordée sous réserve des nécessités du service.',src:'R6152-64 ; R6152-65',to:'b'},
   {t:'Elle dépend des nécessités du service : je donne mon avis, avec celui du chef de pôle, du chef de service et du PCME ; le CNG décide.',lv:v=>v.motif==='perso'?'best':'bad',fx:v=>v.motif==='perso'?{j:10}:{j:-10,c:-10},fb:v=>v.motif==='perso'?'Pour convenances personnelles : 3 ans, renouvelable, 10 ans au plus sur la carrière, sous réserve des nécessités du service.':'Suivre son conjoint est un motif de droit : un refus serait illégal.',src:'R6152-64 ; R6152-65',to:'b'},
@@ -3367,15 +3372,15 @@ const RP=[
 /* ===== 7. Situations difficiles : le conflit ===== */
 {id:'conflit',fam:'sic',titre:'Le bloc des silences',accroche:'Deux chirurgiens ne se parlent plus. Le chef de pôle exige une sanction.',
  cast:{chef:{n:'Dr Hugo Bistouri',r:'PH de chirurgie',c:'var(--saumon)'},cand:{n:'Dr Lucie Scalpel',r:'PH de chirurgie',c:'var(--rose)'}},
- vars:()=>({ins:rpPick([false,true])}),
+ dom:{ins:[false,true]},
  start:'a',nodes:{
- a:{who:'pole',say:'Le Dr Bistouri et le Dr Scalpel ne se parlent plus depuis 6 mois. Le bloc est paralysé. Suspendez-en un !',
+ a:{who:'pole',show:['ins'],say:'Le Dr Bistouri et le Dr Scalpel ne se parlent plus depuis 6 mois. Le bloc est paralysé. Suspendez-en un !',
   facts:v=>v.ins?'La semaine dernière, le Dr Bistouri a insulté le Dr Scalpel devant l’équipe et un patient. Plusieurs témoins ont signé un compte rendu.':'Aucune faute n’est établie. Aucun patient n’a été mis en danger.',
   q:'Que faites-vous ?',ch:[
   {t:'Suspendre le Dr Bistouri.',lv:'bad',fx:{j:-25,c:-10},fb:'La suspension conservatoire suppose un danger pour la continuité ou la sécurité des patients. Des difficultés relationnelles ne suffisent pas : le juge annule.',src:'L6143-7 ; guide CNG de février 2025',to:'b'},
   {t:'Ouvrir une conciliation locale, avec le PCME et le chef de pôle.',lv:v=>v.ins?'ok':'best',fx:{c:10,j:5},fb:v=>v.ins?'Utile, mais les insultes constituent un manquement : un dossier circonstancié doit aussi partir au CNG.':'Un conflit sans faute ni danger relève de la conciliation, puis de la médiation.',src:'guide CNG de février 2025',to:'b'},
-  {t:'Transmettre au DG du CNG un dossier circonstancié sur les insultes, sans proposer de sanction.',lv:v=>v.ins?'best':'bad',fx:v=>v.ins?{j:15}:{j:-10,c:-10},fb:v=>v.ins?'L’établissement transmet des faits datés et signés ; le CNG qualifie et engage la procédure disciplinaire.':'Sans faute établie, la discipline n’a pas de base.',src:'R6152-74 ; guide CNG',to:'b'}]},
- b:{who:'pcme',say:'La conciliation a échoué. Ils refusent de travailler ensemble.',q:'Quelle est l’étape suivante ?',ch:[
+  {t:v=>v.ins?'Transmettre au DG du CNG un dossier circonstancié sur les insultes, sans proposer de sanction.':'Transmettre au DG du CNG un dossier disciplinaire sur le comportement des deux praticiens.',lv:v=>v.ins?'best':'bad',fx:v=>v.ins?{j:15}:{j:-10,c:-10},fb:v=>v.ins?'L’établissement transmet des faits datés et signés ; le CNG qualifie et engage la procédure disciplinaire.':'Sans faute établie, la discipline n’a pas de base.',src:'R6152-74 ; guide CNG',to:'b'}]},
+ b:{who:'pcme',say:v=>v.ins?'Le CNG a engagé la procédure disciplinaire. Le bloc reste paralysé : les deux chirurgiens refusent toujours de travailler ensemble.':'La conciliation a échoué. Ils refusent de travailler ensemble.',q:'Quelle est l’étape suivante ?',ch:[
   {t:'La médiation régionale, puis nationale ; en dernier recours, demander au DG du CNG un détachement d’office.',lv:'best',fx:{j:10,c:5},fb:'Le détachement d’office est réservé aux conflits extrêmes et aux blocages institutionnels.',src:'R6152-54 ; guide CNG',to:'c'},
   {t:'Placer l’un d’eux en recherche d’affectation.',lv:'bad',fx:{j:-15},fb:'La recherche d’affectation est réservée aux cas prévus par le texte ; les conflits en sont exclus.',src:'R6152-50-1 ; guide CNG',to:'c'},
   {t:'Muter d’office le Dr Bistouri dans un autre service.',lv:'bad',fx:{j:-20,c:-10},fb:'La mutation d’office est une sanction disciplinaire prononcée par le DG du CNG.',src:'R6152-74',to:'c'}]},
@@ -3388,9 +3393,9 @@ const RP=[
 /* ===== 8. Situations difficiles : la santé en cause ===== */
 {id:'sante',fam:'sic',titre:'Les retards du Dr Ponctuel',accroche:'Des retards répétés, une odeur d’alcool, une nuit difficile.',
  cast:{chef:{n:'Dr Bernard Garrot',r:'Chef de service de chirurgie',c:'var(--saumon)'},cand:{n:'Dr Paul Ponctuel',r:'PH de chirurgie',c:'var(--bleu)'}},
- vars:()=>({nuit:rpPick([false,true])}),
+ dom:{nuit:[false,true]},
  start:'a',nodes:{
- a:{who:'chef',say:v=>v.nuit?'Cette nuit, le Dr Ponctuel était de garde : il n’a pas pu opérer un patient en urgence. Il sentait l’alcool.':'Le Dr Ponctuel arrive en retard depuis des semaines. Des collègues évoquent une odeur d’alcool.',
+ a:{who:'chef',show:['nuit'],say:v=>v.nuit?'Le Dr Ponctuel arrive souvent en retard. Cette nuit, il était de garde : il n’a pas pu opérer un patient en urgence. Il sentait l’alcool.':'Le Dr Ponctuel arrive en retard depuis des semaines. Des collègues évoquent une odeur d’alcool.',
   q:'Quelle est votre première décision ?',ch:[
   {t:'Une suspension conservatoire immédiate, avec information des DG du CNG et de l’ARS.',lv:v=>v.nuit?'best':'bad',fx:v=>v.nuit?{j:10,s:15}:{j:-20,c:-10},fb:v=>v.nuit?'Le danger pour les patients est immédiat : le directeur peut suspendre, par une décision écrite et motivée.':'Il n’y a pas de danger immédiat établi : la suspension serait fragile.',src:'L6143-7 ; guide CNG',to:'b'},
   {t:'Saisir le comité médical, après avis du PCME : sa santé est peut-être en cause.',lv:v=>v.nuit?'ok':'best',fx:v=>v.nuit?{j:5}:{j:10,c:5},fb:v=>v.nuit?'Nécessaire, mais le danger de la nuit impose d’abord de protéger les patients.':'Quand la santé est en cause, le comité médical passe avant toute procédure disciplinaire.',src:'R6152-36 ; guide CNG',to:'b'},
@@ -3404,11 +3409,13 @@ const RP=[
   {t:'Le licencier pour insuffisance professionnelle.',lv:'bad',fx:{j:-25},fb:'L’insuffisance est une incapacité sans faute et sans maladie. Ici, la maladie est établie.',src:'guide CNG',to:'fin'}]}},
  retenir:['Danger immédiat : suspension conservatoire par le directeur, information des DG du CNG et de l’ARS.','Santé en cause : comité médical d’abord, saisi par le directeur après avis du PCME (R6152-36).','Pas de discipline contre un praticien inapte.','Congé de maladie : 3 mois à 90 %, puis 9 mois à mi-traitement (R6152-37).']}
 ];
-
 /* ---------- jeu de rôle : moteur ---------- */
 (function(){
 const root=document.getElementById('rp');if(!root)return;
 const T=(x,v)=>typeof x==='function'?x(v):x;
+/* Cohérence : une réponse ne peut dépendre que des faits déjà révélés au joueur. */
+const rpView=()=>new Proxy(G.v,{get:(t,k)=>{if(typeof k==='string'&&Object.prototype.hasOwnProperty.call(t,k)&&!G.known.has(k)){const m='Fait non encore révélé : '+k+' ('+G.sc.id+', étape '+G.node+')';if(window.RP_STRICT)throw new Error(m);console.error(m);}return t[k];}});
+const rpEnter=id=>{G.node=id;const n=G.sc.nodes[id];(n.show||[]).forEach(k=>G.known.add(k));};
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const FAM={recrut:['Recruter et fidéliser','fam-statuts'],temps:['Organiser le temps de travail','fam-temps'],indiv:['Demandes individuelles','fam-remu'],sic:['Situations difficiles','fam-sic']};
 const GAUGES=[['j','Sécurité juridique'],['b','Budget'],['c','Climat médical'],['s','Continuité des soins']];
@@ -3423,26 +3430,29 @@ function menu(){G=null;root.innerHTML=`<div class="rp-intro"><p class="lede">Vou
  ${Object.entries(FAM).map(([f,[l,cls]])=>`<h3 class="rp-fam ${cls}"><i></i>${l}</h3><div class="rp-list">${RP.filter(s=>s.fam===f).map(s=>`<button class="rp-card ${cls}" type="button" data-sc="${s.id}"><span class="rp-ct">${esc(s.titre)}</span><span class="rp-ca">${esc(s.accroche)}</span><span class="rp-cs">${best[s.id]!=null?`Meilleur score : ${best[s.id]} %`:'Pas encore joué'}</span></button>`).join('')}</div>`).join('')}`;
  root.querySelectorAll('[data-sc]').forEach(b=>b.onclick=()=>start(b.dataset.sc));}
 /* ----- partie ----- */
-function start(id){const sc=RP.find(s=>s.id===id);G={sc,v:sc.vars?sc.vars():{},g:{j:60,b:60,c:60,s:60},node:sc.start,log:[]};scene(null);top();}
+function start(id,fixed){const sc=RP.find(s=>s.id===id);const v={};Object.entries(sc.dom||{}).forEach(([k,a])=>{v[k]=fixed&&k in fixed?fixed[k]:a[Math.floor(Math.random()*a.length)];});G={sc,v,known:new Set(),dossier:[],redir:null,g:{j:60,b:60,c:60,s:60},node:null,log:[]};rpEnter(sc.start);scene(null);top();}
+window.rpStart=start;
 function top(){const n=document.querySelector('nav.tabs');window.scrollTo({top:(root.getBoundingClientRect().top+window.scrollY)-(n?n.offsetHeight:0)-10,behavior:'smooth'});}
 function head(){const sc=G.sc;const[l,cls]=FAM[sc.fam];return `<div class="rp-head ${cls}"><div><span class="eyebrow">${l}</span><h3>${esc(sc.titre)}</h3></div><div class="row"><button class="btn ghost" type="button" data-act="menu">Changer de scénario</button></div></div>`;}
 function bind(){root.querySelectorAll('[data-act="menu"]').forEach(b=>b.onclick=menu);root.querySelectorAll('[data-act="replay"]').forEach(b=>b.onclick=()=>start(G.sc.id));}
-function scene(delta){const sc=G.sc,v=G.v,n=sc.nodes[G.node];const p=who(sc,n.who);const step=G.log.length+1;
+function scene(delta){const sc=G.sc,v=rpView(),n=sc.nodes[G.node];const p=who(sc,n.who);const step=G.log.length+1;const fx=n.facts?T(n.facts,v):'';
  root.innerHTML=`${head()}${gaugesHtml(delta)}
  <div class="rp-scene"><div class="rp-who" style="--pc:${p.c}"><span class="rp-av">${n.who==='moi'?'DAM':ini(p.n)}</span><span><b>${esc(p.n)}</b><small>${esc(p.r)}</small></span></div>
+ ${G.redir?`<p class="rp-redir"><b>La suite part du choix expert.</b> ${esc(G.redir)}</p>`:''}
  <blockquote class="rp-say">${esc(T(n.say,v))}</blockquote>
- ${n.facts?`<div class="rp-facts"><span class="lbl">Les faits</span><p>${esc(T(n.facts,v))}</p></div>`:''}
+ ${G.dossier.length?`<details class="rp-dos"><summary>Le dossier : ${G.dossier.length} élément${G.dossier.length>1?'s':''} déjà connu${G.dossier.length>1?'s':''}</summary><ul>${G.dossier.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></details>`:''}
+ ${fx?`<div class="rp-facts"><span class="lbl">${G.dossier.length?'Nouveaux faits':'Les faits'}</span><p>${esc(fx)}</p></div>`:''}
  <p class="rp-q"><span>Décision ${step}</span>${esc(n.q)}</p>
  <div class="rp-ch">${n.ch.map((c,i)=>`<button class="rp-opt" type="button" data-i="${i}"><span class="rp-l">${String.fromCharCode(65+i)}</span><span>${esc(T(c.t,v))}</span></button>`).join('')}</div></div>`;
  bind();root.querySelectorAll('.rp-opt').forEach(b=>b.onclick=()=>choose(+b.dataset.i));}
-function choose(i){const sc=G.sc,v=G.v,n=sc.nodes[G.node];const c=n.ch[i];const lv=T(c.lv,v);const fx=T(c.fx,v)||{};
+function choose(i){const sc=G.sc,v=rpView(),n=sc.nodes[G.node];const c=n.ch[i];const lv=T(c.lv,v);const fx=T(c.fx,v)||{};
  const d={};GAUGES.forEach(([k])=>{const x=fx[k]||0;if(x){const old=G.g[k];G.g[k]=Math.max(0,Math.min(100,old+x));d[k]=G.g[k]-old;}});
  const bestC=n.ch.find(x=>T(x.lv,v)==='best');
  G.log.push({q:n.q,who:who(sc,n.who).n,t:T(c.t,v),lv,fb:T(c.fb,v),src:T(c.src,v),best:bestC&&bestC!==c?T(bestC.t,v):null});
- const next=T(c.to,v);const [lt,lc]=LV[lv];
+ const next=T((bestC||c).to,G.v);G.redir=lv!=='best'&&bestC?T(bestC.t,v):null;const [lt,lc]=LV[lv];
  root.querySelector('.rp-ch').outerHTML=`<div class="rp-fb ${lc}"><p class="rp-fbh"><b>${lt}</b>${Object.keys(d).length?`<span class="rp-dl">${GAUGES.filter(([k])=>d[k]).map(([k,l])=>`<em class="${d[k]>0?'up':'dn'}">${l} ${d[k]>0?'+':''}${d[k]}</em>`).join('')}</span>`:''}</p><p class="rp-you">Votre choix : ${esc(T(c.t,v))}</p><p>${esc(T(c.fb,v))}</p>${T(c.src,v)?`<p class="small">Référence : ${esc(T(c.src,v))}</p>`:''}${lv!=='best'&&bestC?`<p class="rp-exp"><b>Le choix expert :</b> ${esc(T(bestC.t,v))}</p>`:''}<div class="row"><button class="btn" type="button" id="rp-next">${next==='fin'?'Voir le bilan':'Continuer'}</button></div></div>`;
  const g=root.querySelector('.rp-g');if(g)g.outerHTML=gaugesHtml(d);
- const nb=document.getElementById('rp-next');nb.focus({preventScroll:true});nb.onclick=()=>{if(next==='fin')bilan();else{G.node=next;scene(null);top();}};}
+ const nb=document.getElementById('rp-next');nb.focus({preventScroll:true});nb.onclick=()=>{const f=n.facts?T(n.facts,v):'';if(f)G.dossier.push(f);if(next==='fin')bilan();else{rpEnter(next);scene(null);top();}};}
 function bilan(){const sc=G.sc;const nb=G.log.filter(x=>x.lv==='best').length,tot=G.log.length;const pts=G.log.reduce((s,x)=>s+(x.lv==='best'?2:x.lv==='ok'?1:0),0);const pct=Math.round(pts/(2*tot)*100);
  best[sc.id]=Math.max(best[sc.id]||0,pct);try{localStorage.setItem(KEY,JSON.stringify(best))}catch(e){}
  const avg=Math.round(GAUGES.reduce((s,[k])=>s+G.g[k],0)/4);
